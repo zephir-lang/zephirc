@@ -1,0 +1,7 @@
+#ifndef ZEPHIR_COMMAND_SCANNER_HPP
+#define ZEPHIR_COMMAND_SCANNER_HPP
+
+namespace command {
+}
+
+#endif // ZEPHIR_COMMAND_SCANNER_HPP

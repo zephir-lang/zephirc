@@ -29,13 +29,13 @@ Consider install re2c or/and add re2c executable to the $PATH.")
 endif()
 
 # Usage RE2C_TARGET(<Name> <Input> <Output> [COMPILE_FLAGS <string>]
-RE2C_TARGET(optparser
-        src/optparser/scanner.re
-        "${CMAKE_SOURCE_DIR}/src/optparser/scanner.cpp"
+RE2C_TARGET(command
+        src/command/scanner.re
+        "${CMAKE_SOURCE_DIR}/src/command/scanner.cpp"
         COMPILE_FLAGS "-W")
 
 # Add definition for optparser library.
-add_library(optparser src/optparser/scanner.hpp "${RE2C_optparser_OUTPUTS}")
+add_library(command src/command/scanner.hpp "${RE2C_command_OUTPUTS}")
 
 add_executable(zephir src/main.cpp)
-target_link_libraries(zephir optparser)
+target_link_libraries(zephir command)

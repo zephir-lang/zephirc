@@ -8,4 +8,4 @@
 /build/
 /build-*/
 
-/src/optparser/scanner.cpp
+/src/command/scanner.cpp
