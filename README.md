@@ -6,7 +6,7 @@
 
 #### POSIX
 
-- cmake >= 2.8.5
+- cmake >= 3.10
 - gcc >= 5.0.0 or clang >= 3.6.0
 
 ### Instructions
@@ -14,9 +14,6 @@
 #### POSIX
 
 ```shell script
-mkdir build
-cd build
-cmake ..
-make
-make install # optional
+cmake -H. -Bbuild
+cmake --build build
 ```
