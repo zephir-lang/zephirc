@@ -27,7 +27,7 @@ set(RE2C_OLDEST_VALIDATED_VERSION "0.16.0")
 
 if ("${RE2C_VERSION}" VERSION_LESS ${RE2C_OLDEST_VALIDATED_VERSION})
     message(FATAL_ERROR "re2c is too old, found ${RE2C_VERSION} and we need at last 0.16.0")
-endif()
+endif ()
 
 # Usage RE2C_TARGET(<Name> <Input> <Output> [COMPILE_FLAGS <string>]
 RE2C_TARGET(commands
@@ -36,7 +36,7 @@ RE2C_TARGET(commands
         COMPILE_FLAGS "-W")
 
 # Add definition for optparser library.
-add_library(commands src/commands/scanner.hpp "${RE2C_commands_OUTPUTS}")
+add_library(commands src/commands/commands.hpp "${RE2C_commands_OUTPUTS}")
 
 add_executable(zephir src/main.cpp)
 target_link_libraries(zephir commands)

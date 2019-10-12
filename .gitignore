@@ -8,7 +8,7 @@
 /build/
 /build-*/
 
-/src/commands/scanner.cpp
+/src/commands/commands.cpp
 
 # I use this as my wish list
 LATER
