@@ -1,4 +1,3 @@
-#=============================================================================
 # Copyright (c) 2010-2016 United States Government as represented by
 #                the U.S. Army Research Laboratory.
 # Copyright 2009 Kitware, Inc.
@@ -62,6 +61,7 @@
 # The module defines the following variables:
 #
 #   RE2C_EXECUTABLE - the path to the re2c executable
+#   RE2C_VERSION    - version of the re2c
 
 find_program(
         RE2C_EXECUTABLE re2c
@@ -73,6 +73,22 @@ find_program(
 mark_as_advanced(RE2C_EXECUTABLE)
 
 if (RE2C_EXECUTABLE)
+    execute_process(
+            COMMAND ${RE2C_EXECUTABLE} --version
+            RESULT_VARIABLE RE2C_version_result
+            OUTPUT_VARIABLE RE2C_version_output
+            ERROR_VARIABLE RE2C_version_error
+            OUTPUT_STRIP_TRAILING_WHITESPACE
+            COMMAND sed -ne "s/^re2c //p"
+            OUTPUT_STRIP_TRAILING_WHITESPACE
+    )
+
+    if (RE2C_version_result EQUAL 0)
+        set(RE2C_VERSION ${RE2C_version_output})
+    else ()
+        message(SEND_ERROR "Command \"${RE2C_EXECUTABLE} --version\" failed with output:\n${RE2C_version_error}")
+    endif ()
+
     # RE2C_TARGET (public macro)
     # TODO - rework this macro to make use of CMakeParseArguments, see
     # http://www.cmake.org/pipermail/cmake/2012-July/051309.html
@@ -96,7 +112,7 @@ if (RE2C_EXECUTABLE)
                     COMMAND ${RE2C_EXECUTABLE}
                     ARGS ${RE2C_EXECUTABLE_opts} -o${Output} ${Input}
                     DEPENDS ${Input} ${RE2C_EXECUTABLE_TARGET}
-                    COMMENT "[RE2C][${Name}] Building scanner with ${RE2C_EXECUTABLE}"
+                    COMMENT "[RE2C][${Name}] Building scanner with ${RE2C_EXECUTABLE} v${RE2C_VERSION}"
                     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
 
             set(RE2C_${Name}_DEFINED TRUE)
