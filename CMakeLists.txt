@@ -19,6 +19,11 @@ set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/lib)
 
 find_package(RE2C REQUIRED)
+set(RE2C_OLDEST_VALIDATED_VERSION "0.16.0")
+
+if ("${RE2C_VERSION}" VERSION_LESS ${RE2C_OLDEST_VALIDATED_VERSION})
+    message(FATAL_ERROR "re2c is too old, found ${RE2C_VERSION} and we need at last 0.16.0")
+endif()
 
 # Usage RE2C_TARGET(<Name> <Input> <Output> [COMPILE_FLAGS <string>]
 RE2C_TARGET(command
