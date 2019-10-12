@@ -31,7 +31,7 @@ endif ()
 
 # Usage RE2C_TARGET(<Name> <Input> <Output> [COMPILE_FLAGS <string>]
 RE2C_TARGET(commands
-        src/commands/scanner.re
+        "${CMAKE_SOURCE_DIR}/src/commands/scanner.re"
         "${CMAKE_SOURCE_DIR}/src/commands/scanner.cpp"
         COMPILE_FLAGS "-W")
 
