@@ -125,7 +125,11 @@ if (RE2C_EXECUTABLE)
 endif (RE2C_EXECUTABLE)
 
 include(FindPackageHandleStandardArgs)
-find_package_handle_standard_args(RE2C DEFAULT_MSG RE2C_EXECUTABLE)
+find_package_handle_standard_args(
+        RE2C
+        "No re2c found in the $PATH. Consider install re2c or/and add re2c executable to the $PATH"
+        RE2C_EXECUTABLE
+)
 
 # FindRE2C.cmake ends here
 
