@@ -1,4 +1,4 @@
 #include "scanner.hpp"
 
-namespace command {
+namespace commands {
 }

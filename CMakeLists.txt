@@ -10,7 +10,11 @@ if (NOT CMAKE_INSTALL_PREFIX)
             "Directory to install zephir to" FORCE)
 endif ()
 
-project(zephir LANGUAGES CXX VERSION 1.0.0)
+project(
+        zephir
+        LANGUAGES C CXX
+        VERSION 1.0.0
+)
 
 # Provide path for cmake scripts
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
@@ -26,13 +30,13 @@ if ("${RE2C_VERSION}" VERSION_LESS ${RE2C_OLDEST_VALIDATED_VERSION})
 endif()
 
 # Usage RE2C_TARGET(<Name> <Input> <Output> [COMPILE_FLAGS <string>]
-RE2C_TARGET(command
-        src/command/scanner.re
-        "${CMAKE_SOURCE_DIR}/src/command/scanner.cpp"
+RE2C_TARGET(commands
+        src/commands/scanner.re
+        "${CMAKE_SOURCE_DIR}/src/commands/scanner.cpp"
         COMPILE_FLAGS "-W")
 
 # Add definition for optparser library.
-add_library(command src/command/scanner.hpp "${RE2C_command_OUTPUTS}")
+add_library(commands src/commands/scanner.hpp "${RE2C_commands_OUTPUTS}")
 
 add_executable(zephir src/main.cpp)
-target_link_libraries(zephir command)
+target_link_libraries(zephir commands)

@@ -37,10 +37,10 @@
 #
 #   RE2C_TARGET(Name RE2CInput RE2COutput [COMPILE_FLAGS <string>])
 #
-# which creates a custom command  to generate the <RE2COutput> file from
+# which creates a custom commands  to generate the <RE2COutput> file from
 # the <RE2CInput> file.  If  COMPILE_FLAGS option is specified, the next
-# parameter is added to the re2c  command line. Name is an alias used to
-# get  details of  this custom  command.
+# parameter is added to the re2c  commands line. Name is an alias used to
+# get  details of  this custom  commands.
 #
 # Example:
 #
