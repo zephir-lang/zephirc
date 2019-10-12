@@ -7,26 +7,18 @@ endif()
 
 if (NOT CMAKE_INSTALL_PREFIX)
     set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}" CACHE STRING
-            "Directory to install zig to" FORCE)
+            "Directory to install zephir to" FORCE)
 endif()
 
-project(zephir CXX)
+project(zephir LANGUAGES CXX VERSION 1.0.0)
 
-set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
+# Provide path for cmake scripts
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/lib)
 
-find_package(RE2C)
-
-if (NOT RE2C_EXECUTABLE)
-    message(FATAL_ERROR "\
-\nNo re2c executable found in the $PATH. \
-Consider install re2c or/and add re2c executable to the $PATH.")
-endif()
+find_package(RE2C REQUIRED)
 
 # Usage RE2C_TARGET(<Name> <Input> <Output> [COMPILE_FLAGS <string>]
 RE2C_TARGET(command
