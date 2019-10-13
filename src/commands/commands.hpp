@@ -13,7 +13,7 @@ namespace commands {
         HELP,
         INIT,
         INSTALL,
-        STUBS,
+        STUBS
     };
 
     struct Cmd {
@@ -24,7 +24,11 @@ namespace commands {
         union {
             // api-specific options
             struct {
-                // ...
+                const char *backend;
+                const char *path;
+                const char *output;
+                const char *options;
+                const char *url;
             } api;
 
             // build-specific options
@@ -78,6 +82,8 @@ namespace commands {
             bool vernum;
         };
     };
+
+    bool parseopt(char **argv, Cmd &cmd);
 }
 
 #endif // ZEPHIR_COMMANDS_COMMANDS_HPP
