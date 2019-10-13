@@ -33,7 +33,7 @@ endif ()
 RE2C_TARGET(commands
         "${CMAKE_SOURCE_DIR}/src/commands/scanner.re"
         "${CMAKE_SOURCE_DIR}/src/commands/scanner.cpp"
-        COMPILE_FLAGS "-W -ci")
+        COMPILE_FLAGS "-W -c")
 
 # Add definition for optparser library.
 add_library(commands src/commands/commands.hpp "${RE2C_commands_OUTPUTS}")
