@@ -4,9 +4,6 @@
 
 /*!types:re2c*/
 namespace commands {
-    #define YYGETCONDITION()  cond
-    #define YYSETCONDITION(c) cond = c
-
     bool parseopt(char **argv, Cmd &cmd)
     {
         char *YYCURSOR, *YYMARKER;
@@ -17,9 +14,15 @@ namespace commands {
         if (!(YYCURSOR = *++argv)) return true;
 
         /*!re2c
-         re2c:define:YYCTYPE = 'unsigned char';
+         re2c:define:YYCTYPE = "unsigned char";
          re2c:yyfill:enable = 0;
          re2c:yych:conversion = 1;
+         re2c:indent:top = 2;
+         re2c:indent:string = "    ";
+         re2c:define:YYGETCONDITION = "cond";
+         re2c:define:YYGETCONDITION:naked = 1;
+         re2c:define:YYSETCONDITION = "cond = @@;";
+         re2c:define:YYSETCONDITION:naked = 1;
 
          eq  = "=";
          end = "\x00";
@@ -61,8 +64,7 @@ namespace commands {
 
          <api> ("-o" | "--output") end {
             if (!(YYCURSOR = *++argv)) {
-                std::cerr << "The \"" << *argv << "\" option requires a value" << std::endl;
-                //std::cerr << "The \"--output\" option requires a value" << std::endl;
+                std::cerr << "The \"--output\" option requires a value" << std::endl;
                 return false;
             }
 
