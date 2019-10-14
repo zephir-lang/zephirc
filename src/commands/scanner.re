@@ -31,6 +31,26 @@ namespace commands {
             return false;
          }
 
+         <init> ("-h" | "--help") end {
+            cmd.common_help = true;
+            return true;
+         }
+
+         <init> ("-v" | "--version") end {
+            cmd.version = true;
+            return true;
+         }
+
+         <init> "--vernum" end {
+            cmd.vernum = true;
+            return true;
+         }
+
+        <init> "-"{1,2} "dumpversion" end {
+            cmd.dumpversion = true;
+            return true;
+         }
+
          <init> "api" end => api {
             cmd.kind = API;
             goto loop;

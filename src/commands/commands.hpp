@@ -76,10 +76,10 @@ namespace commands {
         // common options
         struct {
             bool quiet;
-            bool dumpversion;
             bool common_help;
             bool version;
             bool vernum;
+            bool dumpversion;
         };
     };
 
