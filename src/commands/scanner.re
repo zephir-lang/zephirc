@@ -7,7 +7,6 @@ namespace commands {
     bool parseopt(char **argv, Cmd &cmd)
     {
         char *YYCURSOR, *YYMARKER;
-        const char **backend, **path, **output, **options, **url;
         int cond = 0;
 
         loop:
@@ -24,8 +23,8 @@ namespace commands {
          re2c:define:YYSETCONDITION = "cond = @@;";
          re2c:define:YYSETCONDITION:naked = 1;
 
-         eq  = "=";
          end = "\x00";
+         eq  = "=";
 
          <init> * {
             std::cerr << "Command \"" << *argv << "\" is not defined" << std::endl;
@@ -38,57 +37,68 @@ namespace commands {
          }
 
          <*> * {
-            std::cerr << "The \"" << *argv << "\" option does not exist" << std::endl;
+            std::cerr << "The \"" << *argv << "\" option does not exist. ";
+            std::cerr << "Did you missed \"=\" sign or forget escape option's value?" << std::endl;
             return false;
          }
 
-         <api> "--backend" end {
-            if (!(YYCURSOR = *++argv)) {
-                std::cerr << "The \"--backend\" option requires a value" << std::endl;
-                return false;
+         <api> "--backend" (eq | end) {
+            if (YYCURSOR[-1] == 0) {
+                if (!(YYCURSOR = *++argv)) {
+                    std::cerr << "The \"--backend\" option requires a value" << std::endl;
+                    return false;
+                }
             }
 
-            backend = &cmd.api.backend;
+            cmd.api.backend = YYCURSOR;
             goto yyc_backend;
          }
 
-         <api> ("-p" | "--path") end {
-            if (!(YYCURSOR = *++argv)) {
-                std::cerr << "The \"--path\" option requires a value" << std::endl;
-                return false;
+         <api> ("-p" end) | ("--path" (eq | end)) {
+            if (YYCURSOR[-1] == 0) {
+                if (!(YYCURSOR = *++argv)) {
+                    std::cerr << "The \"--path\" option requires a value" << std::endl;
+                    return false;
+                }
             }
 
-            path = &cmd.api.path;
+            cmd.api.path = YYCURSOR;
             goto yyc_path;
          }
 
-         <api> ("-o" | "--output") end {
-            if (!(YYCURSOR = *++argv)) {
-                std::cerr << "The \"--output\" option requires a value" << std::endl;
-                return false;
+         <api> ("-o" end) | ("--output" (eq | end)) {
+            if (YYCURSOR[-1] == 0) {
+                if (!(YYCURSOR = *++argv)) {
+                    std::cerr << "The \"--output\" option requires a value" << std::endl;
+                    return false;
+                }
             }
 
-            output = &cmd.api.output;
+            cmd.api.output = YYCURSOR;
             goto yyc_output;
          }
 
-         <api> "--options" end {
-            if (!(YYCURSOR = *++argv)) {
-                std::cerr << "The \"--options\" option requires a value" << std::endl;
-                return false;
+         <api> "--options" (eq | end) {
+            if (YYCURSOR[-1] == 0) {
+                if (!(YYCURSOR = *++argv)) {
+                    std::cerr << "The \"--options\" option requires a value" << std::endl;
+                    return false;
+                }
             }
 
-            options = &cmd.api.options;
+            cmd.api.options = YYCURSOR;
             goto yyc_options;
          }
 
-         <api> "--url" end {
-            if (!(YYCURSOR = *++argv)) {
-                std::cerr << "The \"--url\" option requires a value" << std::endl;
-                return false;
+         <api> "--url" (eq | end) {
+            if (YYCURSOR[-1] == 0) {
+                if (!(YYCURSOR = *++argv)) {
+                    std::cerr << "The \"--url\" option requires a value" << std::endl;
+                    return false;
+                }
             }
 
-            url = &cmd.api.url;
+            cmd.api.url = YYCURSOR;
             goto yyc_url;
          }
 
@@ -98,7 +108,6 @@ namespace commands {
          }
 
          <backend> "ZendEngine3" end {
-            *backend = *argv;
             goto loop;
          }
 
@@ -108,7 +117,6 @@ namespace commands {
          }
 
          <path> [^\x00]+ end {
-            *path = *argv;
             goto loop;
          }
 
@@ -118,7 +126,6 @@ namespace commands {
          }
 
          <output> [^\x00]+ end {
-            *output = *argv;
             goto loop;
          }
 
@@ -128,7 +135,6 @@ namespace commands {
          }
 
          <options> [^\x00]+ end {
-            *options = *argv;
             goto loop;
          }
 
@@ -138,7 +144,6 @@ namespace commands {
          }
 
          <url> [^\x00]+ end {
-            *url = *argv;
             goto loop;
          }
         */
