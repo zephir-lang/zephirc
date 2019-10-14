@@ -38,7 +38,7 @@ namespace commands {
 
          <*> * {
             std::cerr << "The \"" << *argv << "\" option does not exist. ";
-            std::cerr << "Did you missed \"=\" sign or forget escape option's value?" << std::endl;
+            std::cerr << "Did you missed \"=\" sign or forget to escape option's value?" << std::endl;
             return false;
          }
 
@@ -88,6 +88,11 @@ namespace commands {
 
             cmd.api.options = YYCURSOR;
             goto yyc_options;
+         }
+
+         <api> ("-h" | "--help") end {
+            cmd.api.help = true;
+            goto loop;
          }
 
          <api> "--url" (eq | end) {

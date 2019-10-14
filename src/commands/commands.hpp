@@ -29,6 +29,7 @@ namespace commands {
                 const char *output;
                 const char *options;
                 const char *url;
+                bool help;
             } api;
 
             // build-specific options
@@ -77,7 +78,6 @@ namespace commands {
             bool quiet;
             bool dumpversion;
             bool common_help;
-            bool no_ansi;
             bool version;
             bool vernum;
         };

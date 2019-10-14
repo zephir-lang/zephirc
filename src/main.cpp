@@ -22,6 +22,7 @@ int main(int argc, char **argv) {
             std::cout << "\toutput: " << (cmd.api.output ? cmd.api.output : "-") << std::endl;
             std::cout << "\toptions: " << (cmd.api.options ? cmd.api.options : "-") << std::endl;
             std::cout << "\turl: " << (cmd.api.url ? cmd.api.url : "-") << std::endl;
+            std::cout << "\thelp: " << cmd.api.help << std::endl;
             break;
     }
 
