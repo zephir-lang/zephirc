@@ -127,6 +127,11 @@ namespace commands {
             goto yyc_url;
          }
 
+        <api> ("-q" | "--quiet") end {
+            cmd.quiet = true;
+            goto loop;
+         }
+
          <backend> * {
             std::cerr << "Backend \"" << *argv << "\" does not supported" << std::endl;
             return false;

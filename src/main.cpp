@@ -14,11 +14,6 @@ int main(int argc, char **argv) {
     switch (cmd.kind) {
         case commands::NONE:
             std::cout << "NONE" << std::endl;
-            std::cout << "\tquiet: " << cmd.quiet << std::endl;
-            std::cout << "\tcommon_help: " << cmd.common_help << std::endl;
-            std::cout << "\tversion: " << cmd.version << std::endl;
-            std::cout << "\tvernum: " << cmd.vernum << std::endl;
-            std::cout << "\tdumpversion: " << cmd.dumpversion << std::endl;
             break;
         case commands::API:
             std::cout << "API" << std::endl;
@@ -30,6 +25,13 @@ int main(int argc, char **argv) {
             std::cout << "\thelp: " << cmd.api.help << std::endl;
             break;
     }
+
+    std::cout << "\nCOMMON OPTIONS" << std::endl;
+    std::cout << "\tquiet: " << cmd.quiet << std::endl;
+    std::cout << "\tcommon_help: " << cmd.common_help << std::endl;
+    std::cout << "\tversion: " << cmd.version << std::endl;
+    std::cout << "\tvernum: " << cmd.vernum << std::endl;
+    std::cout << "\tdumpversion: " << cmd.dumpversion << std::endl;
 
     return 0;
 }
