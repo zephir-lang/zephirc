@@ -4,7 +4,7 @@
 #include "commands/commands.hpp"
 
 int main(int argc, char **argv) {
-    commands::Cmd cmd{};
+    commands::Cmd cmd;
     std::memset(&cmd, 0, sizeof(cmd));
 
     if (!commands::parseopt(argv, cmd)) {
