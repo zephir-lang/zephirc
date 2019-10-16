@@ -36,7 +36,7 @@ RE2C_TARGET(commands
         COMPILE_FLAGS "-W -Werror -c")
 
 # Add definition for optparser library.
-add_library(commands src/commands/commands.hpp "${RE2C_commands_OUTPUTS}")
+add_library(commands src/commands/cmd.hpp "${RE2C_commands_OUTPUTS}")
 
 add_executable(zephir src/main.cpp)
 target_link_libraries(zephir commands)

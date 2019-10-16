@@ -1,5 +1,5 @@
-#ifndef ZEPHIR_COMMANDS_COMMANDS_HPP
-#define ZEPHIR_COMMANDS_COMMANDS_HPP
+#ifndef ZEPHIR_COMMANDS_CMD_HPP
+#define ZEPHIR_COMMANDS_CMD_HPP
 
 namespace commands {
 
@@ -16,7 +16,8 @@ namespace commands {
         STUBS
     };
 
-    struct Cmd {
+    class Cmd {
+    public:
         // what kind of command
         CmdKind kind;
 
@@ -86,4 +87,4 @@ namespace commands {
     bool parseopt(char **argv, Cmd &cmd);
 }
 
-#endif // ZEPHIR_COMMANDS_COMMANDS_HPP
+#endif // ZEPHIR_COMMANDS_CMD_HPP

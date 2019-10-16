@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstring>
 
-#include "commands/commands.hpp"
+#include "commands/cmd.hpp"
 
 int main(int argc, char **argv) {
     commands::Cmd cmd;

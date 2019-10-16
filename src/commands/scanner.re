@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "commands.hpp"
+#include "cmd.hpp"
 
 /*!types:re2c*/
 namespace commands {
