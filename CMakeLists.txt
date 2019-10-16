@@ -5,16 +5,17 @@ if (NOT CMAKE_BUILD_TYPE)
             "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel." FORCE)
 endif ()
 
+if (NOT CMAKE_CXX_STANDARD)
+    set(CMAKE_CXX_STANDARD 11)
+endif ()
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 if (NOT CMAKE_INSTALL_PREFIX)
     set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}" CACHE STRING
             "Directory to install zephir to" FORCE)
 endif ()
 
-project(
-        zephir
-        LANGUAGES C CXX
-        VERSION 1.0.0
-)
+project(zephir LANGUAGES CXX VERSION 1.0.0)
 
 # Provide path for cmake scripts
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
