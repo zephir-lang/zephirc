@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 
+# Provide path for cmake scripts
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
+
 if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE "Debug" CACHE STRING
             "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel." FORCE)
@@ -10,6 +13,8 @@ if (NOT CMAKE_CXX_STANDARD)
 endif ()
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+include(CxxFlags)
+
 if (NOT CMAKE_INSTALL_PREFIX)
     set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}" CACHE STRING
             "Directory to install zephir to" FORCE)
@@ -17,8 +22,7 @@ endif ()
 
 project(zephir LANGUAGES CXX VERSION 1.0.0)
 
-# Provide path for cmake scripts
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
+
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/lib)
