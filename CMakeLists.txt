@@ -8,14 +8,17 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 # Enable testing for current directory and below
 enable_testing()
 
+# Set a default build type for single-configuration
+# CMake generators if no build type is set.
 if (NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE "Debug" CACHE STRING
+    set(CMAKE_BUILD_TYPE Debug CACHE STRING
             "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel." FORCE)
 endif ()
 
 if (NOT CMAKE_CXX_STANDARD)
     set(CMAKE_CXX_STANDARD 11)
 endif ()
+
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 if (NOT CMAKE_INSTALL_PREFIX)
