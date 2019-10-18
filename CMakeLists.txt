@@ -5,9 +5,6 @@ project(zephir LANGUAGES CXX VERSION 1.0.0)
 # Provide path for cmake scripts
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
-# Enable testing for current directory and below
-enable_testing()
-
 # Set a default build type for single-configuration
 # CMake generators if no build type is set.
 if (NOT CMAKE_BUILD_TYPE)
@@ -30,12 +27,13 @@ set(EXECUTABLE_OUTPUT_PATH "${CMAKE_BINARY_DIR}/bin")
 set(LIBRARY_OUTPUT_PATH "${CMAKE_BINARY_DIR}/lib")
 
 include(CxxFlags)
+include(CTest)
 
 add_subdirectory(src)
 
 option(ZEPHIR_BUILD_TESTING "Build test project" OFF)
 
-if (ZEPHIR_BUILD_TESTING)
+if (BUILD_TESTING AND ZEPHIR_BUILD_TESTING)
     message(STATUS "Include test sources")
     add_subdirectory(test)
 endif()
