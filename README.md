@@ -14,8 +14,8 @@ These instructions will get you a copy of the project up and running on your loc
 
 #### POSIX
 
-- cmake >= 3.10
-- gcc >= 5.0.0 or clang >= 3.6.0
+- [cmake](https://cmake.org/) >= 3.10
+- [gcc](https://gcc.gnu.org) >= 5.0.0 or [clang](https://clang.llvm.org) >= 3.6.0
 
 ### Building from Source
 
