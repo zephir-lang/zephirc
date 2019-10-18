@@ -1,4 +1,5 @@
 #include <catch2/catch.hpp>
+#include <cstring>
 
 #include "test_helpers.hpp"
 #include "../src/commands/cmd.hpp"
