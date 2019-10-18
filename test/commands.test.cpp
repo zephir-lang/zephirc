@@ -46,7 +46,7 @@ SCENARIO("Invoke api command", "[commands]") {
                 REQUIRE( cmd.kind == commands::API );
             }
 
-            THEN("all API options in default state") {
+            THEN("all API options are in default state") {
                 REQUIRE( !cmd.api.backend );
                 REQUIRE( !cmd.api.path );
                 REQUIRE( !cmd.api.output );
@@ -55,7 +55,7 @@ SCENARIO("Invoke api command", "[commands]") {
                 REQUIRE( !cmd.api.help );
             }
 
-            THEN("all global options in default state") {
+            THEN("all global options are in default state") {
                 REQUIRE( !cmd.quiet );
                 REQUIRE( !cmd.common_help );
                 REQUIRE( !cmd.version );
@@ -75,7 +75,7 @@ SCENARIO("Invoke api command", "[commands]") {
                 REQUIRE( cmd.kind == commands::API );
             }
 
-            THEN("only help option is changed") {
+            THEN("only help option was changed") {
                 REQUIRE( !cmd.api.backend );
                 REQUIRE( !cmd.api.path );
                 REQUIRE( !cmd.api.output );
@@ -84,7 +84,7 @@ SCENARIO("Invoke api command", "[commands]") {
                 REQUIRE( cmd.api.help );
             }
 
-            THEN("all global options in default state") {
+            THEN("all global options are in default state") {
                 REQUIRE( !cmd.quiet );
                 REQUIRE( !cmd.common_help );
                 REQUIRE( !cmd.version );
@@ -106,7 +106,7 @@ SCENARIO("Invoke api command", "[commands]") {
                 REQUIRE( cmd.kind == commands::API );
             }
 
-            THEN("general options was changed") {
+            THEN("general options were changed") {
                 REQUIRE( (std::string) cmd.api.backend == "ZendEngine3" );
                 REQUIRE( (std::string) cmd.api.path == "theme" );
                 REQUIRE( (std::string) cmd.api.output == "out" );
