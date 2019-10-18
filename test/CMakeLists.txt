@@ -19,6 +19,5 @@ target_link_libraries(${TARGET_NAME}
         PUBLIC commands
         PUBLIC Catch2::Catch2)
 
-add_test(
-        NAME ${TARGET_NAME}
-        COMMAND ${TARGET_NAME})
+# configure unit tests via CTest
+add_test(NAME RunTests COMMAND $<TARGET_FILE:${TARGET_NAME}>)
