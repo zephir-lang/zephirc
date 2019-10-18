@@ -26,6 +26,14 @@ cmake -H. -Bbuild
 cmake --build build
 ```
 
+## Running the tests
+
+#### POSIX
+
+```shell script
+cmake -H. -Bbuild -DZEPHIR_BUILD_TESTING=ON
+cmake --build build
+```
 ## License
 
 Zephir licensed under the MIT License. See the [LICENSE][8] file for more information.

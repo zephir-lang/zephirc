@@ -23,9 +23,16 @@ if (NOT CMAKE_INSTALL_PREFIX)
             "Directory to install zephir to" FORCE)
 endif ()
 
-set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
-set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/lib)
+set(EXECUTABLE_OUTPUT_PATH "${CMAKE_BINARY_DIR}/bin")
+set(LIBRARY_OUTPUT_PATH "${CMAKE_BINARY_DIR}/lib")
 
 include(CxxFlags)
 
 add_subdirectory(src)
+
+option(ZEPHIR_BUILD_TESTING "Build test project" OFF)
+
+if (ZEPHIR_BUILD_TESTING)
+    message(STATUS "Include test sources")
+    add_subdirectory(test)
+endif()
