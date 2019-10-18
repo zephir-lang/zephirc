@@ -51,3 +51,11 @@ set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wunreachable-code")
 
 # Issue all warnings demanded by strict ISO C++
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -pedantic")
+
+# CxxFlags.cmake ends here
+
+# Local Variables:
+# mode: cmake
+# tab-width: 4
+# indent-tabs-mode: nil
+# End:

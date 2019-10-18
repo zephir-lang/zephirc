@@ -1,7 +1,12 @@
 cmake_minimum_required(VERSION 3.10)
 
+project(zephir LANGUAGES CXX VERSION 1.0.0)
+
 # Provide path for cmake scripts
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
+
+# Enable testing for current directory and below
+enable_testing()
 
 if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE "Debug" CACHE STRING
@@ -13,35 +18,14 @@ if (NOT CMAKE_CXX_STANDARD)
 endif ()
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-include(CxxFlags)
-
 if (NOT CMAKE_INSTALL_PREFIX)
     set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}" CACHE STRING
             "Directory to install zephir to" FORCE)
 endif ()
 
-project(zephir LANGUAGES CXX VERSION 1.0.0)
-
-
-
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/lib)
 
-find_package(RE2C REQUIRED)
-set(RE2C_OLDEST_VALIDATED_VERSION "0.16.0")
+include(CxxFlags)
 
-if ("${RE2C_VERSION}" VERSION_LESS ${RE2C_OLDEST_VALIDATED_VERSION})
-    message(FATAL_ERROR "re2c is too old, found ${RE2C_VERSION} and we need at last 0.16.0")
-endif ()
-
-# Usage RE2C_TARGET(<Name> <Input> <Output> [COMPILE_FLAGS <string>]
-RE2C_TARGET(commands
-        "${CMAKE_SOURCE_DIR}/src/commands/scanner.re"
-        "${CMAKE_SOURCE_DIR}/src/commands/scanner.cpp"
-        COMPILE_FLAGS "-W -Werror -c")
-
-# Add definition for optparser library.
-add_library(commands src/commands/cmd.hpp "${RE2C_commands_OUTPUTS}")
-
-add_executable(zephir src/main.cpp)
-target_link_libraries(zephir commands)
+add_subdirectory(src)

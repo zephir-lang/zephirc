@@ -1,0 +1,19 @@
+find_package(RE2C REQUIRED)
+set(RE2C_OLDEST_VALIDATED_VERSION "0.16.0")
+
+if ("${RE2C_VERSION}" VERSION_LESS ${RE2C_OLDEST_VALIDATED_VERSION})
+    message(FATAL_ERROR "re2c is too old, found ${RE2C_VERSION} and we need at last 0.16.0")
+endif ()
+
+set(TARGET_NAME commands)
+
+# Usage RE2C_TARGET(<Name> <Input> <Output> [COMPILE_FLAGS <string>]
+RE2C_TARGET(${TARGET_NAME}
+        "${CMAKE_SOURCE_DIR}/src/commands/scanner.re"
+        "${CMAKE_SOURCE_DIR}/src/commands/scanner.cpp"
+        COMPILE_FLAGS "-W -Werror -c")
+
+# Add definition for optparser library.
+add_library(${TARGET_NAME} STATIC
+        cmd.hpp
+        "${RE2C_commands_OUTPUTS}")
