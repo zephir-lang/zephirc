@@ -22,7 +22,7 @@ These instructions will get you a copy of the project up and running on your loc
 #### POSIX
 
 ```shell script
-cmake -H. -Bbuild
+cmake -H. -Bbuild -DCMAKE_BUILD_TYPE=Release
 cmake --build build
 ```
 
@@ -31,9 +31,16 @@ cmake --build build
 #### POSIX
 
 ```shell script
-cmake -H. -Bbuild -DZEPHIR_BUILD_TESTING=ON
-cmake --build build
+cmake -H. \
+  -Bbuild \
+  -DCMAKE_BUILD_TYPE=Debug \
+  -DZEPHIR_BUILD_TESTING=ON
+
+cd build
+make
+ctest
 ```
+
 ## License
 
 Zephir licensed under the MIT License. See the [LICENSE][8] file for more information.
