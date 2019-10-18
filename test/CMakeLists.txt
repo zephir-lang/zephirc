@@ -1,0 +1,24 @@
+find_package(Catch2 REQUIRED)
+
+# mirror the filename and path of the unit under test and
+# add ".test" suffix
+set(UNIT_TEST_LIST
+        commands)
+
+foreach(NAME IN LISTS UNIT_TEST_LIST)
+    list(APPEND UNIT_TEST_SOURCE_LIST "${NAME}.test.cpp")
+endforeach()
+
+set(TARGET_NAME tests)
+
+add_executable(${TARGET_NAME}
+        main.cpp
+        ${UNIT_TEST_SOURCE_LIST})
+
+target_link_libraries(${TARGET_NAME}
+        PUBLIC commands
+        PUBLIC Catch2::Catch2)
+
+add_test(
+        NAME ${TARGET_NAME}
+        COMMAND ${TARGET_NAME})

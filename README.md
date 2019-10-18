@@ -28,6 +28,10 @@ cmake --build build
 
 ## Running the tests
 
+### Prerequisites
+
+- [Catch2](https://github.com/catchorg/Catch2)
+
 ### POSIX
 
 ```shell script
