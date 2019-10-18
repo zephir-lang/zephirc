@@ -97,7 +97,8 @@ SCENARIO("Invoke api command", "[commands]") {
 
         WHEN("invoked with general arguments") {
             char **args = makeArgv(9, "zephir", "api",
-                    "--backend=ZendEngine3", "-p", "theme", "-o", "out",  "--options=opts", "--url=http://test.com");
+                    "--backend=ZendEngine3", "-p", "theme", "-o", "out",
+                    "--options=opts", "--url=http://test.com");
             auto result = commands::parseopt(args, cmd);
 
             THEN("command is API") {
