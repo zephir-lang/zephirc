@@ -28,7 +28,6 @@ set(LIBRARY_OUTPUT_PATH "${CMAKE_BINARY_DIR}/lib")
 
 include(CxxFlags)
 include(CTest)
-include(FindCppUnit)
 
 add_subdirectory(src)
 
