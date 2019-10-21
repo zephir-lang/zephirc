@@ -28,7 +28,7 @@ cmake --build build
 
 ## Running the tests
 
-#### POSIX
+### POSIX
 
 ```shell script
 cmake -H. \
