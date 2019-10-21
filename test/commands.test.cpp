@@ -84,8 +84,7 @@ SCENARIO("Invoke api command", "[commands]") {
                 "--backend=ZendEngine3",
                 "-p", "theme",
                 "-o", "out",
-                "--options=opts"
-                ,
+                "--options=opts",
                 ""
             });
 
@@ -98,11 +97,11 @@ SCENARIO("Invoke api command", "[commands]") {
             }
 
             THEN("general options were changed") {
-                REQUIRE( ((std::string) cmd.api.backend) == "ZendEngine3" );
-                REQUIRE( ((std::string) cmd.api.path) == "theme" );
-                REQUIRE( ((std::string) cmd.api.output) == "out" );
-                REQUIRE( ((std::string) cmd.api.options) == "opts" );
-                REQUIRE( ((std::string) cmd.api.url) == "http://test.com" );
+                REQUIRE( (std::string) cmd.api.backend == "ZendEngine3" );
+                REQUIRE( (std::string) cmd.api.path == "theme" );
+                REQUIRE( (std::string) cmd.api.output == "out" );
+                REQUIRE( (std::string) cmd.api.options == "opts" );
+                REQUIRE( (std::string) cmd.api.url == "http://test.com" );
                 REQUIRE( !cmd.api.help );
             }
         }
