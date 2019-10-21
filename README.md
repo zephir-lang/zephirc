@@ -32,7 +32,7 @@ cmake --build build
 
 - [Criterion](https://github.com/Snaipe/Criterion)
 
-#### POSIX
+### POSIX
 
 ```shell script
 cmake -H. \

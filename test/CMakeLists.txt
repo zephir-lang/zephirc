@@ -1,4 +1,4 @@
-find_package(criterion REQUIRED)
+find_package(Criterion REQUIRED)
 
 # mirror the filename and path of the unit under test and
 # add ".test" suffix
@@ -17,11 +17,9 @@ add_executable(${TARGET_NAME}
 
 target_link_libraries(${TARGET_NAME}
         PUBLIC commands
-        PUBLIC ${criterion_LIBRARIES}
-)
+        PUBLIC ${criterion_LIBRARIES})
 
 # configure unit tests via CTest
 add_test(
         NAME RunTests
-        COMMAND $<TARGET_FILE:${TARGET_NAME}>
-)
+        COMMAND $<TARGET_FILE:${TARGET_NAME}>)
