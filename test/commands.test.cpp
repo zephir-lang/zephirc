@@ -73,7 +73,7 @@ SCENARIO("Invoke api command", "[commands]") {
             }
         }
 
-        WHEN("invoked with --help argument") {
+        AND_WHEN("invoked with --help argument") {
             Argv argv({
                   "zephir",
                   "api",
@@ -107,7 +107,7 @@ SCENARIO("Invoke api command", "[commands]") {
             }
         }
 
-        WHEN("invoked with general arguments") {
+        AND_WHEN("invoked with general arguments") {
             Argv argv({
                 "zephir",
                 "api",
