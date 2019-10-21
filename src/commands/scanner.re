@@ -6,7 +6,7 @@
 namespace commands {
     bool parseopt(char **argv, Cmd &cmd)
     {
-        char *YYCURSOR , *YYMARKER;
+        char *YYCURSOR, *YYMARKER;
         int cond = 0;
 
         loop:

@@ -4,6 +4,37 @@
 #include "argv.hpp"
 #include "../src/commands/cmd.hpp"
 
+SCENARIO("Compiler can be invoked without arguments", "[commands]") {
+    GIVEN("an empty argument list") {
+        Argv argv({
+            "zephir",
+            ""
+        });
+
+        char **args = argv.argv();
+
+        commands::Cmd cmd;
+        std::memset(&cmd, 0, sizeof(cmd));
+
+        WHEN("invoked without arguments") {
+            auto result = commands::parseopt(args, cmd);
+
+            THEN("command is NONE") {
+                REQUIRE( result );
+                REQUIRE( cmd.kind == commands::NONE );
+            }
+
+            AND_THEN("all global options in default state") {
+                REQUIRE( !cmd.quiet );
+                REQUIRE( !cmd.common_help );
+                REQUIRE( !cmd.version );
+                REQUIRE( !cmd.vernum );
+                REQUIRE( !cmd.dumpversion );
+            }
+        }
+    }
+}
+
 SCENARIO("Invoke api command", "[commands]") {
     GIVEN("fresh cmd instance") {
         commands::Cmd cmd;
@@ -33,7 +64,7 @@ SCENARIO("Invoke api command", "[commands]") {
                 REQUIRE( !cmd.api.help );
             }
 
-            THEN("all global options are in default state") {
+            AND_THEN("all global options are in default state") {
                 REQUIRE( !cmd.quiet );
                 REQUIRE( !cmd.common_help );
                 REQUIRE( !cmd.version );
@@ -67,7 +98,7 @@ SCENARIO("Invoke api command", "[commands]") {
                 REQUIRE( cmd.api.help );
             }
 
-            THEN("all global options are in default state") {
+            AND_THEN("all global options are in default state") {
                 REQUIRE( !cmd.quiet );
                 REQUIRE( !cmd.common_help );
                 REQUIRE( !cmd.version );
@@ -96,7 +127,7 @@ SCENARIO("Invoke api command", "[commands]") {
                 REQUIRE( cmd.kind == commands::API );
             }
 
-            THEN("general options were changed") {
+            AND_THEN("general options were changed") {
                 REQUIRE( (std::string) cmd.api.backend == "ZendEngine3" );
                 REQUIRE( (std::string) cmd.api.path == "theme" );
                 REQUIRE( (std::string) cmd.api.output == "out" );
