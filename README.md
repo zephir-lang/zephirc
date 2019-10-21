@@ -28,7 +28,11 @@ cmake --build build
 
 ## Running the tests
 
-### POSIX
+### Prerequisites
+
+- [Criterion](https://github.com/Snaipe/Criterion)
+
+#### POSIX
 
 ```shell script
 cmake -H. \
