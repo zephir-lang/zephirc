@@ -1,8 +1,8 @@
 # FindCriterion.cmake
 #
 # This module finds an installed Criterion package.
+# The module defines the following variables:
 #
-# Once done this will define:
 #  criterion_FOUND       - System has Criterion
 #  CRITERION_INCLUDE_DIR - The Criterion include directories
 #  CRITERION_LIBRARIES   - The libraries needed to use Criterion
@@ -10,12 +10,12 @@
 if (UNIX)
     find_path(CRITERION_INCLUDE_DIR
             NAMES criterion/criterion.h
-            PATHS $ENV{CRITERION_INCLUDE_DIR} /usr /usr/local /opt /opt/local
+            PATHS $ENV{CRITERION_INCLUDE_DIR} /usr /usr/local
             PATH_SUFFIXES include)
 
     find_library(CRITERION_LIBRARIES
             NAMES criterion libcriterion
-            PATHS $ENV{CRITERION_LIBRARIES} /usr /usr/local /opt /opt/local
+            PATHS $ENV{CRITERION_LIBRARIES} /usr /usr/local
             PATH_SUFFIXES lib)
 elseif (WIN32)
     find_path(CRITERION_INCLUDE_DIR
