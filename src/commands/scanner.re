@@ -10,7 +10,8 @@ namespace commands {
         int cond = 0;
 
         loop:
-        if (!(YYCURSOR = *++argv)) return true;
+        YYCURSOR = *++argv;
+        if (!YYCURSOR || *YYCURSOR == '\0') return true;
 
         /*!re2c
          re2c:define:YYCTYPE = "unsigned char";
