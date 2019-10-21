@@ -17,7 +17,7 @@ add_executable(${TARGET_NAME}
 
 target_link_libraries(${TARGET_NAME}
         PUBLIC commands
-        PUBLIC ${criterion_LIBRARIES})
+        PUBLIC ${CRITERION_LIBRARIES})
 
 # configure unit tests via CTest
 add_test(

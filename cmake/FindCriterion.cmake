@@ -1,57 +1,64 @@
-# Once done this will define
+# FindCriterion.cmake
 #
-#  criterion_FOUND - System has Criterion
-#  criterion_INCLUDE_DIRS - The Criterion include directories
-#  criterion_LIBRARIES - The libraries needed to use Criterion
+# This module finds an installed Criterion package.
+#
+# Once done this will define:
+#  criterion_FOUND       - System has Criterion
+#  CRITERION_INCLUDE_DIR - The Criterion include directories
+#  CRITERION_LIBRARIES   - The libraries needed to use Criterion
 
 if (UNIX)
-    find_path(criterion_INCLUDE_DIR
+    find_path(CRITERION_INCLUDE_DIR
             NAMES criterion/criterion.h
-            PATHS $ENV{CRITERION_DIR} /usr /usr/local /opt /opt/local
+            PATHS $ENV{CRITERION_INCLUDE_DIR} /usr /usr/local /opt /opt/local
             PATH_SUFFIXES include)
 
-    find_library(criterion_LIBRARY
+    find_library(CRITERION_LIBRARIES
             NAMES criterion libcriterion
-            PATHS $ENV{CRITERION_DIR} /usr /usr/local /opt /opt/local
+            PATHS $ENV{CRITERION_LIBRARIES} /usr /usr/local /opt /opt/local
             PATH_SUFFIXES lib)
 elseif (WIN32)
-    find_path(criterion_INCLUDE_DIR
+    find_path(CRITERION_INCLUDE_DIR
             NAMES criterion/criterion.h
-            PATHS $ENV{CRITERION_DIR} C:/
+            PATHS $ENV{CRITERION_INCLUDE_DIR} C:/
             PATH_SUFFIXES include)
 
-    find_library(criterion_LIBRARY
+    find_library(CRITERION_LIBRARIES
             NAMES criterion libcriterion
-            PATHS $ENV{CRITERION_DIR} C:/
+            PATHS $ENV{CRITERION_LIBRARIES} C:/
             PATH_SUFFIXES lib)
 endif ()
-
-set(criterion_INCLUDE_DIRS "${criterion_INCLUDE_DIR}")
-set(criterion_LIBRARIES "${criterion_LIBRARY}")
 
 include(FindPackageHandleStandardArgs)
 
 find_package_handle_standard_args(
-        criterion
-        REQUIRED_VARS criterion_INCLUDE_DIR criterion_LIBRARY)
+        Criterion
+        REQUIRED_VARS CRITERION_INCLUDE_DIR CRITERION_LIBRARIES)
 
-set(criterion_FOUND "${CRITERION_FOUND}")
+if (CRITERION_FOUND)
+    if (NOT Criterion_FIND_QUIETLY)
+        message(STATUS "> criterion found")
+    endif()
 
-if (criterion_FOUND)
-    message(STATUS "> criterion found")
     if (NOT TARGET criterion::criterion)
         add_library(criterion::criterion UNKNOWN IMPORTED)
     endif ()
 
     set_target_properties(criterion::criterion PROPERTIES
-            IMPORTED_LOCATION "${criterion_LIBRARIES}"
-            INTERFACE_INCLUDE_DIRECTORIES "${criterion_INCLUDE_DIRS}")
+            IMPORTED_LOCATION "${CRITERION_LIBRARIES}"
+            INTERFACE_INCLUDE_DIRECTORIES "${CRITERION_INCLUDE_DIR}")
 
-    message(STATUS ">\t${criterion_LIBRARIES}")
-    message(STATUS ">\t${criterion_INCLUDE_DIRS}")
+    if (NOT Criterion_FIND_QUIETLY)
+        message(STATUS ">\t${CRITERION_LIBRARIES}")
+        message(STATUS ">\t${CRITERION_INCLUDE_DIR}")
+    endif()
 else ()
-    message(STATUS "> criterion not found")
+    if (Criterion_FIND_REQUIRED)
+        message(FATAL_ERROR "Could not find Criterion")
+    elseif(NOT Criterion_FIND_QUIETLY)
+        message(STATUS "> criterion not found")
+    endif()
 endif ()
 
-mark_as_advanced(criterion_INCLUDE_DIRS)
-mark_as_advanced(criterion_LIBRARIES)
+mark_as_advanced(CRITERION_INCLUDE_DIR)
+mark_as_advanced(CRITERION_LIBRARIES)
