@@ -1,25 +1,30 @@
 # Once done this will define
 #
-#  CRITERION_FOUND - System has Criterion
-#  CRITERION_INCLUDE_DIRS - The Criterion include directories
-#  CRITERION_LIBRARIES - The libraries needed to use Criterion
+#  criterion_FOUND - System has Criterion
+#  criterion_INCLUDE_DIRS - The Criterion include directories
+#  criterion_LIBRARIES - The libraries needed to use Criterion
 
-find_package(PkgConfig)
+if (UNIX)
+    find_path(criterion_INCLUDE_DIR
+            NAMES criterion/criterion.h
+            PATHS $ENV{CRITERION_DIR} /usr /usr/local /opt /opt/local
+            PATH_SUFFIXES include)
 
-find_path(criterion_INCLUDE_DIR
-        NAMES criterion/criterion.h
-        PATHS /usr /usr/local /opt /opt/local
-        PATH_SUFFIXES include
-)
+    find_library(criterion_LIBRARY
+            NAMES criterion libcriterion
+            PATHS $ENV{CRITERION_DIR} /usr /usr/local /opt /opt/local
+            PATH_SUFFIXES lib)
+elseif (WIN32)
+    find_path(criterion_INCLUDE_DIR
+            NAMES criterion/criterion.h
+            PATHS $ENV{CRITERION_DIR} C:/
+            PATH_SUFFIXES include)
 
-find_library(criterion_LIBRARY
-        NAMES criterion libcriterion
-        PATHS /usr /usr/local /opt /opt/local
-        PATH_SUFFIXES lib
-)
-
-#set(CRITERION_LIBRARIES ${CRITERION_LIBRARY})
-#set(CRITERION_INCLUDE_DIRS ${CRITERION_INCLUDE_DIR})
+    find_library(criterion_LIBRARY
+            NAMES criterion libcriterion
+            PATHS $ENV{CRITERION_DIR} C:/
+            PATH_SUFFIXES lib)
+endif ()
 
 set(criterion_INCLUDE_DIRS "${criterion_INCLUDE_DIR}")
 set(criterion_LIBRARIES "${criterion_LIBRARY}")
@@ -48,6 +53,5 @@ else ()
     message(STATUS "> criterion not found")
 endif ()
 
-# mark_as_advanced(CRITERION_INCLUDE_DIR CRITERION_LIBRARY)
 mark_as_advanced(criterion_INCLUDE_DIRS)
 mark_as_advanced(criterion_LIBRARIES)
