@@ -6,7 +6,7 @@
 namespace commands {
     bool parseopt(char **argv, Cmd &cmd)
     {
-        char *YYCURSOR, *YYMARKER;
+        char *YYCURSOR = NULL, *YYMARKER;
         int cond = 0;
 
         loop:
@@ -17,6 +17,7 @@ namespace commands {
          re2c:define:YYCTYPE = "unsigned char";
          re2c:yyfill:enable = 0;
          re2c:yych:conversion = 1;
+
          re2c:indent:top = 2;
          re2c:indent:string = "    ";
          re2c:define:YYGETCONDITION = "cond";

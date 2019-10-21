@@ -13,7 +13,7 @@ set(TARGET_NAME tests)
 
 add_executable(${TARGET_NAME}
         main.cpp
-        test_helpers.cpp
+        argv.cpp
         ${UNIT_TEST_SOURCE_LIST})
 
 target_link_libraries(${TARGET_NAME}

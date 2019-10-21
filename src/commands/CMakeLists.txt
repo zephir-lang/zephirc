@@ -11,7 +11,7 @@ set(TARGET_NAME commands)
 RE2C_TARGET(${TARGET_NAME}
         "${CMAKE_SOURCE_DIR}/src/commands/scanner.re"
         "${CMAKE_SOURCE_DIR}/src/commands/scanner.cpp"
-        COMPILE_FLAGS "-W -Werror -c")
+        COMPILE_FLAGS "-8 -W -Werror -c")
 
 # Add definition for optparser library.
 add_library(${TARGET_NAME} STATIC
