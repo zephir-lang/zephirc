@@ -66,7 +66,7 @@
 find_program(
         RE2C_EXECUTABLE re2c
         DOC "path to the re2c executable"
-        PATHS /usr /usr/local /opt /opt/local $ENV{RE2C_DIR}
+        PATHS $ENV{RE2C_DIR} /usr /usr/local /opt /opt/local
         PATH_SUFFIXES re2c/bin bin
 )
 
