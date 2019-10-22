@@ -1,13 +1,6 @@
 find_package(Criterion REQUIRED)
 
-# mirror the filename and path of the unit under test and
-# add ".test" suffix
-set(UNIT_TEST_LIST
-        commands)
-
-foreach(NAME IN LISTS UNIT_TEST_LIST)
-    list(APPEND UNIT_TEST_SOURCE_LIST "${NAME}.test.cpp")
-endforeach()
+file(GLOB UNIT_TEST_SOURCE_LIST ./*.test.cpp)
 
 set(TARGET_NAME tests)
 
