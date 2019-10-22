@@ -67,8 +67,7 @@ find_program(
         RE2C_EXECUTABLE re2c
         DOC "path to the re2c executable"
         PATHS $ENV{RE2C_DIR} /usr /usr/local /opt /opt/local
-        PATH_SUFFIXES re2c/bin bin
-)
+        PATH_SUFFIXES re2c/bin bin)
 
 mark_as_advanced(RE2C_EXECUTABLE)
 
@@ -78,15 +77,15 @@ if (RE2C_EXECUTABLE)
             RESULT_VARIABLE RE2C_version_result
             OUTPUT_VARIABLE RE2C_version_output
             ERROR_VARIABLE RE2C_version_error
-            OUTPUT_STRIP_TRAILING_WHITESPACE
-            COMMAND sed -ne "s/^re2c //p"
-            OUTPUT_STRIP_TRAILING_WHITESPACE
-    )
+            OUTPUT_STRIP_TRAILING_WHITESPACE)
+
+    string(REGEX REPLACE "^re2c " "" RE2C_version_output "${RE2C_version_output}")
 
     if (RE2C_version_result EQUAL 0)
         set(RE2C_VERSION ${RE2C_version_output})
     else ()
-        message(SEND_ERROR "Command \"${RE2C_EXECUTABLE} --version\" failed with output:\n${RE2C_version_error}")
+        message(SEND_ERROR
+                "Command \"${RE2C_EXECUTABLE} --version\" failed with output:\n${RE2C_version_error}")
     endif ()
 
     # RE2C_TARGET (public macro)
@@ -128,8 +127,7 @@ include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(
         RE2C
         "No re2c found in the $PATH. Consider install re2c or/and add re2c executable to the $PATH"
-        RE2C_EXECUTABLE
-)
+        RE2C_EXECUTABLE)
 
 # FindRE2C.cmake ends here
 
