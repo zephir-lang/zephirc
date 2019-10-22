@@ -2,6 +2,10 @@
 #
 # This module finds an installed UnitTest++ package.
 # The module defines the following variables:
+#
+#  UNITTEST++_FOUND       - System has Criterion
+#  UNITTEST++_INCLUDE_DIR - The Criterion include directories
+#  UNITTEST++_LIBRARIES   - The libraries needed to use Criterion
 
 if (UNIX)
     find_path(UNITTEST++_INCLUDE_DIR
