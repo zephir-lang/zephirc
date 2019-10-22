@@ -11,22 +11,26 @@ if (UNIX)
     find_path(CRITERION_INCLUDE_DIR
             NAMES criterion/criterion.h
             PATHS $ENV{CRITERION_INCLUDE_DIR} /usr /usr/local
-            PATH_SUFFIXES include)
+            PATH_SUFFIXES include
+            DOC "Criterion header location.")
 
     find_library(CRITERION_LIBRARIES
             NAMES criterion libcriterion
             PATHS $ENV{CRITERION_LIBRARIES} /usr /usr/local
-            PATH_SUFFIXES lib)
+            PATH_SUFFIXES lib
+            DOC "Criterion library location.")
 elseif (WIN32)
     find_path(CRITERION_INCLUDE_DIR
             NAMES criterion/criterion.h
             PATHS $ENV{CRITERION_INCLUDE_DIR} C:/
-            PATH_SUFFIXES include)
+            PATH_SUFFIXES include
+            DOC "Criterion header location.")
 
     find_library(CRITERION_LIBRARIES
             NAMES criterion libcriterion
             PATHS $ENV{CRITERION_LIBRARIES} C:/
-            PATH_SUFFIXES lib)
+            PATH_SUFFIXES "" Debug Release lib
+            DOC "Criterion library location.")
 endif ()
 
 include(FindPackageHandleStandardArgs)

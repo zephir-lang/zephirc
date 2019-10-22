@@ -12,6 +12,9 @@ target_link_libraries(${TARGET_NAME}
         PUBLIC commands
         PUBLIC ${CRITERION_LIBRARIES})
 
+target_include_directories(${TARGET_NAME}
+        PUBLIC ${CRITERION_INCLUDE_DIR})
+
 # configure unit tests via CTest
 add_test(
         NAME RunTests

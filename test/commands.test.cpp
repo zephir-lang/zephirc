@@ -1,4 +1,4 @@
-#include "/usr/local/include/criterion/criterion.h"
+#include <criterion/criterion.h>
 
 #include "argv.hpp"
 #include "../src/commands/cmd.hpp"
