@@ -5,6 +5,9 @@
 #
 # https://help.github.com/articles/ignoring-files/#create-a-global-gitignore
 
+# Keep Visual Studio Code Tasks
+!.vscode/tasks.json
+
 /build/
 /build-*/
 
