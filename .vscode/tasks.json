@@ -1,6 +1,4 @@
 {
-  // See https://go.microsoft.com/fwlink/?LinkId=733558
-  // for the documentation about the tasks.json format
   "version": "2.0.0",
   "tasks": [
     {
@@ -26,7 +24,7 @@
         "focus": false,
         "panel": "shared",
       },
-      "problemMatcher":"$tsc",
+      "problemMatcher":"$gcc",
     },
     {
       "label": "Build test",
@@ -45,7 +43,7 @@
         "showReuseMessage": true,
         "clear": false,
       },
-      "problemMatcher":"$tsc",
+      "problemMatcher":"$gcc",
     },
     {
       "label": "Run Tests (with rebuild)",
@@ -72,7 +70,7 @@
       "dependsOn":[
         "Build test",
       ],
-      "problemMatcher":"$tsc",
+      "problemMatcher": [],
     }
   ]
 }
