@@ -28,6 +28,10 @@ cmake --build build
 
 ## Running the tests
 
+### Prerequisites
+
+- [UnitTest++](https://github.com/unittest-cpp/unittest-cpp)
+
 ### POSIX
 
 ```shell script
