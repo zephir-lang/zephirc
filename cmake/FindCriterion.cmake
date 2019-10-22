@@ -3,7 +3,7 @@
 # This module finds an installed Criterion package.
 # The module defines the following variables:
 #
-#  criterion_FOUND       - System has Criterion
+#  CRITERION_FOUND       - System has Criterion
 #  CRITERION_INCLUDE_DIR - The Criterion include directories
 #  CRITERION_LIBRARIES   - The libraries needed to use Criterion
 
