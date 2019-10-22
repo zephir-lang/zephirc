@@ -10,11 +10,13 @@ class CommandsTest : public CppUnit::TestFixture
 
     CPPUNIT_TEST(Compiler_can_be_invoked_without_arguments);
     CPPUNIT_TEST(Invoke_api_command);
+    CPPUNIT_TEST(Invoked_with_help_argument);
     CPPUNIT_TEST_SUITE_END();
 
 public:
     void Compiler_can_be_invoked_without_arguments();
     void Invoke_api_command();
+    void Invoked_with_help_argument();
 
 private:
     commands::Cmd runTest(commands::Cmd &cmd, Argv &argv);
@@ -54,11 +56,49 @@ void CommandsTest::Invoke_api_command()
     auto testCmd = this->runTest(cmd, argv);
 
     CPPUNIT_ASSERT_MESSAGE("command is API", testCmd.kind == commands::API);
-    CPPUNIT_ASSERT_MESSAGE("API option [quiet] in default state", testCmd.quiet == false);
-    CPPUNIT_ASSERT_MESSAGE("API option [common_help] in default state", testCmd.common_help == false);
-    CPPUNIT_ASSERT_MESSAGE("API option [version] in default state", testCmd.version == false);
-    CPPUNIT_ASSERT_MESSAGE("API option [vernum] in default state", testCmd.vernum == false);
-    CPPUNIT_ASSERT_MESSAGE("API option [dumpversion] in default state", testCmd.dumpversion == false);
+
+    CPPUNIT_ASSERT_MESSAGE("API option [backend] in default state", !testCmd.api.backend);
+    CPPUNIT_ASSERT_MESSAGE("API option [path] in default state", !testCmd.api.path);
+    CPPUNIT_ASSERT_MESSAGE("API option [output] in default state", !testCmd.api.output);
+    CPPUNIT_ASSERT_MESSAGE("API option [options] in default state", !testCmd.api.options);
+    CPPUNIT_ASSERT_MESSAGE("API option [options] in default state", !testCmd.api.options);
+    CPPUNIT_ASSERT_MESSAGE("API option [url] in default state", !testCmd.api.url);
+    CPPUNIT_ASSERT_MESSAGE("API option [help] in default state", !testCmd.api.help);
+
+    CPPUNIT_ASSERT_MESSAGE("Global option [quiet] in default state", testCmd.quiet == false);
+    CPPUNIT_ASSERT_MESSAGE("Global option [common_help] in default state", testCmd.common_help == false);
+    CPPUNIT_ASSERT_MESSAGE("Global option [version] in default state", testCmd.version == false);
+    CPPUNIT_ASSERT_MESSAGE("Global option [vernum] in default state", testCmd.vernum == false);
+    CPPUNIT_ASSERT_MESSAGE("Global option [dumpversion] in default state", testCmd.dumpversion == false);
+}
+
+void CommandsTest::Invoked_with_help_argument()
+{
+    Argv argv({
+            "zephir",
+            "api",
+            "--help",
+            ""
+        });
+
+    commands::Cmd cmd;
+    auto testCmd = this->runTest(cmd, argv);
+
+    CPPUNIT_ASSERT_MESSAGE("command is API", testCmd.kind == commands::API);
+
+    CPPUNIT_ASSERT_MESSAGE("Only help option was changed [backend]", !testCmd.api.backend);
+    CPPUNIT_ASSERT_MESSAGE("Only help option was changed [path]", !testCmd.api.path);
+    CPPUNIT_ASSERT_MESSAGE("Only help option was changed [output]", !testCmd.api.output);
+    CPPUNIT_ASSERT_MESSAGE("Only help option was changed [options]", !testCmd.api.options);
+    CPPUNIT_ASSERT_MESSAGE("Only help option was changed [options]", !testCmd.api.options);
+    CPPUNIT_ASSERT_MESSAGE("Only help option was changed [url]", !testCmd.api.url);
+    CPPUNIT_ASSERT_MESSAGE("Only help option was changed [help]", testCmd.api.help);
+
+    CPPUNIT_ASSERT_MESSAGE("Global option [quiet] in default state", !testCmd.quiet);
+    CPPUNIT_ASSERT_MESSAGE("Global option [common_help] in default state", !testCmd.common_help);
+    CPPUNIT_ASSERT_MESSAGE("Global option [version] in default state", !testCmd.version);
+    CPPUNIT_ASSERT_MESSAGE("Global option [vernum] in default state", !testCmd.vernum);
+    CPPUNIT_ASSERT_MESSAGE("Global option [dumpversion] in default state", !testCmd.dumpversion);
 }
 
 commands::Cmd CommandsTest::runTest(commands::Cmd &cmd, Argv &argv)
