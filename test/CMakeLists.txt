@@ -9,11 +9,10 @@ add_executable(${TARGET_NAME}
         ${UNIT_TEST_SOURCE_LIST})
 
 target_link_libraries(${TARGET_NAME}
-        PUBLIC commands
-        PUBLIC ${CRITERION_LIBRARIES})
+        PRIVATE commands ${CRITERION_LIBRARIES})
 
 target_include_directories(${TARGET_NAME}
-        PUBLIC ${CRITERION_INCLUDE_DIR})
+        PRIVATE ${CRITERION_INCLUDE_DIR})
 
 # configure unit tests via CTest
 add_test(

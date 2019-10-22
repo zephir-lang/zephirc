@@ -40,6 +40,7 @@ find_package_handle_standard_args(
         REQUIRED_VARS CRITERION_INCLUDE_DIR CRITERION_LIBRARIES)
 
 if (CRITERION_FOUND)
+    # TODO: CRITERION_DLL For Windows
     if (NOT Criterion_FIND_QUIETLY)
         message(STATUS "> criterion found")
     endif()
@@ -66,3 +67,11 @@ endif ()
 
 mark_as_advanced(CRITERION_INCLUDE_DIR)
 mark_as_advanced(CRITERION_LIBRARIES)
+
+# FindCriterion.cmake ends here
+
+# Local Variables:
+# mode: cmake
+# tab-width: 4
+# indent-tabs-mode: nil
+# End:
