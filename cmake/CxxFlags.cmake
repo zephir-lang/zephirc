@@ -9,6 +9,7 @@ elseif (MSVC)
 endif()
 
 # Set release veriable
+# todo: add_definitions(-DZEPHIR_RELEASE)
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DZEPHIR_RELEASE")
 
 # DEBUG Flags
