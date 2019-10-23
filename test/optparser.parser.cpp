@@ -3,7 +3,7 @@
 #include "argv.hpp"
 #include "../src/commands/cmd.hpp"
 
-TEST(commands, empty)
+TEST(optparser, without_params)
 {
     Argv argv({
                   "zephir",
@@ -27,7 +27,7 @@ TEST(commands, empty)
     ASSERT_FALSE(cmd.dumpversion);
 }
 
-TEST(commands, api_empty)
+TEST(optparser, api_without_params)
 {
     Argv argv({
                   "zephir",
@@ -60,7 +60,7 @@ TEST(commands, api_empty)
     ASSERT_FALSE(cmd.dumpversion);
 }
 
-TEST(commands, api_help)
+TEST(optparser, api_using_help)
 {
     Argv argv({
                   "zephir",
@@ -94,7 +94,7 @@ TEST(commands, api_help)
     ASSERT_FALSE(cmd.dumpversion);
 }
 
-TEST(commands, api_full)
+TEST(optparser, api_typical_usage)
 {
     Argv argv({
                   "zephir",
