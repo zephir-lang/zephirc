@@ -2,7 +2,7 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Build (DEBUG)",
+      "label": "CMake Build - Debug",
       "group": {
           "kind": "build",
           "isDefault": true,
@@ -54,6 +54,9 @@
       "options": {
         "cwd": "${workspaceRoot}/build"
       },
+      "args": [
+        "-V"
+      ],
       "command": "ctest",
       "type":"shell",
       "presentation": {
@@ -62,12 +65,26 @@
         "focus": false,
         "panel": "shared",
         "showReuseMessage": true,
-        "clear": false,
+        "clear": true,
       },
       "dependsOn":[
         "Build test",
       ],
-      "problemMatcher": [],
+      "problemMatcher": {
+        "owner": "cmake",
+        "fileLocation": "absolute",
+        "pattern":[
+          {
+            "regexp": "^\\d+:\\s(.*):(\\d+):\\s(Failure)$",
+            "file": 1,
+            "location": 2
+          },
+          {
+            "regexp": "^\\d+:\\s(.*)$",
+            "message": 1
+          }
+        ]
+      },
     }
   ]
 }
