@@ -11,4 +11,6 @@ add_executable(parser_tests
 target_link_libraries(parser_tests
         PRIVATE commands gtest gtest_main)
 
-gtest_discover_tests(parser_tests)
+gtest_discover_tests(
+        parser_tests
+        PROPERTIES LABELS SelfTest)
