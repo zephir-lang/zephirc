@@ -1,18 +1,14 @@
+include(InstallGoogleTest)
 include(GoogleTest)
 
-file(GLOB UNIT_TEST_SOURCE_LIST ./*.test.cpp)
+file(GLOB PARSER_TEST_SOURCE_LIST ./*.parser.cpp)
 
-set(TARGET_NAME tests)
-
-add_executable(${TARGET_NAME}
+add_executable(parser_tests
         main.cpp
         argv.cpp
-        ${UNIT_TEST_SOURCE_LIST})
+        ${PARSER_TEST_SOURCE_LIST})
 
-target_link_libraries(${TARGET_NAME}
-        PRIVATE commands libgtest libgmock)
+target_link_libraries(parser_tests
+        PRIVATE commands gtest gtest_main)
 
-# configure unit tests via CTest
-add_test(
-        NAME RunTests
-        COMMAND $<TARGET_FILE:${TARGET_NAME}>)
+gtest_discover_tests(parser_tests)
