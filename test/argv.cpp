@@ -1,4 +1,5 @@
 #include <initializer_list>
+#include <cstring>
 #include "argv.hpp"
 
 Argv::Argv(std::initializer_list<const char *> args)
@@ -8,10 +9,10 @@ Argv::Argv(std::initializer_list<const char *> args)
     int i = 0;
     auto iter = args.begin();
     while (iter != args.end()) {
-        auto len = strlen(*iter) + 1;
+        auto len = std::strlen(*iter) + 1;
         auto ptr = std::unique_ptr<char[]>(new char[len]);
 
-        strcpy(ptr.get(), *iter);
+        std::strcpy(ptr.get(), *iter);
         m_args.push_back(std::move(ptr));
         m_argv.get()[i] = m_args.back().get();
 

@@ -7,7 +7,7 @@
 
 class Argv {
 public:
-    Argv(std::initializer_list<const char*> args);
+    explicit Argv(std::initializer_list<const char*> args);
     char** argv() const;
     size_t argc() const;
 
