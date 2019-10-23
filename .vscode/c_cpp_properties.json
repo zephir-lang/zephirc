@@ -1,7 +1,6 @@
 {
     "version": 4,
     "env": {
-        "macOsGccPath": "/usr/local/bin/gcc-8",
         "defaultIncludePath": [
             "${workspaceFolder}/src",
             "${workspaceFolder}/build/test/googletest/src/googletest/include"
