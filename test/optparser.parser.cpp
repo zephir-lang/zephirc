@@ -16,15 +16,15 @@ TEST(optparser, without_params)
     std::memset(&cmd, 0, sizeof(cmd));
 
     // command is NONE
-    ASSERT_TRUE(commands::parseopt(args, cmd));
-    ASSERT_EQ(cmd.kind, commands::NONE);
+    EXPECT_TRUE(commands::parseopt(args, cmd));
+    EXPECT_EQ(cmd.kind, commands::NONE);
 
     // all global options in default state
-    ASSERT_FALSE(cmd.quiet);
-    ASSERT_FALSE(cmd.common_help);
-    ASSERT_FALSE(cmd.version);
-    ASSERT_FALSE(cmd.vernum);
-    ASSERT_FALSE(cmd.dumpversion);
+    EXPECT_FALSE(cmd.quiet);
+    EXPECT_FALSE(cmd.common_help);
+    EXPECT_FALSE(cmd.version);
+    EXPECT_FALSE(cmd.vernum);
+    EXPECT_FALSE(cmd.dumpversion);
 }
 
 TEST(optparser, api_without_params)
@@ -41,23 +41,23 @@ TEST(optparser, api_without_params)
     std::memset(&cmd, 0, sizeof(cmd));
 
     // command is NONE
-    ASSERT_TRUE(commands::parseopt(args, cmd));
-    ASSERT_EQ(cmd.kind, commands::API);
+    EXPECT_TRUE(commands::parseopt(args, cmd));
+    EXPECT_EQ(cmd.kind, commands::API);
 
     // all API options are in default state
-    ASSERT_FALSE(cmd.api.backend);
-    ASSERT_FALSE(cmd.api.path);
-    ASSERT_FALSE(cmd.api.output);
-    ASSERT_FALSE(cmd.api.options);
-    ASSERT_FALSE(cmd.api.url);
-    ASSERT_FALSE(cmd.api.help);
+    EXPECT_FALSE(cmd.api.backend);
+    EXPECT_FALSE(cmd.api.path);
+    EXPECT_FALSE(cmd.api.output);
+    EXPECT_FALSE(cmd.api.options);
+    EXPECT_FALSE(cmd.api.url);
+    EXPECT_FALSE(cmd.api.help);
 
     // all global options are in default state
-    ASSERT_FALSE(cmd.quiet);
-    ASSERT_FALSE(cmd.common_help);
-    ASSERT_FALSE(cmd.version);
-    ASSERT_FALSE(cmd.vernum);
-    ASSERT_FALSE(cmd.dumpversion);
+    EXPECT_FALSE(cmd.quiet);
+    EXPECT_FALSE(cmd.common_help);
+    EXPECT_FALSE(cmd.version);
+    EXPECT_FALSE(cmd.vernum);
+    EXPECT_FALSE(cmd.dumpversion);
 }
 
 TEST(optparser, api_using_help)
@@ -75,23 +75,23 @@ TEST(optparser, api_using_help)
     std::memset(&cmd, 0, sizeof(cmd));
 
     // command is NONE
-    ASSERT_TRUE(commands::parseopt(args, cmd));
-    ASSERT_EQ(cmd.kind, commands::API);
+    EXPECT_TRUE(commands::parseopt(args, cmd));
+    EXPECT_EQ(cmd.kind, commands::API);
 
     // only help option was changed
-    ASSERT_FALSE(cmd.api.backend);
-    ASSERT_FALSE(cmd.api.path);
-    ASSERT_FALSE(cmd.api.output);
-    ASSERT_FALSE(cmd.api.options);
-    ASSERT_FALSE(cmd.api.url);
-    ASSERT_TRUE(cmd.api.help);
+    EXPECT_FALSE(cmd.api.backend);
+    EXPECT_FALSE(cmd.api.path);
+    EXPECT_FALSE(cmd.api.output);
+    EXPECT_FALSE(cmd.api.options);
+    EXPECT_FALSE(cmd.api.url);
+    EXPECT_TRUE(cmd.api.help);
 
     // all global options are in default state
-    ASSERT_FALSE(cmd.quiet);
-    ASSERT_FALSE(cmd.common_help);
-    ASSERT_FALSE(cmd.version);
-    ASSERT_FALSE(cmd.vernum);
-    ASSERT_FALSE(cmd.dumpversion);
+    EXPECT_FALSE(cmd.quiet);
+    EXPECT_FALSE(cmd.common_help);
+    EXPECT_FALSE(cmd.version);
+    EXPECT_FALSE(cmd.vernum);
+    EXPECT_FALSE(cmd.dumpversion);
 }
 
 TEST(optparser, api_typical_usage)
@@ -113,14 +113,14 @@ TEST(optparser, api_typical_usage)
     std::memset(&cmd, 0, sizeof(cmd));
 
     // command is NONE
-    ASSERT_TRUE(commands::parseopt(args, cmd));
-    ASSERT_EQ(cmd.kind, commands::API);
+    EXPECT_TRUE(commands::parseopt(args, cmd));
+    EXPECT_EQ(cmd.kind, commands::API);
 
     // only help option was changed
-    ASSERT_STREQ( cmd.api.backend, "ZendEngine3");
-    ASSERT_STREQ(cmd.api.path, "theme");
-    ASSERT_STREQ(cmd.api.output, "out");
-    ASSERT_STREQ(cmd.api.options, "opts");
-    ASSERT_STREQ(cmd.api.url, "http://test.com");
-    ASSERT_FALSE(cmd.api.help);
+    EXPECT_STREQ(cmd.api.backend, "ZendEngine3");
+    EXPECT_STREQ(cmd.api.path, "theme");
+    EXPECT_STREQ(cmd.api.output, "out");
+    EXPECT_STREQ(cmd.api.options, "opts");
+    EXPECT_STREQ(cmd.api.url, "http://test.com");
+    EXPECT_FALSE(cmd.api.help);
 }
