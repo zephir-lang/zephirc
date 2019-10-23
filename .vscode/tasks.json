@@ -55,9 +55,6 @@
         "cwd": "${workspaceRoot}/build"
       },
       "command": "ctest",
-      "args": [
-        "-VV",
-      ],
       "type":"shell",
       "presentation": {
         "echo": true,

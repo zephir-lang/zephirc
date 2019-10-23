@@ -3,7 +3,9 @@
     "env": {
         "defaultIncludePath": [
             "${workspaceFolder}/src",
-            "${workspaceFolder}/build/test/googletest/src/googletest/include"
+            "${workspaceFolder}/tests",
+            "${workspaceFolder}/build/test/googletest/src/googletest/include",
+            "${workspaceFolder}/build/test/googletest/src/googlemock/include"
         ]
     },
     "configurations": [
