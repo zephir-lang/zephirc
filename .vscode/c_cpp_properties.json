@@ -1,0 +1,44 @@
+{
+    "version": 4,
+    "env": {
+        "macOsGccPath": "/usr/local/bin/gcc-8",
+        "defaultIncludePath": [
+            "${workspaceFolder}/src",
+            "${workspaceFolder}/build/test/googletest/src/googletest/include"
+        ]
+    },
+    "configurations": [
+        {
+            "name": "Zephir for macOs",
+            "intelliSenseMode": "clang-x64",
+            "includePath": [
+                "${defaultIncludePath}"
+            ],
+            "browse": {
+                "path": [
+                    "${defaultIncludePath}"
+                ],
+                "limitSymbolsToIncludedHeaders": false,
+                "databaseFilename": "${workspaceFolder}/.vscode/browse.vc.db"
+            },
+            "compilerPath": "/usr/bin/clang",
+            "cppStandard": "c++11"
+        },
+        {
+            "name": "Zephir for Linux",
+            "intelliSenseMode": "clang-x64",
+            "includePath": [
+                "${defaultIncludePath}"
+            ],
+            "browse": {
+                "path": [
+                    "${defaultIncludePath}"
+                ],
+                "limitSymbolsToIncludedHeaders": false,
+                "databaseFilename": "${workspaceFolder}/.vscode/browse.vc.db"
+            },
+            "compilerPath": "/usr/bin/gcc",
+            "cppStandard": "c++11"
+        }
+    ]
+}
