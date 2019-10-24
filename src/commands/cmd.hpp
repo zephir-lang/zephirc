@@ -3,88 +3,88 @@
 
 namespace commands {
 
-    enum CmdKind {
-        NONE = 0,
-        API,
-        BUILD,
-        CLEAN,
-        FULLCLEAN,
-        GENERATE,
-        HELP,
-        INIT,
-        INSTALL,
-        STUBS
-    };
+enum CmdKind {
+  NONE = 0,
+  API,
+  BUILD,
+  CLEAN,
+  FULLCLEAN,
+  GENERATE,
+  HELP,
+  INIT,
+  INSTALL,
+  STUBS
+};
 
-    class Cmd {
-    public:
-        // what kind of command
-        CmdKind kind;
+class Cmd {
+ public:
+  // what kind of command
+  CmdKind kind;
 
-        // command-specific options
-        union {
-            // api-specific options
-            struct {
-                const char *backend;
-                const char *path;
-                const char *output;
-                const char *options;
-                const char *url;
-                bool help;
-            } api;
+  // command-specific options
+  union {
+    // api-specific options
+    struct {
+      const char *backend;
+      const char *path;
+      const char *output;
+      const char *options;
+      const char *url;
+      bool help;
+    } api;
 
-            // build-specific options
-            struct {
-                // ...
-            } build;
+    // build-specific options
+    struct {
+      // ...
+    } build;
 
-            // clean-specific options
-            struct {
-                // ...
-            } clean;
+    // clean-specific options
+    struct {
+      // ...
+    } clean;
 
-            // fullclean-specific options
-            struct {
-                // ...
-            } fullclean;
+    // fullclean-specific options
+    struct {
+      // ...
+    } fullclean;
 
-            // generate-specific options
-            struct {
-                // ...
-            } generate;
+    // generate-specific options
+    struct {
+      // ...
+    } generate;
 
-            // help-specific options
-            struct {
-                // ...
-            } help;
+    // help-specific options
+    struct {
+      // ...
+    } help;
 
-            // init-specific options
-            struct {
-                // ...
-            } init;
+    // init-specific options
+    struct {
+      // ...
+    } init;
 
-            // install-specific options
-            struct {
-                // ...
-            } install;
+    // install-specific options
+    struct {
+      // ...
+    } install;
 
-            // stubs-specific options
-            struct {
-                // ...
-            } stubs;
-        };
+    // stubs-specific options
+    struct {
+      // ...
+    } stubs;
+  };
 
-        // common options
-        struct {
-            bool quiet;
-            bool common_help;
-            bool version;
-            bool vernum;
-            bool dumpversion;
-        };
-    };
+  // common options
+  struct {
+    bool quiet;
+    bool common_help;
+    bool version;
+    bool vernum;
+    bool dumpversion;
+  };
+};
 
-    bool parseopt(char **argv, Cmd &cmd);
-}
+bool parseopt(char **argv, Cmd &cmd);
+}  // namespace commands
 
-#endif // ZEPHIR_COMMANDS_CMD_HPP
+#endif  // ZEPHIR_COMMANDS_CMD_HPP
