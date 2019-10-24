@@ -6,8 +6,9 @@
 # https://help.github.com/articles/ignoring-files/#create-a-global-gitignore
 
 # Keep Visual Studio Code settings
-!.vscode/tasks.json
 !.vscode/c_cpp_properties.json
+!.vscode/settings.json
+!.vscode/tasks.json
 
 /build/
 /build-*/

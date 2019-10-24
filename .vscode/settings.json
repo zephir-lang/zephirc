@@ -1,0 +1,7 @@
+{
+    "c-cpp-flylint.cppcheck.force": false,
+    "c-cpp-flylint.standard": [
+        "c11",
+        "c++11"
+    ]
+}
