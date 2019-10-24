@@ -21,10 +21,8 @@ add_library(${TARGET_NAME} STATIC cmd.hpp "${RE2C_commands_OUTPUTS}")
 
 # CMakeLists.txt ends here
 
-# cmake-format: off
 # Local Variables:
 # mode: cmake
 # tab-width: 4
 # indent-tabs-mode: nil
 # End:
-# cmake-format: on

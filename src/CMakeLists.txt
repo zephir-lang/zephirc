@@ -9,10 +9,8 @@ target_link_libraries(${TARGET_NAME} commands)
 
 # CMakeLists.txt ends here
 
-# cmake-format: off
 # Local Variables:
 # mode: cmake
 # tab-width: 4
 # indent-tabs-mode: nil
 # End:
-# cmake-format: on

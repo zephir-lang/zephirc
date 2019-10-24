@@ -7,14 +7,12 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
 # Set a default build type for single-configuration CMake generators if no build
 # type is set.
-# cmake-format: off
 if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Debug CACHE
         STRING
         "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel."
         FORCE)
 endif ()
-# cmake-format: on
 
 if(NOT CMAKE_CXX_STANDARD)
   set(CMAKE_CXX_STANDARD 11)
@@ -33,12 +31,19 @@ set(LIBRARY_OUTPUT_PATH "${CMAKE_BINARY_DIR}/lib")
 
 include(CTest)
 
+add_subdirectory(src)
+
+option(ZEPHIR_BUILD_TESTING "Build test project" OFF)
+
+if (BUILD_TESTING AND ZEPHIR_BUILD_TESTING)
+    message(STATUS "Include test sources")
+    add_subdirectory(test)
+endif()
+
 # CMakeLists.txt ends here
 
-# cmake-format: off
 # Local Variables:
 # mode: cmake
 # tab-width: 4
 # indent-tabs-mode: nil
 # End:
-# cmake-format: on
