@@ -1,5 +1,5 @@
-#ifndef ZEPHIR_COMMANDS_CMD_HPP
-#define ZEPHIR_COMMANDS_CMD_HPP
+#ifndef ZEPHIR_COMMANDS_CMD_HPP_
+#define ZEPHIR_COMMANDS_CMD_HPP_
 
 namespace commands {
 
@@ -87,4 +87,4 @@ class Cmd {
 bool parseopt(char **argv, Cmd &cmd);
 }  // namespace commands
 
-#endif  // ZEPHIR_COMMANDS_CMD_HPP
+#endif  // ZEPHIR_COMMANDS_CMD_HPP_
