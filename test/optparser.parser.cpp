@@ -1,11 +1,11 @@
 #include <gtest/gtest.h>
 
 #include "../src/commands/cmd.hpp"
+#include "../src/commands/optionexception.hpp"
 #include "argv.hpp"
 
 TEST(optparser, without_params) {
   Argv argv({"zephir", ""});
-
   char **args = argv.argv();
 
   commands::Cmd cmd;
@@ -25,7 +25,6 @@ TEST(optparser, without_params) {
 
 TEST(optparser, api_without_params) {
   Argv argv({"zephir", "api", ""});
-
   char **args = argv.argv();
 
   commands::Cmd cmd;
@@ -53,7 +52,6 @@ TEST(optparser, api_without_params) {
 
 TEST(optparser, api_using_help) {
   Argv argv({"zephir", "api", "--help", ""});
-
   char **args = argv.argv();
 
   commands::Cmd cmd;
@@ -82,7 +80,6 @@ TEST(optparser, api_using_help) {
 TEST(optparser, api_typical_usage) {
   Argv argv({"zephir", "api", "--url=http://test.com", "--backend=ZendEngine3",
              "-p", "theme", "-o", "out", "--options=opts", ""});
-
   char **args = argv.argv();
 
   commands::Cmd cmd;
@@ -99,4 +96,23 @@ TEST(optparser, api_typical_usage) {
   EXPECT_STREQ(cmd.api.options, "opts");
   EXPECT_STREQ(cmd.api.url, "http://test.com");
   EXPECT_FALSE(cmd.api.help);
+}
+
+TEST(optparser, api_throw_exception) {
+  Argv argv({"zephir", "api", "--foo", ""});
+  char **args = argv.argv();
+
+  commands::Cmd cmd;
+  std::memset(&cmd, 0, sizeof(cmd));
+
+  try {
+    commands::parseopt(args, cmd);
+    FAIL() << "commands::parseopt() should throw an error" << std::endl;
+  } catch (commands::OptionException& e) {
+    EXPECT_STREQ(e.what(), "The '--foo' option does not exist");
+  } catch (std::runtime_error& e) {
+    FAIL() << "Was expecting commands::OptionException: " << e.what() << std::endl;
+  } catch (...) {
+    FAIL() << "ERROR: Unexpected exception thrown: " << std::current_exception << std::endl;
+  }
 }
