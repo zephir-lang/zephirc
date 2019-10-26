@@ -108,11 +108,13 @@ TEST(optparser, api_throw_exception) {
   try {
     commands::parseopt(args, cmd);
     FAIL() << "commands::parseopt() should throw an error" << std::endl;
-  } catch (commands::OptionException& e) {
+  } catch (commands::OptionException &e) {
     EXPECT_STREQ(e.what(), "The '--foo' option does not exist");
-  } catch (std::runtime_error& e) {
-    FAIL() << "Was expecting commands::OptionException: " << e.what() << std::endl;
+  } catch (std::runtime_error &e) {
+    FAIL() << "Was expecting commands::OptionException: " << e.what()
+           << std::endl;
   } catch (...) {
-    FAIL() << "ERROR: Unexpected exception thrown: " << std::current_exception << std::endl;
+    FAIL() << "ERROR: Unexpected exception thrown: " << std::current_exception
+           << std::endl;
   }
 }
