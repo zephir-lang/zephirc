@@ -85,11 +85,11 @@ TEST(optparser, api_typical_usage) {
   commands::Cmd cmd;
   std::memset(&cmd, 0, sizeof(cmd));
 
-  // command is NONE
+  // command is API
   EXPECT_TRUE(commands::parseopt(args, cmd));
   EXPECT_EQ(cmd.kind, commands::API);
 
-  // only help option was changed
+  // API options should be changed
   EXPECT_STREQ(cmd.api.backend, "ZendEngine3");
   EXPECT_STREQ(cmd.api.path, "theme");
   EXPECT_STREQ(cmd.api.output, "out");
