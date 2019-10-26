@@ -13,8 +13,12 @@ re2c_target(commands
         COMPILE_FLAGS
         "-W -Werror -c")
 
-# Add definition for optparser library.
-add_library(commands STATIC cmd.hpp "${RE2C_commands_OUTPUTS}")
+# Add definition for commands library.
+add_library(commands STATIC
+            cmd.hpp
+            optionexception.cpp
+            optionexception.hpp
+            "${RE2C_commands_OUTPUTS}")
 
 # CMakeLists.txt ends here
 
