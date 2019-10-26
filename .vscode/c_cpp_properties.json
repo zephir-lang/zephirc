@@ -1,24 +1,12 @@
 {
     "version": 4,
-    "env": {
-        "defaultIncludePath": [
-            "${workspaceFolder}/src",
-            "${workspaceFolder}/tests",
-            "${workspaceFolder}/build/test/googletest/src/googletest/include",
-            "${workspaceFolder}/build/test/googletest/src/googlemock/include"
-        ]
-    },
     "configurations": [
         {
             "name": "Zephir for macOs",
             "intelliSenseMode": "clang-x64",
-            "includePath": [
-                "${defaultIncludePath}"
-            ],
+            "includePath": ["${workspaceFolder}/**"],
             "browse": {
-                "path": [
-                    "${defaultIncludePath}"
-                ],
+                "path": ["${workspaceFolder}/**"],
                 "limitSymbolsToIncludedHeaders": false,
                 "databaseFilename": "${workspaceFolder}/.vscode/browse.vc.db"
             },
@@ -28,13 +16,9 @@
         {
             "name": "Zephir for Linux",
             "intelliSenseMode": "clang-x64",
-            "includePath": [
-                "${defaultIncludePath}"
-            ],
+            "includePath": ["${workspaceFolder}/**"],
             "browse": {
-                "path": [
-                    "${defaultIncludePath}"
-                ],
+                "path": ["${workspaceFolder}/**"],
                 "limitSymbolsToIncludedHeaders": false,
                 "databaseFilename": "${workspaceFolder}/.vscode/browse.vc.db"
             },
