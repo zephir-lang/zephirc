@@ -1,11 +1,9 @@
-set(TARGET_NAME zephir)
-
 include(CxxFlags)
 
 add_subdirectory(commands)
 
-add_executable(${TARGET_NAME} main.cpp)
-target_link_libraries(${TARGET_NAME} commands)
+add_executable(zephir main.cpp)
+target_link_libraries(zephir commands)
 
 # CMakeLists.txt ends here
 
