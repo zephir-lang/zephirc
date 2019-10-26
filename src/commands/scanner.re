@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "cmd.hpp"
+#include "optionexception.hpp"
 
 /*!types:re2c*/
 namespace commands {
@@ -27,8 +28,8 @@ loop:
    eq  = "=";
 
    <init> * {
-      std::cerr << "Command '" << *argv << "' is not defined" << std::endl;
-      return false;
+      throw OptionException(
+         "Command '" + std::string(*argv) + "' is not defined");
    }
 
    <init> ("-h" | "--help") end {
@@ -57,17 +58,16 @@ loop:
    }
 
    <*> * {
-      std::cerr << "The \"" << *argv << "\" option does not exist. ";
-      std::cerr << "Did you missed '=' or forget to escape option's value?"
-                << std::endl; return false;
+      throw OptionException(
+         "The '" + std::string(*argv) + "' option does not exist"
+      );
    }
 
    <api> "--backend" (eq | end) {
       if (YYCURSOR[-1] == 0) {
-          if (!(YYCURSOR = *++argv)) {
-              std::cerr << "The '--backend' option requires a value"
-                        << std::endl; return false;
-          }
+         if (!(YYCURSOR = *++argv)) {
+            throw OptionException("The '--backend' option requires a value");
+         }
       }
 
       cmd.api.backend = YYCURSOR;
@@ -76,10 +76,9 @@ loop:
 
    <api> ("-p" end) | ("--path" (eq | end)) {
       if (YYCURSOR[-1] == 0) {
-          if (!(YYCURSOR = *++argv)) {
-              std::cerr << "The '--path' option requires a value"
-                        << std::endl; return false;
-          }
+         if (!(YYCURSOR = *++argv)) {
+            throw OptionException("The '--path' option requires a value");
+         }
       }
 
       cmd.api.path = YYCURSOR;
@@ -88,9 +87,8 @@ loop:
 
    <api> ("-o" end) | ("--output" (eq | end)) {
       if (YYCURSOR[-1] == 0) {
-          if (!(YYCURSOR = *++argv)) {
-              std::cerr << "The '--output' option requires a value"
-                        << std::endl; return false;
+         if (!(YYCURSOR = *++argv)) {
+            throw OptionException("The '--output' option requires a value");
           }
       }
 
@@ -100,10 +98,9 @@ loop:
 
    <api> "--options" (eq | end) {
       if (YYCURSOR[-1] == 0) {
-          if (!(YYCURSOR = *++argv)) {
-              std::cerr << "The '--options' option requires a value"
-                        << std::endl; return false;
-          }
+         if (!(YYCURSOR = *++argv)) {
+            throw OptionException("The '--options' option requires a value");
+         }
       }
 
       cmd.api.options = YYCURSOR;
@@ -117,10 +114,9 @@ loop:
 
    <api> "--url" (eq | end) {
       if (YYCURSOR[-1] == 0) {
-          if (!(YYCURSOR = *++argv)) {
-              std::cerr << "The '--url' option requires a value" << std::endl;
-              return false;
-          }
+         if (!(YYCURSOR = *++argv)) {
+            throw OptionException("The '--url' option requires a value");
+         }
       }
 
       cmd.api.url = YYCURSOR;
@@ -133,8 +129,7 @@ loop:
    }
 
    <backend> * {
-      std::cerr << "Backend '" << *argv << "' does not supported" <<
-  std::endl; return false;
+      throw OptionException("Backend '" + std::string(*argv) + "' does not supported");
    }
 
    <backend> "ZendEngine3" end {
@@ -142,8 +137,7 @@ loop:
    }
 
    <path> * {
-      std::cerr << "Invalid path specification" << std::endl;
-      return false;
+      throw OptionException("Invalid path specification");
    }
 
    <path> [^\x00]+ end {
@@ -151,8 +145,7 @@ loop:
    }
 
    <output> * {
-      std::cerr << "Invalid output specification" << std::endl;
-      return false;
+      throw OptionException("Invalid output specification");
    }
 
    <output> [^\x00]+ end {
@@ -160,8 +153,7 @@ loop:
    }
 
    <options> * {
-      std::cerr << "Invalid options specification" << std::endl;
-      return false;
+      throw OptionException("Invalid options specification");
    }
 
    <options> [^\x00]+ end {
@@ -169,8 +161,7 @@ loop:
    }
 
    <url> * {
-      std::cerr << "Invalid url specification" << std::endl;
-      return false;
+      throw OptionException("Invalid url specification");
    }
 
    <url> [^\x00]+ end {
