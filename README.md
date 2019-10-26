@@ -39,6 +39,7 @@ cmake -H. \
 cd build
 make
 ctest
+make cppcheck # optinal
 ```
 
 ## License

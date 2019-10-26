@@ -53,6 +53,8 @@ add_subdirectory(src)
 option(ZEPHIR_BUILD_TESTING "Build test project" OFF)
 
 if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME AND BUILD_TESTING AND ZEPHIR_BUILD_TESTING)
+    include(cppcheck)
+
     message(STATUS "Include test sources")
     add_subdirectory(test)
 endif()
