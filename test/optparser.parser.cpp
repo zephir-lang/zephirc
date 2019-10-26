@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+#include <cstring>
 
 #include "../src/commands/cmd.hpp"
 #include "../src/commands/optionexception.hpp"
