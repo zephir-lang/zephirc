@@ -41,7 +41,7 @@ elseif(WIN32)
   find_program(RE2C_EXECUTABLE
                NAMES re2c.exe
                PATHS $ENV{RE2C_DIR} C:/
-               PATH_SUFFIXES re2c/bin bin
+               PATH_SUFFIXES ""
                DOC "path to the re2c executable")
 endif()
 
