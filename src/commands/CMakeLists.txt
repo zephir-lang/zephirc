@@ -8,8 +8,8 @@ endif ()
 
 # Usage RE2C_TARGET(<Name> <Input> <Output> [COMPILE_FLAGS <string>]
 re2c_target(commands
-        "${CMAKE_SOURCE_DIR}/src/commands/scanner.re"
-        "${CMAKE_SOURCE_DIR}/src/commands/scanner.cpp"
+        "${CMAKE_SOURCE_DIR}/src/commands/options.re"
+        "${CMAKE_SOURCE_DIR}/src/commands/options.cpp"
         COMPILE_FLAGS
         "-W -Werror -c")
 
