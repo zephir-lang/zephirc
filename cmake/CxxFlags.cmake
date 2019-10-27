@@ -1,14 +1,15 @@
-# RELEASE Flags
-
 # Show all warnings and enable some extra warning flags
 if(CMAKE_COMPILER_IS_GNUCXX OR (CMAKE_CXX_COMPILER_ID MATCHES "[Cc]lang"))
-  set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_DEBUG} -Wall")
-  set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_DEBUG} -Wextra")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
 elseif(MSVC)
-  set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_DEBUG} /W4")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Wall")
 endif()
 
-# Set release veriable todo: add_definitions(-DZEPHIR_RELEASE)
+message("CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS}")
+# RELEASE Flags
+
+# Set release veriable
+# TODO: add_definitions(-DZEPHIR_RELEASE)
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DZEPHIR_RELEASE")
 
 # DEBUG Flags
@@ -16,13 +17,10 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DZEPHIR_RELEASE")
 # Forcing the compiler to work harder helps finding potential problems
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0")
 
-# Show all warnings and enable some extra warning flags
-if(CMAKE_COMPILER_IS_GNUCXX OR (CMAKE_CXX_COMPILER_ID MATCHES "[Cc]lang"))
-  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall")
-  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wextra")
-elseif(MSVC)
-  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /W4")
-endif()
+# Disable frame pointer optimizations so profilers can get better call stacks
+if(CMAKE_COMPILER_IS_GNUCXX OR (CMAKE_CXX_COMPILER_ID MATCHES "[Cc]lang")) {
+  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fno-omit-frame-pointer")
+}
 
 # Warn if anything depends upn the size of a function or of void
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wpointer-arith")
@@ -76,7 +74,7 @@ if(ZEPHIR_CODE_COVERAGE)
     message(STATUS "Code coverage metrics enabled for debug build")
   elseif(MSVC)
     # TODO: what kind of flags are needed to profile on MSVC?
-    message(STATUS "Code coverage metrics isn't enabled for debug build")
+    message(FATAL_ERROR "Code coverage builds not supported on current platform")
   endif()
 endif()
 
