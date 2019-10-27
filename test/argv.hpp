@@ -1,5 +1,5 @@
-#ifndef ZEPHIR_TEST_ARGV_HPP
-#define ZEPHIR_TEST_ARGV_HPP
+#ifndef ZEPHIR_TEST_ARGV_HPP_
+#define ZEPHIR_TEST_ARGV_HPP_
 
 #include <initializer_list>
 #include <memory>
@@ -17,4 +17,4 @@ class Argv {
   size_t m_argc;
 };
 
-#endif  // ZEPHIR_TEST_ARGV_HPP
+#endif  // ZEPHIR_TEST_ARGV_HPP_

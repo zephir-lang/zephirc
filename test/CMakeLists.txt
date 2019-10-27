@@ -1,14 +1,18 @@
 include(InstallGoogleTest)
 include(GoogleTest)
 
-file(GLOB PARSER_TEST_SOURCE_LIST ./*.parser.cpp)
+file(GLOB OPTIONS_TEST_SOURCE_LIST ./commands/*.options.cpp)
 
-add_executable(parser_tests main.cpp argv.cpp ${PARSER_TEST_SOURCE_LIST})
+add_executable(options_test
+    main.cpp
+    argv.cpp
+    ${OPTIONS_TEST_SOURCE_LIST})
 
-target_link_libraries(parser_tests PRIVATE commands gtest gtest_main)
+target_link_libraries(options_test
+    PRIVATE gtest commands)
 
-gtest_discover_tests(parser_tests
-                     PROPERTIES LABELS SelfTest)
+gtest_discover_tests(options_test
+    PROPERTIES LABELS OptionsTest)
 
 # CMakeLists.txt ends here
 
