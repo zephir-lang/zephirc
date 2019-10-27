@@ -21,7 +21,7 @@ endif()
 mark_as_advanced(CPPCHECK_EXECUTABLE)
 
 if(CPPCHECK_EXECUTABLE)
-    message(STATUS "Looking for cppcheck... ${CPPCHECK_EXECUTABLE}")
+    message(STATUS "Check for cppcheck: ${CPPCHECK_EXECUTABLE}")
     add_custom_target(cppcheck
         COMMAND "${CPPCHECK_EXECUTABLE}"
                 --quiet
@@ -32,7 +32,7 @@ if(CPPCHECK_EXECUTABLE)
                 "--suppress=*:${CMAKE_SOURCE_DIR}/src/commands/scanner.cpp"
                 "${CMAKE_SOURCE_DIR}/src")
 else()
-    message(STATUS "Looking for cppcheck... NOT FOUND")
+    message(STATUS "Check for cppcheck: not found")
 endif()
 
 # cppcheck.cmake ends here
