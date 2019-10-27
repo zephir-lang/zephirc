@@ -8,5 +8,6 @@
     "files.associations": {
         "*.re": "cpp",
         "*.cmake.in": "cmake",
+        ".clang-format": "yaml"
     }
 }
