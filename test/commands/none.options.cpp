@@ -5,13 +5,15 @@
 // TODO: Make it better
 #include "../../src/commands/cmd.hpp"
 #include "../../src/commands/optionexception.hpp"
+#include "../../src/commands/options.hpp"
 #include "../argv.hpp"
 
 class NoneCmdTest : public ::testing::Test {
  protected:
-  void SetUp() override { std::memset(&cmd, 0, sizeof(cmd)); }
+  NoneCmdTest() : options(), cmd() {}
 
   commands::Cmd cmd;
+  commands::Options options;
 };
 
 TEST_F(NoneCmdTest, InitWithoutParams) {
@@ -19,7 +21,7 @@ TEST_F(NoneCmdTest, InitWithoutParams) {
   char **args = argv.argv();
 
   // command is NONE
-  EXPECT_TRUE(commands::parseopt(args, cmd));
+  options.parseopt(args, cmd);
   EXPECT_EQ(cmd.kind, commands::CmdKind::NONE);
 
   // all global options in default state

@@ -19,7 +19,7 @@ gtest_discover_tests(options_test
 # TODO: sharness tests
 # if(NOT WIN32)
 #     add_test(
-#     NAME              Blackbox
+#     NAME              BlackboxTest
 #     COMMAND           make
 #     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/sharness")
 # endif()

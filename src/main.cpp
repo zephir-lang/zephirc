@@ -1,6 +1,7 @@
 #include <cstring>
 #include <iostream>
 
+#include "commands/options.hpp"
 #include "commands/cmd.hpp"
 #include "commands/optionexception.hpp"
 
@@ -8,9 +9,10 @@ int main(int argc, char** argv) {
   commands::Cmd cmd;
   std::memset(&cmd, 0, sizeof(cmd));
 
-  //
+  auto options = new commands::Options;
+
   try {
-    commands::parseopt(argv, cmd);
+    options->parseopt(argv, cmd);
 
     switch (cmd.kind) {
       case commands::CmdKind::NONE:
@@ -39,9 +41,12 @@ int main(int argc, char** argv) {
     std::cout << "\tvernum: " << cmd.common.vernum << std::endl;
     std::cout << "\tdumpversion: " << cmd.common.dumpversion << std::endl;
 
+    delete options;
     return 0;
   } catch (const commands::OptionException& e) {
     std::cerr << e.what() << std::endl;
+
+    delete options;
     return 1;
   }
 }

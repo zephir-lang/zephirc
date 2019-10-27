@@ -27,7 +27,7 @@ struct ApiCmd {
 };
 
 // build-specific options
-struct BuilCmd {};
+struct BuildCmd {};
 
 // clean-specific options
 struct CleanCmd {};
@@ -67,7 +67,7 @@ class Cmd {
   // command-specific options
   union {
     ApiCmd api;
-    BuilCmd build;
+    BuildCmd build;
     CleanCmd clean;
     FullcleanCmd fullclean;
     GenerateCmd generate;
@@ -79,8 +79,6 @@ class Cmd {
 
   CommonOpts common;
 };
-
-bool parseopt(char **argv, Cmd &cmd);
 }  // namespace commands
 
 #endif  // ZEPHIR_COMMANDS_CMD_HPP_

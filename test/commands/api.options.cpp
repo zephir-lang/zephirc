@@ -5,13 +5,15 @@
 // TODO: Make it better
 #include "../../src/commands/cmd.hpp"
 #include "../../src/commands/optionexception.hpp"
+#include "../../src/commands/options.hpp"
 #include "../argv.hpp"
 
 class ApiCmdTest : public ::testing::Test {
  protected:
-  void SetUp() override { std::memset(&cmd, 0, sizeof(cmd)); }
+  ApiCmdTest() : options(), cmd() {}
 
   commands::Cmd cmd;
+  commands::Options options;
 };
 
 TEST_F(ApiCmdTest, InitWithoutParams) {
@@ -19,7 +21,7 @@ TEST_F(ApiCmdTest, InitWithoutParams) {
   char **args = argv.argv();
 
   // command is API
-  EXPECT_TRUE(commands::parseopt(args, cmd));
+  options.parseopt(args, cmd);
   EXPECT_EQ(cmd.kind, commands::CmdKind::API);
 
   // all API options are in default state
@@ -42,8 +44,8 @@ TEST_F(ApiCmdTest, UsingHelp) {
   Argv argv({"zephir", "api", "--help", ""});
   char **args = argv.argv();
 
-  // command is NONE
-  EXPECT_TRUE(commands::parseopt(args, cmd));
+  // command is API
+  options.parseopt(args, cmd);
   EXPECT_EQ(cmd.kind, commands::CmdKind::API);
 
   // only help option was changed
@@ -68,7 +70,7 @@ TEST_F(ApiCmdTest, TypicalUsage) {
   char **args = argv.argv();
 
   // command is API
-  EXPECT_TRUE(commands::parseopt(args, cmd));
+  options.parseopt(args, cmd);
   EXPECT_EQ(cmd.kind, commands::CmdKind::API);
 
   // API options should be changed
@@ -85,7 +87,7 @@ TEST_F(ApiCmdTest, ThrowExceptionOnIncorrectOption) {
   char **args = argv.argv();
 
   try {
-    commands::parseopt(args, cmd);
+    options.parseopt(args, cmd);
     FAIL() << "commands::parseopt() should throw an error" << std::endl;
   } catch (commands::OptionException &e) {
     EXPECT_STREQ(e.what(), "The '--foo' option does not exist");

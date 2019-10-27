@@ -1,17 +1,22 @@
 #include <iostream>
+#include <string>
 
 #include "cmd.hpp"
 #include "optionexception.hpp"
+#include "options.hpp"
 
 /*!types:re2c*/
 namespace commands {
-bool parseopt(char **argv, Cmd &cmd) {
+
+Options::Options() noexcept : m_program("Zephir") {}
+
+void Options::parseopt(char **argv, Cmd &cmd) {
   char *YYCURSOR, *YYMARKER;
   int cond = 0;
 
 loop:
   YYCURSOR = *++argv;
-  if (!YYCURSOR || *YYCURSOR == '\0') return true;
+  if (!YYCURSOR || *YYCURSOR == '\0') return;
 
   /*!re2c
    re2c:define:YYCTYPE = "unsigned char";
@@ -34,22 +39,22 @@ loop:
 
    <init> ("-h" | "--help") end {
       cmd.common.help = true;
-      return true;
+      return;
    }
 
    <init> ("-v" | "--version") end {
       cmd.common.version = true;
-      return true;
+      return;
    }
 
    <init> "--vernum" end {
       cmd.common.vernum = true;
-      return true;
+      return;
    }
 
   <init> "-"{1,2} "dumpversion" end {
       cmd.common.dumpversion = true;
-      return true;
+      return;
    }
 
    <init> "api" end => api {
@@ -169,6 +174,6 @@ loop:
    }
   */
 
-  return true;
+  return;
 }
 }  // namespace commands
