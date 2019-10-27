@@ -1,15 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-
-file(STRINGS "${CMAKE_CURRENT_SOURCE_DIR}/src/version.hpp" zephir_version
-        REGEX "#define ZEPHIR_VERSION_(MAJOR|MINOR|PATCH)")
-
-foreach(part ${zephir_version})
-    if(part MATCHES "#define ZEPHIR_VERSION_(MAJOR|MINOR|PATCH) +([^ ]+)$")
-        set(ZEPHIR_VERSION_${CMAKE_MATCH_1} "${CMAKE_MATCH_2}" CACHE INTERNAL "")
-    endif()
-endforeach()
-
-set(VERSION ${ZEPHIR_VERSION_MAJOR}.${ZEPHIR_VERSION_MINOR}.${ZEPHIR_VERSION_PATCH})
+include("${CMAKE_SOURCE_DIR}/cmake/version.cmake")
 
 project(zephir LANGUAGES CXX VERSION "${VERSION}")
 

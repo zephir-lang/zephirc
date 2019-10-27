@@ -34,3 +34,11 @@ if(CPPCHECK_EXECUTABLE)
 else()
     message(STATUS "Looking for cppcheck... NOT FOUND")
 endif()
+
+# cppcheck.cmake ends here
+
+# Local Variables:
+# mode: cmake
+# tab-width: 4
+# indent-tabs-mode: nil
+# End:
