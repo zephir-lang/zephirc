@@ -12,7 +12,17 @@ target_link_libraries(options_test
     PRIVATE gtest commands)
 
 gtest_discover_tests(options_test
-    PROPERTIES LABELS OptionsTest)
+    TEST_PREFIX       gtest:
+    PROPERTIES        LABELS OptionsTest
+    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/commands")
+
+# TODO: sharness tests
+# if(NOT WIN32)
+#     add_test(
+#     NAME              Blackbox
+#     COMMAND           make
+#     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/sharness")
+# endif()
 
 # CMakeLists.txt ends here
 

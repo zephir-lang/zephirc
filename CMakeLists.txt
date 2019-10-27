@@ -3,6 +3,15 @@ include("${CMAKE_SOURCE_DIR}/cmake/version.cmake")
 
 project(zephir LANGUAGES CXX VERSION "${VERSION}")
 
+# Make sure developers do not run cmake in the main project directory, to keep
+# build artifacts from becoming clutter
+if (${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
+    message(FATAL_ERROR "
+    In-source builds not allowed.
+    Please make a new directory (called a build directory) and run CMake from there.
+    You may need to remove CMakeCache.txt." )
+endif()
+
 # Provide path for cmake scripts
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
