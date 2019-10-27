@@ -63,6 +63,23 @@ set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wunreachable-code")
 # Issue all warnings demanded by strict ISO C++
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -pedantic")
 
+# TODO: Move to separated module
+if(ZEPHIR_CODE_COVERAGE)
+  if(CMAKE_CXX_COMPILER_ID MATCHES "[Cc]lang")
+    # For more see: https://clang.llvm.org/docs/SourceBasedCodeCoverage.html
+    add_compile_options(-fprofile-instr-generate -fcoverage-mapping)
+    link_libraries(-fprofile-instr-generate -fcoverage-mapping)
+    message(STATUS "Code coverage metrics enabled for debug build")
+  elseif(CMAKE_COMPILER_IS_GNUCXX)
+    add_compile_options(-fprofile-arcs -ftest-coverage)
+    link_libraries(-fprofile-arcs -ftest-coverage)
+    message(STATUS "Code coverage metrics enabled for debug build")
+  elseif(MSVC)
+    # TODO: what kind of flags are needed to profile on MSVC?
+    message(STATUS "Code coverage metrics isn't enabled for debug build")
+  endif()
+endif()
+
 # CxxFlags.cmake ends here
 
 # Local Variables:

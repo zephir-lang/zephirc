@@ -48,9 +48,10 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     include(CTest)
 endif()
 
-add_subdirectory(src)
-
 option(ZEPHIR_BUILD_TESTING "Build test project" OFF)
+option(ZEPHIR_CODE_COVERAGE "Enable code coverage metrics" OFF)
+
+add_subdirectory(src)
 
 if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME AND BUILD_TESTING AND ZEPHIR_BUILD_TESTING)
     include(cppcheck)

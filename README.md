@@ -42,6 +42,8 @@ ctest
 make cppcheck # optinal
 ```
 
+To capture profiling and coverage data use `-DZEPHIR_CODE_COVERAGE=ON` cmake's flag.
+
 ## License
 
 Zephir licensed under the MIT License. See the [LICENSE][8] file for more information.
