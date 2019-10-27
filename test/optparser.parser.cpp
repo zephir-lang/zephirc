@@ -17,11 +17,11 @@ TEST(optparser, without_params) {
   EXPECT_EQ(cmd.kind, commands::CmdKind::NONE);
 
   // all global options in default state
-  EXPECT_FALSE(cmd.quiet);
-  EXPECT_FALSE(cmd.common_help);
-  EXPECT_FALSE(cmd.version);
-  EXPECT_FALSE(cmd.vernum);
-  EXPECT_FALSE(cmd.dumpversion);
+  EXPECT_FALSE(cmd.common.quiet);
+  EXPECT_FALSE(cmd.common.help);
+  EXPECT_FALSE(cmd.common.version);
+  EXPECT_FALSE(cmd.common.vernum);
+  EXPECT_FALSE(cmd.common.dumpversion);
 }
 
 TEST(optparser, api_without_params) {
@@ -44,11 +44,11 @@ TEST(optparser, api_without_params) {
   EXPECT_FALSE(cmd.api.help);
 
   // all global options are in default state
-  EXPECT_FALSE(cmd.quiet);
-  EXPECT_FALSE(cmd.common_help);
-  EXPECT_FALSE(cmd.version);
-  EXPECT_FALSE(cmd.vernum);
-  EXPECT_FALSE(cmd.dumpversion);
+  EXPECT_FALSE(cmd.common.quiet);
+  EXPECT_FALSE(cmd.common.help);
+  EXPECT_FALSE(cmd.common.version);
+  EXPECT_FALSE(cmd.common.vernum);
+  EXPECT_FALSE(cmd.common.dumpversion);
 }
 
 TEST(optparser, api_using_help) {
@@ -71,11 +71,11 @@ TEST(optparser, api_using_help) {
   EXPECT_TRUE(cmd.api.help);
 
   // all global options are in default state
-  EXPECT_FALSE(cmd.quiet);
-  EXPECT_FALSE(cmd.common_help);
-  EXPECT_FALSE(cmd.version);
-  EXPECT_FALSE(cmd.vernum);
-  EXPECT_FALSE(cmd.dumpversion);
+  EXPECT_FALSE(cmd.common.quiet);
+  EXPECT_FALSE(cmd.common.help);
+  EXPECT_FALSE(cmd.common.version);
+  EXPECT_FALSE(cmd.common.vernum);
+  EXPECT_FALSE(cmd.common.dumpversion);
 }
 
 TEST(optparser, api_typical_usage) {

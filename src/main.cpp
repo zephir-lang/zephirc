@@ -33,11 +33,11 @@ int main(int argc, char** argv) {
     }
 
     std::cout << "\nCOMMON OPTIONS" << std::endl;
-    std::cout << "\tquiet: " << cmd.quiet << std::endl;
-    std::cout << "\tcommon_help: " << cmd.common_help << std::endl;
-    std::cout << "\tversion: " << cmd.version << std::endl;
-    std::cout << "\tvernum: " << cmd.vernum << std::endl;
-    std::cout << "\tdumpversion: " << cmd.dumpversion << std::endl;
+    std::cout << "\tquiet: " << cmd.common.quiet << std::endl;
+    std::cout << "\tcommon_help: " << cmd.common.help << std::endl;
+    std::cout << "\tversion: " << cmd.common.version << std::endl;
+    std::cout << "\tvernum: " << cmd.common.vernum << std::endl;
+    std::cout << "\tdumpversion: " << cmd.common.dumpversion << std::endl;
 
     return 0;
   } catch (const commands::OptionException& e) {

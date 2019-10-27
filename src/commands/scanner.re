@@ -33,22 +33,22 @@ loop:
    }
 
    <init> ("-h" | "--help") end {
-      cmd.common_help = true;
+      cmd.common.help = true;
       return true;
    }
 
    <init> ("-v" | "--version") end {
-      cmd.version = true;
+      cmd.common.version = true;
       return true;
    }
 
    <init> "--vernum" end {
-      cmd.vernum = true;
+      cmd.common.vernum = true;
       return true;
    }
 
   <init> "-"{1,2} "dumpversion" end {
-      cmd.dumpversion = true;
+      cmd.common.dumpversion = true;
       return true;
    }
 
@@ -124,7 +124,7 @@ loop:
    }
 
   <api> ("-q" | "--quiet") end {
-      cmd.quiet = true;
+      cmd.common.quiet = true;
       goto loop;
    }
 

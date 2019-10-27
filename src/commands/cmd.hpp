@@ -50,6 +50,15 @@ struct InstallCmd {};
 // stubs-specific options
 struct StubsCmd {};
 
+// common options
+struct CommonOpts {
+  bool quiet;
+  bool help;
+  bool version;
+  bool vernum;
+  bool dumpversion;
+};
+
 class Cmd {
  public:
   // what kind of command
@@ -68,14 +77,7 @@ class Cmd {
     StubsCmd stubs;
   };
 
-  // common options
-  struct {
-    bool quiet;
-    bool common_help;
-    bool version;
-    bool vernum;
-    bool dumpversion;
-  };
+  CommonOpts common;
 };
 
 bool parseopt(char **argv, Cmd &cmd);
