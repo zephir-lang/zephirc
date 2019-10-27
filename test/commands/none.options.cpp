@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+
 #include <cstring>
 
 // TODO: Make it better
@@ -6,12 +7,16 @@
 #include "../../src/commands/optionexception.hpp"
 #include "../argv.hpp"
 
-TEST(common_cmd, without_params) {
-  Argv argv({"zephir", ""});
-  char **args = argv.argv();
+class NoneCmdTest : public ::testing::Test {
+ protected:
+  void SetUp() override { std::memset(&cmd, 0, sizeof(cmd)); }
 
   commands::Cmd cmd;
-  std::memset(&cmd, 0, sizeof(cmd));
+};
+
+TEST_F(NoneCmdTest, InitWithoutParams) {
+  Argv argv({"zephir", ""});
+  char **args = argv.argv();
 
   // command is NONE
   EXPECT_TRUE(commands::parseopt(args, cmd));

@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+
 #include <cstring>
 
 // TODO: Make it better
@@ -6,14 +7,18 @@
 #include "../../src/commands/optionexception.hpp"
 #include "../argv.hpp"
 
-TEST(api_cmd, without_params) {
+class ApiCmdTest : public ::testing::Test {
+ protected:
+  void SetUp() override { std::memset(&cmd, 0, sizeof(cmd)); }
+
+  commands::Cmd cmd;
+};
+
+TEST_F(ApiCmdTest, InitWithoutParams) {
   Argv argv({"zephir", "api", ""});
   char **args = argv.argv();
 
-  commands::Cmd cmd;
-  std::memset(&cmd, 0, sizeof(cmd));
-
-  // command is NONE
+  // command is API
   EXPECT_TRUE(commands::parseopt(args, cmd));
   EXPECT_EQ(cmd.kind, commands::CmdKind::API);
 
@@ -33,12 +38,9 @@ TEST(api_cmd, without_params) {
   EXPECT_FALSE(cmd.common.dumpversion);
 }
 
-TEST(api_cmd, using_help) {
+TEST_F(ApiCmdTest, UsingHelp) {
   Argv argv({"zephir", "api", "--help", ""});
   char **args = argv.argv();
-
-  commands::Cmd cmd;
-  std::memset(&cmd, 0, sizeof(cmd));
 
   // command is NONE
   EXPECT_TRUE(commands::parseopt(args, cmd));
@@ -60,13 +62,10 @@ TEST(api_cmd, using_help) {
   EXPECT_FALSE(cmd.common.dumpversion);
 }
 
-TEST(api_cmd, typical_usage) {
+TEST_F(ApiCmdTest, TypicalUsage) {
   Argv argv({"zephir", "api", "--url=http://test.com", "--backend=ZendEngine3",
              "-p", "theme", "-o", "out", "--options=opts", ""});
   char **args = argv.argv();
-
-  commands::Cmd cmd;
-  std::memset(&cmd, 0, sizeof(cmd));
 
   // command is API
   EXPECT_TRUE(commands::parseopt(args, cmd));
@@ -81,12 +80,9 @@ TEST(api_cmd, typical_usage) {
   EXPECT_FALSE(cmd.api.help);
 }
 
-TEST(api_cmd, incorrect_option) {
+TEST_F(ApiCmdTest, ThrowExceptionOnIncorrectOption) {
   Argv argv({"zephir", "api", "--foo", ""});
   char **args = argv.argv();
-
-  commands::Cmd cmd;
-  std::memset(&cmd, 0, sizeof(cmd));
 
   try {
     commands::parseopt(args, cmd);
