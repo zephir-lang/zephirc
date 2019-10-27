@@ -3,7 +3,7 @@
 
 namespace commands {
 
-enum CmdKind {
+enum class CmdKind {
   NONE = 0,
   API,
   BUILD,
@@ -16,6 +16,40 @@ enum CmdKind {
   STUBS
 };
 
+// api-specific options
+struct ApiCmd {
+  const char *backend;
+  const char *path;
+  const char *output;
+  const char *options;
+  const char *url;
+  bool help;
+};
+
+// build-specific options
+struct BuilCmd {};
+
+// clean-specific options
+struct CleanCmd {};
+
+// fullclean-specific options
+struct FullcleanCmd {};
+
+// generate-specific options
+struct GenerateCmd {};
+
+// help-specific options
+struct HelpCmd {};
+
+// init-specific options
+struct InitCmd {};
+
+// install-specific options
+struct InstallCmd {};
+
+// stubs-specific options
+struct StubsCmd {};
+
 class Cmd {
  public:
   // what kind of command
@@ -23,55 +57,15 @@ class Cmd {
 
   // command-specific options
   union {
-    // api-specific options
-    struct {
-      const char *backend;
-      const char *path;
-      const char *output;
-      const char *options;
-      const char *url;
-      bool help;
-    } api;
-
-    // build-specific options
-    struct {
-      // ...
-    } build;
-
-    // clean-specific options
-    struct {
-      // ...
-    } clean;
-
-    // fullclean-specific options
-    struct {
-      // ...
-    } fullclean;
-
-    // generate-specific options
-    struct {
-      // ...
-    } generate;
-
-    // help-specific options
-    struct {
-      // ...
-    } help;
-
-    // init-specific options
-    struct {
-      // ...
-    } init;
-
-    // install-specific options
-    struct {
-      // ...
-    } install;
-
-    // stubs-specific options
-    struct {
-      // ...
-    } stubs;
+    ApiCmd api;
+    BuilCmd build;
+    CleanCmd clean;
+    FullcleanCmd fullclean;
+    GenerateCmd generate;
+    HelpCmd help;
+    InitCmd init;
+    InstallCmd install;
+    StubsCmd stubs;
   };
 
   // common options

@@ -8,14 +8,15 @@ int main(int argc, char** argv) {
   commands::Cmd cmd;
   std::memset(&cmd, 0, sizeof(cmd));
 
+  //
   try {
     commands::parseopt(argv, cmd);
 
     switch (cmd.kind) {
-      case commands::NONE:
+      case commands::CmdKind::NONE:
         std::cout << "NONE" << std::endl;
         break;
-      case commands::API:
+      case commands::CmdKind::API:
         std::cout << "API" << std::endl;
         std::cout << "\tbackend: " << (cmd.api.backend ? cmd.api.backend : "-")
                   << std::endl;

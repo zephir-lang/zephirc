@@ -14,7 +14,7 @@ TEST(optparser, without_params) {
 
   // command is NONE
   EXPECT_TRUE(commands::parseopt(args, cmd));
-  EXPECT_EQ(cmd.kind, commands::NONE);
+  EXPECT_EQ(cmd.kind, commands::CmdKind::NONE);
 
   // all global options in default state
   EXPECT_FALSE(cmd.quiet);
@@ -33,7 +33,7 @@ TEST(optparser, api_without_params) {
 
   // command is NONE
   EXPECT_TRUE(commands::parseopt(args, cmd));
-  EXPECT_EQ(cmd.kind, commands::API);
+  EXPECT_EQ(cmd.kind, commands::CmdKind::API);
 
   // all API options are in default state
   EXPECT_FALSE(cmd.api.backend);
@@ -60,7 +60,7 @@ TEST(optparser, api_using_help) {
 
   // command is NONE
   EXPECT_TRUE(commands::parseopt(args, cmd));
-  EXPECT_EQ(cmd.kind, commands::API);
+  EXPECT_EQ(cmd.kind, commands::CmdKind::API);
 
   // only help option was changed
   EXPECT_FALSE(cmd.api.backend);
@@ -88,7 +88,7 @@ TEST(optparser, api_typical_usage) {
 
   // command is API
   EXPECT_TRUE(commands::parseopt(args, cmd));
-  EXPECT_EQ(cmd.kind, commands::API);
+  EXPECT_EQ(cmd.kind, commands::CmdKind::API);
 
   // API options should be changed
   EXPECT_STREQ(cmd.api.backend, "ZendEngine3");

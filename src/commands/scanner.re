@@ -53,7 +53,7 @@ loop:
    }
 
    <init> "api" end => api {
-      cmd.kind = API;
+      cmd.kind = CmdKind::API;
       goto loop;
    }
 
