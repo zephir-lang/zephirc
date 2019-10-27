@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.11)
 include("${CMAKE_SOURCE_DIR}/cmake/version.cmake")
 
 project(zephir LANGUAGES CXX VERSION "${VERSION}")
@@ -18,10 +18,7 @@ elseif(NOT CMAKE_BUILD_TYPE IN_LIST allowableBuildTypes)
     message(FATAL_ERROR "Invalid build type: ${CMAKE_BUILD_TYPE}")
 endif()
 
-if(NOT CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 11)
-endif()
-
+set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
