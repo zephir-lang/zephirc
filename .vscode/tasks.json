@@ -47,19 +47,55 @@
         },
 
         {
+            "label": "Clean profile data",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceRoot}/build"
+            },
+            "problemMatcher": [],
+            "linux": {
+                "command": "rm",
+                "args": [
+                    "-rf",
+                    "coverage"
+                ]
+            },
+            "osx": {
+                "command": "rm",
+                "args": [
+                    "-rf",
+                    "coverage"
+                ]
+            },
+            "windows": {
+                "command": "rd",
+                "args": [
+                    "-r",
+                    "coverage"
+                ]
+            }
+        },
+
+        {
             "label": "Run tests",
             "group": {
                 "kind": "test",
                 "isDefault": true,
             },
-            "options": {
-                "cwd": "${workspaceRoot}/build"
-            },
+            "type":"shell",
+            "command": "ctest",
             "args": [
                 "-V"
             ],
-            "command": "ctest",
-            "type":"shell",
+            "options": {
+                "cwd": "${workspaceRoot}/build",
+                "env": {
+                    "LLVM_PROFILE_FILE": "${workspaceRoot}/build/coverage/llvm_%p.profraw"
+                }
+            },
+            "dependsOn": [
+                "Clean profile data"
+            ],
             "presentation": {
                 "reveal": "silent",
                 "panel": "shared",
@@ -81,6 +117,95 @@
                     }
                 ]
             }
+        },
+
+        {
+            "label": "(clang) Create coverage reports",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceRoot}/build"
+            },
+            "problemMatcher": [],
+            "linux": {
+                "command": "llvm-profdata",
+                "args": [
+                    "merge",
+                    "-sparse",
+                    "coverage/llvm_*.profraw",
+                    "-o",
+                    "coverage/tests.profdata"
+                ]
+            },
+            "osx": {
+                "command": "xcrun",
+                "args": [
+                    "llvm-profdata",
+                    "merge",
+                    "-sparse",
+                    "coverage/llvm_*.profraw",
+                    "-o",
+                    "coverage/tests.profdata"
+                ]
+            },
+            "windows": {
+                "command": "llvm-profdata.exe",
+                "args": [
+                    "merge",
+                    "-sparse",
+                    "coverage/llvm_*.profraw",
+                    "-o",
+                    "coverage/tests.profdata"
+                ]
+            }
+        },
+
+        {
+            "label": "(clang) Render coverage reports",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceRoot}/build"
+            },
+            "problemMatcher": [],
+            "dependsOn": [
+                "(clang) Create coverage reports"
+            ],
+            "linux": {
+                "command": "llvm-cov",
+                "args": [
+                    "show",
+                    "bin/zephir",
+                    "-instr-profile=coverage/tests.profdata",
+                    "-show-expansions",
+                    "-show-line-counts-or-regions",
+                    "-format=html",
+                    "-output-dir=coverage"
+                ]
+            },
+            "osx": {
+                "command": "xcrun",
+                "args": [
+                    "llvm-cov",
+                    "show",
+                    "bin/zephir",
+                    "-instr-profile=coverage/tests.profdata",
+                    "-show-expansions",
+                    "-show-line-counts-or-regions",
+                    "-format=html",
+                    "-output-dir=coverage"
+                ]
+            },
+            "windows": {
+                "command": "llvm-cov.exe",
+                "args": [
+                    "show",
+                    "bin/zephir",
+                    "-instr-profile=coverage/tests.profdata",
+                    "-show-expansions",
+                    "-show-line-counts-or-regions",
+                    "-format=html",
+                    "-output-dir=coverage"
+                ]
+            },
         }
     ]
 }
