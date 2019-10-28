@@ -34,6 +34,9 @@
             },
             "options": {
                 "cwd": "${workspaceRoot}/build",
+                "env": {
+                    "LLVM_PROFILE_FILE": "${workspaceRoot}/build/coverage/llvm_%p.profraw"
+                }
             },
             "command": "make",
             "type": "shell",
@@ -91,7 +94,7 @@
             "type":"shell",
             "command": "ctest",
             "args": [
-                "-V"
+               "--output-on-failure"
             ],
             "options": {
                 "cwd": "${workspaceRoot}/build",
@@ -100,10 +103,11 @@
                 }
             },
             "dependsOn": [
-                "Clean profile data"
+                "Clean profile data",
+                "Build project"
             ],
             "presentation": {
-                "reveal": "silent",
+                "reveal": "always",
                 "panel": "shared",
                 "showReuseMessage": false,
                 "clear": true
@@ -113,12 +117,12 @@
                 "fileLocation": "absolute",
                 "pattern":[
                     {
-                        "regexp": "^\\d+:\\s(.*):(\\d+):\\s(Failure)$",
+                        "regexp": "^(.*):(\\d+):\\s+Failure$",
                         "file": 1,
                         "location": 2
                     },
                     {
-                        "regexp": "^\\d+:\\s(.*)$",
+                        "regexp": "^(.*)$",
                         "message": 1
                     }
                 ]
