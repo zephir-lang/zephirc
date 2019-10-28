@@ -1,7 +1,12 @@
 cmake_minimum_required(VERSION 3.11...3.16)
+
+# Prepare VERSION variable
 include("${CMAKE_SOURCE_DIR}/cmake/version.cmake")
 
-project(zephir LANGUAGES CXX VERSION "${VERSION}")
+project(zephir
+    LANGUAGES   CXX
+    VERSION     "${VERSION}"
+    DESCRIPTION "A Zephir compiler")
 
 # Make sure developers do not run cmake in the main project directory, to keep
 # build artifacts from becoming clutter
@@ -17,7 +22,14 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
 include(BuildTypes)
 
-set(CMAKE_CXX_STANDARD 11)
+if(NOT CMAKE_CXX_STANDARD)
+    set(CMAKE_CXX_STANDARD 11 CACHE STRING "")
+endif()
+
+if(CMAKE_CXX_STANDARD LESS 11)
+    message(WARNING "Incompatible C++ standard ${CMAKE_CXX_STANDARD}. Zephir requires C++11")
+endif()
+
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
