@@ -42,7 +42,7 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME AND BUILD_TESTING AND ZEPHIR_BUILD_
     include(cppcheck)
 
     message(STATUS "Include test sources")
-    add_subdirectory(test)
+    add_subdirectory(tests)
 endif()
 
 # CMakeLists.txt ends here
