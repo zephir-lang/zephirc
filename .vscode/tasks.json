@@ -73,7 +73,13 @@
                     "-r",
                     "coverage"
                 ]
-            }
+            },
+            "isBackground": true,
+            "presentation": {
+                "reveal": "never",
+                "focus": false,
+                "showReuseMessage": false
+            },
         },
 
         {
@@ -156,7 +162,13 @@
                     "-o",
                     "coverage/tests.profdata"
                 ]
-            }
+            },
+            "isBackground": true,
+            "presentation": {
+                "reveal": "never",
+                "focus": false,
+                "showReuseMessage": false
+            },
         },
 
         {
@@ -205,6 +217,12 @@
                     "-format=html",
                     "-output-dir=coverage"
                 ]
+            },
+            "isBackground": true,
+            "presentation": {
+                "reveal": "never",
+                "focus": false,
+                "showReuseMessage": false
             },
         }
     ]
