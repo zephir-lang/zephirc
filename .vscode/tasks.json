@@ -1,88 +1,86 @@
 {
-  "version": "2.0.0",
-  "tasks": [
-    {
-      "label": "CMake Build - Debug",
-      "group": {
-          "kind": "build",
-          "isDefault": true,
-      },
-      "options": {
-        "cwd": "${workspaceRoot}",
-      },
-      "command": "cmake",
-      "args": [
-        "-H.",
-        "-Bbuild",
-        "-DCMAKE_BUILD_TYPE=Debug",
-        "-DZEPHIR_BUILD_TESTING=ON",
-      ],
-      "type": "shell",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared",
-      },
-      "problemMatcher":"$gcc",
-    },
-    {
-      "label": "Build test",
-      "group": "build",
-      "options": {
-        "cwd": "${workspaceRoot}/build",
-      },
-      "command": "make",
-      "args": [],
-      "type": "shell",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared",
-        "showReuseMessage": true,
-        "clear": false,
-      },
-      "problemMatcher":"$gcc",
-    },
-    {
-      "label": "Run Tests (with rebuild)",
-      "group": {
-        "kind": "test",
-        "isDefault": true,
-      },
-      "options": {
-        "cwd": "${workspaceRoot}/build"
-      },
-      "args": [
-        "-V"
-      ],
-      "command": "ctest",
-      "type":"shell",
-      "presentation": {
-        "reveal": "silent",
-        "panel": "shared",
-        "showReuseMessage": false,
-        "clear": true,
-      },
-      "dependsOn":[
-        "Build test",
-      ],
-      "problemMatcher": {
-        "owner": "cmake",
-        "fileLocation": "absolute",
-        "pattern":[
-          {
-            "regexp": "^\\d+:\\s(.*):(\\d+):\\s(Failure)$",
-            "file": 1,
-            "location": 2
-          },
-          {
-            "regexp": "^\\d+:\\s(.*)$",
-            "message": 1
-          }
-        ]
-      },
-    }
-  ]
+    "version": "2.0.0",
+
+    "tasks": [
+        {
+            "label": "CMake Build - Debug",
+            "group": "build",
+            "options": {
+                "cwd": "${workspaceRoot}",
+            },
+            "command": "cmake",
+            "args": [
+                "-H.",
+                "-Bbuild",
+                "-DCMAKE_BUILD_TYPE=Debug",
+                "-DZEPHIR_BUILD_TESTING=ON",
+                "-DZEPHIR_CODE_COVERAGE=ON"
+            ],
+            "type": "shell",
+            "presentation": {
+                "reveal": "silent",
+                "panel": "shared",
+                "focus": false,
+                "showReuseMessage": false
+            },
+            "problemMatcher": [],
+        },
+
+        {
+            "label": "Build project",
+            "group": {
+                "kind": "build",
+                "isDefault": true,
+            },
+            "options": {
+                "cwd": "${workspaceRoot}/build",
+            },
+            "command": "make",
+            "type": "shell",
+            "presentation": {
+                "reveal": "silent",
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": true,
+            },
+            "problemMatcher":"$gcc"
+        },
+
+        {
+            "label": "Run tests",
+            "group": {
+                "kind": "test",
+                "isDefault": true,
+            },
+            "options": {
+                "cwd": "${workspaceRoot}/build"
+            },
+            "args": [
+                "-V"
+            ],
+            "command": "ctest",
+            "type":"shell",
+            "presentation": {
+                "reveal": "silent",
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": true
+            },
+            "problemMatcher": {
+                "owner": "cmake",
+                "fileLocation": "absolute",
+                "pattern":[
+                    {
+                        "regexp": "^\\d+:\\s(.*):(\\d+):\\s(Failure)$",
+                        "file": 1,
+                        "location": 2
+                    },
+                    {
+                        "regexp": "^\\d+:\\s(.*)$",
+                        "message": 1
+                    }
+                ]
+            }
+        }
+    ]
 }
