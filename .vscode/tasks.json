@@ -141,9 +141,8 @@
                 "command": "llvm-profdata",
                 "args": [
                     "merge",
-                    "-sparse",
                     "coverage/llvm_*.profraw",
-                    "-o",
+                    "-output",
                     "coverage/tests.profdata"
                 ]
             },
@@ -152,9 +151,8 @@
                 "args": [
                     "llvm-profdata",
                     "merge",
-                    "-sparse",
                     "coverage/llvm_*.profraw",
-                    "-o",
+                    "-output",
                     "coverage/tests.profdata"
                 ]
             },
@@ -162,9 +160,8 @@
                 "command": "llvm-profdata.exe",
                 "args": [
                     "merge",
-                    "-sparse",
                     "coverage/llvm_*.profraw",
-                    "-o",
+                    "-output",
                     "coverage/tests.profdata"
                 ]
             },
