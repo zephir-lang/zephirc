@@ -77,6 +77,7 @@
                     "coverage"
                 ]
             },
+            "isBackground": true,
             "presentation": {
                 "panel": "shared",
                 "reveal": "silent",
