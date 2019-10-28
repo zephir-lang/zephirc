@@ -29,7 +29,7 @@ if(CPPCHECK_EXECUTABLE)
                 --enable=warning,portability,performance,style
                 --language=c++
                 "--std=c++${CMAKE_CXX_STANDARD}"
-                "--suppress=*:${CMAKE_SOURCE_DIR}/src/commands/scanner.cpp"
+                "--suppress=*:${CMAKE_SOURCE_DIR}/src/commands/options.cpp"
                 "${CMAKE_SOURCE_DIR}/src")
 else()
     message(STATUS "Check for cppcheck: not found")

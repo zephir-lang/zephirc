@@ -1,6 +1,9 @@
 {
     "clang-format.style": "Google",
     "c-cpp-flylint.cppcheck.force": false,
+    "c-cpp-flylint.cppcheck.suppressions": [
+        "*:${workspaceRoot}/src/commands/options.cpp"
+    ],
     "c-cpp-flylint.standard": [
         "c11",
         "c++11"

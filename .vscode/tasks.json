@@ -74,9 +74,9 @@
                     "coverage"
                 ]
             },
-            "isBackground": true,
             "presentation": {
-                "reveal": "never",
+                "panel": "shared",
+                "reveal": "silent",
                 "focus": false,
                 "showReuseMessage": false
             },
@@ -163,9 +163,9 @@
                     "coverage/tests.profdata"
                 ]
             },
-            "isBackground": true,
             "presentation": {
-                "reveal": "never",
+                "panel": "shared",
+                "reveal": "silent",
                 "focus": false,
                 "showReuseMessage": false
             },
@@ -218,9 +218,9 @@
                     "-output-dir=coverage"
                 ]
             },
-            "isBackground": true,
             "presentation": {
-                "reveal": "never",
+                "reveal": "silent",
+                "panel": "shared",
                 "focus": false,
                 "showReuseMessage": false
             },
