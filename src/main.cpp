@@ -1,9 +1,9 @@
 #include <cstring>
 #include <iostream>
 
-#include "commands/options.hpp"
 #include "commands/cmd.hpp"
 #include "commands/optionexception.hpp"
+#include "commands/options.hpp"
 
 int main(int argc, char** argv) {
   commands::Cmd cmd;
