@@ -29,8 +29,8 @@ loop:
    re2c:define:YYCTYPE = "unsigned char";
    re2c:yyfill:enable = 0;
    re2c:yych:conversion = 1;
-   re2c:indent:top = 2;
-   re2c:indent:string = "    ";
+   re2c:indent:top = 1;
+   re2c:indent:string = "  ";
    re2c:define:YYGETCONDITION = "cond";
    re2c:define:YYGETCONDITION:naked = 1;
    re2c:define:YYSETCONDITION = "cond = @@;";
