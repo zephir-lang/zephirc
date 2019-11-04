@@ -17,6 +17,34 @@ namespace commands {
 
 Options::Options() noexcept : m_program("Zephir") {}
 
+// TODO: Move outside
+void Options::set_help_flag(Cmd &cmd) {
+  switch (cmd.kind) {
+    case CmdKind::API:
+      cmd.api.help = true;
+      break;
+    case CmdKind::INIT:
+      cmd.init.help = true;
+      break;
+    default:
+      cmd.common.help = true;
+  }
+}
+
+// TODO: Move outside
+void Options::set_backend(Cmd &cmd, const char *backend) {
+  switch (cmd.kind) {
+    case CmdKind::API:
+      cmd.api.backend = backend;
+      break;
+    case CmdKind::INIT:
+      cmd.init.backend = backend;
+      break;
+    default:
+      throw OptionException("Backend isn't allowed in this context.");
+  }
+}
+
 void Options::parseopt(char **argv, Cmd &cmd) {
   char *YYCURSOR, *YYMARKER;
   int cond = 0;
@@ -46,7 +74,7 @@ loop:
    }
 
    <start> ("-h" | "--help") end {
-      cmd.common.help = true;
+      set_help_flag(cmd);
       return;
    }
 
@@ -86,7 +114,7 @@ loop:
          }
       }
 
-      cmd.common.backend = YYCURSOR;
+      set_backend(cmd, YYCURSOR);
       goto yyc_backend;
    }
 
@@ -124,7 +152,7 @@ loop:
    }
 
    <api, init> ("-h" | "--help") end {
-      cmd.api.help = true;
+      set_help_flag(cmd);
       goto loop;
    }
 
