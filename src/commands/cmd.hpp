@@ -8,6 +8,8 @@
 #ifndef ZEPHIR_COMMANDS_CMD_HPP_
 #define ZEPHIR_COMMANDS_CMD_HPP_
 
+#include <string>
+
 namespace commands {
 
 enum class CmdKind {
@@ -25,6 +27,7 @@ enum class CmdKind {
 
 // api-specific options
 struct ApiCmd {
+  const char *backend;
   const char *path;
   const char *output;
   const char *options;
@@ -49,6 +52,7 @@ struct HelpCmd {};
 
 // init-specific options
 struct InitCmd {
+  const char *backend;
   const char *ns;
   bool help;
 };
@@ -61,7 +65,6 @@ struct StubsCmd {};
 
 // common options
 struct CommonOpts {
-  const char *backend;
   bool quiet;
   bool help;
   bool version;

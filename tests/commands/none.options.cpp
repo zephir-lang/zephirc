@@ -31,7 +31,6 @@ TEST_F(NoneCmdTest, InitWithoutParams) {
   EXPECT_EQ(cmd.kind, commands::CmdKind::NONE);
 
   // all global options in default state
-  EXPECT_FALSE(cmd.common.backend);
   EXPECT_FALSE(cmd.common.quiet);
   EXPECT_FALSE(cmd.common.help);
   EXPECT_FALSE(cmd.common.version);
@@ -47,7 +46,6 @@ TEST_F(NoneCmdTest, UsingHelpOptions) {
   EXPECT_TRUE(cmd.common.help);
 
   // other global options are in default state
-  EXPECT_FALSE(cmd.common.backend);
   EXPECT_FALSE(cmd.common.quiet);
   EXPECT_FALSE(cmd.common.version);
   EXPECT_FALSE(cmd.common.vernum);
@@ -62,7 +60,6 @@ TEST_F(NoneCmdTest, UsingVersonOptions) {
   EXPECT_TRUE(cmd.common.version);
 
   // other global options are in default state
-  EXPECT_FALSE(cmd.common.backend);
   EXPECT_FALSE(cmd.common.quiet);
   EXPECT_FALSE(cmd.common.help);
   EXPECT_FALSE(cmd.common.vernum);
@@ -113,7 +110,6 @@ TEST_F(NoneCmdTest, UsingVernumOptions) {
   EXPECT_TRUE(cmd.common.vernum);
 
   // other global options are in default state
-  EXPECT_FALSE(cmd.common.backend);
   EXPECT_FALSE(cmd.common.version);
   EXPECT_FALSE(cmd.common.help);
   EXPECT_FALSE(cmd.common.quiet);
@@ -128,7 +124,6 @@ TEST_F(NoneCmdTest, UsingDumpversionOptions) {
   EXPECT_TRUE(cmd.common.dumpversion);
 
   // other global options are in default state
-  EXPECT_FALSE(cmd.common.backend);
   EXPECT_FALSE(cmd.common.vernum);
   EXPECT_FALSE(cmd.common.version);
   EXPECT_FALSE(cmd.common.help);
