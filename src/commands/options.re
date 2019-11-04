@@ -16,8 +16,7 @@ namespace commands {
 
 Options::Options() noexcept : m_program("Zephir") {}
 
-// TODO: Move outside
-void Options::set_help_flag(Cmd &cmd) {
+inline void Options::set_help_flag(Cmd &cmd) {
   switch (cmd.kind) {
     case CmdKind::API:
       cmd.api.help = true;
@@ -30,8 +29,7 @@ void Options::set_help_flag(Cmd &cmd) {
   }
 }
 
-// TODO: Move outside
-void Options::set_backend(Cmd &cmd, const char *backend) {
+inline void Options::set_backend(Cmd &cmd, const char *backend) {
   switch (cmd.kind) {
     case CmdKind::API:
       cmd.api.backend = backend;
