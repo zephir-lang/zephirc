@@ -8,8 +8,6 @@
 #ifndef ZEPHIR_COMMANDS_CMD_HPP_
 #define ZEPHIR_COMMANDS_CMD_HPP_
 
-#include <string>
-
 namespace commands {
 
 enum class CmdKind {
