@@ -25,7 +25,6 @@ enum class CmdKind {
 
 // api-specific options
 struct ApiCmd {
-  const char *backend;
   const char *path;
   const char *output;
   const char *options;
@@ -49,7 +48,10 @@ struct GenerateCmd {};
 struct HelpCmd {};
 
 // init-specific options
-struct InitCmd {};
+struct InitCmd {
+  const char *ns;
+  bool help;
+};
 
 // install-specific options
 struct InstallCmd {};
@@ -59,6 +61,7 @@ struct StubsCmd {};
 
 // common options
 struct CommonOpts {
+  const char *backend;
   bool quiet;
   bool help;
   bool version;
