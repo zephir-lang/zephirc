@@ -41,8 +41,8 @@ int main(int argc, char** argv) {
         break;
       case commands::CmdKind::INIT:
         std::cout << "INIT" << std::endl;
-        std::cout << "\tbackend: " << (cmd.init.backend ? cmd.init.backend : "-")
-                  << std::endl;
+        std::cout << "\tbackend: "
+                  << (cmd.init.backend ? cmd.init.backend : "-") << std::endl;
         std::cout << "\tnamespace: " << (cmd.init.ns ? cmd.init.ns : "-")
                   << std::endl;
         std::cout << "\thelp: " << cmd.init.help << std::endl;
