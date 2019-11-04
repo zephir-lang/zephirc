@@ -14,6 +14,6 @@
 
 #define ZEPHIR_VERSION_ID                                                \
   (((ZEPHIR_VERSION_MAJOR)*10000000) + ((ZEPHIR_VERSION_MINOR)*100000) + \
-  (ZEPHIR_VERSION_PATCH))
+   (ZEPHIR_VERSION_PATCH))
 
 #endif  // ZEPHIR_VERSION_HPP_
