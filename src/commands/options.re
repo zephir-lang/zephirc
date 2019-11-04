@@ -38,58 +38,62 @@ loop:
 
    end = "\x00";
    eq  = "=";
+   value = [^\x00-][^\x00]*;
 
-   <init> * {
+   <start> * {
       throw OptionException(
-         "Command '" + std::string(*argv) + "' is not defined");
+         "Command \"" + std::string(*argv) + "\" is not defined.");
    }
 
-   <init> ("-h" | "--help") end {
+   <start> ("-h" | "--help") end {
       cmd.common.help = true;
       return;
    }
 
-   <init> ("-v" | "--version") end {
+   <start> ("-v" | "--version") end {
       cmd.common.version = true;
       return;
    }
 
-   <init> "--vernum" end {
+   <start> "--vernum" end {
       cmd.common.vernum = true;
       return;
    }
 
-  <init> "-"{1,2} "dumpversion" end {
+  <start> "-"{1,2} "dumpversion" end {
       cmd.common.dumpversion = true;
       return;
    }
 
-   <init> "api" end => api {
-      cmd.kind = CmdKind::API;
-      goto loop;
+   <start> "--" value end {
+      throw OptionException(
+         "Option \"" + std::string(*argv) + "\" isn't allowed in this context.");
    }
+
+   <start> "api" end => api { cmd.kind = CmdKind::API; goto loop; }
+   <start> "init" end => init { cmd.kind = CmdKind::INIT; goto loop; }
 
    <*> * {
       throw OptionException(
-         "The '" + std::string(*argv) + "' option does not exist"
+         "The \"" + std::string(*argv) + "\" option does not exist."
       );
    }
 
-   <api> "--backend" (eq | end) {
+   <api, init> "--backend" (eq | end) {
       if (YYCURSOR[-1] == 0) {
          if (!(YYCURSOR = *++argv)) {
-            throw OptionException("The '--backend' option requires a value");
+            throw OptionException("The \"--backend\" option requires a value.");
          }
       }
 
-      cmd.api.backend = YYCURSOR;
+      cmd.common.backend = YYCURSOR;
       goto yyc_backend;
    }
 
    <api> ("-p" end) | ("--path" (eq | end)) {
       if (YYCURSOR[-1] == 0) {
          if (!(YYCURSOR = *++argv)) {
-            throw OptionException("The '--path' option requires a value");
+            throw OptionException("The \"--path\" option requires a value.");
          }
       }
 
@@ -100,7 +104,7 @@ loop:
    <api> ("-o" end) | ("--output" (eq | end)) {
       if (YYCURSOR[-1] == 0) {
          if (!(YYCURSOR = *++argv)) {
-            throw OptionException("The '--output' option requires a value");
+            throw OptionException("The \"--output\" option requires a value.");
           }
       }
 
@@ -111,7 +115,7 @@ loop:
    <api> "--options" (eq | end) {
       if (YYCURSOR[-1] == 0) {
          if (!(YYCURSOR = *++argv)) {
-            throw OptionException("The '--options' option requires a value");
+            throw OptionException("The \"--options\" option requires a value.");
          }
       }
 
@@ -119,7 +123,7 @@ loop:
       goto yyc_options;
    }
 
-   <api> ("-h" | "--help") end {
+   <api, init> ("-h" | "--help") end {
       cmd.api.help = true;
       goto loop;
    }
@@ -127,7 +131,7 @@ loop:
    <api> "--url" (eq | end) {
       if (YYCURSOR[-1] == 0) {
          if (!(YYCURSOR = *++argv)) {
-            throw OptionException("The '--url' option requires a value");
+            throw OptionException("The \"--url\" option requires a value.");
          }
       }
 
@@ -140,8 +144,35 @@ loop:
       goto loop;
    }
 
+   <init> "--" end {
+      // all remaining argv part is non-option
+      // so it must be namespace name
+      // zephir expects exactly one namespace name
+      if (!(YYCURSOR = *++argv)) {
+        throw OptionException("Not enough arguments (missing: \"namespace\").");
+      }
+
+      cmd.init.ns = YYCURSOR;
+      goto yyc_namespace;
+   }
+
+   // TODO: Better namespace parsing
+   <init> value end {
+      cmd.init.ns = *argv;
+      goto loop;
+   }
+
+   <namespace> * {
+      throw OptionException("Namespace name \"" + std::string(*argv) + "\" does not supported.");
+   }
+
+   // TODO: Better namespace parsing
+   <namespace> value end {
+      goto loop;
+   }
+
    <backend> * {
-      throw OptionException("Backend '" + std::string(*argv) + "' does not supported");
+      throw OptionException("Backend \"" + std::string(*argv) + "\" does not supported.");
    }
 
    <backend> "ZendEngine3" end {
@@ -149,10 +180,10 @@ loop:
    }
 
    <path> * {
-      throw OptionException("Invalid path specification");
+      throw OptionException("Invalid path specification.");
    }
 
-   <path> [^\x00]+ end {
+   <path> value end {
       goto loop;
    }
 
@@ -160,23 +191,25 @@ loop:
       throw OptionException("Invalid output specification");
    }
 
-   <output> [^\x00]+ end {
+   <output> value end {
       goto loop;
    }
 
    <options> * {
-      throw OptionException("Invalid options specification");
+      throw OptionException("Invalid options specification.");
    }
 
-   <options> [^\x00]+ end {
+   // TODO: Better options pattern
+   <options> value end {
       goto loop;
    }
 
    <url> * {
-      throw OptionException("Invalid url specification");
+      throw OptionException("Invalid url specification.");
    }
 
-   <url> [^\x00]+ end {
+   // TODO: Better URL pattern
+   <url> value end {
       goto loop;
    }
   */

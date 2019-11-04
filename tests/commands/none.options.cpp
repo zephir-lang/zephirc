@@ -31,6 +31,7 @@ TEST_F(NoneCmdTest, InitWithoutParams) {
   EXPECT_EQ(cmd.kind, commands::CmdKind::NONE);
 
   // all global options in default state
+  EXPECT_FALSE(cmd.common.backend);
   EXPECT_FALSE(cmd.common.quiet);
   EXPECT_FALSE(cmd.common.help);
   EXPECT_FALSE(cmd.common.version);
@@ -42,10 +43,11 @@ TEST_F(NoneCmdTest, UsingHelpOptions) {
   Argv argv({"zephir", "--help", ""});
   options.parseopt(argv.argv(), cmd);
 
-  // only help option is chaged
+  // only help option is changed
   EXPECT_TRUE(cmd.common.help);
 
   // other global options are in default state
+  EXPECT_FALSE(cmd.common.backend);
   EXPECT_FALSE(cmd.common.quiet);
   EXPECT_FALSE(cmd.common.version);
   EXPECT_FALSE(cmd.common.vernum);
@@ -56,14 +58,33 @@ TEST_F(NoneCmdTest, UsingVersonOptions) {
   Argv argv({"zephir", "--version", ""});
   options.parseopt(argv.argv(), cmd);
 
-  // only version option is chaged
+  // only version option is changed
   EXPECT_TRUE(cmd.common.version);
 
   // other global options are in default state
+  EXPECT_FALSE(cmd.common.backend);
   EXPECT_FALSE(cmd.common.quiet);
   EXPECT_FALSE(cmd.common.help);
   EXPECT_FALSE(cmd.common.vernum);
   EXPECT_FALSE(cmd.common.dumpversion);
+}
+
+TEST_F(NoneCmdTest, UsingUndefinedCommandWithOptions) {
+  Argv argv({"zephir", "qwerty", "--version", "--help", ""});
+
+  try {
+    options.parseopt(argv.argv(), cmd);
+    FAIL() << "commands::Options::parseopt() should throw an error"
+           << std::endl;
+  } catch (commands::OptionException &e) {
+    EXPECT_STREQ(e.what(), "Command \"qwerty\" is not defined.");
+  } catch (std::runtime_error &e) {
+    FAIL() << "Was expecting commands::OptionException: " << e.what()
+           << std::endl;
+  } catch (...) {
+    FAIL() << "ERROR: Unexpected exception thrown: " << std::current_exception
+           << std::endl;
+  }
 }
 
 TEST_F(NoneCmdTest, UsingQuietOptions) {
@@ -74,7 +95,7 @@ TEST_F(NoneCmdTest, UsingQuietOptions) {
     FAIL() << "commands::Options::parseopt() should throw an error"
            << std::endl;
   } catch (commands::OptionException &e) {
-    EXPECT_STREQ(e.what(), "Command '--quiet' is not defined");
+    EXPECT_STREQ(e.what(), "Option \"--quiet\" isn't allowed in this context.");
   } catch (std::runtime_error &e) {
     FAIL() << "Was expecting commands::OptionException: " << e.what()
            << std::endl;
@@ -88,10 +109,11 @@ TEST_F(NoneCmdTest, UsingVernumOptions) {
   Argv argv({"zephir", "--vernum", ""});
   options.parseopt(argv.argv(), cmd);
 
-  // only vernum option is chaged
+  // only vernum option is changed
   EXPECT_TRUE(cmd.common.vernum);
 
   // other global options are in default state
+  EXPECT_FALSE(cmd.common.backend);
   EXPECT_FALSE(cmd.common.version);
   EXPECT_FALSE(cmd.common.help);
   EXPECT_FALSE(cmd.common.quiet);
@@ -102,10 +124,11 @@ TEST_F(NoneCmdTest, UsingDumpversionOptions) {
   Argv argv({"zephir", "--dumpversion", "--version", "--help", ""});
   options.parseopt(argv.argv(), cmd);
 
-  // only dumpversion option is chaged
+  // only dumpversion option is changed
   EXPECT_TRUE(cmd.common.dumpversion);
 
   // other global options are in default state
+  EXPECT_FALSE(cmd.common.backend);
   EXPECT_FALSE(cmd.common.vernum);
   EXPECT_FALSE(cmd.common.version);
   EXPECT_FALSE(cmd.common.help);

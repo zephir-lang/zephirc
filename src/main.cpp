@@ -27,8 +27,6 @@ int main(int argc, char** argv) {
         break;
       case commands::CmdKind::API:
         std::cout << "API" << std::endl;
-        std::cout << "\tbackend: " << (cmd.api.backend ? cmd.api.backend : "-")
-                  << std::endl;
         std::cout << "\tpath: " << (cmd.api.path ? cmd.api.path : "-")
                   << std::endl;
         std::cout << "\toutput: " << (cmd.api.output ? cmd.api.output : "-")
@@ -39,9 +37,16 @@ int main(int argc, char** argv) {
                   << std::endl;
         std::cout << "\thelp: " << cmd.api.help << std::endl;
         break;
+      case commands::CmdKind::INIT:
+        std::cout << "INIT" << std::endl;
+        std::cout << "\tnamespace: " << (cmd.init.ns ? cmd.init.ns : "-")
+                  << std::endl;
+        std::cout << "\thelp: " << cmd.api.help << std::endl;
     }
 
     std::cout << "\nCOMMON OPTIONS" << std::endl;
+    std::cout << "\tbackend: " << (cmd.common.backend ? cmd.common.backend : "-")
+              << std::endl;
     std::cout << "\tquiet: " << cmd.common.quiet << std::endl;
     std::cout << "\tcommon_help: " << cmd.common.help << std::endl;
     std::cout << "\tversion: " << cmd.common.version << std::endl;
