@@ -17,10 +17,10 @@ class Options {
  public:
   Options() noexcept;
   void parseopt(char **argv, Cmd &cmd);
-  void set_help_flag(Cmd &cmd);
-  void set_backend(Cmd &cmd, const char *backend);
 
  private:
+  inline void set_help_flag(Cmd &cmd);
+  inline void set_backend(Cmd &cmd, const char *backend);
   std::string m_program;
 };
 
