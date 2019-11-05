@@ -25,7 +25,7 @@ TEST_F(InitCmdTest, InitWithoutParams) {
 
   // command is INIT
   auto pr = options.parseopt(argv.argc(), argv.argv());
-  EXPECT_EQ(pr.kind, commands::CmdKind::INIT);
+  EXPECT_EQ(pr.get_kind(), commands::CmdKind::INIT);
 
   // all INIT options are in default state
   EXPECT_FALSE(pr.init.ns);
@@ -45,7 +45,7 @@ TEST_F(InitCmdTest, InitWithNamespace) {
 
   // command is INIT
   auto pr = options.parseopt(argv.argc(), argv.argv());
-  EXPECT_EQ(pr.kind, commands::CmdKind::INIT);
+  EXPECT_EQ(pr.get_kind(), commands::CmdKind::INIT);
 
   // namespace option is changed
   EXPECT_STREQ(pr.init.ns, "phalcon");
@@ -67,7 +67,7 @@ TEST_F(InitCmdTest, UsingNamespaceOptionsSeparator) {
 
   // command is INIT
   auto pr = options.parseopt(argv.argc(), argv.argv());
-  EXPECT_EQ(pr.kind, commands::CmdKind::INIT);
+  EXPECT_EQ(pr.get_kind(), commands::CmdKind::INIT);
 
   // namespace option is changed
   EXPECT_STREQ(pr.init.ns, "test");
@@ -89,7 +89,7 @@ TEST_F(InitCmdTest, InitWithNamespaceAndBackend) {
 
   // command is INIT
   auto pr = options.parseopt(argv.argc(), argv.argv());
-  EXPECT_EQ(pr.kind, commands::CmdKind::INIT);
+  EXPECT_EQ(pr.get_kind(), commands::CmdKind::INIT);
 
   // namespace and backend options are changed
   EXPECT_STREQ(pr.init.ns, "phalcon");
@@ -111,7 +111,7 @@ TEST_F(InitCmdTest, InitWithNamespaceAndBackend2) {
 
   // command is INIT
   auto pr = options.parseopt(argv.argc(), argv.argv());
-  EXPECT_EQ(pr.kind, commands::CmdKind::INIT);
+  EXPECT_EQ(pr.get_kind(), commands::CmdKind::INIT);
 
   // namespace and backend options are changed (order doesn't matter)
   EXPECT_STREQ(pr.init.ns, "foo");
@@ -133,7 +133,7 @@ TEST_F(InitCmdTest, UsingNamespaceOptionsSeparatorAndBackend) {
 
   // command is INIT
   auto pr = options.parseopt(argv.argc(), argv.argv());
-  EXPECT_EQ(pr.kind, commands::CmdKind::INIT);
+  EXPECT_EQ(pr.get_kind(), commands::CmdKind::INIT);
 
   // namespace and backend options are changed
   EXPECT_STREQ(pr.init.ns, "test");

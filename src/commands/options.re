@@ -18,29 +18,29 @@ namespace commands {
 Options::Options() noexcept : program("Zephir") {}
 
 inline void Options::set_help_flag(ParseResult &pr) {
-  switch (pr.kind) {
+  switch (pr.get_kind()) {
     case CmdKind::API:
       pr.api.help = true;
       break;
     case CmdKind::INIT:
       pr.init.help = true;
       break;
+    case CmdKind::NONE:
     default:
       pr.common.help = true;
   }
 }
 
 inline void Options::set_backend(ParseResult &pr, const char *backend) {
-  switch (pr.kind) {
-    case CmdKind::API:
-      pr.api.backend = backend;
-      break;
-    case CmdKind::INIT:
-      pr.init.backend = backend;
-      break;
-    default:
-      throw OptionException("Backend isn't allowed in this context.");
+  if (pr.get_kind() == CmdKind::API) {
+    pr.api.backend = backend;
+    return;
+  } else if (pr.get_kind() == CmdKind::INIT) {
+    pr.init.backend = backend;
+    return;
   }
+
+  throw OptionException("Backend isn't allowed in this context.");
 }
 
 ParseResult Options::parseopt(int argc, char **argv) {
@@ -105,11 +105,11 @@ loop:
          "Option \"" + std::string(*argv) + "\" isn't allowed in this context.");
    }
 
-   <start> "api" end => api { pr.kind = CmdKind::API; goto loop; }
-   <start> "init" end => init { pr.kind = CmdKind::INIT; goto loop; }
+   <start> "api" end => api { pr.set_kind(CmdKind::API); goto loop; }
+   <start> "init" end => init { pr.set_kind(CmdKind::INIT); goto loop; }
 
    <*> * {
-      if (pr.kind == CmdKind::INIT) {
+      if (pr.get_kind() == CmdKind::INIT) {
          throw OptionException(
             "Invalid namespace format: \"" + std::string(*argv) + "\"."
          );

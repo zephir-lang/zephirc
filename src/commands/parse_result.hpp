@@ -24,7 +24,10 @@ enum class CmdKind {
 };
 
 // api-specific options
-struct ApiCmd {
+class ApiCmd {
+ public:
+  ApiCmd()
+      : backend(""), path(""), output(""), options(""), url(""), help(false) {}
   const char *backend;
   const char *path;
   const char *output;
@@ -34,35 +37,44 @@ struct ApiCmd {
 };
 
 // build-specific options
-struct BuildCmd {};
+class BuildCmd {};
 
 // clean-specific options
-struct CleanCmd {};
+class CleanCmd {};
 
 // fullclean-specific options
-struct FullcleanCmd {};
+class FullcleanCmd {};
 
 // generate-specific options
-struct GenerateCmd {};
+class GenerateCmd {};
 
 // help-specific options
-struct HelpCmd {};
+class HelpCmd {};
 
 // init-specific options
-struct InitCmd {
+class InitCmd {
+ public:
+  InitCmd() : backend(""), ns(""), help(false) {}
   const char *backend;
   const char *ns;
   bool help;
 };
 
 // install-specific options
-struct InstallCmd {};
+class InstallCmd {};
 
 // stubs-specific options
-struct StubsCmd {};
+class StubsCmd {};
 
 // common options
-struct CommonOpts {
+class CommonOpts {
+ public:
+  CommonOpts()
+      : quiet(false),
+        help(false),
+        version(false),
+        vernum(false),
+        dumpversion(false) {}
   bool quiet;
   bool help;
   bool version;
@@ -72,8 +84,9 @@ struct CommonOpts {
 
 class ParseResult {
  public:
-  // what kind of command
-  CmdKind kind;
+  ParseResult() : common(), kind(CmdKind::NONE) {}
+  CmdKind get_kind() const { return kind; }
+  void set_kind(const CmdKind cmd_kind) { kind = cmd_kind; }
 
   // command-specific options
   union {
@@ -89,6 +102,10 @@ class ParseResult {
   };
 
   CommonOpts common;
+
+ private:
+  // what kind of command
+  CmdKind kind;
 };
 }  // namespace commands
 

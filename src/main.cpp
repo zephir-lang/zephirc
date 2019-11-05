@@ -17,7 +17,7 @@ int main(int argc, char** argv) {
   try {
     auto pr = options->parseopt(argc, argv);
 
-    switch (pr.kind) {
+    switch (pr.get_kind()) {
       case commands::CmdKind::NONE:
         std::cout << "NONE" << std::endl;
         break;

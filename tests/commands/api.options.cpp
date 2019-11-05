@@ -25,7 +25,7 @@ TEST_F(ApiCmdTest, InitWithoutParams) {
 
   // command is API
   auto pr = options.parseopt(argv.argc(), argv.argv());
-  EXPECT_EQ(pr.kind, commands::CmdKind::API);
+  EXPECT_EQ(pr.get_kind(), commands::CmdKind::API);
 
   // all API options are in default state
   EXPECT_FALSE(pr.api.backend);
@@ -48,7 +48,7 @@ TEST_F(ApiCmdTest, UsingHelp) {
 
   // command is API
   auto pr = options.parseopt(argv.argc(), argv.argv());
-  EXPECT_EQ(pr.kind, commands::CmdKind::API);
+  EXPECT_EQ(pr.get_kind(), commands::CmdKind::API);
 
   // only help option was changed
   EXPECT_TRUE(pr.api.help);
@@ -74,7 +74,7 @@ TEST_F(ApiCmdTest, TypicalUsage) {
 
   // command is API
   auto pr = options.parseopt(argv.argc(), argv.argv());
-  EXPECT_EQ(pr.kind, commands::CmdKind::API);
+  EXPECT_EQ(pr.get_kind(), commands::CmdKind::API);
 
   // API options are changed
   EXPECT_STREQ(pr.api.backend, "ZendEngine3");

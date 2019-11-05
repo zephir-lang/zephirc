@@ -25,7 +25,7 @@ TEST_F(NoneCmdTest, InitWithoutParams) {
 
   // command is NONE
   auto pr = options.parseopt(argv.argc(), argv.argv());
-  EXPECT_EQ(pr.kind, commands::CmdKind::NONE);
+  EXPECT_EQ(pr.get_kind(), commands::CmdKind::NONE);
 
   // all global options in default state
   EXPECT_FALSE(pr.common.quiet);
