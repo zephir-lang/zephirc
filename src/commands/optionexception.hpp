@@ -18,7 +18,7 @@ class OptionException : public std::exception {
   const char* what() const noexcept override;
 
  private:
-  std::string m_message;
+  std::string message;
 };
 }  // namespace commands
 

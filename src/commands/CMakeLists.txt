@@ -22,7 +22,7 @@ re2c_target(commands
 
 # Add definition for commands library.
 add_library(commands STATIC
-            cmd.hpp
+            parse_result.hpp
             optionexception.cpp
             optionexception.hpp
             "${RE2C_commands_OUTPUTS}")

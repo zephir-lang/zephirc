@@ -30,4 +30,4 @@ Argv::Argv(std::initializer_list<const char *> args)
 
 char **Argv::argv() const { return m_argv.get(); }
 
-size_t Argv::argc() const { return m_argc; }
+int Argv::argc() const { return m_argc; }

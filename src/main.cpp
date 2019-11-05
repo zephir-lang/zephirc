@@ -7,49 +7,48 @@
 
 #include <iostream>
 
-#include "commands/cmd.hpp"
 #include "commands/optionexception.hpp"
 #include "commands/options.hpp"
+#include "commands/parse_result.hpp"
 
 int main(int argc, char** argv) {
   auto options = new commands::Options;
 
   try {
-    auto cmd = options->parseopt(argv);
+    auto pr = options->parseopt(argc, argv);
 
-    switch (cmd.kind) {
+    switch (pr.kind) {
       case commands::CmdKind::NONE:
         std::cout << "NONE" << std::endl;
         break;
       case commands::CmdKind::API:
         std::cout << "API" << std::endl;
-        std::cout << "\tbackend: " << (cmd.api.backend ? cmd.api.backend : "-")
+        std::cout << "\tbackend: " << (pr.api.backend ? pr.api.backend : "-")
                   << std::endl;
-        std::cout << "\tpath: " << (cmd.api.path ? cmd.api.path : "-")
+        std::cout << "\tpath: " << (pr.api.path ? pr.api.path : "-")
                   << std::endl;
-        std::cout << "\toutput: " << (cmd.api.output ? cmd.api.output : "-")
+        std::cout << "\toutput: " << (pr.api.output ? pr.api.output : "-")
                   << std::endl;
-        std::cout << "\toptions: " << (cmd.api.options ? cmd.api.options : "-")
+        std::cout << "\toptions: " << (pr.api.options ? pr.api.options : "-")
                   << std::endl;
-        std::cout << "\turl: " << (cmd.api.url ? cmd.api.url : "-")
-                  << std::endl;
-        std::cout << "\thelp: " << cmd.api.help << std::endl;
+        std::cout << "\turl: " << (pr.api.url ? pr.api.url : "-") << std::endl;
+        std::cout << "\thelp: " << pr.api.help << std::endl;
         break;
       case commands::CmdKind::INIT:
         std::cout << "INIT" << std::endl;
-        std::cout << "\tbackend: "
-                  << (cmd.init.backend ? cmd.init.backend : "-") << std::endl;
-        std::cout << "\tnamespace: " << (cmd.init.ns ? cmd.init.ns : "-")
+        std::cout << "\tbackend: " << (pr.init.backend ? pr.init.backend : "-")
                   << std::endl;
-        std::cout << "\thelp: " << cmd.init.help << std::endl;
+        std::cout << "\tnamespace: " << (pr.init.ns ? pr.init.ns : "-")
+                  << std::endl;
+        std::cout << "\thelp: " << pr.init.help << std::endl;
     }
 
     std::cout << "\nCOMMON OPTIONS" << std::endl;
-    std::cout << "\tquiet: " << cmd.common.quiet << std::endl;
-    std::cout << "\tcommon_help: " << cmd.common.help << std::endl;
-    std::cout << "\tversion: " << cmd.common.version << std::endl;
-    std::cout << "\tvernum: " << cmd.common.vernum << std::endl;
-    std::cout << "\tdumpversion: " << cmd.common.dumpversion << std::endl;
+    std::cout << "\tquiet: " << pr.common.quiet << std::endl;
+    std::cout << "\tcommon_help: " << pr.common.help << std::endl;
+    std::cout << "\tversion: " << pr.common.version << std::endl;
+    std::cout << "\tvernum: " << pr.common.vernum << std::endl;
+    std::cout << "\tdumpversion: " << pr.common.dumpversion << std::endl;
 
     delete options;
     return 0;

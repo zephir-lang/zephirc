@@ -10,18 +10,18 @@
 
 #include <string>
 
-#include "cmd.hpp"
+#include "parse_result.hpp"
 
 namespace commands {
 class Options {
  public:
   Options() noexcept;
-  Cmd parseopt(char **argv);
+  ParseResult parseopt(int argc, char **argv);
 
  private:
-  inline void set_help_flag(Cmd &cmd);
-  inline void set_backend(Cmd &cmd, const char *backend);
-  std::string m_program;
+  inline void set_help_flag(ParseResult &pr);
+  inline void set_backend(ParseResult &pr, const char *backend);
+  std::string program;
 };
 
 }  // namespace commands

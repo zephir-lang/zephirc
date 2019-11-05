@@ -8,9 +8,9 @@
 #include <gtest/gtest.h>
 
 // TODO(klay): Make it better.
-#include "../../src/commands/cmd.hpp"
 #include "../../src/commands/optionexception.hpp"
 #include "../../src/commands/options.hpp"
+#include "../../src/commands/parse_result.hpp"
 #include "../argv.hpp"
 
 class ApiCmdTest : public ::testing::Test {
@@ -24,48 +24,48 @@ TEST_F(ApiCmdTest, InitWithoutParams) {
   Argv argv({"zephir", "api", ""});
 
   // command is API
-  auto cmd = options.parseopt(argv.argv());
-  EXPECT_EQ(cmd.kind, commands::CmdKind::API);
+  auto pr = options.parseopt(argv.argc(), argv.argv());
+  EXPECT_EQ(pr.kind, commands::CmdKind::API);
 
   // all API options are in default state
-  EXPECT_FALSE(cmd.api.backend);
-  EXPECT_FALSE(cmd.api.path);
-  EXPECT_FALSE(cmd.api.output);
-  EXPECT_FALSE(cmd.api.options);
-  EXPECT_FALSE(cmd.api.url);
-  EXPECT_FALSE(cmd.api.help);
+  EXPECT_FALSE(pr.api.backend);
+  EXPECT_FALSE(pr.api.path);
+  EXPECT_FALSE(pr.api.output);
+  EXPECT_FALSE(pr.api.options);
+  EXPECT_FALSE(pr.api.url);
+  EXPECT_FALSE(pr.api.help);
 
   // all global options are in default state
-  EXPECT_FALSE(cmd.common.quiet);
-  EXPECT_FALSE(cmd.common.help);
-  EXPECT_FALSE(cmd.common.version);
-  EXPECT_FALSE(cmd.common.vernum);
-  EXPECT_FALSE(cmd.common.dumpversion);
+  EXPECT_FALSE(pr.common.quiet);
+  EXPECT_FALSE(pr.common.help);
+  EXPECT_FALSE(pr.common.version);
+  EXPECT_FALSE(pr.common.vernum);
+  EXPECT_FALSE(pr.common.dumpversion);
 }
 
 TEST_F(ApiCmdTest, UsingHelp) {
   Argv argv({"zephir", "api", "--help", ""});
 
   // command is API
-  auto cmd = options.parseopt(argv.argv());
-  EXPECT_EQ(cmd.kind, commands::CmdKind::API);
+  auto pr = options.parseopt(argv.argc(), argv.argv());
+  EXPECT_EQ(pr.kind, commands::CmdKind::API);
 
   // only help option was changed
-  EXPECT_TRUE(cmd.api.help);
+  EXPECT_TRUE(pr.api.help);
 
   // other API options are in default state
-  EXPECT_FALSE(cmd.api.backend);
-  EXPECT_FALSE(cmd.api.path);
-  EXPECT_FALSE(cmd.api.output);
-  EXPECT_FALSE(cmd.api.options);
-  EXPECT_FALSE(cmd.api.url);
+  EXPECT_FALSE(pr.api.backend);
+  EXPECT_FALSE(pr.api.path);
+  EXPECT_FALSE(pr.api.output);
+  EXPECT_FALSE(pr.api.options);
+  EXPECT_FALSE(pr.api.url);
 
   // all global options are in default state
-  EXPECT_FALSE(cmd.common.quiet);
-  EXPECT_FALSE(cmd.common.help);
-  EXPECT_FALSE(cmd.common.version);
-  EXPECT_FALSE(cmd.common.vernum);
-  EXPECT_FALSE(cmd.common.dumpversion);
+  EXPECT_FALSE(pr.common.quiet);
+  EXPECT_FALSE(pr.common.help);
+  EXPECT_FALSE(pr.common.version);
+  EXPECT_FALSE(pr.common.vernum);
+  EXPECT_FALSE(pr.common.dumpversion);
 }
 
 TEST_F(ApiCmdTest, TypicalUsage) {
@@ -73,23 +73,23 @@ TEST_F(ApiCmdTest, TypicalUsage) {
              "-p", "theme", "-o", "out", "--options=opts", ""});
 
   // command is API
-  auto cmd = options.parseopt(argv.argv());
-  EXPECT_EQ(cmd.kind, commands::CmdKind::API);
+  auto pr = options.parseopt(argv.argc(), argv.argv());
+  EXPECT_EQ(pr.kind, commands::CmdKind::API);
 
   // API options are changed
-  EXPECT_STREQ(cmd.api.backend, "ZendEngine3");
-  EXPECT_STREQ(cmd.api.path, "theme");
-  EXPECT_STREQ(cmd.api.output, "out");
-  EXPECT_STREQ(cmd.api.options, "opts");
-  EXPECT_STREQ(cmd.api.url, "http://test.com");
-  EXPECT_FALSE(cmd.api.help);
+  EXPECT_STREQ(pr.api.backend, "ZendEngine3");
+  EXPECT_STREQ(pr.api.path, "theme");
+  EXPECT_STREQ(pr.api.output, "out");
+  EXPECT_STREQ(pr.api.options, "opts");
+  EXPECT_STREQ(pr.api.url, "http://test.com");
+  EXPECT_FALSE(pr.api.help);
 }
 
 TEST_F(ApiCmdTest, ThrowExceptionOnIncorrectOption) {
   Argv argv({"zephir", "api", "--foo", ""});
 
   try {
-    auto cmd = options.parseopt(argv.argv());
+    options.parseopt(argv.argc(), argv.argv());
     FAIL() << "commands::Options::parseopt() should throw an error"
            << std::endl;
   } catch (commands::OptionException &e) {

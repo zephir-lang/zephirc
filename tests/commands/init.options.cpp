@@ -8,9 +8,9 @@
 #include <gtest/gtest.h>
 
 // TODO(klay): Make it better.
-#include "../../src/commands/cmd.hpp"
 #include "../../src/commands/optionexception.hpp"
 #include "../../src/commands/options.hpp"
+#include "../../src/commands/parse_result.hpp"
 #include "../argv.hpp"
 
 class InitCmdTest : public ::testing::Test {
@@ -24,137 +24,137 @@ TEST_F(InitCmdTest, InitWithoutParams) {
   Argv argv({"zephir", "init", ""});
 
   // command is INIT
-  auto cmd = options.parseopt(argv.argv());
-  EXPECT_EQ(cmd.kind, commands::CmdKind::INIT);
+  auto pr = options.parseopt(argv.argc(), argv.argv());
+  EXPECT_EQ(pr.kind, commands::CmdKind::INIT);
 
   // all INIT options are in default state
-  EXPECT_FALSE(cmd.init.ns);
-  EXPECT_FALSE(cmd.init.backend);
-  EXPECT_FALSE(cmd.init.help);
+  EXPECT_FALSE(pr.init.ns);
+  EXPECT_FALSE(pr.init.backend);
+  EXPECT_FALSE(pr.init.help);
 
   // all global options are in default state
-  EXPECT_FALSE(cmd.common.quiet);
-  EXPECT_FALSE(cmd.common.help);
-  EXPECT_FALSE(cmd.common.version);
-  EXPECT_FALSE(cmd.common.vernum);
-  EXPECT_FALSE(cmd.common.dumpversion);
+  EXPECT_FALSE(pr.common.quiet);
+  EXPECT_FALSE(pr.common.help);
+  EXPECT_FALSE(pr.common.version);
+  EXPECT_FALSE(pr.common.vernum);
+  EXPECT_FALSE(pr.common.dumpversion);
 }
 
 TEST_F(InitCmdTest, InitWithNamespace) {
   Argv argv({"zephir", "init", "phalcon", ""});
 
   // command is INIT
-  auto cmd = options.parseopt(argv.argv());
-  EXPECT_EQ(cmd.kind, commands::CmdKind::INIT);
+  auto pr = options.parseopt(argv.argc(), argv.argv());
+  EXPECT_EQ(pr.kind, commands::CmdKind::INIT);
 
   // namespace option is changed
-  EXPECT_STREQ(cmd.init.ns, "phalcon");
+  EXPECT_STREQ(pr.init.ns, "phalcon");
 
   // other INIT options are in default state
-  EXPECT_FALSE(cmd.init.backend);
-  EXPECT_FALSE(cmd.init.help);
+  EXPECT_FALSE(pr.init.backend);
+  EXPECT_FALSE(pr.init.help);
 
   // all global options are in default state
-  EXPECT_FALSE(cmd.common.quiet);
-  EXPECT_FALSE(cmd.common.help);
-  EXPECT_FALSE(cmd.common.version);
-  EXPECT_FALSE(cmd.common.vernum);
-  EXPECT_FALSE(cmd.common.dumpversion);
+  EXPECT_FALSE(pr.common.quiet);
+  EXPECT_FALSE(pr.common.help);
+  EXPECT_FALSE(pr.common.version);
+  EXPECT_FALSE(pr.common.vernum);
+  EXPECT_FALSE(pr.common.dumpversion);
 }
 
 TEST_F(InitCmdTest, UsingNamespaceOptionsSeparator) {
   Argv argv({"zephir", "init", "--", "test", ""});
 
   // command is INIT
-  auto cmd = options.parseopt(argv.argv());
-  EXPECT_EQ(cmd.kind, commands::CmdKind::INIT);
+  auto pr = options.parseopt(argv.argc(), argv.argv());
+  EXPECT_EQ(pr.kind, commands::CmdKind::INIT);
 
   // namespace option is changed
-  EXPECT_STREQ(cmd.init.ns, "test");
+  EXPECT_STREQ(pr.init.ns, "test");
 
   // other INIT options are in default state
-  EXPECT_FALSE(cmd.init.backend);
-  EXPECT_FALSE(cmd.init.help);
+  EXPECT_FALSE(pr.init.backend);
+  EXPECT_FALSE(pr.init.help);
 
   // all global options are in default state
-  EXPECT_FALSE(cmd.common.quiet);
-  EXPECT_FALSE(cmd.common.help);
-  EXPECT_FALSE(cmd.common.version);
-  EXPECT_FALSE(cmd.common.vernum);
-  EXPECT_FALSE(cmd.common.dumpversion);
+  EXPECT_FALSE(pr.common.quiet);
+  EXPECT_FALSE(pr.common.help);
+  EXPECT_FALSE(pr.common.version);
+  EXPECT_FALSE(pr.common.vernum);
+  EXPECT_FALSE(pr.common.dumpversion);
 }
 
 TEST_F(InitCmdTest, InitWithNamespaceAndBackend) {
   Argv argv({"zephir", "init", "phalcon", "--backend=ZendEngine4", ""});
 
   // command is INIT
-  auto cmd = options.parseopt(argv.argv());
-  EXPECT_EQ(cmd.kind, commands::CmdKind::INIT);
+  auto pr = options.parseopt(argv.argc(), argv.argv());
+  EXPECT_EQ(pr.kind, commands::CmdKind::INIT);
 
   // namespace and backend options are changed
-  EXPECT_STREQ(cmd.init.ns, "phalcon");
-  EXPECT_STREQ(cmd.init.backend, "ZendEngine4");
+  EXPECT_STREQ(pr.init.ns, "phalcon");
+  EXPECT_STREQ(pr.init.backend, "ZendEngine4");
 
   // other INIT options are in default state
-  EXPECT_FALSE(cmd.init.help);
+  EXPECT_FALSE(pr.init.help);
 
   // all global options are in default state
-  EXPECT_FALSE(cmd.common.quiet);
-  EXPECT_FALSE(cmd.common.help);
-  EXPECT_FALSE(cmd.common.version);
-  EXPECT_FALSE(cmd.common.vernum);
-  EXPECT_FALSE(cmd.common.dumpversion);
+  EXPECT_FALSE(pr.common.quiet);
+  EXPECT_FALSE(pr.common.help);
+  EXPECT_FALSE(pr.common.version);
+  EXPECT_FALSE(pr.common.vernum);
+  EXPECT_FALSE(pr.common.dumpversion);
 }
 
 TEST_F(InitCmdTest, InitWithNamespaceAndBackend2) {
   Argv argv({"zephir", "init", "--backend=ZendEngine2", "foo", ""});
 
   // command is INIT
-  auto cmd = options.parseopt(argv.argv());
-  EXPECT_EQ(cmd.kind, commands::CmdKind::INIT);
+  auto pr = options.parseopt(argv.argc(), argv.argv());
+  EXPECT_EQ(pr.kind, commands::CmdKind::INIT);
 
   // namespace and backend options are changed (order doesn't matter)
-  EXPECT_STREQ(cmd.init.ns, "foo");
-  EXPECT_STREQ(cmd.init.backend, "ZendEngine2");
+  EXPECT_STREQ(pr.init.ns, "foo");
+  EXPECT_STREQ(pr.init.backend, "ZendEngine2");
 
   // other INIT options are in default state
-  EXPECT_FALSE(cmd.init.help);
+  EXPECT_FALSE(pr.init.help);
 
   // all global options are in default state
-  EXPECT_FALSE(cmd.common.quiet);
-  EXPECT_FALSE(cmd.common.help);
-  EXPECT_FALSE(cmd.common.version);
-  EXPECT_FALSE(cmd.common.vernum);
-  EXPECT_FALSE(cmd.common.dumpversion);
+  EXPECT_FALSE(pr.common.quiet);
+  EXPECT_FALSE(pr.common.help);
+  EXPECT_FALSE(pr.common.version);
+  EXPECT_FALSE(pr.common.vernum);
+  EXPECT_FALSE(pr.common.dumpversion);
 }
 
 TEST_F(InitCmdTest, UsingNamespaceOptionsSeparatorAndBackend) {
   Argv argv({"zephir", "init", "--backend=ZendEngine3", "--", "test", ""});
 
   // command is INIT
-  auto cmd = options.parseopt(argv.argv());
-  EXPECT_EQ(cmd.kind, commands::CmdKind::INIT);
+  auto pr = options.parseopt(argv.argc(), argv.argv());
+  EXPECT_EQ(pr.kind, commands::CmdKind::INIT);
 
   // namespace and backend options are changed
-  EXPECT_STREQ(cmd.init.ns, "test");
-  EXPECT_STREQ(cmd.init.backend, "ZendEngine3");
+  EXPECT_STREQ(pr.init.ns, "test");
+  EXPECT_STREQ(pr.init.backend, "ZendEngine3");
 
   // other INIT options are in default state
-  EXPECT_FALSE(cmd.init.help);
+  EXPECT_FALSE(pr.init.help);
 
   // all global options are in default state
-  EXPECT_FALSE(cmd.common.quiet);
-  EXPECT_FALSE(cmd.common.help);
-  EXPECT_FALSE(cmd.common.version);
-  EXPECT_FALSE(cmd.common.vernum);
-  EXPECT_FALSE(cmd.common.dumpversion);
+  EXPECT_FALSE(pr.common.quiet);
+  EXPECT_FALSE(pr.common.help);
+  EXPECT_FALSE(pr.common.version);
+  EXPECT_FALSE(pr.common.vernum);
+  EXPECT_FALSE(pr.common.dumpversion);
 }
 
 TEST_F(InitCmdTest, InvalidNamespaceFormat) {
   Argv argv({"zephir", "init", "123456789", ""});
 
   try {
-    auto cmd = options.parseopt(argv.argv());
+    options.parseopt(argv.argc(), argv.argv());
     FAIL() << "commands::Options::parseopt() should throw an error"
            << std::endl;
   } catch (commands::OptionException &e) {
@@ -172,7 +172,7 @@ TEST_F(InitCmdTest, InvalidNamespaceFormat2) {
   Argv argv({"zephir", "init", "test ns", ""});
 
   try {
-    auto cmd = options.parseopt(argv.argv());
+    options.parseopt(argv.argc(), argv.argv());
     FAIL() << "commands::Options::parseopt() should throw an error"
            << std::endl;
   } catch (commands::OptionException &e) {

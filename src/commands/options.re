@@ -8,51 +8,56 @@
 #include <string>
 #include <cstring>
 
-#include "cmd.hpp"
+#include "parse_result.hpp"
 #include "optionexception.hpp"
 #include "options.hpp"
 
 /*!types:re2c*/
 namespace commands {
 
-Options::Options() noexcept : m_program("Zephir") {}
+Options::Options() noexcept : program("Zephir") {}
 
-inline void Options::set_help_flag(Cmd &cmd) {
-  switch (cmd.kind) {
+inline void Options::set_help_flag(ParseResult &pr) {
+  switch (pr.kind) {
     case CmdKind::API:
-      cmd.api.help = true;
+      pr.api.help = true;
       break;
     case CmdKind::INIT:
-      cmd.init.help = true;
+      pr.init.help = true;
       break;
     default:
-      cmd.common.help = true;
+      pr.common.help = true;
   }
 }
 
-inline void Options::set_backend(Cmd &cmd, const char *backend) {
-  switch (cmd.kind) {
+inline void Options::set_backend(ParseResult &pr, const char *backend) {
+  switch (pr.kind) {
     case CmdKind::API:
-      cmd.api.backend = backend;
+      pr.api.backend = backend;
       break;
     case CmdKind::INIT:
-      cmd.init.backend = backend;
+      pr.init.backend = backend;
       break;
     default:
       throw OptionException("Backend isn't allowed in this context.");
   }
 }
 
-Cmd Options::parseopt(char **argv) {
+ParseResult Options::parseopt(int argc, char **argv) {
   char *YYCURSOR, *YYMARKER;
   int cond = 0;
 
-  commands::Cmd cmd;
-  std::memset(&cmd, 0, sizeof(commands::Cmd));
+  ParseResult pr;
+  std::memset(&pr, 0, sizeof(ParseResult));
+
+  if (argc == 1) {
+    // TODO(klay): pr.common.version = true; ?
+    return pr;
+  }
 
 loop:
   YYCURSOR = *++argv;
-  if (!YYCURSOR || *YYCURSOR == '\0') return cmd;
+  if (!YYCURSOR || *YYCURSOR == '\0') return pr;
 
   /*!re2c
    re2c:define:YYCTYPE = "unsigned char";
@@ -76,23 +81,23 @@ loop:
    }
 
    <start> ("-h" | "--help") end {
-      set_help_flag(cmd);
-      return cmd;
+      set_help_flag(pr);
+      return pr;
    }
 
    <start> ("-v" | "--version") end {
-      cmd.common.version = true;
-      return cmd;
+      pr.common.version = true;
+      return pr;
    }
 
    <start> "--vernum" end {
-      cmd.common.vernum = true;
-      return cmd;
+      pr.common.vernum = true;
+      return pr;
    }
 
   <start> "-"{1,2} "dumpversion" end {
-      cmd.common.dumpversion = true;
-      return cmd;
+      pr.common.dumpversion = true;
+      return pr;
    }
 
    <start> "--" value end {
@@ -100,11 +105,11 @@ loop:
          "Option \"" + std::string(*argv) + "\" isn't allowed in this context.");
    }
 
-   <start> "api" end => api { cmd.kind = CmdKind::API; goto loop; }
-   <start> "init" end => init { cmd.kind = CmdKind::INIT; goto loop; }
+   <start> "api" end => api { pr.kind = CmdKind::API; goto loop; }
+   <start> "init" end => init { pr.kind = CmdKind::INIT; goto loop; }
 
    <*> * {
-      if (cmd.kind == CmdKind::INIT) {
+      if (pr.kind == CmdKind::INIT) {
          throw OptionException(
             "Invalid namespace format: \"" + std::string(*argv) + "\"."
          );
@@ -128,7 +133,7 @@ loop:
          }
       }
 
-      set_backend(cmd, YYCURSOR);
+      set_backend(pr, YYCURSOR);
       goto yyc_backend;
    }
 
@@ -139,7 +144,7 @@ loop:
          }
       }
 
-      cmd.api.path = YYCURSOR;
+      pr.api.path = YYCURSOR;
       goto yyc_path;
    }
 
@@ -150,7 +155,7 @@ loop:
           }
       }
 
-      cmd.api.output = YYCURSOR;
+      pr.api.output = YYCURSOR;
       goto yyc_output;
    }
 
@@ -161,12 +166,12 @@ loop:
          }
       }
 
-      cmd.api.options = YYCURSOR;
+      pr.api.options = YYCURSOR;
       goto yyc_options;
    }
 
    <api, init> ("-h" | "--help") end {
-      set_help_flag(cmd);
+      set_help_flag(pr);
       goto loop;
    }
 
@@ -177,12 +182,12 @@ loop:
          }
       }
 
-      cmd.api.url = YYCURSOR;
+      pr.api.url = YYCURSOR;
       goto yyc_url;
    }
 
   <api> ("-q" | "--quiet") end {
-      cmd.common.quiet = true;
+      pr.common.quiet = true;
       goto loop;
    }
 
@@ -193,17 +198,17 @@ loop:
    }
 
    <init, namespace> ns end {
-      if (cmd.init.ns) {
+      if (pr.init.ns) {
          throw OptionException(
             "Invalid namespace format: \"" +
-            std::string(cmd.init.ns) +
+            std::string(pr.init.ns) +
             " " +
             std::string(*argv) +
             "\"."
          );
       }
 
-      cmd.init.ns = *argv;
+      pr.init.ns = *argv;
       goto loop;
    }
 
@@ -250,6 +255,6 @@ loop:
    }
   */
 
-  return cmd;
+  return pr;
 }
 }  // namespace commands

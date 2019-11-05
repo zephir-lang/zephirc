@@ -5,8 +5,8 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#ifndef ZEPHIR_COMMANDS_CMD_HPP_
-#define ZEPHIR_COMMANDS_CMD_HPP_
+#ifndef ZEPHIR_COMMANDS_PARSE_RESULT_HPP_
+#define ZEPHIR_COMMANDS_PARSE_RESULT_HPP_
 
 namespace commands {
 
@@ -70,7 +70,7 @@ struct CommonOpts {
   bool dumpversion;
 };
 
-class Cmd {
+class ParseResult {
  public:
   // what kind of command
   CmdKind kind;
@@ -92,4 +92,4 @@ class Cmd {
 };
 }  // namespace commands
 
-#endif  // ZEPHIR_COMMANDS_CMD_HPP_
+#endif  // ZEPHIR_COMMANDS_PARSE_RESULT_HPP_
