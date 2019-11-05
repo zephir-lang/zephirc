@@ -7,9 +7,7 @@
 
 #include <gtest/gtest.h>
 
-#include <cstring>
-
-// TODO: Make it better
+// TODO(klay): Make it better.
 #include "../../src/commands/cmd.hpp"
 #include "../../src/commands/optionexception.hpp"
 #include "../../src/commands/options.hpp"
