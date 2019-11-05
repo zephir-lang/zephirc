@@ -64,6 +64,7 @@ loop:
    end = "\x00";
    eq  = "=";
    value = [^\x00-][^\x00]*;
+   ns = [_a-zA-Z][_a-zA-Z0-9]*;
 
    <start> * {
       throw OptionException(
@@ -102,6 +103,13 @@ loop:
       throw OptionException(
          "The \"" + std::string(*argv) + "\" option does not exist."
       );
+   }
+
+   <init> "--" end => namespace {
+      // all remaining argv part is non-option
+      // so it must be namespace name
+      // zephir expects exactly one namespace name
+      goto loop;
    }
 
    <api, init> "--backend" (eq | end) {
@@ -169,30 +177,24 @@ loop:
       goto loop;
    }
 
-   <init> "--" end {
-      // all remaining argv part is non-option
-      // so it must be namespace name
-      // zephir expects exactly one namespace name
-      if (!(YYCURSOR = *++argv)) {
-        throw OptionException("Not enough arguments (missing: \"namespace\").");
+   <namespace> * {
+      throw OptionException(
+         "Invalid namespace format: \"" + std::string(*argv) + "\"."
+      );
+   }
+
+   <init, namespace> ns end {
+      if (cmd.init.ns) {
+         throw OptionException(
+            "Invalid namespace format: \"" +
+            std::string(cmd.init.ns) +
+            " " +
+            std::string(*argv) +
+            "\"."
+         );
       }
 
-      cmd.init.ns = YYCURSOR;
-      goto yyc_namespace;
-   }
-
-   // TODO: Better namespace parsing
-   <init> value end {
       cmd.init.ns = *argv;
-      goto loop;
-   }
-
-   <namespace> * {
-      throw OptionException("Namespace name \"" + std::string(*argv) + "\" does not supported.");
-   }
-
-   // TODO: Better namespace parsing
-   <namespace> value end {
       goto loop;
    }
 
@@ -200,7 +202,7 @@ loop:
       throw OptionException("Backend \"" + std::string(*argv) + "\" does not supported.");
    }
 
-   <backend> "ZendEngine3" end {
+   <backend> value end {
       goto loop;
    }
 
