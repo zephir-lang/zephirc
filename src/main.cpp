@@ -5,7 +5,6 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#include <cstring>
 #include <iostream>
 
 #include "commands/cmd.hpp"
@@ -13,13 +12,10 @@
 #include "commands/options.hpp"
 
 int main(int argc, char** argv) {
-  commands::Cmd cmd;
-  std::memset(&cmd, 0, sizeof(commands::Cmd));
-
   auto options = new commands::Options;
 
   try {
-    options->parseopt(argv, cmd);
+    auto cmd = options->parseopt(argv);
 
     switch (cmd.kind) {
       case commands::CmdKind::NONE:
