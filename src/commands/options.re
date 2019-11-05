@@ -100,6 +100,11 @@ loop:
    <start> "init" end => init { cmd.kind = CmdKind::INIT; goto loop; }
 
    <*> * {
+      if (cmd.kind == CmdKind::INIT) {
+         throw OptionException(
+            "Invalid namespace format: \"" + std::string(*argv) + "\"."
+         );
+      }
       throw OptionException(
          "The \"" + std::string(*argv) + "\" option does not exist."
       );
