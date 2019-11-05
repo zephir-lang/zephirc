@@ -17,9 +17,8 @@
 
 class NoneCmdTest : public ::testing::Test {
  protected:
-  NoneCmdTest() : options(), cmd() {}
+  NoneCmdTest() : options() {}
 
-  commands::Cmd cmd;
   commands::Options options;
 };
 
@@ -27,7 +26,7 @@ TEST_F(NoneCmdTest, InitWithoutParams) {
   Argv argv({"zephir", ""});
 
   // command is NONE
-  options.parseopt(argv.argv(), cmd);
+  auto cmd = options.parseopt(argv.argv());
   EXPECT_EQ(cmd.kind, commands::CmdKind::NONE);
 
   // all global options in default state
@@ -40,7 +39,7 @@ TEST_F(NoneCmdTest, InitWithoutParams) {
 
 TEST_F(NoneCmdTest, UsingHelpOptions) {
   Argv argv({"zephir", "--help", ""});
-  options.parseopt(argv.argv(), cmd);
+  auto cmd = options.parseopt(argv.argv());
 
   // only help option is changed
   EXPECT_TRUE(cmd.common.help);
@@ -54,7 +53,7 @@ TEST_F(NoneCmdTest, UsingHelpOptions) {
 
 TEST_F(NoneCmdTest, UsingVersonOptions) {
   Argv argv({"zephir", "--version", ""});
-  options.parseopt(argv.argv(), cmd);
+  auto cmd = options.parseopt(argv.argv());
 
   // only version option is changed
   EXPECT_TRUE(cmd.common.version);
@@ -70,7 +69,7 @@ TEST_F(NoneCmdTest, UsingUndefinedCommandWithOptions) {
   Argv argv({"zephir", "qwerty", "--version", "--help", ""});
 
   try {
-    options.parseopt(argv.argv(), cmd);
+    auto cmd = options.parseopt(argv.argv());
     FAIL() << "commands::Options::parseopt() should throw an error"
            << std::endl;
   } catch (commands::OptionException &e) {
@@ -88,7 +87,7 @@ TEST_F(NoneCmdTest, UsingQuietOptions) {
   Argv argv({"zephir", "--quiet", "--version", "--help", ""});
 
   try {
-    options.parseopt(argv.argv(), cmd);
+    auto cmd = options.parseopt(argv.argv());
     FAIL() << "commands::Options::parseopt() should throw an error"
            << std::endl;
   } catch (commands::OptionException &e) {
@@ -104,7 +103,7 @@ TEST_F(NoneCmdTest, UsingQuietOptions) {
 
 TEST_F(NoneCmdTest, UsingVernumOptions) {
   Argv argv({"zephir", "--vernum", ""});
-  options.parseopt(argv.argv(), cmd);
+  auto cmd = options.parseopt(argv.argv());
 
   // only vernum option is changed
   EXPECT_TRUE(cmd.common.vernum);
@@ -118,7 +117,7 @@ TEST_F(NoneCmdTest, UsingVernumOptions) {
 
 TEST_F(NoneCmdTest, UsingDumpversionOptions) {
   Argv argv({"zephir", "--dumpversion", "--version", "--help", ""});
-  options.parseopt(argv.argv(), cmd);
+  auto cmd = options.parseopt(argv.argv());
 
   // only dumpversion option is changed
   EXPECT_TRUE(cmd.common.dumpversion);

@@ -6,6 +6,7 @@
 // the LICENSE file that was distributed with this source code.
 
 #include <string>
+#include <cstring>
 
 #include "cmd.hpp"
 #include "optionexception.hpp"
@@ -42,13 +43,16 @@ inline void Options::set_backend(Cmd &cmd, const char *backend) {
   }
 }
 
-void Options::parseopt(char **argv, Cmd &cmd) {
+Cmd Options::parseopt(char **argv) {
   char *YYCURSOR, *YYMARKER;
   int cond = 0;
 
+  commands::Cmd cmd;
+  std::memset(&cmd, 0, sizeof(commands::Cmd));
+
 loop:
   YYCURSOR = *++argv;
-  if (!YYCURSOR || *YYCURSOR == '\0') return;
+  if (!YYCURSOR || *YYCURSOR == '\0') return cmd;
 
   /*!re2c
    re2c:define:YYCTYPE = "unsigned char";
@@ -73,22 +77,22 @@ loop:
 
    <start> ("-h" | "--help") end {
       set_help_flag(cmd);
-      return;
+      return cmd;
    }
 
    <start> ("-v" | "--version") end {
       cmd.common.version = true;
-      return;
+      return cmd;
    }
 
    <start> "--vernum" end {
       cmd.common.vernum = true;
-      return;
+      return cmd;
    }
 
   <start> "-"{1,2} "dumpversion" end {
       cmd.common.dumpversion = true;
-      return;
+      return cmd;
    }
 
    <start> "--" value end {
@@ -246,6 +250,6 @@ loop:
    }
   */
 
-  return;
+  return cmd;
 }
 }  // namespace commands

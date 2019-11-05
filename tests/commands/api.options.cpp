@@ -17,9 +17,8 @@
 
 class ApiCmdTest : public ::testing::Test {
  protected:
-  ApiCmdTest() : options(), cmd() {}
+  ApiCmdTest() : options() {}
 
-  commands::Cmd cmd;
   commands::Options options;
 };
 
@@ -27,7 +26,7 @@ TEST_F(ApiCmdTest, InitWithoutParams) {
   Argv argv({"zephir", "api", ""});
 
   // command is API
-  options.parseopt(argv.argv(), cmd);
+  auto cmd = options.parseopt(argv.argv());
   EXPECT_EQ(cmd.kind, commands::CmdKind::API);
 
   // all API options are in default state
@@ -50,7 +49,7 @@ TEST_F(ApiCmdTest, UsingHelp) {
   Argv argv({"zephir", "api", "--help", ""});
 
   // command is API
-  options.parseopt(argv.argv(), cmd);
+  auto cmd = options.parseopt(argv.argv());
   EXPECT_EQ(cmd.kind, commands::CmdKind::API);
 
   // only help option was changed
@@ -76,7 +75,7 @@ TEST_F(ApiCmdTest, TypicalUsage) {
              "-p", "theme", "-o", "out", "--options=opts", ""});
 
   // command is API
-  options.parseopt(argv.argv(), cmd);
+  auto cmd = options.parseopt(argv.argv());
   EXPECT_EQ(cmd.kind, commands::CmdKind::API);
 
   // API options are changed
@@ -92,7 +91,7 @@ TEST_F(ApiCmdTest, ThrowExceptionOnIncorrectOption) {
   Argv argv({"zephir", "api", "--foo", ""});
 
   try {
-    options.parseopt(argv.argv(), cmd);
+    auto cmd = options.parseopt(argv.argv());
     FAIL() << "commands::Options::parseopt() should throw an error"
            << std::endl;
   } catch (commands::OptionException &e) {

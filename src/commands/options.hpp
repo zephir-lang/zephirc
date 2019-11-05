@@ -16,7 +16,7 @@ namespace commands {
 class Options {
  public:
   Options() noexcept;
-  void parseopt(char **argv, Cmd &cmd);
+  Cmd parseopt(char **argv);
 
  private:
   inline void set_help_flag(Cmd &cmd);
