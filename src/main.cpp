@@ -14,7 +14,7 @@
 
 int main(int argc, char** argv) {
   commands::Cmd cmd;
-  std::memset(&cmd, 0, sizeof(cmd));
+  std::memset(&cmd, 0, sizeof(commands::Cmd));
 
   auto options = new commands::Options;
 
