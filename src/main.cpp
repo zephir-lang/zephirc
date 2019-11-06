@@ -15,7 +15,7 @@ int main(int argc, char** argv) {
   auto options = new commands::Options;
 
   try {
-    auto pr = options->parseopt(argc, argv);
+    auto pr = options->parse(argv);
 
     switch (pr.get_kind()) {
       case commands::CmdKind::NONE:

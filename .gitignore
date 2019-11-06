@@ -12,6 +12,7 @@
 
 /build/
 /build-*/
+*.profraw
 
 /src/commands/options.cpp
 

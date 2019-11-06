@@ -39,21 +39,14 @@ inline void Options::set_backend(ParseResult &pr, const char *backend) {
     pr.init.backend = backend;
     return;
   }
-
-  throw OptionException("Backend isn't allowed in this context.");
 }
 
-ParseResult Options::parseopt(int argc, char **argv) {
+ParseResult Options::parse(char **argv) {
   char *YYCURSOR, *YYMARKER;
   int cond = 0;
 
   ParseResult pr;
   std::memset(&pr, 0, sizeof(ParseResult));
-
-  if (argc == 1) {
-    // TODO(klay): pr.common.version = true; ?
-    return pr;
-  }
 
 loop:
   YYCURSOR = *++argv;

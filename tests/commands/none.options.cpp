@@ -24,7 +24,7 @@ TEST_F(NoneCmdTest, InitWithoutParams) {
   Argv argv({"zephir", ""});
 
   // command is NONE
-  auto pr = options.parseopt(argv.argc(), argv.argv());
+  auto pr = options.parse(argv.argv());
   EXPECT_EQ(pr.get_kind(), commands::CmdKind::NONE);
 
   // all global options in default state
@@ -37,7 +37,7 @@ TEST_F(NoneCmdTest, InitWithoutParams) {
 
 TEST_F(NoneCmdTest, UsingHelpOptions) {
   Argv argv({"zephir", "--help", ""});
-  auto pr = options.parseopt(argv.argc(), argv.argv());
+  auto pr = options.parse(argv.argv());
 
   // only help option is changed
   EXPECT_TRUE(pr.common.help);
@@ -51,7 +51,7 @@ TEST_F(NoneCmdTest, UsingHelpOptions) {
 
 TEST_F(NoneCmdTest, UsingVersonOptions) {
   Argv argv({"zephir", "--version", ""});
-  auto pr = options.parseopt(argv.argc(), argv.argv());
+  auto pr = options.parse(argv.argv());
 
   // only version option is changed
   EXPECT_TRUE(pr.common.version);
@@ -67,9 +67,8 @@ TEST_F(NoneCmdTest, UsingUndefinedCommandWithOptions) {
   Argv argv({"zephir", "qwerty", "--version", "--help", ""});
 
   try {
-    options.parseopt(argv.argc(), argv.argv());
-    FAIL() << "commands::Options::parseopt() should throw an error"
-           << std::endl;
+    options.parse(argv.argv());
+    FAIL() << "commands::Options::parse() should throw an error" << std::endl;
   } catch (commands::OptionException &e) {
     EXPECT_STREQ(e.what(), "Command \"qwerty\" is not defined.");
   } catch (std::runtime_error &e) {
@@ -85,9 +84,8 @@ TEST_F(NoneCmdTest, UsingQuietOptions) {
   Argv argv({"zephir", "--quiet", "--version", "--help", ""});
 
   try {
-    options.parseopt(argv.argc(), argv.argv());
-    FAIL() << "commands::Options::parseopt() should throw an error"
-           << std::endl;
+    options.parse(argv.argv());
+    FAIL() << "commands::Options::parse() should throw an error" << std::endl;
   } catch (commands::OptionException &e) {
     EXPECT_STREQ(e.what(), "Option \"--quiet\" isn't allowed in this context.");
   } catch (std::runtime_error &e) {
@@ -101,7 +99,7 @@ TEST_F(NoneCmdTest, UsingQuietOptions) {
 
 TEST_F(NoneCmdTest, UsingVernumOptions) {
   Argv argv({"zephir", "--vernum", ""});
-  auto pr = options.parseopt(argv.argc(), argv.argv());
+  auto pr = options.parse(argv.argv());
 
   // only vernum option is changed
   EXPECT_TRUE(pr.common.vernum);
@@ -115,7 +113,7 @@ TEST_F(NoneCmdTest, UsingVernumOptions) {
 
 TEST_F(NoneCmdTest, UsingDumpversionOptions) {
   Argv argv({"zephir", "--dumpversion", "--version", "--help", ""});
-  auto pr = options.parseopt(argv.argc(), argv.argv());
+  auto pr = options.parse(argv.argv());
 
   // only dumpversion option is changed
   EXPECT_TRUE(pr.common.dumpversion);
