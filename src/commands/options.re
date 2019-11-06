@@ -7,6 +7,7 @@
 
 #include <string>
 #include <cstring>
+#include <vector>
 
 #include "parse_result.hpp"
 #include "optionexception.hpp"
@@ -41,16 +42,28 @@ inline void Options::set_backend(ParseResult &pr, const char *backend) {
   }
 }
 
-ParseResult Options::parse(char **argv) {
-  char *YYCURSOR, *YYMARKER;
+ParseResult Options::parse(const std::vector<const char*> &args) {
+
+#define next(msg) do {          \
+  if (i == e) {                 \
+    throw OptionException(msg); \
+  }                             \
+  arg = YYCURSOR = *i++;        \
+} while(0)
+
+  const char *YYCURSOR, *YYMARKER, *arg;
   int cond = 0;
+  auto i = args.begin(), e = args.end();
 
   ParseResult pr;
   std::memset(&pr, 0, sizeof(ParseResult));
 
 loop:
-  YYCURSOR = *++argv;
-  if (!YYCURSOR || *YYCURSOR == '\0') return pr;
+  if (i == e) {
+    return pr;
+  }
+
+  arg = YYCURSOR = *i++;
 
   /*!re2c
    re2c:define:YYCTYPE = "unsigned char";
@@ -70,7 +83,7 @@ loop:
 
    <start> * {
       throw OptionException(
-         "Command \"" + std::string(*argv) + "\" is not defined.");
+         "Command \"" + std::string(arg) + "\" is not defined.");
    }
 
    <start> ("-h" | "--help") end {
@@ -95,7 +108,7 @@ loop:
 
    <start> "--" value end {
       throw OptionException(
-         "Option \"" + std::string(*argv) + "\" isn't allowed in this context.");
+         "Option \"" + std::string(arg) + "\" isn't allowed in this context.");
    }
 
    <start> "api" end => api { pr.set_kind(CmdKind::API); goto loop; }
@@ -104,11 +117,12 @@ loop:
    <*> * {
       if (pr.get_kind() == CmdKind::INIT) {
          throw OptionException(
-            "Invalid namespace format: \"" + std::string(*argv) + "\"."
+            "Invalid namespace format: \"" + std::string(arg) + "\"."
          );
       }
+
       throw OptionException(
-         "The \"" + std::string(*argv) + "\" option does not exist."
+         "The \"" + std::string(arg) + "\" option does not exist."
       );
    }
 
@@ -121,9 +135,7 @@ loop:
 
    <api, init> "--backend" (eq | end) {
       if (YYCURSOR[-1] == 0) {
-         if (!(YYCURSOR = *++argv)) {
-            throw OptionException("The \"--backend\" option requires a value.");
-         }
+          next("The \"--backend\" option requires a value.");
       }
 
       set_backend(pr, YYCURSOR);
@@ -132,9 +144,7 @@ loop:
 
    <api> ("-p" end) | ("--path" (eq | end)) {
       if (YYCURSOR[-1] == 0) {
-         if (!(YYCURSOR = *++argv)) {
-            throw OptionException("The \"--path\" option requires a value.");
-         }
+         next("The \"--path\" option requires a value.");
       }
 
       pr.api.path = YYCURSOR;
@@ -143,9 +153,7 @@ loop:
 
    <api> ("-o" end) | ("--output" (eq | end)) {
       if (YYCURSOR[-1] == 0) {
-         if (!(YYCURSOR = *++argv)) {
-            throw OptionException("The \"--output\" option requires a value.");
-          }
+         next("The \"--output\" option requires a value.");
       }
 
       pr.api.output = YYCURSOR;
@@ -154,9 +162,7 @@ loop:
 
    <api> "--options" (eq | end) {
       if (YYCURSOR[-1] == 0) {
-         if (!(YYCURSOR = *++argv)) {
-            throw OptionException("The \"--options\" option requires a value.");
-         }
+         next("The \"--options\" option requires a value.");
       }
 
       pr.api.options = YYCURSOR;
@@ -170,9 +176,7 @@ loop:
 
    <api> "--url" (eq | end) {
       if (YYCURSOR[-1] == 0) {
-         if (!(YYCURSOR = *++argv)) {
-            throw OptionException("The \"--url\" option requires a value.");
-         }
+         next("The \"--url\" option requires a value.");
       }
 
       pr.api.url = YYCURSOR;
@@ -186,7 +190,7 @@ loop:
 
    <namespace> * {
       throw OptionException(
-         "Invalid namespace format: \"" + std::string(*argv) + "\"."
+         "Invalid namespace format: \"" + std::string(arg) + "\"."
       );
    }
 
@@ -195,18 +199,16 @@ loop:
          throw OptionException(
             "Invalid namespace format: \"" +
             std::string(pr.init.ns) +
-            " " +
-            std::string(*argv) +
-            "\"."
+            " " + std::string(arg) + "\"."
          );
       }
 
-      pr.init.ns = *argv;
+      pr.init.ns = arg;
       goto loop;
    }
 
    <backend> * {
-      throw OptionException("Backend \"" + std::string(*argv) + "\" does not supported.");
+      throw OptionException("Backend \"" + std::string(arg) + "\" does not supported.");
    }
 
    <backend> value end {

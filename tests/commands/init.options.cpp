@@ -21,7 +21,7 @@ class InitCmdTest : public ::testing::Test {
 };
 
 TEST_F(InitCmdTest, InitWithoutParams) {
-  Argv argv({"zephir", "init", ""});
+  Argv argv({"init"});
 
   // command is INIT
   auto pr = options.parse(argv.argv());
@@ -41,7 +41,7 @@ TEST_F(InitCmdTest, InitWithoutParams) {
 }
 
 TEST_F(InitCmdTest, HelpOption) {
-  Argv argv({"zephir", "init", "--help", ""});
+  Argv argv({"init", "--help"});
 
   // command is INIT
   auto pr = options.parse(argv.argv());
@@ -63,7 +63,7 @@ TEST_F(InitCmdTest, HelpOption) {
 }
 
 TEST_F(InitCmdTest, InitWithNamespace) {
-  Argv argv({"zephir", "init", "phalcon", ""});
+  Argv argv({"init", "phalcon"});
 
   // command is INIT
   auto pr = options.parse(argv.argv());
@@ -85,7 +85,7 @@ TEST_F(InitCmdTest, InitWithNamespace) {
 }
 
 TEST_F(InitCmdTest, UsingNamespaceOptionsSeparator) {
-  Argv argv({"zephir", "init", "--", "test", ""});
+  Argv argv({"init", "--", "test"});
 
   // command is INIT
   auto pr = options.parse(argv.argv());
@@ -107,7 +107,7 @@ TEST_F(InitCmdTest, UsingNamespaceOptionsSeparator) {
 }
 
 TEST_F(InitCmdTest, InitWithNamespaceAndBackend) {
-  Argv argv({"zephir", "init", "phalcon", "--backend=ZendEngine4", ""});
+  Argv argv({"init", "phalcon", "--backend=ZendEngine4"});
 
   // command is INIT
   auto pr = options.parse(argv.argv());
@@ -129,7 +129,7 @@ TEST_F(InitCmdTest, InitWithNamespaceAndBackend) {
 }
 
 TEST_F(InitCmdTest, InitWithNamespaceAndBackend2) {
-  Argv argv({"zephir", "init", "--backend=ZendEngine2", "foo", ""});
+  Argv argv({"init", "--backend=ZendEngine2", "foo"});
 
   // command is INIT
   auto pr = options.parse(argv.argv());
@@ -151,7 +151,7 @@ TEST_F(InitCmdTest, InitWithNamespaceAndBackend2) {
 }
 
 TEST_F(InitCmdTest, UsingNamespaceOptionsSeparatorAndBackend) {
-  Argv argv({"zephir", "init", "--backend=ZendEngine3", "--", "test", ""});
+  Argv argv({"init", "--backend=ZendEngine3", "--", "test"});
 
   // command is INIT
   auto pr = options.parse(argv.argv());
@@ -173,7 +173,7 @@ TEST_F(InitCmdTest, UsingNamespaceOptionsSeparatorAndBackend) {
 }
 
 TEST_F(InitCmdTest, InvalidNamespaceFormat) {
-  Argv argv({"zephir", "init", "123456789", ""});
+  Argv argv({"init", "123456789"});
 
   try {
     options.parse(argv.argv());
@@ -190,7 +190,7 @@ TEST_F(InitCmdTest, InvalidNamespaceFormat) {
 }
 
 TEST_F(InitCmdTest, InvalidNamespaceFormat2) {
-  Argv argv({"zephir", "init", "test ns", ""});
+  Argv argv({"init", "test ns"});
 
   try {
     options.parse(argv.argv());

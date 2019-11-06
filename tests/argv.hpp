@@ -14,14 +14,11 @@
 
 class Argv {
  public:
-  explicit Argv(std::initializer_list<const char*> args);
-  char** argv() const;
-  int argc() const;
+  Argv(std::initializer_list<const char*> args);
+  std::vector<const char*> argv() const;
 
  private:
-  std::vector<std::unique_ptr<char[]>> m_args;
-  std::unique_ptr<char*[]> m_argv;
-  int m_argc;
+  std::vector<const char*> m_argv;
 };
 
 #endif  // ZEPHIR_TEST_ARGV_HPP_

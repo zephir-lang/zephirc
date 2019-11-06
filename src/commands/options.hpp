@@ -9,6 +9,7 @@
 #define ZEPHIR_COMMANDS_OPTIONS_HPP_
 
 #include <string>
+#include <vector>
 
 #include "parse_result.hpp"
 
@@ -16,7 +17,7 @@ namespace commands {
 class Options {
  public:
   Options() noexcept;
-  ParseResult parse(char **argv);
+  ParseResult parse(const std::vector<const char *> &args);
 
  private:
   inline void set_help_flag(ParseResult &pr);

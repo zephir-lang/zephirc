@@ -21,7 +21,7 @@ class NoneCmdTest : public ::testing::Test {
 };
 
 TEST_F(NoneCmdTest, InitWithoutParams) {
-  Argv argv({"zephir", ""});
+  Argv argv({});
 
   // command is NONE
   auto pr = options.parse(argv.argv());
@@ -36,7 +36,7 @@ TEST_F(NoneCmdTest, InitWithoutParams) {
 }
 
 TEST_F(NoneCmdTest, UsingHelpOptions) {
-  Argv argv({"zephir", "--help", ""});
+  Argv argv({"--help"});
   auto pr = options.parse(argv.argv());
 
   // only help option is changed
@@ -50,7 +50,7 @@ TEST_F(NoneCmdTest, UsingHelpOptions) {
 }
 
 TEST_F(NoneCmdTest, UsingVersonOptions) {
-  Argv argv({"zephir", "--version", ""});
+  Argv argv({"--version"});
   auto pr = options.parse(argv.argv());
 
   // only version option is changed
@@ -64,7 +64,7 @@ TEST_F(NoneCmdTest, UsingVersonOptions) {
 }
 
 TEST_F(NoneCmdTest, UsingUndefinedCommandWithOptions) {
-  Argv argv({"zephir", "qwerty", "--version", "--help", ""});
+  Argv argv({"qwerty", "--version", "--help"});
 
   try {
     options.parse(argv.argv());
@@ -81,7 +81,7 @@ TEST_F(NoneCmdTest, UsingUndefinedCommandWithOptions) {
 }
 
 TEST_F(NoneCmdTest, UsingQuietOptions) {
-  Argv argv({"zephir", "--quiet", "--version", "--help", ""});
+  Argv argv({"--quiet", "--version", "--help"});
 
   try {
     options.parse(argv.argv());
@@ -98,7 +98,7 @@ TEST_F(NoneCmdTest, UsingQuietOptions) {
 }
 
 TEST_F(NoneCmdTest, UsingVernumOptions) {
-  Argv argv({"zephir", "--vernum", ""});
+  Argv argv({"--vernum"});
   auto pr = options.parse(argv.argv());
 
   // only vernum option is changed
@@ -112,7 +112,7 @@ TEST_F(NoneCmdTest, UsingVernumOptions) {
 }
 
 TEST_F(NoneCmdTest, UsingDumpversionOptions) {
-  Argv argv({"zephir", "--dumpversion", "--version", "--help", ""});
+  Argv argv({"--dumpversion", "--version", "--help"});
   auto pr = options.parse(argv.argv());
 
   // only dumpversion option is changed

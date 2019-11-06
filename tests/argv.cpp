@@ -7,27 +7,16 @@
 
 #include "argv.hpp"
 
-#include <cstring>
 #include <initializer_list>
-#include <utility>
 
-Argv::Argv(std::initializer_list<const char *> args)
-    : m_argv(new char *[args.size()]), m_argc(args.size()) {
-  int i = 0;
-  auto iter = args.begin();
-  while (iter != args.end()) {
-    auto len = std::strlen(*iter) + 1;
-    auto ptr = std::unique_ptr<char[]>(new char[len]);
+Argv::Argv(std::initializer_list<const char *> args) {
+  if (args.size() > 0) {
+    m_argv.reserve(args.size() - 1);
+  }
 
-    std::strncpy(ptr.get(), *iter, len);
-    m_args.push_back(std::move(ptr));
-    m_argv.get()[i] = m_args.back().get();
-
-    ++iter;
-    ++i;
+  for (const auto &iter : args) {
+    m_argv.push_back(iter);
   }
 }
 
-char **Argv::argv() const { return m_argv.get(); }
-
-int Argv::argc() const { return m_argc; }
+std::vector<const char *> Argv::argv() const { return m_argv; }

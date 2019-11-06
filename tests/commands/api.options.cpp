@@ -21,7 +21,7 @@ class ApiCmdTest : public ::testing::Test {
 };
 
 TEST_F(ApiCmdTest, InitWithoutParams) {
-  Argv argv({"zephir", "api", ""});
+  Argv argv({"api"});
 
   // command is API
   auto pr = options.parse(argv.argv());
@@ -44,7 +44,7 @@ TEST_F(ApiCmdTest, InitWithoutParams) {
 }
 
 TEST_F(ApiCmdTest, UsingHelp) {
-  Argv argv({"zephir", "api", "--help", ""});
+  Argv argv({"api", "--help"});
 
   // command is API
   auto pr = options.parse(argv.argv());
@@ -69,8 +69,8 @@ TEST_F(ApiCmdTest, UsingHelp) {
 }
 
 TEST_F(ApiCmdTest, TypicalUsage) {
-  Argv argv({"zephir", "api", "--url=http://test.com", "--backend=ZendEngine3",
-             "-p", "theme", "-o", "out", "--options=opts", ""});
+  Argv argv({"api", "--url=http://test.com", "--backend=ZendEngine3", "-p",
+             "theme", "-o", "out", "--options=opts"});
 
   // command is API
   auto pr = options.parse(argv.argv());
@@ -86,7 +86,7 @@ TEST_F(ApiCmdTest, TypicalUsage) {
 }
 
 TEST_F(ApiCmdTest, ThrowExceptionOnIncorrectOption) {
-  Argv argv({"zephir", "api", "--foo", ""});
+  Argv argv({"api", "--foo"});
 
   try {
     options.parse(argv.argv());

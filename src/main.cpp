@@ -6,16 +6,28 @@
 // the LICENSE file that was distributed with this source code.
 
 #include <iostream>
+#include <vector>
 
 #include "commands/optionexception.hpp"
 #include "commands/options.hpp"
 #include "commands/parse_result.hpp"
 
+static inline std::vector<const char*> prepare_args(int argc, char** argv) {
+  std::vector<const char*> args;
+  args.reserve(static_cast<size_t>(argc - 1));
+  for (; *++argv;) {
+    args.push_back(*argv);
+  }
+
+  return args;
+}
+
 int main(int argc, char** argv) {
   auto options = new commands::Options;
+  auto args = prepare_args(argc, argv);
 
   try {
-    auto pr = options->parse(argv);
+    auto pr = options->parse(args);
 
     switch (pr.get_kind()) {
       case commands::CmdKind::NONE:
