@@ -19,7 +19,7 @@ RE2C_TARGET(
     INPUT options.re
     OUTPUT options.cpp
     DEPENDS options.hpp
-    COMPILE_FLAGS "-W -Werror -c")
+    COMPILE_FLAGS -W -Werror -c)
 
 # Add definition for commands library.
 add_library(commands STATIC
