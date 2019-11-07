@@ -2,6 +2,7 @@
     "version": "2.0.0",
 
     "tasks": [
+        // CMake Build - Debug
         {
             "label": "CMake Build - Debug",
             "group": "build",
@@ -25,9 +26,24 @@
                 "focus": false,
                 "showReuseMessage": false
             },
-            "problemMatcher": []
+            "problemMatcher": {
+                "owner": "cmake",
+                "fileLocation": "relative",
+                "pattern":[
+                    {
+                        "regexp": "^CMake Error at (.*):(\\d+)\\s+.*$",
+                        "file": 1,
+                        "location": 2
+                    },
+                    {
+                        "regexp": "^\\s+(.*)$",
+                        "message": 1
+                    }
+                ]
+            }
         },
 
+        // Build project
         {
             "label": "Build project",
             "group": {
@@ -48,6 +64,7 @@
             "problemMatcher":"$gcc"
         },
 
+        // Clean profile data
         {
             "label": "Clean profile data",
             "type": "shell",
@@ -85,6 +102,7 @@
             }
         },
 
+        // Run tests
         {
             "label": "Run tests",
             "group": {
@@ -110,7 +128,7 @@
                 "clear": true
             },
             "problemMatcher": {
-                "owner": "cmake",
+                "owner": "ctest",
                 "fileLocation": "absolute",
                 "pattern":[
                     {
@@ -126,6 +144,7 @@
             }
         },
 
+        // Generate HTML code coverage report
         {
             "label": "Generate HTML code coverage report",
             "type": "shell",
