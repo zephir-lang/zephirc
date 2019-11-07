@@ -29,7 +29,9 @@ endif()
 # Provide path for cmake scripts
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
-include(BuildTypes)
+include(build-types)
+
+# Require C++11
 include(c++-standards)
 include(compiler-options)
 
