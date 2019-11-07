@@ -6,7 +6,7 @@
             "label": "CMake Build - Debug",
             "group": "build",
             "options": {
-                "cwd": "${workspaceRoot}",
+                "cwd": "${workspaceRoot}"
             },
             "command": "cmake",
             "args": [
@@ -14,7 +14,7 @@
                 "-Bbuild",
                 "-DCMAKE_BUILD_TYPE=Debug",
                 "-DZEPHIR_BUILD_TESTING=ON",
-                "-DZEPHIR_CODE_COVERAGE=ON"
+                "-DCODE_COVERAGE=ON"
             ],
             "type": "shell",
             "presentation": {
@@ -23,20 +23,17 @@
                 "focus": false,
                 "showReuseMessage": false
             },
-            "problemMatcher": [],
+            "problemMatcher": []
         },
 
         {
             "label": "Build project",
             "group": {
                 "kind": "build",
-                "isDefault": true,
+                "isDefault": true
             },
             "options": {
-                "cwd": "${workspaceRoot}/build",
-                "env": {
-                    "LLVM_PROFILE_FILE": "${workspaceRoot}/build/coverage/llvm_%p.profraw"
-                }
+                "cwd": "${workspaceRoot}/build"
             },
             "command": "make",
             "type": "shell",
@@ -44,7 +41,7 @@
                 "reveal": "silent",
                 "panel": "shared",
                 "showReuseMessage": false,
-                "clear": true,
+                "clear": true
             },
             "problemMatcher":"$gcc"
         },
@@ -60,21 +57,21 @@
                 "command": "rm",
                 "args": [
                     "-rf",
-                    "coverage"
+                    "ccov"
                 ]
             },
             "osx": {
                 "command": "rm",
                 "args": [
                     "-rf",
-                    "coverage"
+                    "ccov"
                 ]
             },
             "windows": {
                 "command": "rd",
                 "args": [
                     "-r",
-                    "coverage"
+                    "ccov"
                 ]
             },
             "isBackground": true,
@@ -83,14 +80,14 @@
                 "reveal": "silent",
                 "focus": false,
                 "showReuseMessage": false
-            },
+            }
         },
 
         {
             "label": "Run tests",
             "group": {
                 "kind": "test",
-                "isDefault": true,
+                "isDefault": true
             },
             "type":"shell",
             "command": "ctest",
@@ -98,10 +95,7 @@
                "--output-on-failure"
             ],
             "options": {
-                "cwd": "${workspaceRoot}/build",
-                "env": {
-                    "LLVM_PROFILE_FILE": "${workspaceRoot}/build/coverage/llvm_%p.profraw"
-                }
+                "cwd": "${workspaceRoot}/build"
             },
             "dependsOn": [
                 "Clean profile data",
@@ -131,38 +125,28 @@
         },
 
         {
-            "label": "(clang) Create coverage reports",
+            "label": "Generate HTML code coverage report",
             "type": "shell",
             "options": {
                 "cwd": "${workspaceRoot}/build"
             },
             "problemMatcher": [],
             "linux": {
-                "command": "llvm-profdata",
+                "command": "make",
                 "args": [
-                    "merge",
-                    "coverage/llvm_*.profraw",
-                    "-output",
-                    "coverage/tests.profdata"
+                    "ccov-all"
                 ]
             },
             "osx": {
-                "command": "xcrun",
+                "command": "make",
                 "args": [
-                    "llvm-profdata",
-                    "merge",
-                    "coverage/llvm_*.profraw",
-                    "-output",
-                    "coverage/tests.profdata"
+                    "ccov-all"
                 ]
             },
             "windows": {
-                "command": "llvm-profdata.exe",
+                "command": "make",
                 "args": [
-                    "merge",
-                    "coverage/llvm_*.profraw",
-                    "-output",
-                    "coverage/tests.profdata"
+                    "ccov-all"
                 ]
             },
             "presentation": {
@@ -170,62 +154,7 @@
                 "reveal": "silent",
                 "focus": false,
                 "showReuseMessage": false
-            },
-        },
-
-        {
-            "label": "(clang) Render coverage reports",
-            "type": "shell",
-            "options": {
-                "cwd": "${workspaceRoot}/build"
-            },
-            "problemMatcher": [],
-            "dependsOn": [
-                "(clang) Create coverage reports"
-            ],
-            "linux": {
-                "command": "llvm-cov",
-                "args": [
-                    "show",
-                    "bin/zephir",
-                    "-instr-profile=coverage/tests.profdata",
-                    "-show-expansions",
-                    "-show-line-counts-or-regions",
-                    "-format=html",
-                    "-output-dir=coverage"
-                ]
-            },
-            "osx": {
-                "command": "xcrun",
-                "args": [
-                    "llvm-cov",
-                    "show",
-                    "bin/zephir",
-                    "-instr-profile=coverage/tests.profdata",
-                    "-show-expansions",
-                    "-show-line-counts-or-regions",
-                    "-format=html",
-                    "-output-dir=coverage"
-                ]
-            },
-            "windows": {
-                "command": "llvm-cov.exe",
-                "args": [
-                    "show",
-                    "bin/zephir",
-                    "-instr-profile=coverage/tests.profdata",
-                    "-show-expansions",
-                    "-show-line-counts-or-regions",
-                    "-format=html",
-                    "-output-dir=coverage"
-                ]
-            },
-            "presentation": {
-                "reveal": "silent",
-                "panel": "shared",
-                "focus": false,
-                "showReuseMessage": false
-            },
+            }
         }
     ]
 }
