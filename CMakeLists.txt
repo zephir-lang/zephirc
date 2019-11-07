@@ -30,17 +30,16 @@ endif()
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
 include(BuildTypes)
+include(c++-standards)
+include(compiler-options)
 
 if(NOT CMAKE_CXX_STANDARD)
-    set(CMAKE_CXX_STANDARD 11 CACHE STRING "")
+    cxx_11()
 endif()
 
 if(CMAKE_CXX_STANDARD LESS 11)
     message(WARNING "Incompatible C++ standard ${CMAKE_CXX_STANDARD}. Zephir requires C++11")
 endif()
-
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
 
 if(NOT CMAKE_INSTALL_PREFIX)
   set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}"
@@ -51,7 +50,6 @@ set(EXECUTABLE_OUTPUT_PATH "${CMAKE_BINARY_DIR}/bin")
 set(LIBRARY_OUTPUT_PATH "${CMAKE_BINARY_DIR}/lib")
 
 option(ZEPHIR_BUILD_TESTING "Build test project"           OFF)
-option(ZEPHIR_CODE_COVERAGE "Enable code coverage metrics" OFF)
 
 add_subdirectory(src)
 
