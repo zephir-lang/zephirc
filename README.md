@@ -39,10 +39,23 @@ cmake -H. \
 cd build
 make
 ctest
-make cppcheck # optinal
 ```
 
-To capture profiling and coverage data use `-DCODE_COVERAGE=ON` cmake's flag.
+### Additional cmake flags
+
+Additional cmake flags are (e.g. to enable `FEATURE` us `-DFEATURE=ON`):
+
+| Description                                         | Flag                   |
+| --------------------------------------------------- |------------------------|
+| Generate code coverage report.                      | `CODE_COVERAGE`        |
+| Compile with all warnings for the major compilers.  | `ENABLE_ALL_WARNINGS`  |
+| Enable Effective C++ warnings.                      | `ENABLE_EFFECTIVE_CXX` |
+
+### Generate HTML code coverage report
+
+1. Build project using `-DCODE_COVERAGE=ON`
+2. Run tests
+3. Call `make ccov-all` inside the `build` direcory
 
 ## License
 
