@@ -42,7 +42,7 @@ ctest
 make cppcheck # optinal
 ```
 
-To capture profiling and coverage data use `-DZEPHIR_CODE_COVERAGE=ON` cmake's flag.
+To capture profiling and coverage data use `-DCODE_COVERAGE=ON` cmake's flag.
 
 ## License
 
