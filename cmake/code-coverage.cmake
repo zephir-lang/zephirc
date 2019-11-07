@@ -74,10 +74,9 @@
 # ~~~
 
 # Options
-option(
-        CODE_COVERAGE
-        "Builds targets with code coverage instrumentation. (Requires GCC or Clang)"
-        OFF)
+option(CODE_COVERAGE
+       "Builds targets with code coverage instrumentation. (Requires GCC or Clang)"
+       OFF)
 
 # Programs
 find_program(LLVM_COV_PATH llvm-cov)
@@ -111,14 +110,14 @@ if(CODE_COVERAGE AND NOT CODE_COVERAGE_ADDED)
             # Version number checking for 'EXCLUDE' compatability
             execute_process(COMMAND ${LLVM_COV_PATH} --version
                     OUTPUT_VARIABLE LLVM_COV_VERSION_CALL_OUTPUT)
+
             string(REGEX MATCH
                     "[0-9]+\\.[0-9]+\\.[0-9]+"
                     LLVM_COV_VERSION
                     ${LLVM_COV_VERSION_CALL_OUTPUT})
 
             if(LLVM_COV_VERSION VERSION_LESS "7.0.0")
-                message(
-                        WARNING
+                message(WARNING
                         "target_code_coverage()/add_code_coverage_all_targets() 'EXCLUDE' option only available on llvm-cov >= 7.0.0"
                 )
             endif()
