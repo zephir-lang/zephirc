@@ -22,14 +22,14 @@ RE2C_TARGET(
     COMPILE_FLAGS -W -Werror -c)
 
 # Add definition for commands library.
-add_library(commands STATIC
+add_library(commands
     parse_result.hpp
     optionexception.cpp
     optionexception.hpp
     "${RE2C_options_OUTPUTS}")
 
 # Instruments the library
-target_code_coverage(commands AUTO ALL)
+target_code_coverage(commands AUTO)
 
 # CMakeLists.txt ends here
 
