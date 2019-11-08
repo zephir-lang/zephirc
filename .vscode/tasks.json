@@ -4,7 +4,7 @@
     "tasks": [
         // CMake Build - Debug
         {
-            "label": "CMake Build - Debug",
+            "label": "Build | CMake Build - Debug",
             "group": "build",
             "options": {
                 "cwd": "${workspaceRoot}"
@@ -45,7 +45,7 @@
 
         // Build project
         {
-            "label": "Build project",
+            "label": "Build | Build project",
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -66,7 +66,7 @@
 
         // Clean profile data
         {
-            "label": "Clean profile data",
+            "label": "Coverage | Clean profile data",
             "type": "shell",
             "options": {
                 "cwd": "${workspaceRoot}/build"
@@ -104,7 +104,7 @@
 
         // Run tests
         {
-            "label": "Run tests",
+            "label": "Tests | Run tests",
             "group": {
                 "kind": "test",
                 "isDefault": true
@@ -146,7 +146,7 @@
 
         // Generate HTML code coverage report
         {
-            "label": "Generate HTML code coverage report",
+            "label": "Coverage | Generate HTML code coverage report",
             "type": "shell",
             "options": {
                 "cwd": "${workspaceRoot}/build"
