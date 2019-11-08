@@ -5,17 +5,19 @@
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
 
-# Include the sanitizer module
-include(code-coverage)
-
-add_subdirectory(commands)
+if(CODE_COVERAGE)
+    add_code_coverage()
+endif()
 
 # The executable
 add_executable(zephir main.cpp)
-target_link_libraries(zephir PUBLIC commands)
 
-# Adds the executable to the 'ccov' target
-target_code_coverage(zephir AUTO EXTERNAL)
+add_subdirectory(commands)
+target_link_libraries(zephir PRIVATE commands)
+
+if(CODE_COVERAGE)
+    target_code_coverage(zephir)
+endif()
 
 # CMakeLists.txt ends here
 

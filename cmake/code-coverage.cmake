@@ -29,50 +29,70 @@
 # coverage information for perusal or consumption, call
 # `target_code_coverage(<TARGET_NAME>)` on an *executable* target.
 #
-# Example 1: All targets instrumented
+# Example 1
+# =========
 #
-# In this case, the coverage information reported will will be that of the
+# All targets instrumented.
+#
+# In this case, the coverage information reported will be that of the
 # `theLib` library target and `theExe` executable.
 #
 # 1a: Via global command
+# ~~~~~~~~~~~~~~~~~~~~~~
 #
-# ~~~
-# add_code_coverage() # Adds instrumentation to all targets
+#     # Adds instrumentation to all targets
+#     add_code_coverage()
 #
-# add_library(theLib lib.cpp)
+#     add_library(theLib lib.cpp)
 #
-# add_executable(theExe main.cpp)
-# target_link_libraries(theExe PRIVATE theLib)
-# target_code_coverage(theExe) # As an executable target, adds the 'ccov-theExe' target (instrumentation already added via global anyways) for generating code coverage reports.
-# ~~~
+#     add_executable(theExe main.cpp)
+#     target_link_libraries(theExe PRIVATE theLib)
+#
+#     # As an executable target, adds the 'ccov-theExe' target
+#     # (instrumentation already added via global anyways) for generating
+#     # code coverage reports.
+#     target_code_coverage(theExe)
 #
 # 1b: Via target commands
+# ~~~~~~~~~~~~~~~~~~~~~~~
 #
-# ~~~
-# add_library(theLib lib.cpp)
-# target_code_coverage(theLib) # As a library target, adds coverage instrumentation but no targets.
+#     add_library(theLib lib.cpp)
+#     # As a library target, adds coverage instrumentation but no targets.
+#     target_code_coverage(theLib)
 #
-# add_executable(theExe main.cpp)
-# target_link_libraries(theExe PRIVATE theLib)
-# target_code_coverage(theExe) # As an executable target, adds the 'ccov-theExe' target and instrumentation for generating code coverage reports.
-# ~~~
+#     add_executable(theExe main.cpp)
+#     target_link_libraries(theExe PRIVATE theLib)
 #
-# Example 2: Target instrumented, but with regex pattern of files to be excluded
-# from report
+#     # As an executable target, adds the 'ccov-theExe' target and
+#     # instrumentation for generating code coverage reports.
+#     target_code_coverage(theExe)
 #
-# ~~~
-# add_executable(theExe main.cpp non_covered.cpp)
-# target_code_coverage(theExe EXCLUDE non_covered.cpp test/*) # As an executable target, the reports will exclude the non-covered.cpp file, and any files in a test/ folder.
-# ~~~
+# Example 2
+# =========
 #
-# Example 3: Target added to the 'ccov' and 'ccov-all' targets
+# Target instrumented, but with regex pattern of files to be excluded
+# from report.
 #
-# ~~~
-# add_code_coverage_all_targets(EXCLUDE test/*) # Adds the 'ccov-all' target set and sets it to exclude all files in test/ folders.
+#     add_executable(theExe main.cpp non_covered.cpp)
 #
-# add_executable(theExe main.cpp non_covered.cpp)
-# target_code_coverage(theExe AUTO ALL EXCLUDE non_covered.cpp test/*) # As an executable target, adds to the 'ccov' and ccov-all' targets, and the reports will exclude the non-covered.cpp file, and any files in a test/ folder.
-# ~~~
+#     # As an executable target, the reports will exclude the non-covered.cpp
+#     # file, and any files in a test/ folder.
+#     target_code_coverage(theExe EXCLUDE non_covered.cpp test/*)
+#
+# Example 3
+# =========
+#
+# Target added to the 'ccov' and 'ccov-all' targets
+#
+#     # Adds the 'ccov-all' target set and sets it to exclude all files
+#     # in test/ folders.
+#     add_code_coverage_all_targets(EXCLUDE test/*)
+#
+#     add_executable(theExe main.cpp non_covered.cpp)
+#
+#     # As an executable target, adds to the 'ccov' and ccov-all' targets, and the
+#     # reports will exclude the non-covered.cpp file, and any files in a test/ folder.
+#     target_code_coverage(theExe AUTO ALL EXCLUDE non_covered.cpp test/*)
 
 # Options
 option(CODE_COVERAGE
@@ -87,18 +107,6 @@ find_program(GENHTML_PATH genhtml)
 
 # Variables
 set(CMAKE_COVERAGE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/ccov)
-set(CMAKE_COMPILER_IS_CLANG "Is used compiles Clang")
-set(CMAKE_COMPILER_IS_APPLE_CLANG "Is used compiles Applec Clang")
-
-if("${CMAKE_C_COMPILER_ID}" MATCHES "[Cc]lang" OR "${CMAKE_CXX_COMPILER_ID}" MATCHES "[Cc]lang")
-    if("${CMAKE_C_COMPILER_ID}" MATCHES "Apple" OR "${CMAKE_CXX_COMPILER_ID}" MATCHES "Apple")
-        message(STATUS "Used compiler: Apple Clang")
-        set(CMAKE_COMPILER_IS_APPLE_CLANG ON)
-    else()
-        message(STATUS "Used compiler: Clang")
-        set(CMAKE_COMPILER_IS_CLANG ON)
-    endif()
-endif()
 
 # Common initialization/checks
 if(CODE_COVERAGE AND NOT CODE_COVERAGE_ADDED)
@@ -106,8 +114,7 @@ if(CODE_COVERAGE AND NOT CODE_COVERAGE_ADDED)
 
     # Common Targets
     add_custom_target(ccov-preprocessing
-        COMMAND ${CMAKE_COMMAND}
-        -E
+        COMMAND ${CMAKE_COMMAND} -E
         make_directory
         ${CMAKE_COVERAGE_OUTPUT_DIRECTORY}
         DEPENDS ccov-clean)
@@ -135,16 +142,16 @@ if(CODE_COVERAGE AND NOT CODE_COVERAGE_ADDED)
 
         # Version number checking for 'EXCLUDE' compatability
         execute_process(COMMAND ${LLVM_COV_PATH} --version
-                OUTPUT_VARIABLE LLVM_COV_VERSION_CALL_OUTPUT)
+            OUTPUT_VARIABLE LLVM_COV_VERSION_CALL_OUTPUT)
 
         string(REGEX MATCH
-                "[0-9]+\\.[0-9]+\\.[0-9]+"
-                LLVM_COV_VERSION
-                ${LLVM_COV_VERSION_CALL_OUTPUT})
+            "[0-9]+\\.[0-9]+\\.[0-9]+"
+            LLVM_COV_VERSION
+            ${LLVM_COV_VERSION_CALL_OUTPUT})
 
         if(LLVM_COV_VERSION VERSION_LESS "7.0.0")
             message(WARNING
-                    "target_code_coverage()/add_code_coverage_all_targets() 'EXCLUDE' option only available on llvm-cov >= 7.0.0")
+                "target_code_coverage()/add_code_coverage_all_targets() 'EXCLUDE' option only available on llvm-cov >= 7.0.0")
         endif()
     endif()
 
@@ -189,10 +196,8 @@ if(CODE_COVERAGE AND NOT CODE_COVERAGE_ADDED)
 
         # Targets
         add_custom_target(ccov-clean
-            COMMAND ${LCOV_PATH}
-            --directory
-            ${CMAKE_BINARY_DIR}
-            --zerocounters)
+            COMMAND ${LCOV_PATH} --directory
+            ${CMAKE_BINARY_DIR} --zerocounters)
 
     else()
         message(FATAL_ERROR "Code coverage requires Clang or GCC. Aborting.")
@@ -240,8 +245,7 @@ function(target_code_coverage TARGET_NAME)
 
         # Add code coverage instrumentation to the target's linker command
         if(CMAKE_COMPILER_IS_CLANG OR CMAKE_COMPILER_IS_APPLE_CLANG)
-            target_compile_options(
-                ${TARGET_NAME}
+            target_compile_options(${TARGET_NAME}
                 PRIVATE -fprofile-instr-generate -fcoverage-mapping)
 
             set_property(TARGET ${TARGET_NAME}
@@ -250,15 +254,7 @@ function(target_code_coverage TARGET_NAME)
 
             set_property(TARGET ${TARGET_NAME}
                 APPEND_STRING
-                PROPERTY STATIC_LIBRARY_FLAGS "-fprofile-instr-generate ")
-
-            set_property(TARGET ${TARGET_NAME}
-                APPEND_STRING
                 PROPERTY LINK_FLAGS "-fcoverage-mapping ")
-
-            set_property(TARGET ${TARGET_NAME}
-                APPEND_STRING
-                PROPERTY STATIC_LIBRARY_FLAGS "-fcoverage-mapping ")
         elseif(CMAKE_COMPILER_IS_GNUCXX)
             target_compile_options(${TARGET_NAME}
                 PRIVATE -fprofile-arcs -ftest-coverage)
@@ -471,7 +467,6 @@ endfunction()
 # any subdirectories. To add coverage instrumentation to only specific targets,
 # use `target_code_coverage`.
 function(add_code_coverage)
-    message("    > calling : add_code_coverage")
     if(CMAKE_COMPILER_IS_CLANG OR CMAKE_COMPILER_IS_APPLE_CLANG)
         add_compile_options(-fprofile-instr-generate -fcoverage-mapping)
         add_link_options(-fprofile-instr-generate -fcoverage-mapping)
