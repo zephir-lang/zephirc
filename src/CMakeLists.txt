@@ -5,10 +5,6 @@
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
 
-if(CODE_COVERAGE)
-    add_code_coverage()
-endif()
-
 # The executable
 add_executable(zephir main.cpp)
 
@@ -16,7 +12,7 @@ add_subdirectory(commands)
 target_link_libraries(zephir PRIVATE commands)
 
 if(CODE_COVERAGE)
-    target_code_coverage(zephir)
+    target_code_coverage(zephir AUTO ALL)
 endif()
 
 # CMakeLists.txt ends here

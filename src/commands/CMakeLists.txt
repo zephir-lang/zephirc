@@ -27,6 +27,10 @@ add_library(commands
     optionexception.hpp
     "${RE2C_options_OUTPUTS}")
 
+if(CODE_COVERAGE)
+    target_code_coverage(commands AUTO ALL)
+endif()
+
 # CMakeLists.txt ends here
 
 # Local Variables:

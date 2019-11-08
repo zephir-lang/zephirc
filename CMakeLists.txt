@@ -55,6 +55,10 @@ set(LIBRARY_OUTPUT_PATH "${CMAKE_BINARY_DIR}/lib")
 
 option(ZEPHIR_BUILD_TESTING "Build test project"           OFF)
 
+if(CODE_COVERAGE)
+    add_code_coverage_all_targets(EXCLUDE tests/*)
+endif()
+
 add_subdirectory(src)
 
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)

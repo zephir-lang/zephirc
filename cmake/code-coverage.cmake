@@ -57,6 +57,7 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~
 #
 #     add_library(theLib lib.cpp)
+#
 #     # As a library target, adds coverage instrumentation but no targets.
 #     target_code_coverage(theLib)
 #
