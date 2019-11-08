@@ -7,50 +7,48 @@
 
 #include "formatter.hpp"
 
-commands::Formatter::Formatter() {}
+#include <CLI/CLI11.hpp>
+#include <algorithm>
+#include <string>
+#include <vector>
 
-std::string commands::Formatter::make_usage(const CLI::App *app, __attribute__ ((unused)) const std::string name) const {
-    std::stringstream out;
+commands::Formatter::Formatter() = default;
 
-    out << get_label("Usage") << ":\n";
-    out << "  command";
+std::string commands::Formatter::make_usage(const CLI::App *app,
+                                            __attribute__((unused))
+                                            const std::string name) const {
+  std::stringstream out;
 
-    std::vector<std::string> groups = app->get_groups();
+  out << get_label("Usage") << ":\n";
+  out << "  command";
 
-    // Print an Options badge if any options exist
-    std::vector<const CLI::Option *> non_pos_options =
-        app->get_options([](const CLI::Option *opt) {
-            return opt->nonpositional();
-        });
+  std::vector<std::string> groups = app->get_groups();
 
-    if (!non_pos_options.empty()) {
-        out << " [" << get_label("options") << "]";
-    }
+  // Print an Options badge if any options exist
+  std::vector<const CLI::Option *> non_pos_options = app->get_options(
+      [](const CLI::Option *opt) { return opt->nonpositional(); });
 
-    // Positionals need to be listed here
-    std::vector<const CLI::Option *> positionals =
-        app->get_options([](const CLI::Option *opt) {
-            return opt->get_positional();
-        });
+  if (!non_pos_options.empty()) {
+    out << " [" << get_label("options") << "]";
+  }
 
-    // Print out positionals if any are left
-    if (!positionals.empty()) {
-        // Convert to help names
-        std::vector<std::string> positional_names(positionals.size());
-        std::transform(
-            positionals.begin(),
-            positionals.end(),
-            positional_names.begin(),
-            [this](const CLI::Option *opt) {
-                return make_option_usage(opt);
-            }
-        );
+  // Positionals need to be listed here
+  std::vector<const CLI::Option *> positionals = app->get_options(
+      [](const CLI::Option *opt) { return opt->get_positional(); });
 
-        out << " " << CLI::detail::join(positional_names, " ");
-    }
+  // Print out positionals if any are left
+  if (!positionals.empty()) {
+    // Convert to help names
+    std::vector<std::string> positional_names(positionals.size());
+    std::transform(
+        positionals.begin(), positionals.end(), positional_names.begin(),
+        [this](const CLI::Option *opt) { return make_option_usage(opt); });
 
-    out << " [arguments]";
-    out << std::endl;
+    out << " " << CLI::detail::join(positional_names, " ");
+  }
 
-    return out.str();
+  out << " [arguments]";
+  out << std::endl;
+
+  return out.str();
 }

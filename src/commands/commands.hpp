@@ -11,7 +11,11 @@
 #include <CLI/CLI11.hpp>
 
 namespace commands {
-    int optparse(int argc, char **argv);
-}
+/** Parse options from both the CLI.
+ * @param argc Number of CLI arguments provided
+ * @param argv Provided CLI arguments
+ */
+int optparse(int argc, char **argv);
+}  // namespace commands
 
 #endif  // ZEPHIR_COMMANDS_COMMANDS_HPP_
