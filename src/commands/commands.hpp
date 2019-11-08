@@ -5,13 +5,13 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#include <iostream>
-#include <vector>
+#ifndef ZEPHIR_COMMANDS_COMMANDS_HPP_
+#define ZEPHIR_COMMANDS_COMMANDS_HPP_
 
-#include "commands/commands.hpp"
+#include <CLI/CLI11.hpp>
 
-int main(int argc, char** argv) {
-  auto retval = commands::optparse(argc, argv);
-
-  return retval;
+namespace commands {
+    int optparse(int argc, char **argv);
 }
+
+#endif  // ZEPHIR_COMMANDS_COMMANDS_HPP_
