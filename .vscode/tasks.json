@@ -16,6 +16,7 @@
                 "-DCMAKE_BUILD_TYPE=Debug",
                 "-DZEPHIR_BUILD_TESTING=ON",
                 "-DENABLE_ALL_WARNINGS=ON",
+                "-DENABLE_EFFECTIVE_CXX=ON",
                 "-DCODE_COVERAGE=ON"
             ],
             "type": "shell",
