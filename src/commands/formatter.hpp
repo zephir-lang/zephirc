@@ -12,11 +12,11 @@
 #include <string>
 
 namespace commands {
-    class Formatter : public CLI::Formatter {
-        public:
-        Formatter();
-        std::string make_usage(const CLI::App *app, std::string name) const override;
-    };
-}
+class Formatter : public CLI::Formatter {
+ public:
+  Formatter();
+  std::string make_usage(const CLI::App *app, std::string name) const override;
+};
+}  // namespace commands
 
 #endif  // ZEPHIR_COMMANDS_FORMATTER_HPP_
