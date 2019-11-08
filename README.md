@@ -43,7 +43,7 @@ ctest
 
 ### Additional cmake flags
 
-Additional cmake flags are (e.g. to enable `FEATURE` us `-DFEATURE=ON`):
+Additional cmake flags are (e.g. to enable `FEATURE` use `-DFEATURE=ON`):
 
 | Description                                         | Flag                   |
 | --------------------------------------------------- |------------------------|
