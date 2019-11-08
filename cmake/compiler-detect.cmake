@@ -1,5 +1,5 @@
-set(CMAKE_COMPILER_IS_CLANG "Is used compiles Clang")
-set(CMAKE_COMPILER_IS_APPLE_CLANG "Is used compiles Applec Clang")
+set(CMAKE_COMPILER_IS_CLANG OFF)
+set(CMAKE_COMPILER_IS_APPLE_CLANG OFF)
 
 if("${CMAKE_C_COMPILER_ID}" MATCHES "[Cc]lang" OR "${CMAKE_CXX_COMPILER_ID}" MATCHES "[Cc]lang")
     if("${CMAKE_C_COMPILER_ID}" MATCHES "Apple" OR "${CMAKE_CXX_COMPILER_ID}" MATCHES "Apple")
@@ -9,4 +9,6 @@ if("${CMAKE_C_COMPILER_ID}" MATCHES "[Cc]lang" OR "${CMAKE_CXX_COMPILER_ID}" MAT
         message(STATUS "Used compiler: Clang")
         set(CMAKE_COMPILER_IS_CLANG ON)
     endif()
+else()
+    message(STATUS "Used compiler: ${CMAKE_CXX_COMPILER_ID}")
 endif()

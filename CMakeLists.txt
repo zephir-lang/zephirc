@@ -30,7 +30,6 @@ endif()
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
 include(build-types)
-
 include(compiler-detect)
 include(c++-standards)
 include(compiler-options)
@@ -56,7 +55,8 @@ set(LIBRARY_OUTPUT_PATH "${CMAKE_BINARY_DIR}/lib")
 option(ZEPHIR_BUILD_TESTING "Build test project"           OFF)
 
 if(CODE_COVERAGE)
-    add_code_coverage_all_targets(EXCLUDE tests/*)
+    add_code_coverage_all_targets(
+        EXCLUDE tests/* */tests/* '*\tests\*' */build/*)
 endif()
 
 add_subdirectory(src)
