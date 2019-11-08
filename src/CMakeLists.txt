@@ -5,14 +5,17 @@
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
 
-# The executable
-add_executable(zephir main.cpp)
-
+# CLI commands
 add_subdirectory(commands)
+
+
+
+# Main
+add_executable(zephir main.cpp)
 target_link_libraries(zephir PRIVATE commands)
 
 if(CODE_COVERAGE)
-    target_code_coverage(zephir AUTO ALL)
+    target_code_coverage(zephir)
 endif()
 
 # CMakeLists.txt ends here
