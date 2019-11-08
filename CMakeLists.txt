@@ -56,10 +56,10 @@ endif()
 
 option(ZEPHIR_BUILD_TESTING "Build test project" OFF)
 if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME AND BUILD_TESTING AND ZEPHIR_BUILD_TESTING)
-   include(cppcheck)
+    include(cppcheck)
 
-   message(STATUS "Include test sources")
-   add_subdirectory(tests)
+    message(STATUS "Include test sources")
+    add_subdirectory(tests)
 endif()
 
 # CMakeLists.txt ends here
