@@ -4,9 +4,13 @@
         {
             "name": "Zephir for macOs",
             "intelliSenseMode": "clang-x64",
-            "includePath": ["${workspaceFolder}/**"],
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
             "browse": {
-                "path": ["${workspaceFolder}/**"],
+                "path": [
+                    "${workspaceFolder}/**"
+                ],
                 "limitSymbolsToIncludedHeaders": false,
                 "databaseFilename": "${workspaceFolder}/.vscode/browse.vc.db"
             },
@@ -17,9 +21,13 @@
         {
             "name": "Zephir for Linux",
             "intelliSenseMode": "clang-x64",
-            "includePath": ["${workspaceFolder}/**"],
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
             "browse": {
-                "path": ["${workspaceFolder}/**"],
+                "path": [
+                    "${workspaceFolder}/**"
+                ],
                 "limitSymbolsToIncludedHeaders": false,
                 "databaseFilename": "${workspaceFolder}/.vscode/browse.vc.db"
             },
