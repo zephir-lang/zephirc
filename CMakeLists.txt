@@ -31,10 +31,12 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
 include(build-types)
 
-# Require C++11
+include(compiler-detect)
 include(c++-standards)
 include(compiler-options)
+include(code-coverage)
 
+# Require C++11
 if(NOT CMAKE_CXX_STANDARD)
     cxx_11()
 endif()
