@@ -16,7 +16,7 @@ add_executable(options_test
     ${OPTIONS_TEST_SOURCE_LIST})
 
 if(CODE_COVERAGE)
-    target_code_coverage(options_test EXCLUDE tests/*)
+    target_code_coverage(options_test AUTO ALL EXCLUDE tests/*)
 endif()
 
 target_link_libraries(options_test
