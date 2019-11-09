@@ -58,8 +58,7 @@ int commands::optparse(int argc, char **argv) {
          "generate",
          "Generates C code from the Zephir code without compiling it")
       ->group(group_name);
-  app.add_subcommand("help", "Displays help for a command")
-      ->group(group_name);
+  app.add_subcommand("help", "Displays help for a command")->group(group_name);
   app.add_subcommand("init", "Initializes a Zephir extension")
       ->group(group_name);
   app.add_subcommand("install",

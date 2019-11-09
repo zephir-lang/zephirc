@@ -8,9 +8,9 @@
 #ifndef ZEPHIR_CONFIG_HPP_
 #define ZEPHIR_CONFIG_HPP_
 
-#include <string>
 #include <map>
 #include <set>
+#include <string>
 
 #define INDENT_USING_SPACES 1;
 #define INDENT_USING_TABS 2;
@@ -100,11 +100,12 @@ struct Config {
  * @param argv Provided CLI arguments
  * @param configFile The default name/location of the config file
  *
- * Items specified in the CLI take priority over any settings loaded from config file.
- * Configuration file, if not found from the provided parameter or set specifically in the CLI,
- * will also search through any search paths provided from the CLI for the provided filename.
+ * Items specified in the CLI take priority over any settings loaded from config
+ * file. Configuration file, if not found from the provided parameter or set
+ * specifically in the CLI, will also search through any search paths provided
+ * from the CLI for the provided filename.
  */
 int load_config(Config *config, int argc, char **argv, std::string configFile);
-}
+}  // namespace core
 
-#endif // ZEPHIR_CONFIG_HPP_
+#endif  // ZEPHIR_CONFIG_HPP_
