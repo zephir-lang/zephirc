@@ -13,7 +13,7 @@ add_library(core STATIC
     config.cpp)
 
 target_include_directories(core
-        PUBLIC ${CMAKE_SOURCE_DIR}/include)
+    PUBLIC ${CMAKE_SOURCE_DIR}/include)
 
 if(CODE_COVERAGE)
     target_code_coverage(core AUTO ALL)
