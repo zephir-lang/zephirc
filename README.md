@@ -15,7 +15,8 @@ These instructions will get you a copy of the project up and running on your loc
 #### POSIX
 
 - [cmake](https://cmake.org/) >= 3.11
-- [gcc](https://gcc.gnu.org) >= 5.0.0 or [clang](https://clang.llvm.org) >= 3.6.0
+- [gcc](https://gcc.gnu.org) >= 7.0.0 or [clang](https://clang.llvm.org) >= 4.0.0
+- C++ language standard support: C++17
 
 ### Building from Source
 
