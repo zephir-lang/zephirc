@@ -31,7 +31,12 @@ cxx_17()
 
 # Tools
 if (CLANG_FORMAT_EXE)
-    file(GLOB_RECURSE FFILES ./src/*.[hc] ./src/*.[hc]pp)
+    file(GLOB_RECURSE FFILES
+            ${CMAKE_CURRENT_SOURCE_DIR}/include/*.[hc]
+            ${CMAKE_CURRENT_SOURCE_DIR}/include/*.[hc]pp
+            ${CMAKE_CURRENT_SOURCE_DIR}/src/*.[hc]
+            ${CMAKE_CURRENT_SOURCE_DIR}/src/*.[hc]pp)
+
     clang_format(format-cpp ${FFILES})
 endif()
 

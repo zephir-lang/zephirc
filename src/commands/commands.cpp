@@ -6,6 +6,7 @@
 // the LICENSE file that was distributed with this source code.
 
 #include "commands.hpp"
+#include "zephir/version.hpp"
 
 #include <memory>
 
@@ -19,8 +20,8 @@ int commands::optparse(int argc, char **argv) {
 /____/\___/ .___/_/ /_/_/_/
          /_/)BANNER";
 
-  CLI::App app("Zephir 1.0.0");
-  app.description("Zephir 1.0.0\n");
+  CLI::App app("zephir");
+  app.description("Zephir " + std::string(ZEPHIR_VERSION_STRING) + "\n");
 
   auto fmt = std::make_shared<Formatter>();
   fmt->column_width(17);
