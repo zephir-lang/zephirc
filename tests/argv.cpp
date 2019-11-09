@@ -9,7 +9,6 @@
 
 #include <cstring>
 #include <initializer_list>
-#include <utility>
 
 Argv::Argv(std::initializer_list<const char *> args)
     : m_argv(new char *[args.size()]), m_argc(args.size()) {
