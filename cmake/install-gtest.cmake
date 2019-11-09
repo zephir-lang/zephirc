@@ -11,7 +11,7 @@ if(NOT googletest_POPULATED)
     add_subdirectory(${googletest_SOURCE_DIR} ${googletest_BINARY_DIR})
 endif()
 
-# InstallGoogleTest.cmake ends here
+# install-gtest.cmake ends here
 
 # Local Variables:
 # mode: cmake

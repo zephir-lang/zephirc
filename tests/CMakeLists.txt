@@ -5,7 +5,7 @@
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
 
-include(InstallGoogleTest)
+include(install-gtest)
 include(GoogleTest)
 
 file(GLOB OPTIONS_TEST_SOURCE_LIST ./commands/*.options.cpp)
