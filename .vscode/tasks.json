@@ -176,6 +176,40 @@
                 "focus": false,
                 "showReuseMessage": false
             }
+        },
+
+        // Show coverage report
+        {
+            "label": "Coverage | Show coverage report",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceRoot}/build"
+            },
+            "problemMatcher": [],
+            "linux": {
+                "command": "make",
+                "args": [
+                    "ccov-all-report"
+                ]
+            },
+            "osx": {
+                "command": "make",
+                "args": [
+                    "ccov-all-report"
+                ]
+            },
+            "windows": {
+                "command": "make",
+                "args": [
+                    "ccov-all-report"
+                ]
+            },
+            "presentation": {
+                "panel": "shared",
+                "reveal": "always",
+                "focus": false,
+                "showReuseMessage": false
+            }
         }
     ]
 }
