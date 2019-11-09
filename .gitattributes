@@ -1,4 +1,5 @@
 # Automatically normalize line endings for all text-based files
 * text=auto
 
+external/*     linguist-vendored
 .vscode/*.json inguist-language=jsonc
