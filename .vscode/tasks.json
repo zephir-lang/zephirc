@@ -64,44 +64,6 @@
             "problemMatcher":"$gcc"
         },
 
-        // Clean profile data
-        {
-            "label": "Coverage | Clean profile data",
-            "type": "shell",
-            "options": {
-                "cwd": "${workspaceRoot}/build"
-            },
-            "problemMatcher": [],
-            "linux": {
-                "command": "rm",
-                "args": [
-                    "-rf",
-                    "ccov"
-                ]
-            },
-            "osx": {
-                "command": "rm",
-                "args": [
-                    "-rf",
-                    "ccov"
-                ]
-            },
-            "windows": {
-                "command": "rd",
-                "args": [
-                    "-r",
-                    "ccov"
-                ]
-            },
-            "isBackground": true,
-            "presentation": {
-                "panel": "shared",
-                "reveal": "silent",
-                "focus": false,
-                "showReuseMessage": false
-            }
-        },
-
         // Run tests
         {
             "label": "Tests | Run tests",
@@ -144,6 +106,44 @@
             }
         },
 
+        // Clean coverage data
+        {
+            "label": "Coverage | Clean coverage data",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceRoot}/build"
+            },
+            "problemMatcher": [],
+            "linux": {
+                "command": "rm",
+                "args": [
+                    "-rf",
+                    "ccov"
+                ]
+            },
+            "osx": {
+                "command": "rm",
+                "args": [
+                    "-rf",
+                    "ccov"
+                ]
+            },
+            "windows": {
+                "command": "rd",
+                "args": [
+                    "-r",
+                    "ccov"
+                ]
+            },
+            "isBackground": true,
+            "presentation": {
+                "panel": "shared",
+                "reveal": "silent",
+                "focus": false,
+                "showReuseMessage": false
+            }
+        },
+
         // Generate HTML code coverage report
         {
             "label": "Coverage | Generate HTML code coverage report",
@@ -178,9 +178,9 @@
             }
         },
 
-        // Show coverage report
+        // Print coverage summary
         {
-            "label": "Coverage | Show coverage report",
+            "label": "Coverage | Print coverage summary",
             "type": "shell",
             "options": {
                 "cwd": "${workspaceRoot}/build"
@@ -202,6 +202,40 @@
                 "command": "make",
                 "args": [
                     "ccov-all-report"
+                ]
+            },
+            "presentation": {
+                "panel": "shared",
+                "reveal": "always",
+                "focus": false,
+                "showReuseMessage": false
+            }
+        },
+
+        // Export coverage information
+        {
+            "label": "Coverage | Export coverage information (JSON)",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceRoot}/build"
+            },
+            "problemMatcher": [],
+            "linux": {
+                "command": "make",
+                "args": [
+                    "ccov-all-export"
+                ]
+            },
+            "osx": {
+                "command": "make",
+                "args": [
+                    "ccov-all-export"
+                ]
+            },
+            "windows": {
+                "command": "make",
+                "args": [
+                    "ccov-all-export"
                 ]
             },
             "presentation": {
