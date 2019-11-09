@@ -8,13 +8,18 @@
 include(install-gtest)
 include(GoogleTest)
 
-file(GLOB OPTIONS_TEST_SOURCE_LIST ./commands/*.options.cpp)
+file(GLOB OPTIONS_TEST_SOURCE_LIST
+    ${CMAKE_CURRENT_SOURCE_DIR}/commands/*.options.cpp)
 
 add_executable(options_test
     main.cpp
+    argv.cpp
     ${OPTIONS_TEST_SOURCE_LIST})
 
-target_include_directories(options_test PUBLIC ${CMAKE_SOURCE_DIR}/src/commands)
+target_include_directories(options_test
+    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
+           ${CMAKE_SOURCE_DIR}/src/commands)
+
 target_link_libraries(options_test
     PRIVATE gtest commands)
 
@@ -25,7 +30,7 @@ endif()
 gtest_discover_tests(options_test
     TEST_PREFIX       gtest:
     PROPERTIES        LABELS OptionsTest
-    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/commands")
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/commands)
 
 # TODO: sharness tests
 # if(NOT WIN32)
