@@ -22,8 +22,8 @@ TEST_F(NoneCmdTest, RunWithoutOptions) {
 }
 
 TEST_F(NoneCmdTest, RunHelpOption) {
-  Argv argv({"--help"});
+  Argv argv({"zephir", "--help"});
 
   auto retval = commands::optparse(argv.argc(), argv.argv());
-  EXPECT_EQ(retval, 0);
+  EXPECT_EQ(retval, ZEPHIR_COMMANDS_EXIT_HELP);
 }
