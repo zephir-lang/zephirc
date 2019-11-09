@@ -1,4 +1,4 @@
-file(STRINGS "${CMAKE_SOURCE_DIR}/src/version.hpp" zephir_version
+file(STRINGS "${CMAKE_SOURCE_DIR}/include/zephir/version.hpp" zephir_version
         REGEX "#define ZEPHIR_VERSION_(MAJOR|MINOR|PATCH)")
 
 foreach(part ${zephir_version})
