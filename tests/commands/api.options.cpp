@@ -11,12 +11,12 @@
 
 class ApiCmdTest : public ::testing::Test {
  protected:
-  ApiCmdTest() = default;
+  ApiCmdTest(): argv() {};
+  Argv argv;
 };
 
 TEST_F(ApiCmdTest, RunWithoutOptions) {
-  Argv argv({"zephir", "api"});
-
+  argv.assign({"zephir", "api"});
   auto retval = commands::optparse(argv.argc(), argv.argv());
   EXPECT_EQ(retval, 0);
 }

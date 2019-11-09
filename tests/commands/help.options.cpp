@@ -11,12 +11,12 @@
 
 class HelpCmdTest : public ::testing::Test {
  protected:
-  HelpCmdTest() = default;
+  HelpCmdTest(): argv() {};
+  Argv argv;
 };
 
 TEST_F(HelpCmdTest, RunWithoutOptions) {
-  Argv argv({"zephir", "help"});
-
+  argv.assign({"zephir", "help"});
   auto retval = commands::optparse(argv.argc(), argv.argv());
   EXPECT_EQ(retval, 0);
 }

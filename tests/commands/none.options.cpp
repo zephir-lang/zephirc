@@ -11,19 +11,18 @@
 
 class NoneCmdTest : public ::testing::Test {
  protected:
-  NoneCmdTest() = default;
+  NoneCmdTest(): argv() {};
+  Argv argv;
 };
 
 TEST_F(NoneCmdTest, RunWithoutOptions) {
-  Argv argv({"zephir"});
-
+  argv.assign({"zephir"});
   auto retval = commands::optparse(argv.argc(), argv.argv());
   EXPECT_EQ(retval, 0);
 }
 
 TEST_F(NoneCmdTest, RunHelpOption) {
-  Argv argv({"zephir", "--help"});
-
+  argv.assign({"zephir", "--help"});
   auto retval = commands::optparse(argv.argc(), argv.argv());
   EXPECT_EQ(retval, ZEPHIR_COMMANDS_EXIT_HELP);
 }

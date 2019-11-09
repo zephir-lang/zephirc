@@ -11,12 +11,12 @@
 
 class GenerateCmdTest : public ::testing::Test {
  protected:
-  GenerateCmdTest() = default;
+  GenerateCmdTest(): argv() {};
+  Argv argv;
 };
 
 TEST_F(GenerateCmdTest, RunWithoutOptions) {
-  Argv argv({"zephir", "generate"});
-
+  argv.assign({"zephir", "generate"});
   auto retval = commands::optparse(argv.argc(), argv.argv());
   EXPECT_EQ(retval, 0);
 }

@@ -9,9 +9,16 @@
 
 #include <cstring>
 #include <initializer_list>
+#include <memory>
 
-Argv::Argv(std::initializer_list<const char *> args)
-    : m_argv(new char *[args.size()]), m_argc(args.size()) {
+Argv::Argv() : m_argv(new char *[0]), m_argc(0) {}
+
+void Argv::assign(std::initializer_list<const char *> args) {
+  m_argc = args.size();
+
+  m_argv.reset();
+  m_argv = std::unique_ptr<char*[]>(new char *[m_argc]);
+
   int i = 0;
   auto iter = args.begin();
   while (iter != args.end()) {

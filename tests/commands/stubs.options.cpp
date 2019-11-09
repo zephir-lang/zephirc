@@ -11,12 +11,12 @@
 
 class StubsCmdTest : public ::testing::Test {
  protected:
-  StubsCmdTest() = default;
+  StubsCmdTest(): argv() {};
+  Argv argv;
 };
 
 TEST_F(StubsCmdTest, RunWithoutOptions) {
-  Argv argv({"zephir", "stubs"});
-
+  argv.assign({"zephir", "stubs"});
   auto retval = commands::optparse(argv.argc(), argv.argv());
   EXPECT_EQ(retval, 0);
 }

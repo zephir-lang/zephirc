@@ -11,12 +11,12 @@
 
 class CompileCmdTest : public ::testing::Test {
  protected:
-  CompileCmdTest() = default;
+  CompileCmdTest(): argv() {};
+  Argv argv;
 };
 
 TEST_F(CompileCmdTest, RunWithoutOptions) {
-  Argv argv({"zephir", "compile"});
-
+  argv.assign({"zephir", "compile"});
   auto retval = commands::optparse(argv.argc(), argv.argv());
   EXPECT_EQ(retval, 0);
 }
