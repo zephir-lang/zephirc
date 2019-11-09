@@ -106,6 +106,41 @@
             }
         },
 
+        // Format C++ code
+        {
+            "label": "Format | Format C++ code",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceRoot}/build"
+            },
+            "problemMatcher": [],
+            "linux": {
+                "command": "make",
+                "args": [
+                    "format-cpp"
+                ]
+            },
+            "osx": {
+                "command": "make",
+                "args": [
+                    "format-cpp"
+                ]
+            },
+            "windows": {
+                "command": "make.exe",
+                "args": [
+                    "format-cpp"
+                ]
+            },
+            "isBackground": true,
+            "presentation": {
+                "panel": "shared",
+                "reveal": "silent",
+                "focus": false,
+                "showReuseMessage": false
+            }
+        },
+
         // Clean coverage data
         {
             "label": "Coverage | Clean coverage data",

@@ -24,9 +24,16 @@ include(compiler-detect)
 include(c++-standards)
 include(compiler-options)
 include(code-coverage)
+include(formatting)
 
 # Require C++17
 cxx_17()
+
+# Tools
+if (CLANG_FORMAT_EXE)
+    file(GLOB_RECURSE FFILES ./src/*.[hc] ./src/*.[hc]pp)
+    clang_format(format-cpp ${FFILES})
+endif()
 
 if(NOT CMAKE_INSTALL_PREFIX)
   set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}"
