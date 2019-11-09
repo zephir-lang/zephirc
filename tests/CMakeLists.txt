@@ -14,6 +14,7 @@ add_executable(options_test
     main.cpp
     ${OPTIONS_TEST_SOURCE_LIST})
 
+target_include_directories(options_test PUBLIC ${CMAKE_SOURCE_DIR}/src/commands)
 target_link_libraries(options_test
     PRIVATE gtest commands)
 

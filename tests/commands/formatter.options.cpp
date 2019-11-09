@@ -9,12 +9,11 @@
 
 #include <CLI/CLI11.hpp>
 
-// TODO(klay): Make it better.
-#include "../../src/commands/formatter.hpp"
+#include "formatter.hpp"
 
 class FormatterTest : public ::testing::Test {
  protected:
-  FormatterTest() {}
+  FormatterTest() = default;
 };
 
 TEST_F(FormatterTest, MakeUsage) {
