@@ -6,11 +6,11 @@
 // the LICENSE file that was distributed with this source code.
 
 #include "commands.hpp"
-#include "zephir/version.hpp"
 
 #include <memory>
 
 #include "formatter.hpp"
+#include "zephir/version.hpp"
 
 int commands::optparse(int argc, char **argv) {
   const char *BANNER = R"BANNER( _____              __    _
@@ -78,7 +78,7 @@ int commands::optparse(int argc, char **argv) {
   } catch (const CLI::ParseError &e) {
     int retval = app.exit(e);
     if (e.get_name() == "CallForHelp") {
-      retval = 0;
+      retval = ZEPHIR_COMMANDS_EXIT_HELP;
     }
 
     return retval;

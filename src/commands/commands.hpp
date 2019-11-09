@@ -10,6 +10,8 @@
 
 #include <CLI/CLI11.hpp>
 
+#define ZEPHIR_COMMANDS_EXIT_HELP -1;
+
 namespace commands {
 /** Parse options from both the CLI.
  * @param argc Number of CLI arguments provided

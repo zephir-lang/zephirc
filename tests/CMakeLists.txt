@@ -18,7 +18,8 @@ add_executable(options_test
 
 target_include_directories(options_test
     PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
-           ${CMAKE_SOURCE_DIR}/src/commands)
+           ${CMAKE_SOURCE_DIR}/src/commands
+           ${CMAKE_SOURCE_DIR}/include)
 
 target_link_libraries(options_test
     PRIVATE gtest commands)
