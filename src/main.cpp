@@ -5,10 +5,14 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#include "commands/commands.hpp"
+#include "zephir/config.hpp"
 
 int main(int argc, char** argv) {
-  auto retval = commands::optparse(argc, argv);
+  auto config = std::make_unique<core::Config>();
+  auto retval = core::load_config(config.get(), argc, argv, "config.yml");
+  if (retval != EXIT_SUCCESS) {
+    return retval;
+  }
 
-  return retval;
+  return EXIT_SUCCESS;
 }
