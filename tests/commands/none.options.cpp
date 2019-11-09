@@ -6,23 +6,38 @@
 // the LICENSE file that was distributed with this source code.
 
 #include <gtest/gtest.h>
+
+#include <utility>
+
 #include "argv.hpp"
 #include "commands.hpp"
 
-class NoneCmdTest : public ::testing::Test {
+struct ArgsProvider {
+  std::initializer_list<const char*> args;
+  int expected;
+
+  ArgsProvider(std::initializer_list<const char*> new_args, int new_expected)
+      : args(new_args), expected(new_expected){};
+};
+
+class NoneCmdTest : public testing::TestWithParam<ArgsProvider> {
  protected:
-  NoneCmdTest(): argv() {};
+  NoneCmdTest() : argv(){};
   Argv argv;
 };
 
-TEST_F(NoneCmdTest, RunWithoutOptions) {
-  argv.assign({"zephir"});
+ArgsProvider argsProvider[] = {
+    {{"zephir", "--help"}, ZEPHIR_COMMANDS_EXIT_HELP},
+    {{"zephir", "--version"}, 0},
+    {{"zephir", "--vernum"}, 0},
+    {{"zephir", "--dumpversion"}, 0},
+};
+
+TEST_P(NoneCmdTest, RunUsingGlobalOptions) {
+  argv.assign(GetParam().args);
   auto retval = commands::optparse(argv.argc(), argv.argv());
-  EXPECT_EQ(retval, 0);
+  EXPECT_EQ(retval, GetParam().expected);
 }
 
-TEST_F(NoneCmdTest, RunHelpOption) {
-  argv.assign({"zephir", "--help"});
-  auto retval = commands::optparse(argv.argc(), argv.argv());
-  EXPECT_EQ(retval, ZEPHIR_COMMANDS_EXIT_HELP);
-}
+INSTANTIATE_TEST_SUITE_P(BulkTest, NoneCmdTest,
+                         testing::ValuesIn(argsProvider));
