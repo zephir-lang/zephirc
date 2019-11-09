@@ -6,12 +6,13 @@
 // the LICENSE file that was distributed with this source code.
 
 #include <gtest/gtest.h>
+
 #include "argv.hpp"
 #include "commands.hpp"
 
 class InstallCmdTest : public ::testing::Test {
  protected:
-  InstallCmdTest(): argv() {};
+  InstallCmdTest() : argv(){};
   Argv argv;
 };
 

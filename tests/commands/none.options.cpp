@@ -13,11 +13,11 @@
 #include "commands.hpp"
 
 struct ArgsProvider {
-  std::initializer_list<const char*> args;
-  int expected;
+  std::initializer_list<const char*> m_args;
+  int m_expected;
 
-  ArgsProvider(std::initializer_list<const char*> new_args, int new_expected)
-      : args(new_args), expected(new_expected){};
+  ArgsProvider(std::initializer_list<const char*> args, int expected)
+      : m_args(args), m_expected(expected){};
 };
 
 class NoneCmdTest : public testing::TestWithParam<ArgsProvider> {
@@ -34,9 +34,9 @@ ArgsProvider argsProvider[] = {
 };
 
 TEST_P(NoneCmdTest, RunUsingGlobalOptions) {
-  argv.assign(GetParam().args);
+  argv.assign(GetParam().m_args);
   auto retval = commands::optparse(argv.argc(), argv.argv());
-  EXPECT_EQ(retval, GetParam().expected);
+  EXPECT_EQ(retval, GetParam().m_expected);
 }
 
 INSTANTIATE_TEST_SUITE_P(BulkTest, NoneCmdTest,

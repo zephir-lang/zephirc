@@ -6,12 +6,13 @@
 // the LICENSE file that was distributed with this source code.
 
 #include <gtest/gtest.h>
+
 #include "argv.hpp"
 #include "commands.hpp"
 
 class ApiCmdTest : public ::testing::Test {
  protected:
-  ApiCmdTest(): argv() {};
+  ApiCmdTest() : argv(){};
   Argv argv;
 };
 
