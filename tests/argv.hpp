@@ -14,9 +14,10 @@
 
 class Argv {
  public:
-  explicit Argv(std::initializer_list<const char*> args);
-  char** argv() const;
-  int argc() const;
+  Argv();
+  void assign(std::initializer_list<const char*> args);
+  [[nodiscard]] char** argv() const;
+  [[nodiscard]] int argc() const;
 
  private:
   std::vector<std::unique_ptr<char[]>> m_args;

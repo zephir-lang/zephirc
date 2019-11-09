@@ -11,12 +11,12 @@
 
 class BuildCmdTest : public ::testing::Test {
  protected:
-  BuildCmdTest() = default;
+  BuildCmdTest(): argv() {};
+  Argv argv;
 };
 
 TEST_F(BuildCmdTest, RunWithoutOptions) {
-  Argv argv({"zephir", "build"});
-
+  argv.assign({"zephir", "build"});
   auto retval = commands::optparse(argv.argc(), argv.argv());
   EXPECT_EQ(retval, 0);
 }

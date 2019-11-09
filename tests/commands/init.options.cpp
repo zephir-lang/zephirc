@@ -11,12 +11,12 @@
 
 class InitCmdTest : public ::testing::Test {
  protected:
-  InitCmdTest() = default;
+  InitCmdTest(): argv() {};
+  Argv argv;
 };
 
 TEST_F(InitCmdTest, RunWithoutOptions) {
-  Argv argv({"zephir", "init"});
-
+  argv.assign({"zephir", "init"});
   auto retval = commands::optparse(argv.argc(), argv.argv());
   EXPECT_EQ(retval, 0);
 }

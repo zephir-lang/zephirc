@@ -11,12 +11,12 @@
 
 class CleanCmdTest : public ::testing::Test {
  protected:
-  CleanCmdTest() = default;
+  CleanCmdTest(): argv() {};
+  Argv argv;
 };
 
 TEST_F(CleanCmdTest, RunWithoutOptions) {
-  Argv argv({"zephir", "clean"});
-
+  argv.assign({"zephir", "clean"});
   auto retval = commands::optparse(argv.argc(), argv.argv());
   EXPECT_EQ(retval, 0);
 }

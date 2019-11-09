@@ -11,12 +11,12 @@
 
 class InstallCmdTest : public ::testing::Test {
  protected:
-  InstallCmdTest() = default;
+  InstallCmdTest(): argv() {};
+  Argv argv;
 };
 
 TEST_F(InstallCmdTest, RunWithoutOptions) {
-  Argv argv({"zephir", "install"});
-
+  argv.assign({"zephir", "install"});
   auto retval = commands::optparse(argv.argc(), argv.argv());
   EXPECT_EQ(retval, 0);
 }

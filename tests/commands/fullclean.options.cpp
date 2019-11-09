@@ -11,12 +11,12 @@
 
 class FullcleanCmdTest : public ::testing::Test {
  protected:
-  FullcleanCmdTest() = default;
+  FullcleanCmdTest(): argv() {};
+  Argv argv;
 };
 
 TEST_F(FullcleanCmdTest, RunWithoutOptions) {
-  Argv argv({"zephir", "fullclean"});
-
+  argv.assign({"zephir", "fullclean"});
   auto retval = commands::optparse(argv.argc(), argv.argv());
   EXPECT_EQ(retval, 0);
 }
