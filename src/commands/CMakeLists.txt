@@ -13,5 +13,5 @@ add_library(commands STATIC
 target_link_libraries(commands PUBLIC CLI11)
 
 if(CODE_COVERAGE)
-    target_code_coverage(commands)
+    target_code_coverage(commands AUTO ALL)
 endif()

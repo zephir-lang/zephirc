@@ -8,14 +8,12 @@
 # CLI commands
 add_subdirectory(commands)
 
-
-
 # Main
 add_executable(zephir main.cpp)
 target_link_libraries(zephir PRIVATE commands)
 
 if(CODE_COVERAGE)
-    target_code_coverage(zephir)
+    target_code_coverage(zephir AUTO ALL)
 endif()
 
 # CMakeLists.txt ends here
