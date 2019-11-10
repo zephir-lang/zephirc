@@ -5,16 +5,17 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#include <yaml-cpp/yaml.h>
-#include <filesystem>
-
-#include "zephir/main.hpp"
 #include "zephir/config.hpp"
+
+#include <yaml-cpp/yaml.h>
+
 #include "commands/commands.hpp"
+#include "zephir/filesystem.hpp"
+#include "zephir/main.hpp"
 
 namespace {
 int parse_yaml_config(core::Config *config, const std::string &config_file) {
-  if (!std::filesystem::exists(config_file)) {
+  if (!compiler::filesystem::exists(config_file)) {
     // Do nothing.
     return EXIT_NO_CONFIG;
   }

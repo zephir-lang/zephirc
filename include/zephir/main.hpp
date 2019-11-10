@@ -15,4 +15,4 @@
 #define STRINGIFY(s) #s
 #define TOSTRING(s) STRINGIFY(s)
 
-#endif // ZEPHIR_MAIN_HPP_
+#endif  // ZEPHIR_MAIN_HPP_
