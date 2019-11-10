@@ -8,21 +8,21 @@
 # CLI commands
 add_subdirectory(commands)
 
-# Add definition for core library.
-add_library(core STATIC
+# Add definition for compiler library.
+add_library(compiler STATIC
     config.cpp)
 
-target_include_directories(core
+target_include_directories(compiler
     PUBLIC ${CMAKE_SOURCE_DIR}/include)
 
 if(CODE_COVERAGE)
-    target_code_coverage(core AUTO ALL)
+    target_code_coverage(compiler AUTO ALL)
 endif()
 
 # Main
 add_executable(zephir main.cpp)
 target_link_libraries(zephir
-    PRIVATE commands core)
+    PRIVATE commands compiler)
 
 if(CODE_COVERAGE)
     target_code_coverage(zephir AUTO ALL)
