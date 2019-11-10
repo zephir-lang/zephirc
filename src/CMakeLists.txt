@@ -8,7 +8,21 @@
 # CLI commands
 add_subdirectory(commands)
 
-find_package(yaml-cpp 0.6.0 REQUIRED)
+find_package(PkgConfig REQUIRED)
+
+# Resolve system dependency on yaml-cpp, which apparently does not
+# provide a CMake find_package() module.
+pkg_check_modules(YAML_CPP REQUIRED yaml-cpp)
+
+find_path(YAML_CPP_INCLUDE_DIR
+    NAMES yaml_cpp.h
+    PATHS ${YAML_CPP_INCLUDE_DIRS})
+
+find_library(YAML_CPP_LIBRARY
+    NAMES YAML_CPP
+    PATHS ${YAML_CPP_LIBRARY_DIRS})
+
+link_directories(${YAML_CPP_LIBRARY_DIRS})
 
 # Add definition for compiler library.
 add_library(compiler STATIC
@@ -18,7 +32,7 @@ target_include_directories(compiler
     PUBLIC ${CMAKE_SOURCE_DIR}/include)
 
 target_link_libraries(commands
-    PUBLIC yaml-cpp)
+    PUBLIC ${YAML_CPP_LIBRARIES})
 
 if(CODE_COVERAGE)
     target_code_coverage(compiler AUTO ALL)
@@ -26,8 +40,13 @@ endif()
 
 # Main
 add_executable(zephir main.cpp)
-target_link_libraries(zephir
-    PRIVATE stdc++fs compiler commands)
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    target_link_libraries(zephir
+        PRIVATE stdc++fs compiler commands)
+else()
+    target_link_libraries(zephir
+        PRIVATE compiler commands)
+endif()
 
 if(CODE_COVERAGE)
     target_code_coverage(zephir AUTO ALL)
