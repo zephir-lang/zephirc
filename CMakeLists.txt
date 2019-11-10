@@ -35,7 +35,9 @@ if (CLANG_FORMAT_EXE)
             ${CMAKE_CURRENT_SOURCE_DIR}/include/*.[hc]
             ${CMAKE_CURRENT_SOURCE_DIR}/include/*.[hc]pp
             ${CMAKE_CURRENT_SOURCE_DIR}/src/*.[hc]
-            ${CMAKE_CURRENT_SOURCE_DIR}/src/*.[hc]pp)
+            ${CMAKE_CURRENT_SOURCE_DIR}/src/*.[hc]pp
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/*.[hc]
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/*.[hc]pp)
 
     clang_format(format-cpp ${FFILES})
 endif()
