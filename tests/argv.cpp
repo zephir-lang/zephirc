@@ -17,7 +17,7 @@ void Argv::assign(std::initializer_list<const char *> args) {
   m_argc = args.size();
 
   m_argv.reset();
-  m_argv = std::unique_ptr<char*[]>(new char *[m_argc]);
+  m_argv = std::unique_ptr<char *[]>(new char *[m_argc]);
 
   int i = 0;
   auto iter = args.begin();
