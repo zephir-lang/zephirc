@@ -54,9 +54,9 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
 # Handle codecoverage
 if(CODE_COVERAGE)
     # Now we can exclude the stuff that we aren't interested in from the tracefile:
-    # 1) headers; 2) tests; 3) thridparty-code
+    # 1) system deps; 2) tests; 3) build; 4) thridparty-code
     set(coverage_excludes EXCLUDE
-        "*.h" "*.hpp" "/usr/*" "*/build/*" "build/*" "tests/*" "*/tests/*" "external/*")
+        "/usr/*" "build/*" "*/build/*" "tests/*" "*/tests/*" "external/*" "*/external/*")
     add_code_coverage_all_targets(${coverage_excludes})
 endif()
 
