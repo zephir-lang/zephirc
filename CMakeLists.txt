@@ -25,6 +25,7 @@ include(c++-standards)
 include(compiler-options)
 include(code-coverage)
 include(formatting)
+include(logger)
 
 # Require C++17
 cxx_17()
