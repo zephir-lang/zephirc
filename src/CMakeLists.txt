@@ -27,7 +27,7 @@ endif()
 # Main
 add_executable(zephir main.cpp)
 target_link_libraries(zephir
-    PRIVATE compiler commands)
+    PRIVATE stdc++fs compiler commands)
 
 if(CODE_COVERAGE)
     target_code_coverage(zephir AUTO ALL)
