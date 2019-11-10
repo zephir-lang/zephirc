@@ -28,6 +28,7 @@ int commands::optparse(int argc, char **argv) {
   fmt->column_width(17);
   app.formatter(fmt);
 
+  // Global options
   app.add_flag("--dumpversion",
                "Print the version of the compiler and don't do anything else "
                "(also works with a single hyphen)");
@@ -39,6 +40,7 @@ int commands::optparse(int argc, char **argv) {
                "Print the version of the compiler as integer and quit");
   app.add_flag("-V, --version", "Print compiler version information and quit");
 
+  // Commands
   auto main_group = "Available commands";
   app.add_subcommand(
          "api",

@@ -8,12 +8,17 @@
 # CLI commands
 add_subdirectory(commands)
 
+find_package(yaml-cpp 0.6.0 REQUIRED)
+
 # Add definition for compiler library.
 add_library(compiler STATIC
     config.cpp)
 
 target_include_directories(compiler
     PUBLIC ${CMAKE_SOURCE_DIR}/include)
+
+target_link_libraries(commands
+    PUBLIC yaml-cpp)
 
 if(CODE_COVERAGE)
     target_code_coverage(compiler AUTO ALL)
