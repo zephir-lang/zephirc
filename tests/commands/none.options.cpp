@@ -18,7 +18,7 @@ struct ArgsProvider {
   int m_expected;
 
   ArgsProvider(std::initializer_list<const char*> args, int expected)
-      : m_args(args), m_expected(expected){}
+      : m_args(args), m_expected(expected) {}
 };
 
 class NoneCmdTest : public testing::TestWithParam<ArgsProvider> {
