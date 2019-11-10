@@ -41,13 +41,8 @@ endif()
 
 # Main
 add_executable(zephir main.cpp)
-if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-    target_link_libraries(zephir
-        PRIVATE stdc++fs compiler commands)
-else()
-    target_link_libraries(zephir
-        PRIVATE compiler commands)
-endif()
+target_link_libraries(zephir
+    PRIVATE compiler commands)
 
 if(CODE_COVERAGE)
     target_code_coverage(zephir AUTO ALL)
