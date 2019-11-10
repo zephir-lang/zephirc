@@ -12,11 +12,29 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
+To build Zephir compiler you need the following requirements:
+
 #### POSIX
 
-- [cmake](https://cmake.org/) >= 3.11
-- [gcc](https://gcc.gnu.org) >= 7.0.0 or [clang](https://clang.llvm.org) >= 4.0.0
+- A C compiler such as  [gcc](https://gcc.gnu.org) >= 7.0.0 or [clang](https://clang.llvm.org) >= 4.0.0
+- [cmake](https://cmake.org/) 3.11 or later
+- [yaml-cpp](https://github.com/jbeder/yaml-cpp) >= 0.6 (library and header files)
 - C++ language standard support: C++17
+
+If you're using Ubuntu, you can install the required packages this way:
+
+```shell script
+sudo apt-get update
+sudo apt-get install gcc cmake libyaml-cpp-dev build-essential
+```
+
+On macOS you will need to use brew with a command as follows:
+```shell script
+brew update
+brew install cmake yaml-cpp
+```
+
+Please note that specific versions of libraries and programs at the time of reading this guide may vary.
 
 ### Building from Source
 
@@ -58,7 +76,7 @@ Additional cmake flags are (e.g. to enable `FEATURE` use `-DFEATURE=ON`):
 
 1. Build project using `-DCODE_COVERAGE=ON`
 2. Run tests
-3. Call `make ccov-all` inside the `build` direcory
+3. Call `make ccov-all` inside the `build` directory
 
 ## License
 
