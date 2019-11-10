@@ -11,6 +11,7 @@
 #include <string>
 
 #include "formatter.hpp"
+#include "zephir/main.hpp"
 #include "zephir/version.hpp"
 
 int commands::optparse(int argc, char **argv) {
@@ -81,7 +82,7 @@ int commands::optparse(int argc, char **argv) {
   } catch (const CLI::ParseError &e) {
     int retval = app.exit(e);
     if (e.get_name() == "CallForHelp") {
-      retval = ZEPHIR_COMMANDS_EXIT_HELP;
+      retval = EXIT_HELP;
     }
 
     return retval;

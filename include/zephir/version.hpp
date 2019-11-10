@@ -8,12 +8,11 @@
 #ifndef ZEPHIR_VERSION_HPP_
 #define ZEPHIR_VERSION_HPP_
 
+#include "main.hpp"
+
 #define ZEPHIR_VERSION_MAJOR 1
 #define ZEPHIR_VERSION_MINOR 0
 #define ZEPHIR_VERSION_PATCH 0
-
-#define STRINGIFY(s) #s
-#define TOSTRING(s) STRINGIFY(s)
 
 #define ZEPHIR_VERSION_STRING    \
   TOSTRING(ZEPHIR_VERSION_MAJOR) \

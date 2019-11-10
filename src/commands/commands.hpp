@@ -8,8 +8,6 @@
 #ifndef ZEPHIR_COMMANDS_COMMANDS_HPP_
 #define ZEPHIR_COMMANDS_COMMANDS_HPP_
 
-#define ZEPHIR_COMMANDS_EXIT_HELP 1
-
 namespace commands {
 /** Parse options from both the CLI.
  * @param argc Number of CLI arguments provided
