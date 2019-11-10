@@ -11,11 +11,11 @@
 #include "zephir/filesystem.hpp"
 
 int main(int argc, char** argv) {
-  auto config = std::make_unique<core::Config>();
+  auto config = std::make_unique<compiler::Config>();
   auto cwd = compiler::filesystem::current_path();
 
   auto retval =
-      core::load_config(config.get(), argc, argv, cwd + "/config.yml");
+      compiler::load_config(config.get(), argc, argv, cwd + "/config.yml");
   if (retval != EXIT_SUCCESS) {
     return retval;
   }

@@ -15,7 +15,7 @@
 #define INDENT_USING_SPACES 1;
 #define INDENT_USING_TABS 2;
 
-namespace core {
+namespace compiler {
 struct Config {
   std::string ns;
   std::string name;
@@ -106,6 +106,6 @@ struct Config {
  * from the CLI for the provided filename.
  */
 int load_config(Config *config, int argc, char **argv, std::string config_file);
-}  // namespace core
+}  // namespace compiler
 
 #endif  // ZEPHIR_CONFIG_HPP_
