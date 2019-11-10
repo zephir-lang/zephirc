@@ -11,13 +11,14 @@
 
 #include "argv.hpp"
 #include "commands.hpp"
+#include "zephir/main.hpp"
 
 struct ArgsProvider {
   std::initializer_list<const char*> m_args;
   int m_expected;
 
   ArgsProvider(std::initializer_list<const char*> args, int expected)
-      : m_args(args), m_expected(expected){};
+      : m_args(args), m_expected(expected){}
 };
 
 class NoneCmdTest : public testing::TestWithParam<ArgsProvider> {
@@ -27,10 +28,10 @@ class NoneCmdTest : public testing::TestWithParam<ArgsProvider> {
 };
 
 ArgsProvider argsProvider[] = {
-    {{"zephir", "--help"}, ZEPHIR_COMMANDS_EXIT_HELP},
-    {{"zephir", "--version"}, 0},
-    {{"zephir", "--vernum"}, 0},
-    {{"zephir", "--dumpversion"}, 0},
+    {{"zephir", "--help"}, EXIT_HELP},
+    {{"zephir", "--version"}, EXIT_SUCCESS},
+    {{"zephir", "--vernum"}, EXIT_SUCCESS},
+    {{"zephir", "--dumpversion"}, EXIT_SUCCESS},
 };
 
 TEST_P(NoneCmdTest, RunUsingGlobalOptions) {
