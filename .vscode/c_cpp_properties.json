@@ -1,5 +1,8 @@
 {
     "version": 4,
+    "env": {
+        "gtestPrefix": "_deps/googletest-src/googletest"
+    },
     "configurations": [
         {
             "name": "Zephir for macOs",
@@ -7,7 +10,9 @@
             "includePath": [
                 "${workspaceFolder}/src/**",
                 "${workspaceFolder}/include/**",
-                "${workspaceFolder}/external/**"
+                "${workspaceFolder}/external/**",
+                "${workspaceFolder}/tests",
+                "${workspaceFolder}/build/${gtestPrefix}/include"
             ],
             "browse": {
                 "path": [
@@ -26,7 +31,9 @@
             "includePath": [
                 "${workspaceFolder}/src/**",
                 "${workspaceFolder}/include/**",
-                "${workspaceFolder}/external/**"
+                "${workspaceFolder}/external/**",
+                "${workspaceFolder}/tests",
+                "${workspaceFolder}/build/${gtestPrefix}/include"
             ],
             "browse": {
                 "path": [
