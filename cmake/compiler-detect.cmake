@@ -10,16 +10,16 @@ set(CMAKE_COMPILER_IS_APPLE_CLANG OFF)
 
 if("${CMAKE_C_COMPILER_ID}" MATCHES "[Cc]lang"
    OR "${CMAKE_CXX_COMPILER_ID}" MATCHES "[Cc]lang")
-    if("${CMAKE_C_COMPILER_ID}" MATCHES "Apple"
-       OR "${CMAKE_CXX_COMPILER_ID}" MATCHES "Apple")
-        message(STATUS "Used compiler: Apple Clang")
-        set(CMAKE_COMPILER_IS_APPLE_CLANG ON)
-    else()
-        message(STATUS "Used compiler: Clang")
-        set(CMAKE_COMPILER_IS_CLANG ON)
-    endif()
+  if("${CMAKE_C_COMPILER_ID}" MATCHES "Apple"
+     OR "${CMAKE_CXX_COMPILER_ID}" MATCHES "Apple")
+    message(STATUS "Used compiler: Apple Clang")
+    set(CMAKE_COMPILER_IS_APPLE_CLANG ON)
+  else()
+    message(STATUS "Used compiler: Clang")
+    set(CMAKE_COMPILER_IS_CLANG ON)
+  endif()
 else()
-    message(STATUS "Used compiler: ${CMAKE_CXX_COMPILER_ID}")
+  message(STATUS "Used compiler: ${CMAKE_CXX_COMPILER_ID}")
 endif()
 
 # compiler-detect.cmake ends here

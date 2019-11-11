@@ -23,39 +23,39 @@
 
 # Attempt to find static library first if this is set
 if(YAMLCPP_STATIC_LIBRARY)
-    set(YAMLCPP_STATIC libyaml-cpp.a)
+  set(YAMLCPP_STATIC libyaml-cpp.a)
 endif()
 
 if(UNIX)
-    # find the yaml-cpp include directory
-    find_path(YAMLCPP_INCLUDE_DIR yaml-cpp/yaml.h
-              PATHS /usr
-                    /usr/local
-                    /opt
-                    /opt/local
-                    ${YAMLCPP_DIR}/include
-              PATH_SUFFIXES include)
+  # find the yaml-cpp include directory
+  find_path(YAMLCPP_INCLUDE_DIR yaml-cpp/yaml.h
+            PATHS /usr
+                  /usr/local
+                  /opt
+                  /opt/local
+                  ${YAMLCPP_DIR}/include
+            PATH_SUFFIXES include)
 
-    # find the yaml-cpp library
-    find_library(YAMLCPP_LIBRARY
-                 NAMES ${YAMLCPP_STATIC} yaml-cpp
-                 PATHS /usr
-                       /usr/local
-                       /opt
-                       /opt/local
-                       ${YAMLCPP_DIR}
-                 PATH_SUFFIXES lib64 lib)
+  # find the yaml-cpp library
+  find_library(YAMLCPP_LIBRARY
+               NAMES ${YAMLCPP_STATIC} yaml-cpp
+               PATHS /usr
+                     /usr/local
+                     /opt
+                     /opt/local
+                     ${YAMLCPP_DIR}
+               PATH_SUFFIXES lib64 lib)
 elseif(WIN32)
-    # find the yaml-cpp include directory
-    find_path(YAMLCPP_INCLUDE_DIR yaml-cpp/yaml.h
-              PATHS C:/ ${YAMLCPP_DIR}/include
-              PATH_SUFFIXES include)
+  # find the yaml-cpp include directory
+  find_path(YAMLCPP_INCLUDE_DIR yaml-cpp/yaml.h
+            PATHS C:/ ${YAMLCPP_DIR}/include
+            PATH_SUFFIXES include)
 
-    # find the yaml-cpp library
-    find_library(YAMLCPP_LIBRARY
-                 NAMES yaml-cpp yaml-cpp.lib
-                 PATHS C:/ ${YAMLCPP_DIR}
-                 PATH_SUFFIXES lib64 lib)
+  # find the yaml-cpp library
+  find_library(YAMLCPP_LIBRARY
+               NAMES yaml-cpp yaml-cpp.lib
+               PATHS C:/ ${YAMLCPP_DIR}
+               PATH_SUFFIXES lib64 lib)
 endif()
 
 include(FindPackageHandleStandardArgs)
@@ -68,11 +68,11 @@ mark_as_advanced(YAMLCPP_INCLUDE_DIR)
 mark_as_advanced(YAMLCPP_LIBRARY)
 
 if(NOT ${CMAKE_FIND_PACKAGE_NAME}_FIND_QUIETLY)
-    if(YAMLCPP_FOUND)
-        message(STATUS "Check for yaml-cpp: ${YAMLCPP_LIBRARY}")
-    else()
-        message(STATUS "Check for yaml-cpp: not found")
-    endif()
+  if(YAMLCPP_FOUND)
+    message(STATUS "Check for yaml-cpp: ${YAMLCPP_LIBRARY}")
+  else()
+    message(STATUS "Check for yaml-cpp: not found")
+  endif()
 endif()
 
 # FindYamlCpp.cmake ends here
