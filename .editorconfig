@@ -13,5 +13,8 @@ indent_style             = space
 [Makefile]
 indent_style             = tab
 
-[*.{json,cmake}]
+[*.cmake]
+indent_size              = 2
+
+[*.json]
 indent_size              = 4
