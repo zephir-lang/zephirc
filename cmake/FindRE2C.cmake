@@ -1,4 +1,4 @@
-# FindRe2c.cmake
+# FindRE2C.cmake
 #
 # Provides a macro to generate custom build rules:
 #
