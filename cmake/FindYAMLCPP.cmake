@@ -72,9 +72,8 @@ include(FindPackageHandleStandardArgs)
 if(${CMAKE_FIND_PACKAGE_NAME}_FIND_REQUIRED
    AND NOT ${CMAKE_FIND_PACKAGE_NAME}_FIND_QUIETLY)
   find_package_handle_standard_args(${CMAKE_FIND_PACKAGE_NAME}
-                                    REQUIRED_VARS
-                                    YAMLCPP_INCLUDE_DIR
-                                    YAMLCPP_LIBRARY)
+                                    REQUIRED_VARS YAMLCPP_INCLUDE_DIR
+                                                  YAMLCPP_LIBRARY)
 else()
   find_package_handle_standard_args(${CMAKE_FIND_PACKAGE_NAME}
                                     DEFAULT_MSG

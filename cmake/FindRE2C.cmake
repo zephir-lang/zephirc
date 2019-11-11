@@ -149,10 +149,8 @@ if(RE2C_EXECUTABLE)
   if(${CMAKE_FIND_PACKAGE_NAME}_FIND_REQUIRED
      AND NOT ${CMAKE_FIND_PACKAGE_NAME}_FIND_QUIETLY)
     find_package_handle_standard_args(${CMAKE_FIND_PACKAGE_NAME}
-                                      REQUIRED_VARS
-                                      RE2C_EXECUTABLE
-                                      VERSION_VAR
-                                      RE2C_VERSION)
+                                      REQUIRED_VARS RE2C_EXECUTABLE
+                                      VERSION_VAR RE2C_VERSION)
   else()
     find_package_handle_standard_args(
       ${CMAKE_FIND_PACKAGE_NAME}

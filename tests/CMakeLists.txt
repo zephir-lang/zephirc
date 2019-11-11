@@ -25,13 +25,9 @@ if(CODE_COVERAGE)
 endif()
 
 gtest_discover_tests(options_test
-                     TEST_PREFIX
-                     gtest:
-                     PROPERTIES
-                     LABELS
-                     OptionsTest
-                     WORKING_DIRECTORY
-                     ${CMAKE_CURRENT_SOURCE_DIR}/commands)
+                     TEST_PREFIX gtest:
+                     PROPERTIES LABELS OptionsTest
+                     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/commands)
 
 # cmake-format: off
 # TODO: sharness tests

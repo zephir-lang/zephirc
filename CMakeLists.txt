@@ -30,24 +30,22 @@ include(formatting)
 cxx_17()
 
 # Tools
-file(GLOB_RECURSE
-     CPP_FILES
-     ${CMAKE_CURRENT_SOURCE_DIR}/include/*.[hc]
-     ${CMAKE_CURRENT_SOURCE_DIR}/include/*.[hc]pp
-     ${CMAKE_CURRENT_SOURCE_DIR}/src/*.[hc]
-     ${CMAKE_CURRENT_SOURCE_DIR}/src/*.[hc]pp
-     ${CMAKE_CURRENT_SOURCE_DIR}/tests/*.[hc]
-     ${CMAKE_CURRENT_SOURCE_DIR}/tests/*.[hc]pp)
-clang_format(cpp-format ${CPP_FILES})
+file(GLOB_RECURSE FFILES
+                  ${CMAKE_CURRENT_SOURCE_DIR}/include/*.[hc]
+                  ${CMAKE_CURRENT_SOURCE_DIR}/include/*.[hc]pp
+                  ${CMAKE_CURRENT_SOURCE_DIR}/src/*.[hc]
+                  ${CMAKE_CURRENT_SOURCE_DIR}/src/*.[hc]pp
+                  ${CMAKE_CURRENT_SOURCE_DIR}/tests/*.[hc]
+                  ${CMAKE_CURRENT_SOURCE_DIR}/tests/*.[hc]pp)
+clang_format(cpp-format ${FFILES})
 
-file(GLOB_RECURSE
-     CMAKE_FILES
-     ${CMAKE_CURRENT_SOURCE_DIR}/cmake/*.cmake
-     ${CMAKE_CURRENT_SOURCE_DIR}/external/*.cmake
-     ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cmake
-     ${CMAKE_CURRENT_SOURCE_DIR}/tests/*.cmake
-     ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt)
-cmake_format(cmake-format ${CMAKE_FILES})
+file(GLOB_RECURSE FFILES
+                  ${CMAKE_CURRENT_SOURCE_DIR}/cmake/*.cmake
+                  ${CMAKE_CURRENT_SOURCE_DIR}/external/*.cmake
+                  ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cmake
+                  ${CMAKE_CURRENT_SOURCE_DIR}/tests/*.cmake
+                  ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt)
+cmake_format(cmake-format ${FFILES})
 
 if(NOT CMAKE_INSTALL_PREFIX)
   set(CMAKE_INSTALL_PREFIX
