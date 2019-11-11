@@ -42,21 +42,13 @@ if(UNIX)
 elseif(WIN32)
   # find the yaml-cpp include directory
   find_path(YAMLCPP_INCLUDE_DIR yaml-cpp/yaml.h
-            PATHS /usr
-                  /usr/local
-                  /opt
-                  /opt/local
-                  ${YAMLCPP_DIR}/include
+            PATHS C:/ ${YAMLCPP_DIR}/include
             PATH_SUFFIXES include)
 
   # find the yaml-cpp library
   find_library(YAMLCPP_LIBRARY
                NAMES ${YAMLCPP_STATIC} yaml-cpp
-               PATHS /usr
-                     /usr/local
-                     /opt
-                     /opt/local
-                     ${YAMLCPP_DIR}/lib
+               PATHS C:/ ${YAMLCPP_DIR}/lib
                PATH_SUFFIXES lib64 lib)
 endif()
 
