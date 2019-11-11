@@ -1,3 +1,4 @@
+# cmake-format: off
 #
 # Copyright (C) 2019 by George Cave - gcave@stablecoder.ca
 # Copyright (C) 2019 by Sergei Iakovlev - egrep@protonmail.ch
@@ -13,22 +14,26 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations under
 # the License.
+# cmake-format: on
 
 #
 # clang-format
 #
 if(UNIX)
     find_program(CLANG_FORMAT_EXE
-        NAMES clang-format
-        PATHS /usr /usr/local /opt /opt/local
-        PATH_SUFFIXES bin
-        DOC "path to the clang-format executable")
+                 NAMES clang-format
+                 PATHS /usr
+                       /usr/local
+                       /opt
+                       /opt/local
+                 PATH_SUFFIXES bin
+                 DOC "path to the clang-format executable")
 elseif(WIN32)
     find_program(CLANG_FORMAT_EXE
-        NAMES clang-format.exe
-        PATHS C:/
-        PATH_SUFFIXES ""
-        DOC "path to the clang-format executable")
+                 NAMES clang-format.exe
+                 PATHS C:/
+                 PATH_SUFFIXES ""
+                 DOC "path to the clang-format executable")
 endif()
 
 if(CLANG_FORMAT_EXE)
@@ -59,8 +64,8 @@ function(clang_format TARGET_NAME)
                 LISTS
                 ARGN)
             if(TARGET ${item})
-                # If the item is a target, then we'll attempt to grab the associated
-                # source files from it.
+                # If the item is a target, then we'll attempt to grab the
+                # associated source files from it.
                 get_target_property(_TARGET_TYPE ${item} TYPE)
                 if(NOT _TARGET_TYPE STREQUAL "INTERFACE_LIBRARY")
                     get_property(_TEMP TARGET ${item} PROPERTY SOURCES)
@@ -78,7 +83,8 @@ function(clang_format TARGET_NAME)
                 set(FORMAT_FILES ${FORMAT_FILES} ${item})
             elseif(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${item})
                 # Check if it's based on the current source dir
-                set(FORMAT_FILES ${FORMAT_FILES} ${CMAKE_CURRENT_SOURCE_DIR}/${item})
+                set(FORMAT_FILES ${FORMAT_FILES}
+                                 ${CMAKE_CURRENT_SOURCE_DIR}/${item})
             endif()
         endforeach()
 
@@ -86,14 +92,15 @@ function(clang_format TARGET_NAME)
         if(FORMAT_FILES)
             if(TARGET ${TARGET_NAME})
                 message(
-                        ERROR
-                        "Cannot create clang-format target '${TARGET_NAME}', already exists.")
+                    ERROR
+                    "Cannot create clang-format target '${TARGET_NAME}', already exists."
+                    )
             else()
                 add_custom_target(${TARGET_NAME}
-                        COMMAND ${CLANG_FORMAT_EXE}
-                        -i
-                        -style=file
-                        ${FORMAT_FILES})
+                                  COMMAND ${CLANG_FORMAT_EXE}
+                                          -i
+                                          -style=file
+                                          ${FORMAT_FILES})
 
                 if(NOT TARGET format)
                     add_custom_target(format)
@@ -111,16 +118,19 @@ endfunction()
 #
 if(UNIX)
     find_program(CMAKE_FORMAT_EXE
-        NAMES cmake-format
-        PATHS /usr /usr/local /opt /opt/local
-        PATH_SUFFIXES bin
-        DOC "path to the cmake-format executable")
+                 NAMES cmake-format
+                 PATHS /usr
+                       /usr/local
+                       /opt
+                       /opt/local
+                 PATH_SUFFIXES bin
+                 DOC "path to the cmake-format executable")
 elseif(WIN32)
     find_program(CMAKE_FORMAT_EXE
-        NAMES cmake-format.exe
-        PATHS C:/
-        PATH_SUFFIXES ""
-        DOC "path to the cmake-format executable")
+                 NAMES cmake-format.exe
+                 PATHS C:/
+                 PATH_SUFFIXES ""
+                 DOC "path to the cmake-format executable")
 endif()
 
 if(CMAKE_FORMAT_EXE)
@@ -150,7 +160,8 @@ function(cmake_format TARGET_NAME)
             if(EXISTS ${iter})
                 set(FORMAT_FILES ${FORMAT_FILES} ${iter})
             elseif(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${iter})
-                set(FORMAT_FILES ${FORMAT_FILES} ${CMAKE_CURRENT_SOURCE_DIR}/${iter})
+                set(FORMAT_FILES ${FORMAT_FILES}
+                                 ${CMAKE_CURRENT_SOURCE_DIR}/${iter})
             endif()
         endforeach()
 
@@ -158,11 +169,13 @@ function(cmake_format TARGET_NAME)
         if(FORMAT_FILES)
             if(TARGET ${TARGET_NAME})
                 message(
-                        ERROR
-                        "Cannot create cmake-format target '${TARGET_NAME}', already exists.")
+                    ERROR
+                    "Cannot create cmake-format target '${TARGET_NAME}', already exists."
+                    )
             else()
-                add_custom_target(${TARGET_NAME}
-                        COMMAND ${CMAKE_FORMAT_EXE} -i ${FORMAT_FILES})
+                add_custom_target(
+                    ${TARGET_NAME}
+                    COMMAND ${CMAKE_FORMAT_EXE} -i ${FORMAT_FILES})
 
                 if(NOT TARGET cmake-format)
                     add_custom_target(cmake-format)
@@ -172,3 +185,13 @@ function(cmake_format TARGET_NAME)
         endif()
     endif()
 endfunction()
+
+# formatting.cmake ends here
+
+# cmake-format: off
+# Local Variables:
+# mode: cmake
+# tab-width: 4
+# indent-tabs-mode: nil
+# End:
+# cmake-format: on
