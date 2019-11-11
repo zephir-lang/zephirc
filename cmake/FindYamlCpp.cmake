@@ -37,7 +37,7 @@ if(UNIX)
                      /usr/local
                      /opt
                      /opt/local
-                     ${YAMLCPP_DIR}/lib
+                     ${YAMLCPP_DIR}
                PATH_SUFFIXES lib64 lib)
 elseif(WIN32)
   # find the yaml-cpp include directory
@@ -47,8 +47,8 @@ elseif(WIN32)
 
   # find the yaml-cpp library
   find_library(YAMLCPP_LIBRARY
-               NAMES ${YAMLCPP_STATIC} yaml-cpp
-               PATHS C:/ ${YAMLCPP_DIR}/lib
+               NAMES yaml-cpp yaml-cpp.lib
+               PATHS C:/ ${YAMLCPP_DIR}
                PATH_SUFFIXES lib64 lib)
 endif()
 
