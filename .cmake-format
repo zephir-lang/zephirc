@@ -1,3 +1,10 @@
+# This file is part of the Zephir.
+#
+# (c) Zephir Team <team@zephir-lang.com>
+#
+# For the full copyright and license information, please view the LICENSE file
+# that was distributed with this source code.
+
 # --------------------------
 # General Formatting Options
 # --------------------------
@@ -37,14 +44,27 @@ keyword_case: unchanged
 
 # Specify structure for custom cmake functions
 additional_commands:
-  foo:
-    flags:
-    - BAR
-    - BAZ
+  file:
     kwargs:
-      HEADERS: '*'
-      SOURCES: '*'
-      DEPENDS: '*'
+      GLOB_RECURSE: '*'
+      STRINGS: '*'
+      REGEX: '*'
+  gtest_discover_tests:
+    flags:
+      - NO_PRETTY_TYPES
+      - NO_PRETTY_TYPES
+    kwargs:
+      EXTRA_ARGS: '*'
+      TEST_PREFIX: '*'
+      TEST_SUFFIX: '*'
+      PROPERTIES: '*'
+      TEST_LIST: '*'
+      DISCOVERY_TIMEOUT: '*'
+      WORKING_DIRECTORY: '*'
+  find_package_handle_standard_args:
+    kwargs:
+      REQUIRED_VARS: '*'
+      VERSION_VAR: '*'
 
 # A list of command names which should always be wrapped
 always_wrap: []
