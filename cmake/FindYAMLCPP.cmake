@@ -24,7 +24,7 @@
 # Attempt to find static library first if this is set
 if(YAMLCPP_STATIC_LIBRARY)
   if(UNIX)
-    set(YAMLCPP_STATIC libyaml-cpp.a libyaml.a)
+    set(YAMLCPP_STATIC libyaml-cpp.a)
   else()
     set(YAMLCPP_STATIC yaml-cpp.lib)
   endif()
@@ -35,13 +35,13 @@ unset(YAMLCPP_LIBRARY CACHE)
 
 if(UNIX)
   # find the yaml-cpp include directory
-  find_path(YAMLCPP_INCLUDE_DIR yaml.h
+  find_path(YAMLCPP_INCLUDE_DIR yaml-cpp/yaml.h
             PATHS /usr
                   /usr/local
                   /opt
                   /opt/local
                   ${YAMLCPP_DIR}
-            PATH_SUFFIXES include/yaml-cpp)
+            PATH_SUFFIXES include)
 
   # find the yaml-cpp library
   find_library(YAMLCPP_LIBRARY
@@ -54,13 +54,13 @@ if(UNIX)
                PATH_SUFFIXES lib64 lib)
 elseif(WIN32)
   # find the yaml-cpp include directory
-  find_path(YAMLCPP_INCLUDE_DIR yaml.h
+  find_path(YAMLCPP_INCLUDE_DIR yaml-cpp/yaml.h
             PATHS C:/ ${YAMLCPP_DIR}
-            PATH_SUFFIXES include/yaml-cpp)
+            PATH_SUFFIXES include)
 
   # find the yaml-cpp library
   find_library(YAMLCPP_LIBRARY
-               NAMES yaml-cpp yaml-cpp.lib
+               NAMES ${YAMLCPP_STATIC} yaml-cpp
                PATHS C:/ ${YAMLCPP_DIR}
                PATH_SUFFIXES lib64 lib)
 endif()
@@ -82,7 +82,7 @@ else()
                                     YAMLCPP_LIBRARY)
 endif()
 
-# FindYamlCpp.cmake ends here
+# FindYAMLCPP.cmake ends here
 
 # cmake-format: off
 # Local Variables:

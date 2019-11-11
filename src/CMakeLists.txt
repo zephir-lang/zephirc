@@ -8,10 +8,10 @@
 # CLI commands
 add_subdirectory(commands)
 
-add_library(compiler STATIC filesystem.cpp config.cpp)
-
 set(YAMLCPP_STATIC_LIBRARY ON)
-find_package(YamlCpp REQUIRED)
+find_package(YAMLCPP REQUIRED)
+
+add_library(compiler STATIC filesystem.cpp config.cpp)
 
 target_include_directories(compiler
                            PUBLIC ${YAMLCPP_INCLUDE_DIR}
