@@ -24,13 +24,11 @@ To build Zephir compiler you need the following requirements:
 If you're using Ubuntu, you can install the required packages this way:
 
 ```shell script
-sudo apt-get update
 sudo apt-get install gcc cmake libyaml-cpp-dev build-essential
 ```
 
 On macOS you will need to use brew with a command as follows:
 ```shell script
-brew update
 brew install cmake yaml-cpp
 ```
 
