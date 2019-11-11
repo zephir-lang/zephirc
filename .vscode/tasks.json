@@ -117,19 +117,54 @@
             "linux": {
                 "command": "make",
                 "args": [
-                    "format-cpp"
+                    "cpp-format"
                 ]
             },
             "osx": {
                 "command": "make",
                 "args": [
-                    "format-cpp"
+                    "cpp-format"
                 ]
             },
             "windows": {
                 "command": "make.exe",
                 "args": [
-                    "format-cpp"
+                    "cpp-format"
+                ]
+            },
+            "isBackground": true,
+            "presentation": {
+                "panel": "shared",
+                "reveal": "silent",
+                "focus": false,
+                "showReuseMessage": false
+            }
+        },
+
+        // Format cmake lists
+        {
+            "label": "Format | Format cmake lists",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceRoot}/build"
+            },
+            "problemMatcher": [],
+            "linux": {
+                "command": "make",
+                "args": [
+                    "cmake-format"
+                ]
+            },
+            "osx": {
+                "command": "make",
+                "args": [
+                    "cmake-format"
+                ]
+            },
+            "windows": {
+                "command": "make.exe",
+                "args": [
+                    "cmake-format"
                 ]
             },
             "isBackground": true,
