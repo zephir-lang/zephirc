@@ -2,8 +2,8 @@
 #
 # (c) Zephir Team <team@zephir-lang.com>
 #
-# For the full copyright and license information, please view
-# the LICENSE file that was distributed with this source code.
+# For the full copyright and license information, please view the LICENSE file
+# that was distributed with this source code.
 
 cmake_minimum_required(VERSION 3.11...3.16)
 
@@ -11,9 +11,9 @@ cmake_minimum_required(VERSION 3.11...3.16)
 include("${CMAKE_SOURCE_DIR}/cmake/version.cmake")
 
 project(zephir
-    LANGUAGES   CXX
-    VERSION     "${VERSION}"
-    DESCRIPTION "A Zephir compiler")
+        LANGUAGES CXX
+        VERSION "${VERSION}"
+        DESCRIPTION "A Zephir compiler")
 
 # Provide path for cmake scripts
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
@@ -30,20 +30,22 @@ include(formatting)
 cxx_17()
 
 # Tools
-if (CLANG_FORMAT_EXE)
-    file(GLOB_RECURSE FFILES
-            ${CMAKE_CURRENT_SOURCE_DIR}/include/*.[hc]
-            ${CMAKE_CURRENT_SOURCE_DIR}/include/*.[hc]pp
-            ${CMAKE_CURRENT_SOURCE_DIR}/src/*.[hc]
-            ${CMAKE_CURRENT_SOURCE_DIR}/src/*.[hc]pp
-            ${CMAKE_CURRENT_SOURCE_DIR}/tests/*.[hc]
-            ${CMAKE_CURRENT_SOURCE_DIR}/tests/*.[hc]pp)
+if(CLANG_FORMAT_EXE)
+  file(GLOB_RECURSE
+       FFILES
+       ${CMAKE_CURRENT_SOURCE_DIR}/include/*.[hc]
+       ${CMAKE_CURRENT_SOURCE_DIR}/include/*.[hc]pp
+       ${CMAKE_CURRENT_SOURCE_DIR}/src/*.[hc]
+       ${CMAKE_CURRENT_SOURCE_DIR}/src/*.[hc]pp
+       ${CMAKE_CURRENT_SOURCE_DIR}/tests/*.[hc]
+       ${CMAKE_CURRENT_SOURCE_DIR}/tests/*.[hc]pp)
 
-    clang_format(format-cpp ${FFILES})
+  clang_format(format-cpp ${FFILES})
 endif()
 
 if(NOT CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}"
+  set(CMAKE_INSTALL_PREFIX
+      "${CMAKE_BINARY_DIR}"
       CACHE STRING "Directory to install zephir to" FORCE)
 endif()
 
@@ -53,32 +55,48 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
 
 # Handle codecoverage
 if(CODE_COVERAGE)
-    # Now we can exclude the stuff that we aren't interested in from the tracefile:
-    # 1) system deps; 2) tests; 3) build; 4) thridparty-code
-    set(coverage_excludes EXCLUDE
-        "/usr/*" "build/*" "*/build/*" "tests/*" "*/tests/*" "external/*" "*/external/*")
-    add_code_coverage_all_targets(${coverage_excludes})
+  # Now we can exclude the stuff that we aren't interested in from the
+  # tracefile:
+  #
+  # * system deps
+  # * tests
+  # * build
+  # * thridparty-code
+  set(coverage_excludes
+      EXCLUDE
+      "/usr/*"
+      "build/*"
+      "*/build/*"
+      "tests/*"
+      "*/tests/*"
+      "external/*"
+      "*/external/*")
+  add_code_coverage_all_targets(${coverage_excludes})
 endif()
 
 add_subdirectory(external)
 add_subdirectory(src)
 
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
-    include(CTest)
+  include(CTest)
 endif()
 
 option(ZEPHIR_BUILD_TESTING "Build test project" OFF)
-if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME AND BUILD_TESTING AND ZEPHIR_BUILD_TESTING)
-    include(cppcheck)
+if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME
+   AND BUILD_TESTING
+   AND ZEPHIR_BUILD_TESTING)
+  include(cppcheck)
 
-    message(STATUS "Include test sources")
-    add_subdirectory(tests)
+  message(STATUS "Include test sources")
+  add_subdirectory(tests)
 endif()
 
 # CMakeLists.txt ends here
 
+# cmake-format: off
 # Local Variables:
 # mode: cmake
 # tab-width: 4
 # indent-tabs-mode: nil
 # End:
+# cmake-format: on

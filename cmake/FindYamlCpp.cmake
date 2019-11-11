@@ -1,5 +1,10 @@
-# FindYamlCpp.cmake
+# This file is part of the Zephir.
 #
+# (c) Zephir Team <team@zephir-lang.com>
+#
+# For the full copyright and license information, please view the LICENSE file
+# that was distributed with this source code.
+
 # A module to find yaml-cpp module.
 #
 # By default, the dynamic libraries of yaml-cpp will be found. To find the
@@ -10,10 +15,11 @@
 # CMake variable to tell CMake where yaml-cpp is.
 #
 # The module defines the following variables:
-#
+# ~~~
 # YAMLCPP_FOUND       - if false, do not try to link to yaml-cpp
 # YAMLCPP_LIBRARY     - where to find yaml-cpp
 # YAMLCPP_INCLUDE_DIR - where to find yaml.h
+# ~~~
 
 # Attempt to find static library first if this is set
 if(YAMLCPP_STATIC_LIBRARY)
@@ -37,7 +43,7 @@ if(UNIX)
                      /usr/local
                      /opt
                      /opt/local
-                     ${YAMLCPP_DIR}/lib
+                     ${YAMLCPP_DIR}
                PATH_SUFFIXES lib64 lib)
 elseif(WIN32)
   # find the yaml-cpp include directory
@@ -47,8 +53,8 @@ elseif(WIN32)
 
   # find the yaml-cpp library
   find_library(YAMLCPP_LIBRARY
-               NAMES ${YAMLCPP_STATIC} yaml-cpp
-               PATHS C:/ ${YAMLCPP_DIR}/lib
+               NAMES yaml-cpp yaml-cpp.lib
+               PATHS C:/ ${YAMLCPP_DIR}
                PATH_SUFFIXES lib64 lib)
 endif()
 
@@ -68,3 +74,13 @@ if(NOT ${CMAKE_FIND_PACKAGE_NAME}_FIND_QUIETLY)
     message(STATUS "Check for yaml-cpp: not found")
   endif()
 endif()
+
+# FindYamlCpp.cmake ends here
+
+# cmake-format: off
+# Local Variables:
+# mode: cmake
+# tab-width: 4
+# indent-tabs-mode: nil
+# End:
+# cmake-format: on
