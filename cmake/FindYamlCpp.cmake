@@ -23,18 +23,25 @@
 
 # Attempt to find static library first if this is set
 if(YAMLCPP_STATIC_LIBRARY)
-  set(YAMLCPP_STATIC libyaml-cpp.a)
+  if(UNIX)
+    set(YAMLCPP_STATIC libyaml-cpp.a libyaml.a)
+  else()
+    set(YAMLCPP_STATIC yaml-cpp.lib)
+  endif()
 endif()
+
+unset(YAMLCPP_INCLUDE_DIR CACHE)
+unset(YAMLCPP_LIBRARY CACHE)
 
 if(UNIX)
   # find the yaml-cpp include directory
-  find_path(YAMLCPP_INCLUDE_DIR yaml-cpp/yaml.h
+  find_path(YAMLCPP_INCLUDE_DIR yaml.h
             PATHS /usr
                   /usr/local
                   /opt
                   /opt/local
-                  ${YAMLCPP_DIR}/include
-            PATH_SUFFIXES include)
+                  ${YAMLCPP_DIR}
+            PATH_SUFFIXES include/yaml-cpp)
 
   # find the yaml-cpp library
   find_library(YAMLCPP_LIBRARY
@@ -47,9 +54,9 @@ if(UNIX)
                PATH_SUFFIXES lib64 lib)
 elseif(WIN32)
   # find the yaml-cpp include directory
-  find_path(YAMLCPP_INCLUDE_DIR yaml-cpp/yaml.h
-            PATHS C:/ ${YAMLCPP_DIR}/include
-            PATH_SUFFIXES include)
+  find_path(YAMLCPP_INCLUDE_DIR yaml.h
+            PATHS C:/ ${YAMLCPP_DIR}
+            PATH_SUFFIXES include/yaml-cpp)
 
   # find the yaml-cpp library
   find_library(YAMLCPP_LIBRARY
@@ -58,21 +65,21 @@ elseif(WIN32)
                PATH_SUFFIXES lib64 lib)
 endif()
 
-include(FindPackageHandleStandardArgs)
-find_package_handle_standard_args(${CMAKE_FIND_PACKAGE_NAME}
-                                  REQUIRED_VARS
-                                  YAMLCPP_INCLUDE_DIR
-                                  YAMLCPP_LIBRARY)
-
 mark_as_advanced(YAMLCPP_INCLUDE_DIR)
 mark_as_advanced(YAMLCPP_LIBRARY)
 
-if(NOT ${CMAKE_FIND_PACKAGE_NAME}_FIND_QUIETLY)
-  if(YAMLCPP_FOUND)
-    message(STATUS "Check for yaml-cpp: ${YAMLCPP_LIBRARY}")
-  else()
-    message(STATUS "Check for yaml-cpp: not found")
-  endif()
+include(FindPackageHandleStandardArgs)
+if(${CMAKE_FIND_PACKAGE_NAME}_FIND_REQUIRED
+   AND NOT ${CMAKE_FIND_PACKAGE_NAME}_FIND_QUIETLY)
+  find_package_handle_standard_args(${CMAKE_FIND_PACKAGE_NAME}
+                                    REQUIRED_VARS
+                                    YAMLCPP_INCLUDE_DIR
+                                    YAMLCPP_LIBRARY)
+else()
+  find_package_handle_standard_args(${CMAKE_FIND_PACKAGE_NAME}
+                                    DEFAULT_MSG
+                                    YAMLCPP_INCLUDE_DIR
+                                    YAMLCPP_LIBRARY)
 endif()
 
 # FindYamlCpp.cmake ends here

@@ -10,7 +10,9 @@ add_subdirectory(commands)
 
 add_library(compiler STATIC filesystem.cpp config.cpp)
 
+set(YAMLCPP_STATIC_LIBRARY ON)
 find_package(YamlCpp REQUIRED)
+
 target_include_directories(compiler
                            PUBLIC ${YAMLCPP_INCLUDE_DIR}
                                   ${CMAKE_SOURCE_DIR}/include)
