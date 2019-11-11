@@ -1,3 +1,4 @@
+# cmake-format: off
 #
 # Copyright (C) 2018 by George Cave - gcave@stablecoder.ca
 #
@@ -12,6 +13,7 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations under
 # the License.
+# cmake-format: on
 
 # Set the compiler standard to C++11
 macro(cxx_11)
@@ -64,6 +66,8 @@ macro(cxx_17)
     endif()
 endmacro()
 
+# TODO(klay): C++20 is not supportet in currect XCode at this time.
+#
 # Set the compiler standard to C++20
 macro(cxx_20)
     message(STATUS "Set the compiler standard to C++20")
@@ -72,3 +76,13 @@ macro(cxx_20)
     set(CMAKE_CXX_STANDARD_REQUIRED ON)
     set(CMAKE_CXX_EXTENSIONS OFF)
 endmacro()
+
+# c++-standards.cmake ends here
+
+# cmake-format: off
+# Local Variables:
+# mode: cmake
+# tab-width: 4
+# indent-tabs-mode: nil
+# End:
+# cmake-format: on
