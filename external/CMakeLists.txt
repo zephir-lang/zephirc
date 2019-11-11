@@ -6,7 +6,6 @@
 # that was distributed with this source code.
 
 add_subdirectory(CLI11)
-add_subdirectory(SpdLog)
 
 # CMakeLists.txt ends here
 
