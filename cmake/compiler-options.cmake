@@ -1,3 +1,4 @@
+# cmake-format: off
 #
 # Copyright (C) 2018 by George Cave - gcave@stablecoder.ca
 #
@@ -12,9 +13,10 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations under
 # the License.
+# cmake-format: on
 
 option(ENABLE_ALL_WARNINGS "Compile with all warnings for the major compilers."
-        OFF)
+       OFF)
 option(ENABLE_EFFECTIVE_CXX "Enable Effective C++ warnings." OFF)
 
 # TODO(klay): add_definitions(-DZEPHIR_RELEASE)
@@ -35,6 +37,7 @@ if(ENABLE_ALL_WARNINGS)
     endif()
 endif()
 
+# TODO(klay): We can't apply this on Linux with gtests.
 if(ENABLE_EFFECTIVE_CXX)
     if(CMAKE_COMPILER_IS_GNUCXX)
         # GCC
@@ -46,3 +49,13 @@ if(ENABLE_EFFECTIVE_CXX)
 endif()
 
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0")
+
+# compiler-options.cmake ends here
+
+# cmake-format: off
+# Local Variables:
+# mode: cmake
+# tab-width: 4
+# indent-tabs-mode: nil
+# End:
+# cmake-format: on
