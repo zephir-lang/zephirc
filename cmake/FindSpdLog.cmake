@@ -21,7 +21,6 @@ if(UNIX)
           /usr/local
           /opt
           /opt/local
-          ${SPDLOG_DIR}/include
     PATH_SUFFIXES include
     DOC "path to spdlog include directory")
 
@@ -32,14 +31,12 @@ if(UNIX)
           /usr/local
           /opt
           /opt/local
-          ${SPDLOG_DIR}
     PATH_SUFFIXES lib64 lib
     DOC "path to spdlog pre-compiled library")
 elseif(WIN32)
   # find spdlog include directory
   find_path(SPDLOG_INCLUDE_DIR spdlog/spdlog.h
     PATHS C:/
-          ${SPDLOG_DIR}/include
     PATH_SUFFIXES include
     DOC "path to spdlog include directory")
 
@@ -64,13 +61,12 @@ mark_as_advanced(SPDLOG_LIBRARY)
 if(NOT ${CMAKE_FIND_PACKAGE_NAME}_FIND_QUIETLY)
   if(SPDLOG_FOUND)
     message(STATUS "Check for spdlog: ${SPDLOG_LIBRARY}")
-    message(STATUS "Check for spdlog: ${SPDLOG_INCLUDE_DIR}")
   else()
     message(STATUS "Check for spdlog: not found")
   endif()
 endif()
 
-# FindSpdLog.cmake ends here
+# FindSPDLOG.cmake ends here
 
 # cmake-format: off
 # Local Variables:
