@@ -5,19 +5,40 @@
 # For the full copyright and license information, please view the LICENSE file
 # that was distributed with this source code.
 
+# A module to find SpdLog library.
+#
+# By default, the dynamic libraries of spdlog will be found. To find the
+# static ones instead, you must set the SPDLOG_STATIC_LIBRARY variable to TRUE
+# before calling find_package(SPDLOG ...).
+#
+# Example:
+#     set(SPDLOG_STATIC_LIBRARY TRUE)
+#     find_package(SPDLOG REQUIRED)
+#
+# If spdlog is not installed in a standard path, you can use the SPDLOG_DIR
+# CMake variable to tell CMake where spdlog is.
+#
+# The module defines the following variables:
+# ~~~
+# SPDLOG_FOUND       - if false, do not try to link to spdlog
+# SPDLOG_LIBRARY     - where to find spdlog
+# SPDLOG_INCLUDE_DIR - where to find yaml.h
+# ~~~
+
 # Attempt to find static library first if this is set
 if(SPDLOG_STATIC_LIBRARY)
   if(UNIX)
     set(SPDLOG_STATIC libspdlog.a)
   elseif(WIN32)
-    set(SPDLOG_STATIC libspdlog.lib)
+    set(SPDLOG_STATIC spdlog.lib)
   endif()
 endif()
 
 if(UNIX)
   # find spdlog include directory
   find_path(SPDLOG_INCLUDE_DIR spdlog/spdlog.h
-    PATHS /usr
+    PATHS ${SPDLOG_DIR}
+          /usr
           /usr/local
           /opt
           /opt/local
@@ -27,7 +48,8 @@ if(UNIX)
   # find spdlog pre-compiled library
   find_library(SPDLOG_LIBRARY
     NAMES ${SPDLOG_STATIC} libspdlog
-    PATHS /usr
+    PATHS ${SPDLOG_DIR}
+          /usr
           /usr/local
           /opt
           /opt/local
@@ -36,15 +58,16 @@ if(UNIX)
 elseif(WIN32)
   # find spdlog include directory
   find_path(SPDLOG_INCLUDE_DIR spdlog/spdlog.h
-    PATHS C:/
+    PATHS ${SPDLOG_DIR}
+          C:/
     PATH_SUFFIXES include
     DOC "path to spdlog include directory")
 
   # find spdlog pre-compiled library
   find_library(SPDLOG_LIBRARY
-    NAMES ${SPDLOG_STATIC} libspdlog
-    PATHS C:/
-          ${SPDLOG_DIR}
+    NAMES ${SPDLOG_STATIC} spdlog.lib
+    PATHS ${SPDLOG_DIR}
+          C:/
     PATH_SUFFIXES lib64 lib
     DOC "path to spdlog pre-compiled library")
 endif()
