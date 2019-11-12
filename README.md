@@ -21,6 +21,8 @@ To build Zephir compiler you need the following requirements:
 - Library for easy read/write for Yaml data: [yaml-cpp](https://github.com/jbeder/yaml-cpp) >= 0.6
 - C++ language standard support: C++17
 
+NOTE: Some tools, like [`cmake-format`](https://github.com/cheshirekow/cmake_format) will require python as well.
+
 If you're using Ubuntu, you can install the required packages this way:
 
 ```shell script
