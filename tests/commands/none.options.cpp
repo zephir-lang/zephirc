@@ -36,7 +36,7 @@ ArgsProvider argsProvider[] = {
 
 TEST_P(NoneCmdTest, RunUsingGlobalOptions) {
   argv.assign(GetParam().m_args);
-  auto retval = commands::optparse(argv.argc(), argv.argv());
+  auto retval = zephir::commands::optparse(argv.argc(), argv.argv());
   EXPECT_EQ(retval, GetParam().m_expected);
 }
 

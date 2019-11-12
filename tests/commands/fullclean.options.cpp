@@ -18,6 +18,6 @@ class FullcleanCmdTest : public ::testing::Test {
 
 TEST_F(FullcleanCmdTest, RunWithoutOptions) {
   argv.assign({"zephir", "fullclean"});
-  auto retval = commands::optparse(argv.argc(), argv.argv());
+  auto retval = zephir::commands::optparse(argv.argc(), argv.argv());
   EXPECT_EQ(retval, 0);
 }

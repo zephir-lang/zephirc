@@ -10,7 +10,7 @@
 
 #include <string>
 
-namespace compiler::filesystem {
+namespace zephir::filesystem {
 /** Fastest way to check if a file exist
  * @param name The location of the file
  * @return true on success, false otherwise
@@ -21,6 +21,6 @@ bool exists(const std::string& name);
  * @return current working path
  */
 std::string current_path();
-}  // namespace compiler::filesystem
+}  // namespace zephir::filesystem
 
 #endif  // ZEPHIR_FILESYSTEM_HPP_

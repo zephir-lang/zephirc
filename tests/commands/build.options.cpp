@@ -18,6 +18,6 @@ class BuildCmdTest : public ::testing::Test {
 
 TEST_F(BuildCmdTest, RunWithoutOptions) {
   argv.assign({"zephir", "build"});
-  auto retval = commands::optparse(argv.argc(), argv.argv());
+  auto retval = zephir::commands::optparse(argv.argc(), argv.argv());
   EXPECT_EQ(retval, 0);
 }
