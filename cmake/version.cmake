@@ -10,7 +10,9 @@ file(STRINGS "${CMAKE_SOURCE_DIR}/include/zephir/version.hpp" zephir_version
 
 foreach(part ${zephir_version})
   if(part MATCHES "#define ZEPHIR_VERSION_(MAJOR|MINOR|PATCH) +([^ ]+)$")
-    set(ZEPHIR_VERSION_${CMAKE_MATCH_1} "${CMAKE_MATCH_2}" CACHE INTERNAL "")
+    set(ZEPHIR_VERSION_${CMAKE_MATCH_1}
+        "${CMAKE_MATCH_2}"
+        CACHE INTERNAL "")
   endif()
 endforeach()
 

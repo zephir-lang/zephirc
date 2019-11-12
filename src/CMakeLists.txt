@@ -13,9 +13,8 @@ find_package(YAMLCPP REQUIRED)
 
 add_library(compiler STATIC filesystem.cpp config.cpp)
 
-target_include_directories(compiler
-                           PUBLIC ${YAMLCPP_INCLUDE_DIR}
-                                  ${CMAKE_SOURCE_DIR}/include)
+target_include_directories(compiler PUBLIC ${YAMLCPP_INCLUDE_DIR}
+                                           ${CMAKE_SOURCE_DIR}/include)
 
 target_link_libraries(commands PRIVATE ${YAMLCPP_LIBRARY})
 

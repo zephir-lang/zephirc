@@ -10,10 +10,11 @@ cmake_minimum_required(VERSION 3.11...3.16)
 # Prepare VERSION variable
 include("${CMAKE_SOURCE_DIR}/cmake/version.cmake")
 
-project(zephir
-        LANGUAGES CXX
-        VERSION "${VERSION}"
-        DESCRIPTION "A Zephir compiler")
+project(
+  zephir
+  LANGUAGES CXX
+  VERSION "${VERSION}"
+  DESCRIPTION "A Zephir compiler")
 
 # Provide path for cmake scripts
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
@@ -30,21 +31,25 @@ include(formatting)
 cxx_17()
 
 # Tools
-file(GLOB_RECURSE FFILES
-                  ${CMAKE_CURRENT_SOURCE_DIR}/include/*.[hc]
-                  ${CMAKE_CURRENT_SOURCE_DIR}/include/*.[hc]pp
-                  ${CMAKE_CURRENT_SOURCE_DIR}/src/*.[hc]
-                  ${CMAKE_CURRENT_SOURCE_DIR}/src/*.[hc]pp
-                  ${CMAKE_CURRENT_SOURCE_DIR}/tests/*.[hc]
-                  ${CMAKE_CURRENT_SOURCE_DIR}/tests/*.[hc]pp)
+file(
+  GLOB_RECURSE
+    FFILES
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/*.[hc]
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/*.[hc]pp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/*.[hc]
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/*.[hc]pp
+    ${CMAKE_CURRENT_SOURCE_DIR}/tests/*.[hc]
+    ${CMAKE_CURRENT_SOURCE_DIR}/tests/*.[hc]pp)
 clang_format(cpp-format ${FFILES})
 
-file(GLOB_RECURSE FFILES
-                  ${CMAKE_CURRENT_SOURCE_DIR}/cmake/*.cmake
-                  ${CMAKE_CURRENT_SOURCE_DIR}/external/*.cmake
-                  ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cmake
-                  ${CMAKE_CURRENT_SOURCE_DIR}/tests/*.cmake
-                  ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt)
+file(
+  GLOB_RECURSE
+    FFILES
+    ${CMAKE_CURRENT_SOURCE_DIR}/cmake/*.cmake
+    ${CMAKE_CURRENT_SOURCE_DIR}/external/*.cmake
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cmake
+    ${CMAKE_CURRENT_SOURCE_DIR}/tests/*.cmake
+    ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt)
 cmake_format(cmake-format ${FFILES})
 
 if(NOT CMAKE_INSTALL_PREFIX)
