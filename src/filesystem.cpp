@@ -13,11 +13,11 @@
 #include <climits>
 #include <sstream>
 
-bool compiler::filesystem::exists(const std::string &name) {
+bool zephir::filesystem::exists(const std::string &name) {
   return (access(name.c_str(), F_OK) != -1);
 }
 
-std::string compiler::filesystem::current_path() {
+std::string zephir::filesystem::current_path() {
   char temp[PATH_MAX];
 
   if (getcwd(temp, PATH_MAX) != nullptr) {

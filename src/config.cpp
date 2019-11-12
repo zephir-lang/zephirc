@@ -14,9 +14,8 @@
 #include "zephir/main.hpp"
 
 namespace {
-int parse_yaml_config(compiler::Config *config,
-                      const std::string &config_file) {
-  if (!compiler::filesystem::exists(config_file)) {
+int parse_yaml_config(zephir::Config *config, const std::string &config_file) {
+  if (!zephir::filesystem::exists(config_file)) {
     // Do nothing.
     return EXIT_NO_CONFIG;
   }
@@ -36,9 +35,9 @@ int parse_yaml_config(compiler::Config *config,
 }
 }  // namespace
 
-int compiler::load_config(compiler::Config *config, int argc, char **argv,
-                          std::string config_file) {
-  auto retval = commands::optparse(argc, argv);
+int zephir::load_config(zephir::Config *config, int argc, char **argv,
+                        std::string config_file) {
+  auto retval = zephir::commands::optparse(argc, argv);
   if (retval == EXIT_HELP) {
     retval = 0;
   }

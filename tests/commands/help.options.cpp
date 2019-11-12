@@ -18,6 +18,6 @@ class HelpCmdTest : public ::testing::Test {
 
 TEST_F(HelpCmdTest, RunWithoutOptions) {
   argv.assign({"zephir", "help"});
-  auto retval = commands::optparse(argv.argc(), argv.argv());
+  auto retval = zephir::commands::optparse(argv.argc(), argv.argv());
   EXPECT_EQ(retval, 0);
 }

@@ -18,6 +18,6 @@ class CompileCmdTest : public ::testing::Test {
 
 TEST_F(CompileCmdTest, RunWithoutOptions) {
   argv.assign({"zephir", "compile"});
-  auto retval = commands::optparse(argv.argc(), argv.argv());
+  auto retval = zephir::commands::optparse(argv.argc(), argv.argv());
   EXPECT_EQ(retval, 0);
 }

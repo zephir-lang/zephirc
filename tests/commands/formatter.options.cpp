@@ -18,7 +18,7 @@ class FormatterTest : public ::testing::Test {
 
 TEST_F(FormatterTest, MakeUsage) {
   CLI::App app{"Zephir"};
-  commands::Formatter formatter;
+  zephir::commands::Formatter formatter;
 
   std::string usage = formatter.make_usage(&app, "not used");
   EXPECT_EQ(usage, "Usage:\n  command [options] [arguments]\n");

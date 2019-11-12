@@ -9,14 +9,12 @@
 
 #include <CLI/CLI11.hpp>
 #include <algorithm>
-#include <string>
 #include <vector>
 
-commands::Formatter::Formatter() = default;
+zephir::commands::Formatter::Formatter() = default;
 
-std::string commands::Formatter::make_usage(const CLI::App *app,
-                                            __attribute__((unused))
-                                            const std::string name) const {
+std::string zephir::commands::Formatter::make_usage(
+    const CLI::App *app, __attribute__((unused)) const std::string name) const {
   std::stringstream out;
 
   out << get_label("Usage") << ":\n";
