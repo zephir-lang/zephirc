@@ -14,15 +14,13 @@ if(UNIX)
     CPPCHECK_EXECUTABLE
     NAMES cppcheck
     PATHS $ENV{CPPCHECK_DIR} /usr /usr/local /opt /opt/local
-    PATH_SUFFIXES bin
-    DOC "path to the cppcheck executable")
+    PATH_SUFFIXES bin)
 elseif(WIN32)
   find_program(
     CPPCHECK_EXECUTABLE
     NAMES cppcheck.exe
     PATHS $ENV{CPPCHECK_DIR} C:/
-    PATH_SUFFIXES ""
-    DOC "path to the cppcheck executable")
+    PATH_SUFFIXES "")
 endif()
 
 mark_as_advanced(CPPCHECK_EXECUTABLE)

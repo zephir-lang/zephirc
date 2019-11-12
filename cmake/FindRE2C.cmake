@@ -47,25 +47,22 @@
 # ~~~
 #
 # The module defines the following variables:
-# ~~~
-# RE2C_EXECUTABLE - the path to the re2c executable
-# RE2C_VERSION    - version of the re2c
-# ~~~
+#
+# * RE2C_EXECUTABLE: The path to the re2c executable
+# * RE2C_VERSION:    Version of the re2c
 
 if(UNIX)
   find_program(
     RE2C_EXECUTABLE
     NAMES re2c
     PATHS $ENV{RE2C_DIR} /usr /usr/local /opt /opt/local
-    PATH_SUFFIXES re2c/bin bin
-    DOC "path to the re2c executable")
+    PATH_SUFFIXES re2c/bin bin)
 elseif(WIN32)
   find_program(
     RE2C_EXECUTABLE
     NAMES re2c.exe
     PATHS $ENV{RE2C_DIR} C:/
-    PATH_SUFFIXES ""
-    DOC "path to the re2c executable")
+    PATH_SUFFIXES "")
 endif()
 
 mark_as_advanced(RE2C_EXECUTABLE)

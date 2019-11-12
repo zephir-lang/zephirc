@@ -126,15 +126,13 @@ if(CODE_COVERAGE AND NOT CODE_COVERAGE_ADDED)
       LLVM_COV_PATH
       NAMES llvm-cov
       PATHS /usr /usr/local /usr/local/opt/llvm
-      PATH_SUFFIXES bin
-      DOC "path to the llvm-cov executable")
+      PATH_SUFFIXES bin)
 
     find_program(
       LLVM_PROFDATA_PATH
       NAMES llvm-profdata
       PATHS /usr /usr/local /usr/local/opt/llvm
-      PATH_SUFFIXES bin
-      DOC "path to the llvm-profdata executable")
+      PATH_SUFFIXES bin)
 
     # Messages
     message(STATUS "Building with llvm Code Coverage Tools")

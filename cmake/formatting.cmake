@@ -16,23 +16,19 @@
 # the License.
 # cmake-format: on
 
-#
 # clang-format
-#
 if(UNIX)
   find_program(
     CLANG_FORMAT_EXE
     NAMES clang-format
     PATHS /usr /usr/local /opt /opt/local
-    PATH_SUFFIXES bin
-    DOC "path to the clang-format executable")
+    PATH_SUFFIXES bin)
 elseif(WIN32)
   find_program(
     CLANG_FORMAT_EXE
     NAMES clang-format.exe
     PATHS C:/
-    PATH_SUFFIXES ""
-    DOC "path to the clang-format executable")
+    PATH_SUFFIXES "")
 endif()
 
 if(CLANG_FORMAT_EXE)
@@ -104,23 +100,19 @@ function(clang_format TARGET_NAME)
   endif()
 endfunction()
 
-#
 # cmake-format
-#
 if(UNIX)
   find_program(
     CMAKE_FORMAT_EXE
     NAMES cmake-format
     PATHS /usr /usr/local /opt /opt/local
-    PATH_SUFFIXES bin
-    DOC "path to the cmake-format executable")
+    PATH_SUFFIXES bin)
 elseif(WIN32)
   find_program(
     CMAKE_FORMAT_EXE
     NAMES cmake-format.exe
     PATHS C:/
-    PATH_SUFFIXES ""
-    DOC "path to the cmake-format executable")
+    PATH_SUFFIXES "")
 endif()
 
 if(CMAKE_FORMAT_EXE)
