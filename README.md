@@ -19,20 +19,25 @@ To build Zephir compiler you need the following requirements:
 - A C compiler such as  [gcc](https://gcc.gnu.org) >= 7.0.0 or [clang](https://clang.llvm.org) >= 4.0.0
 - [cmake](https://cmake.org/) 3.11 or later
 - Library for easy read/write for Yaml data: [yaml-cpp](https://github.com/jbeder/yaml-cpp) >= 0.6
+- Library for logging: [spdlog](https://github.com/gabime/spdlog) >= 1.4
 - C++ language standard support: C++17
 
-NOTE: Some tools, like [`cmake-format`](https://github.com/cheshirekow/cmake_format) will require python as well.
+**NOTE:** Some tools, like [`cmake-format`](https://github.com/cheshirekow/cmake_format) will require python as well.
 
 If you're using Ubuntu, you can install the required packages this way:
 
 ```shell script
-sudo apt-get install gcc cmake libyaml-cpp-dev build-essential
+sudo apt-get install gcc cmake libyaml-cpp-dev build-essential libspdlog-dev
 ```
 
 On macOS you will need to use brew with a command as follows:
 ```shell script
-brew install cmake yaml-cpp
+brew install cmake yaml-cpp spdlog
 ```
+
+**Note:** Some tools should be installed from sources, because they doesn't support by package managers for old OS versions.
+
+- `libspdlog-dev` package is only available for Ubuntu >= 16.04
 
 Please note that specific versions of libraries and programs at the time of reading this guide may vary.
 
