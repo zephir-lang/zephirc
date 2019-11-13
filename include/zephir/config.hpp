@@ -95,17 +95,17 @@ struct Config {
 };
 
 /** Initialize configuration from both the CLI and a possible config file.
- * @param config Where all loaded configurations will be set into
  * @param argc Number of CLI arguments provided
  * @param argv Provided CLI arguments
  * @param config_file The default name/location of the config file
+ * @return All loaded configurations
  *
  * Items specified in the CLI take priority over any settings loaded from config
  * file. Configuration file, if not found from the provided parameter or set
  * specifically in the CLI, will also search through any search paths provided
  * from the CLI for the provided filename.
  */
-int load_config(Config *config, int argc, char **argv, std::string config_file);
+Config load_config(int argc, char **argv, std::string config_file);
 }  // namespace zephir
 
 #endif  // ZEPHIR_CONFIG_HPP_

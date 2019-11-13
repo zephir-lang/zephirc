@@ -78,6 +78,20 @@ Additional cmake flags are (e.g. to enable `FEATURE` use `-DFEATURE=ON`):
 2. Run tests
 3. Call `make ccov-all` inside the `build` directory
 
+## Internals
+
+#### Library dependencies graph
+
+```
+.
+└── zephir
+    ├── commands
+    ├── config
+    │   └── filesystem
+    │   └── yaml-cpp
+    └── filesystem
+```
+
 ## License
 
 Zephir licensed under the MIT License. See the [LICENSE][8] file for more information.
