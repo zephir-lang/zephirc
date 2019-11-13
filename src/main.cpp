@@ -7,7 +7,7 @@
 
 #include <memory>
 
-#include "zephir/config.hpp"
+#include "config/config.hpp"
 #include "filesystem/filesystem.hpp"
 
 int main(int argc, char** argv) {

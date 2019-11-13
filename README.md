@@ -85,9 +85,10 @@ Additional cmake flags are (e.g. to enable `FEATURE` use `-DFEATURE=ON`):
 ```
 .
 └── zephir
-    ├── commands
     ├── config
-    │   └── filesystem
+    │   ├── commands
+    │   │   └── CLI11
+    │   ├── filesystem
     │   └── yaml-cpp
     └── filesystem
 ```

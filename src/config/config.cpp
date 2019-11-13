@@ -5,7 +5,7 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#include "zephir/config.hpp"
+#include "config.hpp"
 
 #include <yaml-cpp/yaml.h>
 
@@ -35,7 +35,8 @@ int parse_yaml_config(zephir::Config *config, const std::string &config_file) {
 }
 }  // namespace
 
-zephir::Config zephir::load_config(int argc, char **argv, std::string config_file) {
+zephir::Config zephir::load_config(int argc, char **argv,
+                                   std::string config_file) {
   zephir::Config config;
   auto retval = zephir::commands::optparse(argc, argv);
   if (retval == EXIT_HELP) {
