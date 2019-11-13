@@ -35,23 +35,24 @@ int parse_yaml_config(zephir::Config *config, const std::string &config_file) {
 }
 }  // namespace
 
-int zephir::load_config(zephir::Config *config, int argc, char **argv,
-                        std::string config_file) {
+zephir::Config zephir::load_config(int argc, char **argv,
+                                   std::string config_file) {
+  zephir::Config config;
   auto retval = zephir::commands::optparse(argc, argv);
   if (retval == EXIT_HELP) {
     retval = 0;
   }
 
   if (retval != 0) {
-    return retval;
+    // TODO(klay): Throw exception. Args related?
   }
 
   if (!config_file.empty()) {
-    retval = parse_yaml_config(config, config_file);
-    if (retval == EXIT_NO_CONFIG) {
-      retval = 0;
+    retval = parse_yaml_config(&config, config_file);
+    if (retval != EXIT_NO_CONFIG) {
+      // TODO(klay): Throw exception. Config is broken?
     }
   }
 
-  return retval;
+  return config;
 }
