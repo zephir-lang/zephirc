@@ -46,6 +46,7 @@ keyword_case: unchanged
 additional_commands:
   file:
     kwargs:
+      GLOB: '*'
       GLOB_RECURSE: '*'
       STRINGS: '*'
       REGEX: '*'

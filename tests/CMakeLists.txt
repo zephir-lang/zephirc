@@ -8,27 +8,41 @@
 include(install-gtest)
 include(GoogleTest)
 
-file(GLOB OPTIONS_TEST_SOURCE_LIST
-     ${CMAKE_CURRENT_SOURCE_DIR}/commands/*.options.cpp)
-
-add_executable(options_test main.cpp argv.cpp ${OPTIONS_TEST_SOURCE_LIST})
+file(GLOB TESTSF ${CMAKE_CURRENT_SOURCE_DIR}/commands/*.options.cpp)
+add_executable(options_test main.cpp argv.cpp ${TESTSF})
 
 target_include_directories(
   options_test
-  PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/src/commands
-         ${CMAKE_SOURCE_DIR}/include)
+  PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/include
+  PRIVATE ${CMAKE_SOURCE_DIR}/src/commands)
 
 target_link_libraries(options_test PRIVATE gtest commands)
 
-if(CODE_COVERAGE)
-  target_code_coverage(options_test AUTO ALL)
-endif()
-
+# WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/commands
 gtest_discover_tests(
   options_test
   TEST_PREFIX gtest:
-  PROPERTIES LABELS OptionsTest
-  WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/commands)
+  PROPERTIES LABELS OptionsTest)
+
+file(GLOB TESTSF ${CMAKE_CURRENT_SOURCE_DIR}/config/*.cpp)
+add_executable(config_test main.cpp argv.cpp ${TESTSF})
+
+target_include_directories(
+  config_test
+  PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/include
+  PRIVATE ${CMAKE_SOURCE_DIR}/src/config)
+
+target_link_libraries(config_test PRIVATE gtest config)
+
+gtest_discover_tests(
+  config_test
+  TEST_PREFIX gtest:
+  PROPERTIES LABELS ConfigTest)
+
+if(CODE_COVERAGE)
+  target_code_coverage(options_test AUTO ALL)
+  target_code_coverage(config_test AUTO ALL)
+endif()
 
 # cmake-format: off
 # TODO: sharness tests

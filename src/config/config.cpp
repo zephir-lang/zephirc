@@ -20,11 +20,10 @@ int parse_yaml_config(zephir::Config *config, const std::string &config_file) {
     return EXIT_NO_CONFIG;
   }
 
+  // BadFile should normally never thrown.
+  // We did check for file existence before.
   try {
     YAML::Node loaded_config = YAML::LoadFile(config_file);
-  } catch (YAML::BadFile &e) {
-    // Do nothing.
-    return EXIT_NO_CONFIG;
   } catch (YAML::ParserException &e) {
     // TODO(klay): Probable we need to notify user about broken config file
     return EXIT_BAD_CONFIG;
