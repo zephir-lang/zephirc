@@ -10,7 +10,7 @@
 #include <yaml-cpp/yaml.h>
 
 #include "commands/commands.hpp"
-#include "zephir/filesystem.hpp"
+#include "filesystem/filesystem.hpp"
 #include "zephir/main.hpp"
 
 namespace {
@@ -35,8 +35,7 @@ int parse_yaml_config(zephir::Config *config, const std::string &config_file) {
 }
 }  // namespace
 
-zephir::Config zephir::load_config(int argc, char **argv,
-                                   std::string config_file) {
+zephir::Config zephir::load_config(int argc, char **argv, std::string config_file) {
   zephir::Config config;
   auto retval = zephir::commands::optparse(argc, argv);
   if (retval == EXIT_HELP) {

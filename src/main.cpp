@@ -8,7 +8,7 @@
 #include <memory>
 
 #include "zephir/config.hpp"
-#include "zephir/filesystem.hpp"
+#include "filesystem/filesystem.hpp"
 
 int main(int argc, char** argv) {
   auto cwd = zephir::filesystem::current_path();

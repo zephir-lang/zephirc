@@ -105,8 +105,7 @@ struct Config {
  * specifically in the CLI, will also search through any search paths provided
  * from the CLI for the provided filename.
  */
-Config load_config(int argc, char **argv,
-                   std::string config_file);
+Config load_config(int argc, char **argv, std::string config_file);
 }  // namespace zephir
 
 #endif  // ZEPHIR_CONFIG_HPP_
