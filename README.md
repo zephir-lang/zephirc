@@ -65,7 +65,7 @@ make
 ctest --output-on-failure
 ```
 
-The `ZEPHIR_TESTS_ROOT` is needed for tests which reads fixture files from the disk.
+Environment variable `ZEPHIR_TESTS_ROOT` is needed for those tests which reads fixture files from the disk.
 
 ### Additional cmake flags
 
