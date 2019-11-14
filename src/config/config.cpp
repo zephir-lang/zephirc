@@ -25,7 +25,6 @@ int parse_yaml_config(zephir::Config *config, const std::string &file) {
   try {
     YAML::Node loaded_config = YAML::LoadFile(file);
   } catch (YAML::ParserException &e) {
-    // TODO(klay): Probable we need to notify user about broken config file
     return EXIT_BAD_CONFIG;
   }
 
@@ -58,12 +57,12 @@ zephir::Config zephir::load_config(int argc, char **argv,
   if (!file.empty()) {
     retval = parse_yaml_config(&config, file);
     switch (retval) {
-      case 0:
-      // Nothing to do if we unable to find config file at the disk.
+      case EXIT_BAD_CONFIG:
+        throw std::runtime_error("Config file is broken");
       case EXIT_NO_CONFIG:
+        // Nothing to do if we unable to find config file at the disk.
         break;
       default:
-        // TODO(klay): Throw exception. Config is broken?
         break;
     }
   }

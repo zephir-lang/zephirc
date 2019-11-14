@@ -5,8 +5,8 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#ifndef ZEPHIR_TEST_ARGV_HPP_
-#define ZEPHIR_TEST_ARGV_HPP_
+#ifndef ZEPHIR_TESTS_ARGV_HPP_
+#define ZEPHIR_TESTS_ARGV_HPP_
 
 #include <initializer_list>
 #include <memory>
@@ -25,4 +25,4 @@ class Argv {
   int m_argc;
 };
 
-#endif  // ZEPHIR_TEST_ARGV_HPP_
+#endif  // ZEPHIR_TESTS_ARGV_HPP_
