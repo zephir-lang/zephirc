@@ -85,6 +85,7 @@ int zephir::commands::optparse(int argc, char **argv) {
       retval = EXIT_HELP;
     }
 
+    // TODO(klay): print error message
     return retval;
   }
 
