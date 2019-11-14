@@ -16,7 +16,6 @@
                 "-DCMAKE_BUILD_TYPE=Debug",
                 "-DZEPHIR_BUILD_TESTING=ON",
                 "-DENABLE_ALL_WARNINGS=ON",
-                "-DENABLE_EFFECTIVE_CXX=ON",
                 "-DCODE_COVERAGE=ON"
             ],
             "type": "shell",
@@ -66,7 +65,7 @@
 
         // Run tests
         {
-            "label": "Tests | Run tests",
+            "label": "Tests | Run all tests",
             "group": {
                 "kind": "test",
                 "isDefault": true
@@ -77,7 +76,10 @@
                "--output-on-failure"
             ],
             "options": {
-                "cwd": "${workspaceRoot}/build"
+                "cwd": "${workspaceRoot}/build",
+                "env": {
+                    "ZEPHIR_TESTS_ROOT": "${workspaceRoot}/tests"
+                }
             },
             "dependsOn": [
                 "Clean profile data",
@@ -219,7 +221,10 @@
             "label": "Coverage | Generate HTML code coverage report",
             "type": "shell",
             "options": {
-                "cwd": "${workspaceRoot}/build"
+                "cwd": "${workspaceRoot}/build",
+                "env": {
+                    "ZEPHIR_TESTS_ROOT": "${workspaceRoot}/tests"
+                }
             },
             "problemMatcher": [],
             "linux": {
