@@ -5,8 +5,6 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#include <memory>
-
 #include "config/config.hpp"
 #include "filesystem/filesystem.hpp"
 

@@ -14,17 +14,16 @@
 #include "zephir/main.hpp"
 
 namespace {
-int parse_yaml_config(zephir::Config *config, const std::string &config_file) {
-  if (!zephir::filesystem::exists(config_file)) {
+int parse_yaml_config(zephir::Config *config, const std::string &file) {
+  if (!zephir::filesystem::exists(file)) {
     // Do nothing.
     return EXIT_NO_CONFIG;
   }
 
+  // YAML::BadFile should normally never thrown here
+  // because we did check for file existence before.
   try {
-    YAML::Node loaded_config = YAML::LoadFile(config_file);
-  } catch (YAML::BadFile &e) {
-    // Do nothing.
-    return EXIT_NO_CONFIG;
+    YAML::Node loaded_config = YAML::LoadFile(file);
   } catch (YAML::ParserException &e) {
     // TODO(klay): Probable we need to notify user about broken config file
     return EXIT_BAD_CONFIG;
@@ -35,22 +34,37 @@ int parse_yaml_config(zephir::Config *config, const std::string &config_file) {
 }
 }  // namespace
 
+zephir::Config::Config() {
+  container.api.theme.options["github"] = "";
+  container.api.theme.options["analytics"] = "";
+  container.api.theme.options["main_color"] = "#3E6496";
+  container.api.theme.options["link_color"] = "#3E6496";
+  container.api.theme.options["link_hover_color"] = "#5F9AE7";
+}
+
 zephir::Config zephir::load_config(int argc, char **argv,
-                                   std::string config_file) {
+                                   const std::string &file) {
   zephir::Config config;
   auto retval = zephir::commands::optparse(argc, argv);
   if (retval == EXIT_HELP) {
-    retval = 0;
+    // Do nothing on "zephir --help" command.
+    return config;
   }
 
   if (retval != 0) {
     // TODO(klay): Throw exception. Args related?
   }
 
-  if (!config_file.empty()) {
-    retval = parse_yaml_config(&config, config_file);
-    if (retval != EXIT_NO_CONFIG) {
-      // TODO(klay): Throw exception. Config is broken?
+  if (!file.empty()) {
+    retval = parse_yaml_config(&config, file);
+    switch (retval) {
+      case 0:
+      // Nothing to do if we unable to find config file at the disk.
+      case EXIT_NO_CONFIG:
+        break;
+      default:
+        // TODO(klay): Throw exception. Config is broken?
+        break;
     }
   }
 
