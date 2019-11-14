@@ -37,6 +37,7 @@ class Config {
     struct Stubs {
       std::string path = "ide/%version%/%namespace%";
       bool stubs_run_after_generate = false;
+      std::string banner = "";
     } stubs;
 
     struct Api {
