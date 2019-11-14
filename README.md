@@ -1,4 +1,4 @@
-<p align="center"><a href="https://zephir-lang.com" target="_blank">
+<p align="center"><a href="https://zephir-lang.com" target="_blank" name="_">
     <img src="https://assets.phalconphp.com/zephir/zephir_logo-105x36.svg" height="100" alt="Zephir"/>
 </a></p>
 
@@ -58,10 +58,14 @@ cmake -H. \
   -DCMAKE_BUILD_TYPE=Debug \
   -DZEPHIR_BUILD_TESTING=ON
 
+export ZEPHIR_TESTS_ROOT=$(pwd)/tests
+
 cd build
 make
-ctest
+ctest --output-on-failure
 ```
+
+The `ZEPHIR_TESTS_ROOT` is needed for tests which reads fixture files from the disk.
 
 ### Additional cmake flags
 
@@ -80,6 +84,13 @@ Additional cmake flags are (e.g. to enable `FEATURE` use `-DFEATURE=ON`):
 3. Call `make ccov-all` inside the `build` directory
 
 ## Internals
+
+#### Conventions
+
+##### Naming
+
+The most important consistency rules are those that govern naming.
+This Project uses [Google Style](https://google.github.io/styleguide/cppguide.html#Naming).
 
 #### Library dependencies graph
 
