@@ -20,8 +20,7 @@ class ConfigBaseTest : public ::testing::Test {
 
 TEST_F(ConfigBaseTest, DoNothingOnHelp) {
   argv.assign({"zephir", "--help"});
-  zephir::Config config =
-      zephir::load_config(argv.argc(), argv.argv(), "non-existent-file");
+  zephir::Config config = zephir::load_config(argv.argc(), argv.argv(), "foo");
   EXPECT_FALSE(config.changed);
 }
 
@@ -32,9 +31,21 @@ TEST_F(ConfigBaseTest, BrokenConfigFile) {
   }
 
   argv.assign({"zephir"});
-  EXPECT_THROW_EXCEPTION(
-      std::runtime_error,
-      zephir::load_config(argv.argc(), argv.argv(),
-                          tests_root + "/fixtures/bad-config.yml"),
-      "Config file is broken");
+  std::string file = tests_root + "/fixtures/bad-config.yml";
+  EXPECT_THROW_EXCEPTION(std::runtime_error,
+                         zephir::load_config(argv.argc(), argv.argv(), file),
+                         "Config file is broken");
+}
+
+TEST_F(ConfigBaseTest, CorrectConfigFile) {
+  std::string tests_root = TestEnvironment::tests_root();
+  if (tests_root.empty()) {
+    GTEST_SKIP();
+  }
+
+  argv.assign({"zephir"});
+  std::string file = tests_root + "/fixtures/phalcon-4x.yml";
+  zephir::Config config = zephir::load_config(argv.argc(), argv.argv(), file);
+
+  EXPECT_FALSE(config.changed);
 }
