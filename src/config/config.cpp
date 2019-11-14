@@ -14,16 +14,16 @@
 #include "zephir/main.hpp"
 
 namespace {
-int parse_yaml_config(zephir::Config *config, const std::string &config_file) {
-  if (!zephir::filesystem::exists(config_file)) {
+int parse_yaml_config(zephir::Config *config, const std::string &file) {
+  if (!zephir::filesystem::exists(file)) {
     // Do nothing.
     return EXIT_NO_CONFIG;
   }
 
-  // BadFile should normally never thrown.
-  // We did check for file existence before.
+  // YAML::BadFile should normally never thrown here
+  // because we did check for file existence before.
   try {
-    YAML::Node loaded_config = YAML::LoadFile(config_file);
+    YAML::Node loaded_config = YAML::LoadFile(file);
   } catch (YAML::ParserException &e) {
     return EXIT_BAD_CONFIG;
   }
@@ -42,7 +42,7 @@ zephir::Config::Config() {
 }
 
 zephir::Config zephir::load_config(int argc, char **argv,
-                                   const std::string &config_file) {
+                                   const std::string &file) {
   zephir::Config config;
   auto retval = zephir::commands::optparse(argc, argv);
   if (retval == EXIT_HELP) {
@@ -54,8 +54,8 @@ zephir::Config zephir::load_config(int argc, char **argv,
     // TODO(klay): Throw exception. Args related?
   }
 
-  if (!config_file.empty()) {
-    retval = parse_yaml_config(&config, config_file);
+  if (!file.empty()) {
+    retval = parse_yaml_config(&config, file);
     switch (retval) {
       case EXIT_BAD_CONFIG:
         throw std::runtime_error("Config file is broken");

@@ -37,6 +37,7 @@ class Config {
     struct Stubs {
       std::string path = "ide/%version%/%namespace%";
       bool stubs_run_after_generate = false;
+      std::string banner = "";
     } stubs;
 
     struct Api {
@@ -96,7 +97,7 @@ class Config {
 /** Initialize configuration from both the CLI and a possible config file.
  * @param argc Number of CLI arguments provided
  * @param argv Provided CLI arguments
- * @param config_file The default name/location of the config file
+ * @param file The default name/location of the config file
  * @return All loaded configurations
  *
  * Items specified in the CLI take priority over any settings loaded from config
@@ -104,7 +105,7 @@ class Config {
  * specifically in the CLI, will also search through any search paths provided
  * from the CLI for the provided filename.
  */
-Config load_config(int argc, char** argv, const std::string& config_file);
+Config load_config(int argc, char** argv, const std::string& file);
 }  // namespace zephir
 
 #endif  // ZEPHIR_CONFIG_CONFIG_HPP_
