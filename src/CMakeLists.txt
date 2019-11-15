@@ -6,7 +6,7 @@
 # that was distributed with this source code.
 
 # TODO(klay): Fix yaml-cpp warnings
-# include(cppcheck)
+include(cppcheck)
 
 # Zephir libraries
 add_subdirectory(commands)
