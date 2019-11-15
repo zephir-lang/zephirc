@@ -16,12 +16,22 @@
 #define INDENT_USING_TABS 2;
 
 namespace zephir {
+/**
+ * Manages compiler global configuration.
+ */
 class Config {
  public:
+  /**
+   * Config constructor.
+   *
+   * @param file The default name/location of the config file
+   * @throws std::runtime_error Thrown if config could not be parsed
+   */
   explicit Config(const std::string &file);
 
   /**
    * Is config changed?
+   *
    * @return true if default config is changed, false otherwise.
    */
   bool IsChanged();
@@ -45,13 +55,20 @@ class Config {
  protected:
   /**
    * Populate project configuration.
+   *
    * @param file Configuration file.
    * @return 0 on success, a positive number on failure
    */
   int Populate(const std::string &file);
 
+  /**
+   * Is config changed?
+   */
   bool changed = false;
 
+  /**
+   * Default configuration for project.
+   */
   struct Container {
     std::string ns;
     std::string name;

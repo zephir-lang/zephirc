@@ -13,28 +13,19 @@
 #include "filesystem/filesystem.hpp"
 #include "zephir/main.hpp"
 
-namespace {
-int parse_yaml_config(zephir::Config *config, const std::string &file) {
-  if (!zephir::filesystem::exists(file)) {
-    // Do nothing.
-    return EXIT_NO_CONFIG;
-  }
-
-  // YAML::BadFile should normally never thrown here
-  // because we did check for file existence before.
-  try {
-    YAML::Node loaded_config = YAML::LoadFile(file);
-  } catch (YAML::ParserException &e) {
-    return EXIT_BAD_CONFIG;
-  }
-
-  // TODO(klay): Implement me.
-  return 0;
-}
-}  // namespace
-
 zephir::Config::Config(const std::string &file) {
-  Populate(file);
+  if (!file.empty()) {
+    int retval = Populate(file);
+    switch (retval) {
+      case EXIT_BAD_CONFIG:
+        throw std::runtime_error("Config file is broken");
+      case EXIT_NO_CONFIG:
+        // Nothing to do if we unable to find config file at the disk.
+        break;
+      default:
+        break;
+    }
+  }
 
   container.api.theme.options["github"] = "";
   container.api.theme.options["analytics"] = "";
@@ -75,19 +66,6 @@ zephir::Config zephir::Config::CreateFromArgv(int argc, char **argv,
 
   if (retval != 0) {
     // TODO(klay): Throw exception. Args related?
-  }
-
-  if (!file.empty()) {
-    retval = parse_yaml_config(&config, file);
-    switch (retval) {
-      case EXIT_BAD_CONFIG:
-        throw std::runtime_error("Config file is broken");
-      case EXIT_NO_CONFIG:
-        // Nothing to do if we unable to find config file at the disk.
-        break;
-      default:
-        break;
-    }
   }
 
   return config;
