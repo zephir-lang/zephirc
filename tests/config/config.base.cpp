@@ -20,8 +20,9 @@ class ConfigBaseTest : public ::testing::Test {
 
 TEST_F(ConfigBaseTest, DoNothingOnHelp) {
   argv.assign({"zephir", "--help"});
-  zephir::Config config = zephir::load_config(argv.argc(), argv.argv(), "foo");
-  EXPECT_FALSE(config.changed);
+  zephir::Config config =
+      zephir::Config::CreateFromArgv(argv.argc(), argv.argv(), "foo");
+  EXPECT_FALSE(config.IsChanged());
 }
 
 TEST_F(ConfigBaseTest, BrokenConfigFile) {
@@ -32,9 +33,10 @@ TEST_F(ConfigBaseTest, BrokenConfigFile) {
 
   argv.assign({"zephir"});
   std::string file = tests_root + "/fixtures/bad-config.yml";
-  EXPECT_THROW_EXCEPTION(std::runtime_error,
-                         zephir::load_config(argv.argc(), argv.argv(), file),
-                         "Config file is broken");
+  EXPECT_THROW_EXCEPTION(
+      std::runtime_error,
+      zephir::Config::CreateFromArgv(argv.argc(), argv.argv(), file),
+      "Config file is broken");
 }
 
 TEST_F(ConfigBaseTest, CorrectConfigFile) {
@@ -45,7 +47,8 @@ TEST_F(ConfigBaseTest, CorrectConfigFile) {
 
   argv.assign({"zephir"});
   std::string file = tests_root + "/fixtures/phalcon-4x.yml";
-  zephir::Config config = zephir::load_config(argv.argc(), argv.argv(), file);
+  zephir::Config config =
+      zephir::Config::CreateFromArgv(argv.argc(), argv.argv(), file);
 
-  EXPECT_FALSE(config.changed);
+  EXPECT_FALSE(config.IsChanged());
 }

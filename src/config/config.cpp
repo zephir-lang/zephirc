@@ -33,7 +33,9 @@ int parse_yaml_config(zephir::Config *config, const std::string &file) {
 }
 }  // namespace
 
-zephir::Config::Config() {
+zephir::Config::Config(const std::string &file) {
+  Populate(file);
+
   container.api.theme.options["github"] = "";
   container.api.theme.options["analytics"] = "";
   container.api.theme.options["main_color"] = "#3E6496";
@@ -41,10 +43,31 @@ zephir::Config::Config() {
   container.api.theme.options["link_hover_color"] = "#5F9AE7";
 }
 
-zephir::Config zephir::load_config(int argc, char **argv,
-                                   const std::string &file) {
-  zephir::Config config;
+int zephir::Config::Populate(const std::string &file) {
+  if (!zephir::filesystem::exists(file)) {
+    // Do nothing.
+    return EXIT_NO_CONFIG;
+  }
+
+  // YAML::BadFile should normally never thrown here
+  // because we did check for file existence before.
+  try {
+    YAML::Node loaded_config = YAML::LoadFile(file);
+  } catch (YAML::ParserException &e) {
+    return EXIT_BAD_CONFIG;
+  }
+
+  // TODO(klay): Implement me.
+  return 0;
+}
+
+bool zephir::Config::IsChanged() { return changed; }
+
+zephir::Config zephir::Config::CreateFromArgv(int argc, char **argv,
+                                              const std::string &file) {
+  zephir::Config config(file);
   auto retval = zephir::commands::optparse(argc, argv);
+
   if (retval == EXIT_HELP) {
     // Do nothing on "zephir --help" command.
     return config;
