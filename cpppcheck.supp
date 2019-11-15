@@ -1,2 +1,3 @@
 passedByValue:*/yaml-cpp/*
+passedByValue:*/CLI11/*
 missingIncludeSystem
