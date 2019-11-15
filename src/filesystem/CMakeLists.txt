@@ -8,8 +8,6 @@
 # Add definition for filesystem library.
 add_library(filesystem STATIC filesystem.cpp)
 
-target_include_directories(filesystem PUBLIC ${CMAKE_SOURCE_DIR}/include)
-
 if(CODE_COVERAGE)
   target_code_coverage(filesystem AUTO ALL)
 endif()
