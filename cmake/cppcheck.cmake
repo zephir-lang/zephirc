@@ -25,7 +25,6 @@ elseif(WIN32)
 endif()
 
 mark_as_advanced(CPPCHECK_EXE)
-# *:*/yaml-cpp/*
 set(_base_message "Check for cppcheck")
 if(CPPCHECK_EXE)
   message(STATUS "${_base_message}: ${CPPCHECK_EXE}")
