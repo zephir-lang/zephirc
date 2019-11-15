@@ -10,7 +10,7 @@
 
 int main(int argc, char** argv) {
   auto cwd = zephir::filesystem::current_path();
-  auto config = zephir::load_config(argc, argv, cwd + "/config.yml");
+  auto config = zephir::Config::CreateFromArgv(argc, argv, cwd + "/config.yml");
 
   // TODO(klay): Catch exceptions
 

@@ -16,12 +16,59 @@
 #define INDENT_USING_TABS 2;
 
 namespace zephir {
+/**
+ * Manages compiler global configuration.
+ */
 class Config {
  public:
-  Config();
+  /**
+   * Config constructor.
+   *
+   * @param file The default name/location of the config file
+   * @throws std::runtime_error Thrown if config could not be parsed
+   */
+  explicit Config(const std::string &file);
 
+  /**
+   * Is config changed?
+   *
+   * @return true if default config is changed, false otherwise.
+   */
+  bool IsChanged();
+
+  /**
+   * Factory method to create a Config instance from argv and config file.
+   * Initialize configuration from both the CLI and a possible config file.
+   *
+   * @param argc Number of command line arguments provided
+   * @param argv Provided command line arguments arguments
+   * @param file The default name/location of the config file
+   * @return A fresh Config instance with loaded configurations
+   *
+   * Items specified in the CLI take priority over any settings loaded from
+   * config file. Configuration file, if not found from the provided parameter
+   * or set specifically in the CLI, will also search through any search paths
+   * provided from the CLI for the provided filename.
+   */
+  static Config CreateFromArgv(int argc, char **argv, const std::string &file);
+
+ protected:
+  /**
+   * Populate project configuration.
+   *
+   * @param file Configuration file.
+   * @return 0 on success, a positive number on failure
+   */
+  int Populate(const std::string &file);
+
+  /**
+   * Is config changed?
+   */
   bool changed = false;
 
+  /**
+   * Default configuration for project.
+   */
   struct Container {
     std::string ns;
     std::string name;
@@ -93,19 +140,6 @@ class Config {
     } extra;
   } container;
 };
-
-/** Initialize configuration from both the CLI and a possible config file.
- * @param argc Number of CLI arguments provided
- * @param argv Provided CLI arguments
- * @param file The default name/location of the config file
- * @return All loaded configurations
- *
- * Items specified in the CLI take priority over any settings loaded from config
- * file. Configuration file, if not found from the provided parameter or set
- * specifically in the CLI, will also search through any search paths provided
- * from the CLI for the provided filename.
- */
-Config load_config(int argc, char** argv, const std::string& file);
 }  // namespace zephir
 
 #endif  // ZEPHIR_CONFIG_CONFIG_HPP_
