@@ -5,38 +5,53 @@
 # For the full copyright and license information, please view the LICENSE file
 # that was distributed with this source code.
 
-# TODO(klay): Refacor me.
+option(CPPCHECK "Turns on cppcheck processing if it is found." OFF)
 
-# If cppcheck is installed, create a target to run it on the project source
-# files.
+# Adds cppcheck to the compilation, with the given arguments being used as the
+# options set.
+
 if(UNIX)
   find_program(
-    CPPCHECK_EXECUTABLE
+    CPPCHECK_EXE
     NAMES cppcheck
-    PATHS $ENV{CPPCHECK_DIR} /usr /usr/local /opt /opt/local
+    PATHS /usr /usr/local /opt /opt/local
     PATH_SUFFIXES bin)
 elseif(WIN32)
   find_program(
-    CPPCHECK_EXECUTABLE
+    CPPCHECK_EXE
     NAMES cppcheck.exe
-    PATHS $ENV{CPPCHECK_DIR} C:/
+    PATHS C:/
     PATH_SUFFIXES "")
 endif()
 
-mark_as_advanced(CPPCHECK_EXECUTABLE)
+mark_as_advanced(CPPCHECK_EXE)
 
-if(CPPCHECK_EXECUTABLE)
-  message(STATUS "Check for cppcheck: ${CPPCHECK_EXECUTABLE}")
-  add_custom_target(
-    cppcheck
-    COMMAND
-      "${CPPCHECK_EXECUTABLE}" --quiet --error-exitcode=1
-      --enable=warning,portability,performance,style --language=c++
-      "--std=c++${CMAKE_CXX_STANDARD}"
-      "--suppress=*:${CMAKE_SOURCE_DIR}/src/commands/options.cpp"
-      "${CMAKE_SOURCE_DIR}/src")
+set(_base_message "Check for cppcheck")
+if(CPPCHECK_EXE)
+  message(STATUS "${_base_message}: ${CPPCHECK_EXE}")
+  if(CPPCHECK)
+    set(CMAKE_CXX_CPPCHECK
+        "${CPPCHECK_EXE}"
+        "--enable=warning,performance,portability,missingInclude"
+        "--language=c++"
+        "--std=c++${CMAKE_CXX_STANDARD}"
+        "--template='{file}:{line}:{column} {severity}: {message} [{id}]'"
+        "--suppress=missingIncludeSystem"
+        "--quiet"
+        "--verbose"
+        "--force")
+  endif()
+
+elseif(CPPCHECK)
+  message(SEND_ERROR "${_base_message}: executable not found!")
+  set(CMAKE_CXX_CPPCHECK
+      ""
+      CACHE STRING "" FORCE) # delete it
 else()
-  message(STATUS "Check for cppcheck: not found")
+  message(STATUS "${_base_message}: not found")
+  set(CMAKE_CXX_CPPCHECK
+      ""
+      CACHE STRING "" FORCE) # delete it
 endif()
 
 # cppcheck.cmake ends here

@@ -73,6 +73,7 @@ Additional cmake flags are (e.g. to enable `FEATURE` use `-DFEATURE=ON`):
 
 | Description                                         | Flag                   |
 | --------------------------------------------------- |------------------------|
+| Add `cppcheck` step to the compilation.             | `CPPCHECK`             |
 | Generate code coverage report.                      | `CODE_COVERAGE`        |
 | Compile with all warnings for the major compilers.  | `ENABLE_ALL_WARNINGS`  |
 | Enable Effective C++ warnings.                      | `ENABLE_EFFECTIVE_CXX` |
@@ -91,6 +92,10 @@ Additional cmake flags are (e.g. to enable `FEATURE` use `-DFEATURE=ON`):
 
 The most important consistency rules are those that govern naming.
 This Project uses [Google Style](https://google.github.io/styleguide/cppguide.html#Naming).
+
+##### CMake
+
+1. Do no use `$ENV{VAR_NAME}`, prefer `-DVAR_NAME[=VALUE]`.
 
 #### Library dependencies graph
 

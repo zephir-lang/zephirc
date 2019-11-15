@@ -5,6 +5,9 @@
 # For the full copyright and license information, please view the LICENSE file
 # that was distributed with this source code.
 
+# TODO(klay): Fix yaml-cpp warnings
+include(cppcheck)
+
 # Zephir libraries
 add_subdirectory(commands)
 add_subdirectory(filesystem)

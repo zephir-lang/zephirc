@@ -17,6 +17,7 @@
                 "-DZEPHIR_BUILD_TESTING=ON",
                 "-DENABLE_ALL_WARNINGS=ON",
                 "-DCODE_COVERAGE=ON",
+                "-DCPPCHECK=ON",
                 "-G",
                 "CodeBlocks - Unix Makefiles",
                 "${workspaceRoot}"
@@ -63,7 +64,19 @@
                 "showReuseMessage": false,
                 "clear": true
             },
-            "problemMatcher":"$gcc"
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": "absolute",
+                "pattern": [
+                    {
+                        "regexp": "^'(.*):(\\d+):(\\d+)\\s+(.*):\\s+(.*)'$",
+                        "file": 1,
+                        "line": 2,
+                        "column": 3,
+                        "message": 5
+                    }
+                ]
+            }
         },
 
         // Run tests
