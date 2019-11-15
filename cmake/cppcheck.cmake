@@ -25,7 +25,7 @@ elseif(WIN32)
 endif()
 
 mark_as_advanced(CPPCHECK_EXE)
-
+# *:*/yaml-cpp/*
 set(_base_message "Check for cppcheck")
 if(CPPCHECK_EXE)
   message(STATUS "${_base_message}: ${CPPCHECK_EXE}")
@@ -36,9 +36,8 @@ if(CPPCHECK_EXE)
         "--language=c++"
         "--std=c++${CMAKE_CXX_STANDARD}"
         "--template='{file}:{line}:{column} {severity}: {message} [{id}]'"
-        "--suppress=missingIncludeSystem"
-        "--quiet"
-        "--verbose"
+        "--inline-suppr"
+        "--suppressions-list=${CMAKE_SOURCE_DIR}/cpppcheck.supp"
         "--force")
   endif()
 

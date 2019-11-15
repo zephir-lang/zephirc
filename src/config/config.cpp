@@ -59,10 +59,16 @@ zephir::Config zephir::Config::CreateFromArgv(int argc, char **argv,
   zephir::Config config(file);
   auto retval = zephir::commands::optparse(argc, argv);
 
+
+
   if (retval == EXIT_HELP) {
+
+
     // Do nothing on "zephir --help" command.
     return config;
   }
+
+
 
   if (retval != 0) {
     // TODO(klay): Throw exception. Args related?
