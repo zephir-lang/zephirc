@@ -1,4 +1,3 @@
-# cmake-format: off
 #
 # Copyright (C) 2018 by George Cave - gcave@stablecoder.ca
 #
@@ -13,7 +12,6 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations under
 # the License.
-# cmake-format: on
 
 option(ENABLE_ALL_WARNINGS "Compile with all warnings for the major compilers."
        OFF)
