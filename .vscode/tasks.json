@@ -64,7 +64,19 @@
                 "showReuseMessage": false,
                 "clear": true
             },
-            "problemMatcher":"$gcc"
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": "absolute",
+                "pattern": [
+                    {
+                        "regexp": "^'(.*):(\\d+):(\\d+)\\s+(.*):\\s+(.*)'$",
+                        "file": 1,
+                        "line": 2,
+                        "column": 3,
+                        "message": 5
+                    }
+                ]
+            }
         },
 
         // Run tests
