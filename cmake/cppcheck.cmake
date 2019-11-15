@@ -42,23 +42,27 @@ if(CPPCHECK_EXE)
   message(STATUS "${_base_message}: ${CPPCHECK_EXE}")
   if(CPPCHECK)
     set(CMAKE_CXX_CPPCHECK
-            "${CPPCHECK_EXE}"
-            "--enable=warning,performance,portability,missingInclude"
-            "--language=c++"
-            "--std=c++${CMAKE_CXX_STANDARD}"
-            "--template=\"[{severity}][{id}] {message} {callstack} \(On {file}:{line}\)\""
-            "--suppress=missingIncludeSystem"
-            "--quiet"
-            "--verbose"
-            "--force")
+        "${CPPCHECK_EXE}"
+        "--enable=warning,performance,portability,missingInclude"
+        "--language=c++"
+        "--std=c++${CMAKE_CXX_STANDARD}"
+        "--template=\"[{severity}][{id}] {message} {callstack} \(On {file}:{line}\)\""
+        "--suppress=missingIncludeSystem"
+        "--quiet"
+        "--verbose"
+        "--force")
   endif()
-  message("   [DEBUG]: CMAKE_CXX_CPPCHECK = '${CMAKE_CXX_CPPCHECK}'")
+
 elseif(CPPCHECK)
   message(SEND_ERROR "${_base_message}: executable not found!")
-  set(CMAKE_CXX_CPPCHECK "" CACHE STRING "" FORCE) # delete it
+  set(CMAKE_CXX_CPPCHECK
+      ""
+      CACHE STRING "" FORCE) # delete it
 else()
   message(STATUS "${_base_message}: not found")
-  set(CMAKE_CXX_CPPCHECK "" CACHE STRING "" FORCE) # delete it
+  set(CMAKE_CXX_CPPCHECK
+      ""
+      CACHE STRING "" FORCE) # delete it
 endif()
 
 # cppcheck.cmake ends here
