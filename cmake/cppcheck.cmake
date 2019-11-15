@@ -46,7 +46,7 @@ if(CPPCHECK_EXE)
         "--enable=warning,performance,portability,missingInclude"
         "--language=c++"
         "--std=c++${CMAKE_CXX_STANDARD}"
-        "--template=\"[{severity}][{id}] {message} {callstack} \(On {file}:{line}\)\""
+        "--template=[{severity}][{id}] {message} {callstack} \(On {file}:{line}\)"
         "--suppress=missingIncludeSystem"
         "--quiet"
         "--verbose"
