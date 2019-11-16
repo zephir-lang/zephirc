@@ -6,6 +6,9 @@
     <a href="https://github.com/sergeyklay/cpp-zephir/actions">
         <img src="https://github.com/sergeyklay/cpp-zephir/workflows/build/badge.svg" alt="Build Status">
     </a>
+    <a href="https://codecov.io/gh/sergeyklay/cpp-zephir">
+        <img src="https://codecov.io/gh/sergeyklay/cpp-zephir/branch/master/graph/badge.svg?token=l1Oy2k15VP" alt="Code Coverage" />
+    </a>
 </p>
 
 [Zephir][0] - is a high level programming language that eases the creation and maintainability of extensions for PHP.
