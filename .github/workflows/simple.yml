@@ -37,4 +37,3 @@ jobs:
 
     - name: Run Tests
       run: cd build && env | grep ZEPHIR && ctest --output-on-failure
-      env:
