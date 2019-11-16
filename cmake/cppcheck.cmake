@@ -38,6 +38,8 @@ if(CPPCHECK_EXE)
         "--inline-suppr"
         "--suppressions-list=${CMAKE_SOURCE_DIR}/cpppcheck.supp"
         "-j${BUILD_JOBS}"
+        "--verbose"
+        "--quiet"
         "--force")
   endif()
 
