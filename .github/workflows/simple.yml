@@ -14,8 +14,8 @@ jobs:
 
     - name: Setup Prerequisites
       run: |
-        sudo apt update --quiet --yes
-        sudo apt install cppcheck
+        sudo apt-get update --quiet --yes 1>/dev/null
+        sudo apt-get install --no-install-recommends --quiet --yes cppcheck lcov
 
     - name: Configure
       run: |
