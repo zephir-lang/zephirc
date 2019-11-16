@@ -39,7 +39,7 @@ jobs:
       run: |
           cd build
           ctest --output-on-failure
-          ls -al ./build/ccov/
+          ls -al ./ccov/
 
     - name: Generate code coverage report
       run: |
