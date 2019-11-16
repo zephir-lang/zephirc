@@ -16,7 +16,6 @@ jobs:
       run: |
         sudo apt-get update --quiet --yes 1>/dev/null
         sudo apt-get install --no-install-recommends --quiet --yes \
-            cppcheck      \
             lcov          \
             libspdlog-dev \
             libyaml-cpp-dev
@@ -30,13 +29,12 @@ jobs:
             -DZEPHIR_BUILD_TESTING=ON \
             -DENABLE_ALL_WARNINGS=ON  \
             -DCODE_COVERAGE=ON        \
-            -DCPPCHECK=ON             \
             -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 
     - name: Build
       run: cmake --build build -j 10
 
     - name: Run Tests
-      run: cd build && ctest --output-on-failure
+      run: cd build && pwd && echo "${GITHUB_WORKSPACE}/tests" && ctest --output-on-failure
       env:
         ZEPHIR_TESTS_ROOT: "${GITHUB_WORKSPACE}/tests"
