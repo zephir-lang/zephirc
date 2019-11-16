@@ -30,6 +30,7 @@ jobs:
             -DENABLE_ALL_WARNINGS=ON  \
             -DCODE_COVERAGE=ON        \
             -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+        echo ::set-env name=ZEPHIR_TESTS_ROOT::${GITHUB_WORKSPACE}/tests
 
     - name: Build
       run: cmake --build build -j 10
@@ -37,4 +38,3 @@ jobs:
     - name: Run Tests
       run: cd build && env | grep ZEPHIR && ctest --output-on-failure
       env:
-        ZEPHIR_TESTS_ROOT: "${GITHUB_WORKSPACE}/tests"
