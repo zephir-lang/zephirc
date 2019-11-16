@@ -33,13 +33,13 @@ if(CPPCHECK_EXE)
         "${CPPCHECK_EXE}"
         "--enable=warning,performance,portability,missingInclude"
         "--language=c++"
-        "--std=c++${CMAKE_CXX_STANDARD}"
+        "--std=c++17"
         "--template='{file}:{line}:{column} {severity}: {message} [{id}]'"
         "--inline-suppr"
         "--suppressions-list=${CMAKE_SOURCE_DIR}/cpppcheck.supp"
         "-j${BUILD_JOBS}"
-        "--verbose"
         "--quiet"
+        "--verbose"
         "--force")
   endif()
 

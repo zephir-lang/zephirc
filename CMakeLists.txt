@@ -24,6 +24,7 @@ include(bootstrap)
 include(compiler-detect)
 include(c++-standards)
 include(compiler-options)
+include(cppcheck)
 include(code-coverage)
 include(formatting)
 

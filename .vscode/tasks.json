@@ -17,6 +17,7 @@
                 "-DZEPHIR_BUILD_TESTING=ON",
                 "-DENABLE_ALL_WARNINGS=ON",
                 "-DCODE_COVERAGE=ON",
+                "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
                 "-DCPPCHECK=ON",
                 "-G",
                 "CodeBlocks - Unix Makefiles",

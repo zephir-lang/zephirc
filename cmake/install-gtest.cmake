@@ -14,10 +14,18 @@ FetchContent_Declare(
 
 FetchContent_GetProperties(googletest)
 
+# Disable cppcheck for googletest
+set(CMAKE_CXX_CPPCHECK_ORIGIN "${CMAKE_CXX_CPPCHECK}")
+set(CMAKE_CXX_CPPCHECK "" CACHE STRING "" FORCE)
+
 if(NOT googletest_POPULATED)
   FetchContent_Populate(googletest)
   add_subdirectory(${googletest_SOURCE_DIR} ${googletest_BINARY_DIR})
 endif()
+
+# Restore cppcheck configuration
+set(CMAKE_CXX_CPPCHECK_ORIGIN "${CMAKE_CXX_CPPCHECK}")
+set(CMAKE_CXX_CPPCHECK "${CMAKE_CXX_CPPCHECK_ORIGIN}")
 
 # install-gtest.cmake ends here
 
