@@ -13,8 +13,9 @@ add_executable(options_test main.cpp argv.cpp env/base.cpp ${TESTSF})
 
 target_include_directories(
   options_test
-  PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/include
-  PRIVATE ${CMAKE_SOURCE_DIR}/src/commands)
+  PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
+          $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
+          ${CMAKE_SOURCE_DIR}/src/commands)
 
 target_link_libraries(options_test PRIVATE gtest commands)
 
@@ -28,8 +29,9 @@ add_executable(config_test main.cpp argv.cpp env/base.cpp ${TESTSF})
 
 target_include_directories(
   config_test
-  PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/include
-  PRIVATE ${CMAKE_SOURCE_DIR}/src/config)
+  PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
+          $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
+          ${CMAKE_SOURCE_DIR}/src/config)
 
 target_link_libraries(config_test PRIVATE gtest config)
 

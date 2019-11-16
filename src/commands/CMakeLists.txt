@@ -8,7 +8,9 @@
 # Add definition for commands library.
 add_library(commands STATIC commands.cpp formatter.cpp)
 
-target_include_directories(commands PUBLIC ${CMAKE_SOURCE_DIR}/include)
+target_include_directories(
+  commands PRIVATE $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
+                   $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 
 target_link_libraries(commands PUBLIC CLI11)
 
