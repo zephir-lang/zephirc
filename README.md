@@ -32,7 +32,8 @@ sudo apt-get install \
     cmake \
     pkg-config \
     build-essential \
-    libspdlog-dev
+    libspdlog-dev \
+    libyaml-cpp-dev
 ```
 
 On macOS you will need to use brew with a command as follows:
