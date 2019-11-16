@@ -15,7 +15,11 @@ jobs:
     - name: Setup Prerequisites
       run: |
         sudo apt-get update --quiet --yes 1>/dev/null
-        sudo apt-get install --no-install-recommends --quiet --yes cppcheck lcov
+        sudo apt-get install --no-install-recommends --quiet --yes \
+            cppcheck      \
+            lcov          \
+            libspdlog-dev \
+            libyaml-cpp-dev
 
     - name: Configure
       run: |
