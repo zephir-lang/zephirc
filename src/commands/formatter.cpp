@@ -8,7 +8,6 @@
 #include "formatter.hpp"
 
 #include <CLI/CLI11.hpp>
-#include <algorithm>
 #include <vector>
 
 zephir::commands::Formatter::Formatter() = default;

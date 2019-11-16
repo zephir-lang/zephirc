@@ -6,7 +6,7 @@
 # that was distributed with this source code.
 
 first_comment_is_literal: true
-#max_prefix_chars: 10
+
 additional_commands:
   file:
     kwargs:
