@@ -12,16 +12,21 @@ jobs:
       with:
         submodules: recursive
 
+    - name: Setup Prerequisites
+      run: |
+        sudo apt update --quiet --yes
+        sudo apt install cppcheck
+
     - name: Configure
       run: |
-        cmake \
-            -S . \
-            -Bbuild \
-            -DCMAKE_BUILD_TYPE=Debug \
+        cmake                         \
+            -S .                      \
+            -Bbuild                   \
+            -DCMAKE_BUILD_TYPE=Debug  \
             -DZEPHIR_BUILD_TESTING=ON \
-            -DENABLE_ALL_WARNINGS=ON \
-            -DCODE_COVERAGE=ON \
-            -DCPPCHECK=ON \
+            -DENABLE_ALL_WARNINGS=ON  \
+            -DCODE_COVERAGE=ON        \
+            -DCPPCHECK=ON             \
             -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 
     - name: Build
