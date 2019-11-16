@@ -16,7 +16,6 @@ jobs:
       run: |
         sudo apt-get update --quiet --yes 1>/dev/null
         sudo apt-get install --no-install-recommends --quiet --yes \
-            gcov          \
             lcov          \
             libspdlog-dev \
             libyaml-cpp-dev
@@ -37,9 +36,16 @@ jobs:
       run: cmake --build build -j 10
 
     - name: Run Tests
-      run: cd build && ctest --output-on-failure
+      run: |
+          cd build
+          ctest --output-on-failure
 
-    - name: Upload coverage report to Codecov.io
+    - name: Generate code coverage report
+      run: |
+          cd build
+          make ccov-all
+
+    - name: Upload code coverage report
       uses: codecov/codecov-action@v1.0.3
       with:
         token: ${{secrets.CODECOV_TOKEN}}
