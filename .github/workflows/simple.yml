@@ -39,4 +39,4 @@ jobs:
     - name: Run Tests
       run: cd build && ctest --output-on-failure
       env:
-        ZEPHIR_TESTS_ROOT="${GITHUB_WORKSPACE}/tests"
+        ZEPHIR_TESTS_ROOT: "${GITHUB_WORKSPACE}/tests"
