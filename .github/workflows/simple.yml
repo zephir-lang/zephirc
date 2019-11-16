@@ -39,12 +39,12 @@ jobs:
       run: |
           cd build
           ctest --output-on-failure
+          dpkg -L gcc
 
     - name: Generate code coverage report
       run: |
           cd build
           make ccov-all
-          dpkg -L gcc
 
     - name: Upload code coverage report
       uses: codecov/codecov-action@v1.0.3
