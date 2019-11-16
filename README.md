@@ -27,12 +27,17 @@ If you're using Ubuntu, you can install the required packages this way:
 
 ```shell script
 # on Ubuntu libspdlog-dev is available from 16.04
-sudo apt-get install gcc cmake libyaml-cpp-dev build-essential libspdlog-dev
+sudo apt-get install \
+    gcc \
+    cmake \
+    pkg-config \
+    build-essential \
+    libspdlog-dev
 ```
 
 On macOS you will need to use brew with a command as follows:
 ```shell script
-brew install cmake yaml-cpp spdlog
+brew install cmake pkg-config yaml-cpp spdlog
 ```
 
 Please note that specific versions of libraries and programs at the time of reading this guide may vary.
@@ -80,6 +85,15 @@ Additional cmake flags are (e.g. to enable `FEATURE` use `-DFEATURE=ON`):
 
 ### Generate HTML code coverage report
 
+### Prerequisites
+
+To enable test coverage reports you need the following requirements:
+
+- Gcc: `lcov`, `genhtml`
+- Clang: `llvm-profdata`, `llvm-cov`
+
+Follow these steps:
+ 
 1. Build project using `-DCODE_COVERAGE=ON`
 2. Run tests
 3. Call `make ccov-all` inside the `build` directory

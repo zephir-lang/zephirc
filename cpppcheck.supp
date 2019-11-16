@@ -1,3 +1,4 @@
-passedByValue:*/yaml-cpp/*
-passedByValue:*/CLI11/*
+*:*/build/_deps/*
+*:*/yaml-cpp/*
+*:*/CLI11/*
 missingIncludeSystem
