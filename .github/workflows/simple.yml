@@ -1,0 +1,33 @@
+name: Simple build
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    container:
+      image: rootproject/root:latest
+
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        submodules: recursive
+
+    - name: Configure
+      run: >
+        cmake 
+            -S .
+            -Bbuild
+            -DCMAKE_BUILD_TYPE=Debug
+            -DZEPHIR_BUILD_TESTING=ON
+            -DENABLE_ALL_WARNINGS=ON
+            -DCODE_COVERAGE=ON
+            -DCPPCHECK=ON
+            -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+
+    - name: Build
+      run: cmake --build build -j 10
+
+    - name: Run Tests
+      run: cmake --build build --target test
