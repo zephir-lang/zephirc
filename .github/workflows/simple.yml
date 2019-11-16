@@ -37,3 +37,8 @@ jobs:
 
     - name: Run Tests
       run: cd build && ctest --output-on-failure
+
+    - name: Upload coverage report to Codecov.io
+      uses: codecov/codecov-action@v1.0.3
+      with:
+        token: ${{secrets.CODECOV_TOKEN}}
