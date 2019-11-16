@@ -2,6 +2,12 @@
     <img src="https://assets.phalconphp.com/zephir/zephir_logo-105x36.svg" height="100" alt="Zephir"/>
 </a></p>
 
+<p align="center">
+    <a href="https://github.com/sergeyklay/cpp-zephir/actions">
+        <img src="https://github.com/sergeyklay/cpp-zephir/workflows/build/badge.svg" alt="Build Status">
+    </a>
+</p>
+
 [Zephir][0] - is a high level programming language that eases the creation and maintainability of extensions for PHP.
 Zephir extensions are exported to C code that can be compiled and optimized by major C compilers such as gcc/clang/vc++.
 Functionality is exposed to the PHP language.

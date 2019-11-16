@@ -546,7 +546,7 @@ function(add_code_coverage_all_targets)
         COMMAND ${EXCLUDE_COMMAND}
         COMMAND ${GENHTML_PATH} -o ${CMAKE_COVERAGE_OUTPUT_DIRECTORY}/all-merged
                 ${COVERAGE_INFO}
-        COMMAND ${CMAKE_COMMAND} -E remove ${COVERAGE_INFO}
+        # COMMAND ${CMAKE_COMMAND} -E remove ${COVERAGE_INFO}
         DEPENDS ccov-all-processing)
 
     endif()
