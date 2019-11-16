@@ -37,6 +37,7 @@ if(CPPCHECK_EXE)
         "--template='{file}:{line}:{column} {severity}: {message} [{id}]'"
         "--inline-suppr"
         "--suppressions-list=${CMAKE_SOURCE_DIR}/cpppcheck.supp"
+        "-j${BUILD_JOBS}"
         "--force")
   endif()
 

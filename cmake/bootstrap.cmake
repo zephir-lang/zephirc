@@ -35,6 +35,16 @@ if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
   message(FATAL_ERROR "${IN_BUILD_ERROR}")
 endif()
 
+include(ProcessorCount)
+
+ProcessorCount(N)
+if(NOT N EQUAL 0)
+  set(BUILD_JOBS ${N})
+else()
+  message(WARNING "There's a problem determining the processor count. Set fallback to: 2")
+  set(BUILD_JOBS 2)
+endif()
+
 # build-types.cmake ends here
 
 # cmake-format: off

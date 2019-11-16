@@ -1,4 +1,4 @@
 *:*/build/_deps/*
+*:*/external/*
 *:*/yaml-cpp/*
-*:*/CLI11/*
 missingIncludeSystem

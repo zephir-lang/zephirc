@@ -20,7 +20,7 @@ project(
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
 # CMake Script Includes
-include(build-types)
+include(bootstrap)
 include(compiler-detect)
 include(c++-standards)
 include(compiler-options)
