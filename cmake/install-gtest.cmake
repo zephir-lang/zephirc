@@ -16,7 +16,9 @@ FetchContent_GetProperties(googletest)
 
 # Disable cppcheck for googletest
 set(CMAKE_CXX_CPPCHECK_ORIGIN "${CMAKE_CXX_CPPCHECK}")
-set(CMAKE_CXX_CPPCHECK "" CACHE STRING "" FORCE)
+set(CMAKE_CXX_CPPCHECK
+    ""
+    CACHE STRING "" FORCE)
 
 if(NOT googletest_POPULATED)
   FetchContent_Populate(googletest)

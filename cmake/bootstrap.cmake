@@ -26,22 +26,23 @@ endif()
 if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
   # TODO(klay): Do we need a separated variable for this?
   string(
-    CONCAT
-      IN_BUILD_ERROR
-      "In-source builds not allowed. Please make a new directory "
-      "(called a build directory) and run CMake from there. "
-      "You may need to remove CMakeCache.txt.")
+    CONCAT IN_BUILD_ERROR
+           "In-source builds not allowed. Please make a new directory "
+           "(called a build directory) and run CMake from there. "
+           "You may need to remove CMakeCache.txt.")
 
   message(FATAL_ERROR "${IN_BUILD_ERROR}")
 endif()
 
 include(ProcessorCount)
 
-ProcessorCount(N)
+processorcount(N)
 if(NOT N EQUAL 0)
   set(BUILD_JOBS ${N})
 else()
-  message(WARNING "There's a problem determining the processor count. Set fallback to: 2")
+  message(
+    WARNING
+      "There's a problem determining the processor count. Set fallback to: 2")
   set(BUILD_JOBS 2)
 endif()
 

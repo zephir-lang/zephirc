@@ -76,9 +76,9 @@ if(RE2C_EXECUTABLE)
     OUTPUT_STRIP_TRAILING_WHITESPACE)
 
   if(RE2C_VERSION_RESULT)
-    string(
-      CONCAT RE2C_FIND_ERROR "Command \"${RE2C_EXECUTABLE} --vernum\" failed "
-             "with output:\n${RE2C_VERSION_ERROR}")
+    string(CONCAT RE2C_FIND_ERROR
+                  "Command \"${RE2C_EXECUTABLE} --vernum\" failed "
+                  "with output:\n${RE2C_VERSION_ERROR}")
 
     message(FATAL_ERROR "${RE2C_FIND_ERROR}")
   endif()

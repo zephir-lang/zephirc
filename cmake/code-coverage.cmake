@@ -1,5 +1,3 @@
-# cmake-format: off
-#
 # Copyright (C) 2018 by George Cave - gcave@stablecoder.ca
 # Copyright (C) 2019 by Zephir Team - <team@zephir-lang.com>
 #
@@ -14,7 +12,6 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations under
 # the License.
-# cmake-format: on
 
 # USAGE: To enable any code coverage instrumentation/targets, the single CMake
 # option of `CODE_COVERAGE` needs to be set to 'ON', either by GUI, ccmake, or
@@ -342,9 +339,9 @@ function(target_code_coverage TARGET_NAME)
         # Print out a summary of the coverage i nformation to the command line
         add_custom_target(
           ccov-report-${TARGET_NAME}
-          COMMAND
-            ${LLVM_COV_PATH} report $<TARGET_FILE:${TARGET_NAME}> ${SO_OBJECTS}
-            -instr-profile=${TARGET_NAME}.profdata ${EXCLUDE_REGEX}
+          COMMAND ${LLVM_COV_PATH} report $<TARGET_FILE:${TARGET_NAME}>
+                  ${SO_OBJECTS} -instr-profile=${TARGET_NAME}.profdata
+                  ${EXCLUDE_REGEX}
           DEPENDS ccov-processing-${TARGET_NAME})
 
         # Generates HTML output of the coverage i nformation for perusal
@@ -395,9 +392,9 @@ function(target_code_coverage TARGET_NAME)
             ${CMAKE_SOURCE_DIR} --capture ${EXTERNAL_OPTION} --output-file
             ${COVERAGE_INFO}
           COMMAND ${EXCLUDE_COMMAND}
-          COMMAND
-            ${GENHTML_PATH} -o ${CMAKE_COVERAGE_OUTPUT_DIRECTORY}/${TARGET_NAME}
-            ${COVERAGE_INFO}
+          COMMAND ${GENHTML_PATH} -o
+                  ${CMAKE_COVERAGE_OUTPUT_DIRECTORY}/${TARGET_NAME}
+                  ${COVERAGE_INFO}
           DEPENDS ccov-preprocessing ${TARGET_NAME})
       endif()
 

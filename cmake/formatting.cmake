@@ -1,5 +1,3 @@
-# cmake-format: off
-#
 # Copyright (C) 2019 by George Cave - gcave@stablecoder.ca
 # Copyright (C) 2019 by Zephir Team - <team@zephir-lang.com>
 #
@@ -14,7 +12,6 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations under
 # the License.
-# cmake-format: on
 
 # clang-format
 if(UNIX)
