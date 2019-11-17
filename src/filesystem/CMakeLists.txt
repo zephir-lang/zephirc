@@ -7,10 +7,7 @@
 
 # Add definition for filesystem library.
 add_library(filesystem STATIC filesystem.cpp)
-
-if(CODE_COVERAGE)
-  target_code_coverage(filesystem AUTO ALL)
-endif()
+target_code_coverage(filesystem AUTO ALL)
 
 # CMakeLists.txt ends here
 

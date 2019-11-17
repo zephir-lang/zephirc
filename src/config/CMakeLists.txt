@@ -19,10 +19,7 @@ target_include_directories(
   PUBLIC ${CMAKE_SOURCE_DIR}/src)
 
 target_link_libraries(config PRIVATE ${YAMLCPP_LIBRARY} filesystem commands)
-
-if(CODE_COVERAGE)
-  target_code_coverage(config AUTO ALL)
-endif()
+target_code_coverage(config AUTO ALL)
 
 # CMakeLists.txt ends here
 
