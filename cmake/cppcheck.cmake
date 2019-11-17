@@ -12,25 +12,25 @@ option(CPPCHECK "Turns on cppcheck processing if it is found." OFF)
 
 if(UNIX)
   find_program(
-    CPPCHECK_EXE
+    CPPCHECK_BIN
     NAMES cppcheck
     PATHS /usr /usr/local /opt /opt/local
     PATH_SUFFIXES bin)
 elseif(WIN32)
   find_program(
-    CPPCHECK_EXE
+    CPPCHECK_BIN
     NAMES cppcheck.exe
     PATHS C:/
     PATH_SUFFIXES "")
 endif()
 
-mark_as_advanced(CPPCHECK_EXE)
+mark_as_advanced(CPPCHECK_BIN)
 set(_base_message "Check for cppcheck")
-if(CPPCHECK_EXE)
-  message(STATUS "${_base_message}: ${CPPCHECK_EXE}")
+if(CPPCHECK_BIN)
+  message(STATUS "${_base_message}: ${CPPCHECK_BIN}")
   if(CPPCHECK)
     set(CMAKE_CXX_CPPCHECK
-        "${CPPCHECK_EXE}"
+        "${CPPCHECK_BIN}"
         "--enable=warning,performance,portability,missingInclude"
         "--language=c++"
         "--std=c++17"
