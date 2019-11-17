@@ -6,10 +6,11 @@
         {
             "label": "Build | CMake Build - Debug",
             "group": "build",
-            "options": {
-                "cwd": "${workspaceRoot}"
-            },
+            "type": "shell",
             "command": "cmake",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
             "args": [
                 "-H.",
                 "-Bbuild",
@@ -21,9 +22,8 @@
                 "-DCPPCHECK=ON",
                 "-G",
                 "CodeBlocks - Unix Makefiles",
-                "${workspaceRoot}"
+                "${workspaceFolder}"
             ],
-            "type": "shell",
             "presentation": {
                 "reveal": "silent",
                 "panel": "shared",
@@ -54,11 +54,11 @@
                 "kind": "build",
                 "isDefault": true
             },
-            "options": {
-                "cwd": "${workspaceRoot}/build"
-            },
-            "command": "make",
             "type": "shell",
+            "command": "make",
+            "options": {
+                "cwd": "${workspaceFolder}/build"
+            },
             "presentation": {
                 "reveal": "silent",
                 "panel": "shared",
@@ -93,9 +93,9 @@
                "--output-on-failure"
             ],
             "options": {
-                "cwd": "${workspaceRoot}/build",
+                "cwd": "${workspaceFolder}/build",
                 "env": {
-                    "ZEPHIR_TESTS_ROOT": "${workspaceRoot}/tests"
+                    "ZEPHIR_TESTS_ROOT": "${workspaceFolder}/tests"
                 }
             },
             "dependsOn": [
@@ -130,34 +130,28 @@
             "label": "Format | Format C++ code",
             "type": "shell",
             "options": {
-                "cwd": "${workspaceRoot}/build"
+                "cwd": "${workspaceFolder}/build"
             },
-            "problemMatcher": [],
             "linux": {
-                "command": "make",
-                "args": [
-                    "cpp-format"
-                ]
+                "command": "make"
             },
             "osx": {
-                "command": "make",
-                "args": [
-                    "cpp-format"
-                ]
+                "command": "make"
             },
             "windows": {
-                "command": "make.exe",
-                "args": [
-                    "cpp-format"
-                ]
+                "command": "make.exe"
             },
+            "args": [
+                "cpp-format"
+            ],
             "isBackground": true,
             "presentation": {
                 "panel": "shared",
                 "reveal": "silent",
                 "focus": false,
                 "showReuseMessage": false
-            }
+            },
+            "problemMatcher": [],
         },
 
         // Format cmake lists
@@ -165,34 +159,28 @@
             "label": "Format | Format cmake lists",
             "type": "shell",
             "options": {
-                "cwd": "${workspaceRoot}/build"
+                "cwd": "${workspaceFolder}/build"
             },
-            "problemMatcher": [],
             "linux": {
-                "command": "make",
-                "args": [
-                    "cmake-format"
-                ]
+                "command": "make"
             },
             "osx": {
-                "command": "make",
-                "args": [
-                    "cmake-format"
-                ]
+                "command": "make"
             },
             "windows": {
-                "command": "make.exe",
-                "args": [
-                    "cmake-format"
-                ]
+                "command": "make.exe"
             },
+            "args": [
+                "cmake-format"
+            ],
             "isBackground": true,
             "presentation": {
                 "panel": "shared",
                 "reveal": "silent",
                 "focus": false,
                 "showReuseMessage": false
-            }
+            },
+            "problemMatcher": [],
         },
 
         // Clean coverage data
@@ -200,9 +188,8 @@
             "label": "Coverage | Clean coverage data",
             "type": "shell",
             "options": {
-                "cwd": "${workspaceRoot}/build"
+                "cwd": "${workspaceFolder}/build"
             },
-            "problemMatcher": [],
             "linux": {
                 "command": "rm",
                 "args": [
@@ -230,7 +217,8 @@
                 "reveal": "silent",
                 "focus": false,
                 "showReuseMessage": false
-            }
+            },
+            "problemMatcher": [],
         },
 
         // Generate HTML code coverage report
@@ -238,36 +226,30 @@
             "label": "Coverage | Generate HTML code coverage report",
             "type": "shell",
             "options": {
-                "cwd": "${workspaceRoot}/build",
+                "cwd": "${workspaceFolder}/build",
                 "env": {
-                    "ZEPHIR_TESTS_ROOT": "${workspaceRoot}/tests"
+                    "ZEPHIR_TESTS_ROOT": "${workspaceFolder}/tests"
                 }
             },
-            "problemMatcher": [],
             "linux": {
-                "command": "make",
-                "args": [
-                    "ccov-all"
-                ]
+                "command": "make"
             },
             "osx": {
-                "command": "make",
-                "args": [
-                    "ccov-all"
-                ]
+                "command": "make"
             },
             "windows": {
-                "command": "make",
-                "args": [
-                    "ccov-all"
-                ]
+                "command": "make.exe"
             },
+            "args": [
+                "ccov-all"
+            ],
             "presentation": {
                 "panel": "shared",
                 "reveal": "silent",
                 "focus": false,
                 "showReuseMessage": false
-            }
+            },
+            "problemMatcher": [],
         },
 
         // Print coverage summary
@@ -275,33 +257,27 @@
             "label": "Coverage | Print coverage summary",
             "type": "shell",
             "options": {
-                "cwd": "${workspaceRoot}/build"
+                "cwd": "${workspaceFolder}/build"
             },
-            "problemMatcher": [],
             "linux": {
-                "command": "make",
-                "args": [
-                    "ccov-all-report"
-                ]
+                "command": "make"
             },
             "osx": {
-                "command": "make",
-                "args": [
-                    "ccov-all-report"
-                ]
+                "command": "make"
             },
             "windows": {
-                "command": "make",
-                "args": [
-                    "ccov-all-report"
-                ]
+                "command": "make.exe"
             },
+            "args": [
+                "ccov-all-report"
+            ],
             "presentation": {
                 "panel": "shared",
                 "reveal": "always",
                 "focus": false,
                 "showReuseMessage": false
-            }
+            },
+            "problemMatcher": [],
         },
 
         // Export coverage information
@@ -309,33 +285,27 @@
             "label": "Coverage | Export coverage information (JSON)",
             "type": "shell",
             "options": {
-                "cwd": "${workspaceRoot}/build"
+                "cwd": "${workspaceFolder}/build"
             },
-            "problemMatcher": [],
             "linux": {
-                "command": "make",
-                "args": [
-                    "ccov-all-export"
-                ]
+                "command": "make"
             },
             "osx": {
-                "command": "make",
-                "args": [
-                    "ccov-all-export"
-                ]
+                "command": "make"
             },
             "windows": {
-                "command": "make",
-                "args": [
-                    "ccov-all-export"
-                ]
+                "command": "make.exe"
             },
+            "args": [
+                "ccov-all-export"
+            ],
             "presentation": {
                 "panel": "shared",
                 "reveal": "always",
                 "focus": false,
                 "showReuseMessage": false
-            }
+            },
+            "problemMatcher": [],
         }
     ]
 }
