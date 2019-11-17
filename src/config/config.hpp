@@ -59,7 +59,7 @@ class Config {
    * @param file Configuration file.
    * @return 0 on success, a positive number on failure
    */
-  int Populate(const std::string &file);
+  static int Populate(const std::string &file);
 
   /**
    * Is config changed?
