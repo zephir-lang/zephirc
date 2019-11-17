@@ -327,7 +327,7 @@ function(target_code_coverage TARGET_NAME)
         add_custom_target(
           ccov-run-${TARGET_NAME}
           COMMAND LLVM_PROFILE_FILE=${TARGET_NAME}.profraw
-                  $<TARGET_FILE:${TARGET_NAME}>
+                  $<TARGET_FILE:${TARGET_NAME}> > /dev/null 2>&1
           COMMAND echo "-object=$<TARGET_FILE:${TARGET_NAME}>" >>
                   ${CMAKE_COVERAGE_OUTPUT_DIRECTORY}/binaries.list
           COMMAND echo "${CMAKE_CURRENT_BINARY_DIR}/${TARGET_NAME}.profraw " >>
@@ -380,10 +380,10 @@ function(target_code_coverage TARGET_NAME)
         set(COVERAGE_INFO
             "${CMAKE_COVERAGE_OUTPUT_DIRECTORY}/${TARGET_NAME}.info")
 
-        # Run the ex ecutable, generating coverage i nformation
+        # Run the ex ecutable, generating coverage information
         add_custom_target(
           ccov-run-${TARGET_NAME}
-          COMMAND $<TARGET_FILE:${TARGET_NAME}>
+          COMMAND $<TARGET_FILE:${TARGET_NAME}> > /dev/null 2>&1
           DEPENDS ccov-preprocessing ${TARGET_NAME})
 
         # Generate exclusion string for use
@@ -416,7 +416,7 @@ function(target_code_coverage TARGET_NAME)
           COMMAND ${EXCLUDE_COMMAND}
           DEPENDS ccov-preprocessing ${TARGET_NAME})
 
-        # Generates HTML output of the coverage i nformation for perusal
+        # Generates HTML output of the coverage information for perusal
         add_custom_target(
           ccov-${TARGET_NAME}
           COMMAND ${GENHTML_PATH} -o
