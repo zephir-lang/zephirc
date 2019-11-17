@@ -153,7 +153,7 @@
                 "command": "make"
             },
             "windows": {
-                "command": "make.exe"
+                "command": "nmake"
             },
             "args": [
                 "cpp-format"
@@ -182,7 +182,7 @@
                 "command": "make"
             },
             "windows": {
-                "command": "make.exe"
+                "command": "nmake"
             },
             "args": [
                 "cmake-format"
@@ -251,7 +251,7 @@
                 "command": "make"
             },
             "windows": {
-                "command": "make.exe"
+                "command": "nmake"
             },
             "args": [
                 "ccov-all"
@@ -279,7 +279,7 @@
                 "command": "make"
             },
             "windows": {
-                "command": "make.exe"
+                "command": "nmake"
             },
             "args": [
                 "ccov-all-report"
@@ -307,7 +307,7 @@
                 "command": "make"
             },
             "windows": {
-                "command": "make.exe"
+                "command": "nmake"
             },
             "args": [
                 "ccov-all-export"
