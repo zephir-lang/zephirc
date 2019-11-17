@@ -23,14 +23,24 @@ else()
 endif()
 
 # TODO(klay): Add MSVC check
-# TODO(klay): Recheck with Apple Clang
 if(CMAKE_COMPILER_IS_CLANG)
-  if("${CMAKE_CXX_COMPILER_VERSION}" VERSION_LESS 4)
-    message(FATAL_ERROR "Clang version must be 4.0.0 or greater. Aborting...")
+  if("${CMAKE_CXX_COMPILER_VERSION}" VERSION_LESS 5)
+    message(
+      WARNING
+        "Clang version must be 5.0.0 or greater. Possible unexpected behavior")
+  endif()
+elseif(CMAKE_COMPILER_IS_APPLE_CLANG)
+  if("${CMAKE_CXX_COMPILER_VERSION}" VERSION_LESS 10)
+    message(
+      WARNING
+        "Apple Clang version must be 10.0.0 or greater. Possible unexpected behavior"
+    )
   endif()
 elseif(CMAKE_COMPILER_IS_GNUCXX)
   if("${CMAKE_CXX_COMPILER_VERSION}" VERSION_LESS 7)
-    message(FATAL_ERROR "Gcc version must be 7.0.0 or greater. Aborting...")
+    message(
+      WARNING
+        "Gcc version must be 7.0.0 or greater. Possible unexpected behavior")
   endif()
 endif()
 

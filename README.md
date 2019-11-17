@@ -25,7 +25,8 @@ To build Zephir compiler you need the following requirements:
 
 #### POSIX
 
-- A C compiler such as  [gcc](https://gcc.gnu.org) >= 7.0.0 or [clang](https://clang.llvm.org) >= 4.0.0
+- A C compiler such as  [Gcc](https://gcc.gnu.org) >= 7.0.0, [Clang](https://clang.llvm.org) >= 5.0.0
+  or [Apple Clang](https://apps.apple.com/us/app/xcode/id497799835) >= 10.0.0
 - [cmake](https://cmake.org/) 3.11 or later
 - Library for easy read/write for Yaml data: [yaml-cpp](https://github.com/jbeder/yaml-cpp) >= 0.6
 - Library for logging: [spdlog](https://github.com/gabime/spdlog) >= 1.4
