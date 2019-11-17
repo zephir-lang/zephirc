@@ -13,10 +13,7 @@ target_include_directories(
                    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 
 target_link_libraries(commands PUBLIC CLI11)
-
-if(CODE_COVERAGE)
-  target_code_coverage(commands AUTO ALL)
-endif()
+target_code_coverage(commands AUTO ALL)
 
 # CMakeLists.txt ends here
 
