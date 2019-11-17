@@ -20,8 +20,18 @@ class ConfigBaseTest : public ::testing::Test {
 
 TEST_F(ConfigBaseTest, DoNothingOnHelp) {
   argv.assign({"zephir", "--help"});
+
+  // Redirect std::cout
+  std::streambuf* oldCoutStreamBuf = std::cout.rdbuf();
+  std::ostringstream strCout;
+  std::cout.rdbuf(strCout.rdbuf());
+
   zephir::Config config =
       zephir::Config::CreateFromArgv(argv.argc(), argv.argv(), "foo");
+
+  // Restore old std::cout
+  std::cout.rdbuf(oldCoutStreamBuf);
+
   EXPECT_FALSE(config.IsChanged());
 }
 
