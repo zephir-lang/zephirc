@@ -92,118 +92,140 @@
 # ~~~
 
 # Options
-option(
-  CODE_COVERAGE
-  "Builds targets with code coverage instrumentation. (Requires GCC or Clang)"
-  OFF)
+option(CODE_COVERAGE "Builds targets with code coverage instrumentation." OFF)
+
+# Common initialization/checks
+if(NOT CODE_COVERAGE OR CODE_COVERAGE_ADDED)
+  return()
+endif()
+
+set(CODE_COVERAGE_ADDED ON)
+
+# TODO(klay): Check if this works on Apple Clang, then remove
+# CMAKE_COMPILER_IS_APPLE_CLANG below
+if(NOT CMAKE_COMPILER_IS_GNUCXX AND NOT CMAKE_COMPILER_IS_CLANG)
+  message(
+    FATAL_ERROR "Code coverage requires Clang or GCC. Aborting...")
+endif()
+
+set(CODE_COVERAGE_WARN_BUILD_TYPE
+    "Code coverage results with an optimized build may be misleading")
+mark_as_advanced(CODE_COVERAGE_WARN_BUILD_TYPE)
+
+if(CMAKE_BUILD_TYPE)
+  string(TOUPPER ${CMAKE_BUILD_TYPE} upper_build_type)
+  if(NOT ${upper_build_type} STREQUAL "DEBUG")
+    message(WARNING "${CODE_COVERAGE_WARN_BUILD_TYPE}")
+  endif()
+  unset(upper_build_type)
+else()
+  message(WARNING "${CODE_COVERAGE_WARN_BUILD_TYPE}")
+endif()
 
 # Programs
-find_program(LLVM_COV_PATH llvm-cov)
-find_program(LLVM_PROFDATA_PATH llvm-profdata)
-find_program(LCOV_PATH lcov)
-find_program(GENHTML_PATH genhtml)
+if(UNIX)
+  find_program(
+    LLVM_COV_PATH
+    NAMES llvm-cov
+    PATHS /usr /usr/local /usr/local/opt/llvm
+    PATH_SUFFIXES bin)
+
+  find_program(
+    LLVM_PROFDATA_PATH
+    NAMES llvm-profdata
+    PATHS /usr /usr/local /usr/local/opt/llvm
+    PATH_SUFFIXES bin)
+
+  find_program(
+    LCOV_PATH
+    NAMES lcov lcov.perl
+    PATHS /usr /usr/local
+    PATH_SUFFIXES bin)
+
+  find_program(
+    GENHTML_PATH
+    NAMES genhtml genhtml.perl
+    PATHS /usr /usr/local
+    PATH_SUFFIXES bin)
+elseif(WIN32)
+  find_program(
+    LLVM_COV_PATH
+    NAMES llvm-cov.exe
+    PATHS C:/
+    PATH_SUFFIXES "")
+
+  find_program(
+    LLVM_PROFDATA_PATH
+    NAMES llvm-profdata.exe
+    PATHS C:/
+    PATH_SUFFIXES "")
+
+  find_program(
+    LCOV_PATH
+    NAMES lcov.exe lcov.bat lcov.perl
+    PATHS C:/
+    PATH_SUFFIXES "")
+
+  find_program(
+    GENHTML_PATH
+    NAMES genhtml.exe genhtml.bat genhtml.perl
+    PATHS C:/
+    PATH_SUFFIXES "")
+endif()
 
 # Variables
 set(CMAKE_COVERAGE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/ccov)
 
-# Common initialization/checks
-if(CODE_COVERAGE AND NOT CODE_COVERAGE_ADDED)
-  set(CODE_COVERAGE_ADDED ON)
+# Common Targets
+add_custom_target(
+  ccov-preprocessing
+  COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_COVERAGE_OUTPUT_DIRECTORY}
+  DEPENDS ccov-clean)
 
-  # Common Targets
-  add_custom_target(
-    ccov-preprocessing
-    COMMAND ${CMAKE_COMMAND} -E make_directory
-            ${CMAKE_COVERAGE_OUTPUT_DIRECTORY}
-    DEPENDS ccov-clean)
+if(CMAKE_COMPILER_IS_CLANG OR CMAKE_COMPILER_IS_APPLE_CLANG)
+  message(STATUS "Building with llvm Code Coverage Tools")
 
-  if(CMAKE_COMPILER_IS_CLANG OR CMAKE_COMPILER_IS_APPLE_CLANG)
-    # Programs
-    find_program(
-      LLVM_COV_PATH
-      NAMES llvm-cov
-      PATHS /usr /usr/local /usr/local/opt/llvm
-      PATH_SUFFIXES bin)
-
-    find_program(
-      LLVM_PROFDATA_PATH
-      NAMES llvm-profdata
-      PATHS /usr /usr/local /usr/local/opt/llvm
-      PATH_SUFFIXES bin)
-
-    # Messages
-    message(STATUS "Building with llvm Code Coverage Tools")
-
-    if(NOT LLVM_COV_PATH)
-      message(FATAL_ERROR "llvm-cov not found! Aborting.")
-    else()
-
-      # Version number checking for 'EXCLUDE' compatability
-      execute_process(COMMAND ${LLVM_COV_PATH} --version
-                      OUTPUT_VARIABLE LLVM_COV_VERSION_CALL_OUTPUT)
-
-      string(REGEX MATCH "[0-9]+\\.[0-9]+\\.[0-9]+" LLVM_COV_VERSION
-                   ${LLVM_COV_VERSION_CALL_OUTPUT})
-
-      if(LLVM_COV_VERSION VERSION_LESS "7.0.0")
-        message(
-          WARNING
-            "target_code_coverage()/add_code_coverage_all_targets() 'EXCLUDE' option only available on llvm-cov >= 7.0.0"
-        )
-      endif()
-    endif()
-
-    # Targets
-    add_custom_target(
-      ccov-clean
-      COMMAND rm -f ${CMAKE_COVERAGE_OUTPUT_DIRECTORY}/binaries.list
-      COMMAND rm -f ${CMAKE_COVERAGE_OUTPUT_DIRECTORY}/profraw.list)
-
-    # Used to get the shared object file list before doing the main all-
-    # processing
-    add_custom_target(
-      ccov-libs
-      COMMAND ;
-      COMMENT "libs ready for coverage report.")
-
-  elseif(CMAKE_COMPILER_IS_GNUCXX)
-    # Programs
-    find_program(LLVM_COV_PATH llvm-cov)
-    find_program(LLVM_PROFDATA_PATH llvm-profdata)
-
-    # Messages
-    message(STATUS "Building with lcov Code Coverage Tools")
-
-    if(CMAKE_BUILD_TYPE)
-      string(TOUPPER ${CMAKE_BUILD_TYPE} upper_build_type)
-      if(NOT ${upper_build_type} STREQUAL "DEBUG")
-        message(
-          WARNING
-            "Code coverage results with an optimized (non-Debug) build may be misleading"
-        )
-      endif()
-    else()
-      message(
-        WARNING
-          "Code coverage results with an optimized (non-Debug) build may be misleading"
-      )
-    endif()
-
-    if(NOT LCOV_PATH)
-      message(FATAL_ERROR "lcov not found! Aborting...")
-    endif()
-
-    if(NOT GENHTML_PATH)
-      message(FATAL_ERROR "genhtml not found! Aborting...")
-    endif()
-
-    # Targets
-    add_custom_target(ccov-clean COMMAND ${LCOV_PATH} --directory
-                                         ${CMAKE_BINARY_DIR} --zerocounters)
-
-  else()
-    message(FATAL_ERROR "Code coverage requires Clang or GCC. Aborting.")
+  if(NOT LLVM_COV_PATH)
+    message(FATAL_ERROR "llvm-cov not found! Aborting...")
   endif()
+
+  # Version number checking for 'EXCLUDE' compatability
+  execute_process(COMMAND ${LLVM_COV_PATH} --version
+                  OUTPUT_VARIABLE LLVM_COV_VERSION_CALL_OUTPUT)
+
+  string(REGEX MATCH "[0-9]+\\.[0-9]+\\.[0-9]+" LLVM_COV_VERSION
+               ${LLVM_COV_VERSION_CALL_OUTPUT})
+
+  if(LLVM_COV_VERSION VERSION_LESS "7.0.0")
+    message(WARNING "'EXCLUDE' option only available on llvm-cov >= 7.0.0")
+  endif()
+
+  # Targets
+  add_custom_target(
+    ccov-clean
+    COMMAND rm -f ${CMAKE_COVERAGE_OUTPUT_DIRECTORY}/binaries.list
+    COMMAND rm -f ${CMAKE_COVERAGE_OUTPUT_DIRECTORY}/profraw.list)
+
+  # Used to get the shared object file list before doing the main all-processing
+  add_custom_target(
+    ccov-libs
+    COMMAND ;
+    COMMENT "libs ready for coverage report.")
+
+elseif(CMAKE_COMPILER_IS_GNUCXX)
+  message(STATUS "Building with lcov Code Coverage Tools")
+
+  if(NOT LCOV_PATH)
+    message(FATAL_ERROR "lcov not found. Aborting...")
+  endif()
+
+  if(NOT GENHTML_PATH)
+    message(FATAL_ERROR "genhtml not found. Aborting...")
+  endif()
+
+  # Targets
+  add_custom_target(ccov-clean COMMAND ${LCOV_PATH} --directory
+                                       ${CMAKE_BINARY_DIR} --zerocounters)
 endif()
 
 # Adds code coverage instrumentation to a library, or instrumentation/targets
@@ -327,7 +349,7 @@ function(target_code_coverage TARGET_NAME)
           endforeach()
         endif()
 
-        # Print out details of the coverage i nformation to the command line
+        # Print out details of the coverage information to the command line
         add_custom_target(
           ccov-show-${TARGET_NAME}
           COMMAND
@@ -336,7 +358,7 @@ function(target_code_coverage TARGET_NAME)
             ${EXCLUDE_REGEX}
           DEPENDS ccov-processing-${TARGET_NAME})
 
-        # Print out a summary of the coverage i nformation to the command line
+        # Print out a summary of the coverage information to the command line
         add_custom_target(
           ccov-report-${TARGET_NAME}
           COMMAND ${LLVM_COV_PATH} report $<TARGET_FILE:${TARGET_NAME}>
@@ -344,7 +366,7 @@ function(target_code_coverage TARGET_NAME)
                   ${EXCLUDE_REGEX}
           DEPENDS ccov-processing-${TARGET_NAME})
 
-        # Generates HTML output of the coverage i nformation for perusal
+        # Generates HTML output of the coverage information for perusal
         add_custom_target(
           ccov-${TARGET_NAME}
           COMMAND
