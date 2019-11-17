@@ -1,10 +1,22 @@
 {
     "version": "2.0.0",
+    "inputs": [
+        {
+            "id": "build_types",
+            "description": "Select build type (default: Debug)",
+            "type": "pickString",
+            "default": "Debug",
+            "options": [
+                "Debug",
+                "Release",
+            ]
+        }
+    ],
 
     "tasks": [
         // CMake Build - Debug
         {
-            "label": "Build | CMake Build - Debug",
+            "label": "Build | CMake Build (Debug/Release)",
             "group": "build",
             "type": "shell",
             "command": "cmake",
@@ -14,7 +26,7 @@
             "args": [
                 "-H.",
                 "-Bbuild",
-                "-DCMAKE_BUILD_TYPE=Debug",
+                "-DCMAKE_BUILD_TYPE=${input:build_types}",
                 "-DZEPHIR_BUILD_TESTING=ON",
                 "-DENABLE_ALL_WARNINGS=ON",
                 "-DCODE_COVERAGE=ON",
@@ -25,9 +37,9 @@
                 "${workspaceFolder}"
             ],
             "presentation": {
-                "reveal": "silent",
+                "reveal": "always",
                 "panel": "shared",
-                "focus": false,
+                "focus": true,
                 "showReuseMessage": false
             },
             "problemMatcher": {
@@ -60,10 +72,10 @@
                 "cwd": "${workspaceFolder}/build"
             },
             "presentation": {
-                "reveal": "silent",
+                "reveal": "always",
                 "panel": "shared",
-                "showReuseMessage": false,
-                "clear": true
+                "focus": true,
+                "showReuseMessage": false
             },
             "problemMatcher": {
                 "owner": "cpp",
@@ -99,14 +111,14 @@
                 }
             },
             "dependsOn": [
-                "Clean profile data",
-                "Build project"
+                "Coverage | Clean coverage data",
+                "Build | Build project"
             ],
             "presentation": {
                 "reveal": "always",
                 "panel": "shared",
-                "showReuseMessage": false,
-                "clear": true
+                "focus": true,
+                "showReuseMessage": false
             },
             "problemMatcher": {
                 "owner": "ctest",
@@ -146,9 +158,9 @@
             ],
             "isBackground": true,
             "presentation": {
+                "reveal": "always",
                 "panel": "shared",
-                "reveal": "silent",
-                "focus": false,
+                "focus": true,
                 "showReuseMessage": false
             },
             "problemMatcher": [],
@@ -175,10 +187,10 @@
             ],
             "isBackground": true,
             "presentation": {
+                "reveal": "always",
                 "panel": "shared",
-                "reveal": "silent",
-                "focus": false,
-                "showReuseMessage": false
+                "focus": true,
+                "showReuseMessage": true
             },
             "problemMatcher": [],
         },
@@ -211,11 +223,10 @@
                     "ccov"
                 ]
             },
-            "isBackground": true,
             "presentation": {
-                "panel": "shared",
                 "reveal": "silent",
-                "focus": false,
+                "panel": "shared",
+                "focus": true,
                 "showReuseMessage": false
             },
             "problemMatcher": [],
@@ -244,9 +255,9 @@
                 "ccov-all"
             ],
             "presentation": {
+                "reveal": "always",
                 "panel": "shared",
-                "reveal": "silent",
-                "focus": false,
+                "focus": true,
                 "showReuseMessage": false
             },
             "problemMatcher": [],
@@ -272,9 +283,9 @@
                 "ccov-all-report"
             ],
             "presentation": {
-                "panel": "shared",
                 "reveal": "always",
-                "focus": false,
+                "panel": "shared",
+                "focus": true,
                 "showReuseMessage": false
             },
             "problemMatcher": [],
@@ -300,9 +311,9 @@
                 "ccov-all-export"
             ],
             "presentation": {
-                "panel": "shared",
                 "reveal": "always",
-                "focus": false,
+                "panel": "shared",
+                "focus": true,
                 "showReuseMessage": false
             },
             "problemMatcher": [],
