@@ -7,7 +7,7 @@
             "label": "Build | CMake Build - Debug",
             "group": "build",
             "options": {
-                "cwd": "${workspaceRoot}"
+                "cwd": "${workspaceFolder}"
             },
             "command": "cmake",
             "args": [
@@ -21,7 +21,7 @@
                 "-DCPPCHECK=ON",
                 "-G",
                 "CodeBlocks - Unix Makefiles",
-                "${workspaceRoot}"
+                "${workspaceFolder}"
             ],
             "type": "shell",
             "presentation": {
@@ -55,7 +55,7 @@
                 "isDefault": true
             },
             "options": {
-                "cwd": "${workspaceRoot}/build"
+                "cwd": "${workspaceFolder}/build"
             },
             "command": "make",
             "type": "shell",
@@ -93,9 +93,9 @@
                "--output-on-failure"
             ],
             "options": {
-                "cwd": "${workspaceRoot}/build",
+                "cwd": "${workspaceFolder}/build",
                 "env": {
-                    "ZEPHIR_TESTS_ROOT": "${workspaceRoot}/tests"
+                    "ZEPHIR_TESTS_ROOT": "${workspaceFolder}/tests"
                 }
             },
             "dependsOn": [
@@ -130,7 +130,7 @@
             "label": "Format | Format C++ code",
             "type": "shell",
             "options": {
-                "cwd": "${workspaceRoot}/build"
+                "cwd": "${workspaceFolder}/build"
             },
             "problemMatcher": [],
             "linux": {
@@ -165,7 +165,7 @@
             "label": "Format | Format cmake lists",
             "type": "shell",
             "options": {
-                "cwd": "${workspaceRoot}/build"
+                "cwd": "${workspaceFolder}/build"
             },
             "problemMatcher": [],
             "linux": {
@@ -200,7 +200,7 @@
             "label": "Coverage | Clean coverage data",
             "type": "shell",
             "options": {
-                "cwd": "${workspaceRoot}/build"
+                "cwd": "${workspaceFolder}/build"
             },
             "problemMatcher": [],
             "linux": {
@@ -238,9 +238,9 @@
             "label": "Coverage | Generate HTML code coverage report",
             "type": "shell",
             "options": {
-                "cwd": "${workspaceRoot}/build",
+                "cwd": "${workspaceFolder}/build",
                 "env": {
-                    "ZEPHIR_TESTS_ROOT": "${workspaceRoot}/tests"
+                    "ZEPHIR_TESTS_ROOT": "${workspaceFolder}/tests"
                 }
             },
             "problemMatcher": [],
@@ -275,7 +275,7 @@
             "label": "Coverage | Print coverage summary",
             "type": "shell",
             "options": {
-                "cwd": "${workspaceRoot}/build"
+                "cwd": "${workspaceFolder}/build"
             },
             "problemMatcher": [],
             "linux": {
@@ -309,7 +309,7 @@
             "label": "Coverage | Export coverage information (JSON)",
             "type": "shell",
             "options": {
-                "cwd": "${workspaceRoot}/build"
+                "cwd": "${workspaceFolder}/build"
             },
             "problemMatcher": [],
             "linux": {
