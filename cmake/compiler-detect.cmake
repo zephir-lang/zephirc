@@ -22,6 +22,18 @@ else()
   message(STATUS "Used compiler: ${CMAKE_CXX_COMPILER_ID}")
 endif()
 
+# TODO(klay): Add MSVC check
+# TODO(klay): Recheck with Apple Clang
+if(CMAKE_COMPILER_IS_CLANG)
+  if("${CMAKE_CXX_COMPILER_VERSION}" VERSION_LESS 4)
+    message(FATAL_ERROR "Clang version must be 4.0.0 or greater. Aborting...")
+  endif()
+elseif(CMAKE_COMPILER_IS_GNUCXX)
+  if("${CMAKE_CXX_COMPILER_VERSION}" VERSION_LESS 7)
+    message(FATAL_ERROR "Gcc version must be 7.0.0 or greater. Aborting...")
+  endif()
+endif()
+
 # compiler-detect.cmake ends here
 
 # cmake-format: off
