@@ -8,9 +8,9 @@
 #ifndef ZEPHIR_CONFIG_CONFIG_HPP_
 #define ZEPHIR_CONFIG_CONFIG_HPP_
 
-#include <map>
 #include <set>
 #include <string>
+#include <vector>
 
 #define INDENT_USING_SPACES 1;
 #define INDENT_USING_TABS 2;
@@ -92,7 +92,13 @@ class Config {
 
       struct Theme {
         std::string name = "zephir";
-        std::map<std::string, std::string> options;
+        struct Options {
+          std::string github = "";
+          std::string analytics = "";
+          std::string main_color = "#3E6496";
+          std::string link_color = "#3E6496";
+          std::string link_hover_color = "#5F9AE7";
+        } options;
       } theme;
     } api;
 

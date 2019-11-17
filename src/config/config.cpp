@@ -26,12 +26,6 @@ zephir::Config::Config(const std::string &file) {
         break;
     }
   }
-
-  container.api.theme.options["github"] = "";
-  container.api.theme.options["analytics"] = "";
-  container.api.theme.options["main_color"] = "#3E6496";
-  container.api.theme.options["link_color"] = "#3E6496";
-  container.api.theme.options["link_hover_color"] = "#5F9AE7";
 }
 
 int zephir::Config::Populate(const std::string &file) {
