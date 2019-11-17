@@ -30,11 +30,17 @@ To build Zephir compiler you need the following requirements:
 - [cmake](https://cmake.org/) 3.11 or later
 - Library for easy read/write for Yaml data: [yaml-cpp](https://github.com/jbeder/yaml-cpp) >= 0.6
 - Library for logging: [spdlog](https://github.com/gabime/spdlog) >= 1.4
-- Python 3 (Optional: To use [`cmake-format`](https://github.com/cheshirekow/cmake_format))
 - C++ language standard support: C++17
-- Static analysis tool for C/C++ code: [Cppcheck](https://github.com/danmar/cppcheck) >= 1.89
-- Formatting tools for C, C++: [Clang-format](https://clang.llvm.org/docs/ClangFormat.html)
 
+##### Optional
+
+- Static analysis tool for C/C++ code: [Cppcheck](https://github.com/danmar/cppcheck) >= 1.89
+- Cmake formatting tool: [cmake-format](https://github.com/cheshirekow/cmake_format)
+- C, C++ formatting tool: [clang-format](https://clang.llvm.org/docs/ClangFormat.html)
+- To enable test coverage reports you need the following requirements:
+  - Gcc: `lcov`, `genhtml`
+  - Clang, Apple Clang: `llvm-profdata`, `llvm-cov`
+  
 If you're using Ubuntu, you can install the required packages this way:
 
 ```shell script
@@ -47,7 +53,7 @@ sudo apt-get install \
     build-essential \
     libspdlog-dev \
     libyaml-cpp-dev \
-    clang-format-9.0
+    clang-format
 ```
 
 On macOS you will need to use brew with a command as follows:
@@ -105,13 +111,6 @@ Additional cmake flags are (e.g. to enable `FEATURE` use `-DFEATURE=ON`):
 | Enable Effective C++ warnings.                      | `ENABLE_EFFECTIVE_CXX` |
 
 ### Generate HTML code coverage report
-
-### Prerequisites
-
-To enable test coverage reports you need the following requirements:
-
-- Gcc: `lcov`, `genhtml`
-- Clang: `llvm-profdata`, `llvm-cov`
 
 Follow these steps:
 
