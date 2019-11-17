@@ -31,6 +31,7 @@ To build Zephir compiler you need the following requirements:
 - Library for logging: [spdlog](https://github.com/gabime/spdlog) >= 1.4
 - Python 3 (Optional: To use [`cmake-format`](https://github.com/cheshirekow/cmake_format))
 - C++ language standard support: C++17
+- Static analysis tool for C/C++ code: [Cppcheck](https://github.com/danmar/cppcheck) >= 1.89
 
 If you're using Ubuntu, you can install the required packages this way:
 
@@ -39,6 +40,7 @@ If you're using Ubuntu, you can install the required packages this way:
 sudo apt-get install \
     gcc \
     cmake \
+    cppcheck \
     pkg-config \
     build-essential \
     libspdlog-dev \
@@ -47,7 +49,7 @@ sudo apt-get install \
 
 On macOS you will need to use brew with a command as follows:
 ```shell script
-brew install cmake pkg-config yaml-cpp spdlog
+brew install cmake cppcheck pkg-config yaml-cpp spdlog
 ```
 
 Please note that specific versions of libraries and programs at the time of reading this guide may vary.
@@ -103,7 +105,7 @@ To enable test coverage reports you need the following requirements:
 - Clang: `llvm-profdata`, `llvm-cov`
 
 Follow these steps:
- 
+
 1. Build project using `-DCODE_COVERAGE=ON`
 2. Run tests
 3. Call `make ccov-all` inside the `build` directory

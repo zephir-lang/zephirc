@@ -12,25 +12,40 @@ option(CPPCHECK "Turns on cppcheck processing if it is found." OFF)
 
 if(UNIX)
   find_program(
-    CPPCHECK_EXE
+    CPPCHECK_BIN
     NAMES cppcheck
     PATHS /usr /usr/local /opt /opt/local
     PATH_SUFFIXES bin)
 elseif(WIN32)
   find_program(
-    CPPCHECK_EXE
+    CPPCHECK_BIN
     NAMES cppcheck.exe
     PATHS C:/
     PATH_SUFFIXES "")
 endif()
 
-mark_as_advanced(CPPCHECK_EXE)
+mark_as_advanced(CPPCHECK_BIN)
+
 set(_base_message "Check for cppcheck")
-if(CPPCHECK_EXE)
-  message(STATUS "${_base_message}: ${CPPCHECK_EXE}")
+if(CPPCHECK_BIN)
+  # Version number checking for 'C++17' compatability
+  execute_process(COMMAND ${CPPCHECK_BIN} --version
+                  OUTPUT_VARIABLE CPPCHECK_VERSION_CALL_OUTPUT)
+
+  string(REGEX MATCH "[0-9]+\\.[0-9]+" CPPCHECK_VERSION
+               ${CPPCHECK_VERSION_CALL_OUTPUT})
+
+  if(CPPCHECK_VERSION VERSION_LESS "1.89")
+    message(
+      SEND_ERROR
+        "Cppcheck ${CPPCHECK_VERSION} require option --std=c++17 which is available on cppcheck >= 1.89"
+    )
+  endif()
+
+  message(STATUS "${_base_message}: ${CPPCHECK_BIN}")
   if(CPPCHECK)
     set(CMAKE_CXX_CPPCHECK
-        "${CPPCHECK_EXE}"
+        "${CPPCHECK_BIN}"
         "--enable=warning,performance,portability,missingInclude"
         "--language=c++"
         "--std=c++17"
