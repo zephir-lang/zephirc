@@ -9,14 +9,16 @@
             "options": [
                 "Debug",
                 "Release",
+                "RelWithDebInfo",
+                "MinSizeRel",
             ]
         }
     ],
 
     "tasks": [
-        // CMake Build - Debug
+        // CMake Build - with selection for build type
         {
-            "label": "Build | CMake Build (Debug/Release)",
+            "label": "Build | CMake Build",
             "group": "build",
             "type": "shell",
             "command": "cmake",
