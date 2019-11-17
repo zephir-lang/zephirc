@@ -32,6 +32,7 @@ To build Zephir compiler you need the following requirements:
 - Python 3 (Optional: To use [`cmake-format`](https://github.com/cheshirekow/cmake_format))
 - C++ language standard support: C++17
 - Static analysis tool for C/C++ code: [Cppcheck](https://github.com/danmar/cppcheck) >= 1.89
+- Formatting tools for C, C++: [Clang-format](https://clang.llvm.org/docs/ClangFormat.html)
 
 If you're using Ubuntu, you can install the required packages this way:
 
@@ -44,12 +45,19 @@ sudo apt-get install \
     pkg-config \
     build-essential \
     libspdlog-dev \
-    libyaml-cpp-dev
+    libyaml-cpp-dev \
+    clang-format-9.0
 ```
 
 On macOS you will need to use brew with a command as follows:
 ```shell script
-brew install cmake cppcheck pkg-config yaml-cpp spdlog
+brew install \
+    cmake \
+    cppcheck \
+    pkg-config \
+    yaml-cpp \
+    spdlog \
+    clang-format
 ```
 
 Please note that specific versions of libraries and programs at the time of reading this guide may vary.
