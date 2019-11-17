@@ -5,16 +5,9 @@
 # For the full copyright and license information, please view the LICENSE file
 # that was distributed with this source code.
 
-# Zephir libraries
-add_subdirectory(commands)
-add_subdirectory(filesystem)
-add_subdirectory(config)
-add_subdirectory(logger)
-
-# Main
-add_executable(zephir main.cpp)
-target_link_libraries(zephir PRIVATE config)
-target_code_coverage(zephir AUTO ALL EXCLUDE ${COVERAGE_EXCLUDES})
+# Add definition for logger facade library.
+add_library(logger STATIC facade.cpp)
+target_code_coverage(logger AUTO ALL)
 
 # CMakeLists.txt ends here
 
