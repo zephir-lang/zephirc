@@ -101,11 +101,10 @@ endif()
 
 set(CODE_COVERAGE_ADDED ON)
 
-# TODO(klay): Check if this works on Apple Clang, then remove
-# CMAKE_COMPILER_IS_APPLE_CLANG below
-if(NOT CMAKE_COMPILER_IS_GNUCXX AND NOT CMAKE_COMPILER_IS_CLANG)
-  message(
-    FATAL_ERROR "Code coverage requires Clang or GCC. Aborting...")
+if(NOT CMAKE_COMPILER_IS_GNUCXX
+   AND NOT CMAKE_COMPILER_IS_CLANG
+   AND NOT CMAKE_COMPILER_IS_APPLE_CLANG)
+  message(FATAL_ERROR "Code coverage requires Clang or GCC. Aborting...")
 endif()
 
 set(CODE_COVERAGE_WARN_BUILD_TYPE
