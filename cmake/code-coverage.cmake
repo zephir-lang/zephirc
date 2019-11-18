@@ -342,10 +342,15 @@ function(target_code_coverage TARGET_NAME)
 
         # Ignore regex only works on LLVM >= 7
         if(LLVM_COV_VERSION VERSION_GREATER_EQUAL "7.0.0")
+          set(EXCLUSIONS_STRING)
           foreach(EXCLUDE_ITEM ${target_code_coverage_EXCLUDE})
             set(EXCLUDE_REGEX ${EXCLUDE_REGEX}
                               -ignore-filename-regex='${EXCLUDE_ITEM}')
+            string(APPEND EXCLUSIONS_STRING "${EXCLUDE_ITEM}\n")
           endforeach()
+          file(WRITE
+               ${CMAKE_COVERAGE_OUTPUT_DIRECTORY}/exclusions/${TARGET_NAME}.txt
+               "${EXCLUSIONS_STRING}")
         endif()
 
         # Print out details of the coverage information to the command line
@@ -511,6 +516,13 @@ function(add_code_coverage_all_targets)
         endforeach()
       endif()
 
+      add_custom_target(
+        ccov-exclusions
+        COMMAND
+          cat ${CMAKE_COVERAGE_OUTPUT_DIRECTORY}/exclusions/* | sort -u | sed
+          '/^[[:space:]]*\$$/d' | tr '\\n' '|' | sed 's/|$$//' >
+          ${CMAKE_COVERAGE_OUTPUT_DIRECTORY}/exclusions.txt)
+
       # Print summary of the code coverage information to the command line
       add_custom_target(
         ccov-all-report
@@ -540,10 +552,23 @@ function(add_code_coverage_all_targets)
           ${LLVM_COV_PATH} show `cat
           ${CMAKE_COVERAGE_OUTPUT_DIRECTORY}/binaries.list`
           -instr-profile=${CMAKE_COVERAGE_OUTPUT_DIRECTORY}/all-merged.profdata
-          -show-line-counts-or-regions
+          -show-line-counts-or-regions -ignore-filename-regex=`cat
+          ${CMAKE_COVERAGE_OUTPUT_DIRECTORY}/exclusions.txt`
           -output-dir=${CMAKE_COVERAGE_OUTPUT_DIRECTORY}/all-merged
           -format="html" ${EXCLUDE_REGEX}
-        DEPENDS ccov-all-processing)
+        DEPENDS ccov-all-processing ccov-exclusions)
+
+      # Generate txt output of all added targets for perusal
+      add_custom_target(
+        ccov-all-txt
+        COMMAND
+          ${LLVM_COV_PATH} show `cat
+          ${CMAKE_COVERAGE_OUTPUT_DIRECTORY}/binaries.list`
+          -show-line-counts-or-regions -ignore-filename-regex=`cat
+          ${CMAKE_COVERAGE_OUTPUT_DIRECTORY}/exclusions.txt`
+          -instr-profile=${CMAKE_COVERAGE_OUTPUT_DIRECTORY}/all-merged.profdata
+          > ${CMAKE_COVERAGE_OUTPUT_DIRECTORY}/coverage.txt
+        DEPENDS ccov-all-processing ccov-exclusions)
 
     elseif(CMAKE_COMPILER_IS_GNUCXX)
       set(COVERAGE_INFO "${CMAKE_COVERAGE_OUTPUT_DIRECTORY}/all-merged.info")
@@ -588,6 +613,20 @@ function(add_code_coverage_all_targets)
       COMMENT
         "Open ${CMAKE_COVERAGE_OUTPUT_DIRECTORY}/all-merged/index.html in your browser to view the coverage report."
     )
+
+    if(APPLE)
+      add_custom_target(
+        coverage
+        COMMAND open ${CMAKE_COVERAGE_OUTPUT_DIRECTORY}/all-merged/index.html
+        DEPENDS ccov-all)
+    elseif(UNIX)
+      add_custom_target(
+        coverage
+        COMMAND xdg-open
+                ${CMAKE_COVERAGE_OUTPUT_DIRECTORY}/all-merged/index.html
+        DEPENDS ccov-all)
+    endif()
+
   endif()
 endfunction()
 

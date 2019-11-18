@@ -15,8 +15,9 @@
                 "databaseFilename": "${workspaceFolder}/.vscode/browse.vc.db"
             },
             "compilerPath": "/usr/bin/clang",
-            "cppStandard": "c++11",
-            "cStandard": "c11"
+            "cppStandard": "c++17",
+            "cStandard": "c11",
+            "compileCommands": "${workspaceFolder}/build/compile_commands.json"
         },
         {
             "name": "Zephir for Linux",
@@ -32,8 +33,9 @@
                 "databaseFilename": "${workspaceFolder}/.vscode/browse.vc.db"
             },
             "compilerPath": "/usr/bin/gcc",
-            "cppStandard": "c++11",
-            "cStandard": "c11"
+            "cppStandard": "c++17",
+            "cStandard": "c11",
+            "compileCommands": "${workspaceFolder}/build/compile_commands.json"
         }
     ]
 }

@@ -165,7 +165,7 @@
                 "focus": true,
                 "showReuseMessage": false
             },
-            "problemMatcher": [],
+            "problemMatcher": []
         },
 
         // Format cmake lists
@@ -194,7 +194,7 @@
                 "focus": true,
                 "showReuseMessage": true
             },
-            "problemMatcher": [],
+            "problemMatcher": []
         },
 
         // Clean coverage data
@@ -231,7 +231,7 @@
                 "focus": true,
                 "showReuseMessage": false
             },
-            "problemMatcher": [],
+            "problemMatcher": []
         },
 
         // Generate HTML code coverage report
@@ -254,7 +254,7 @@
                 "command": "nmake"
             },
             "args": [
-                "ccov-all"
+                "coverage"
             ],
             "presentation": {
                 "reveal": "always",
@@ -262,7 +262,7 @@
                 "focus": true,
                 "showReuseMessage": false
             },
-            "problemMatcher": [],
+            "problemMatcher": []
         },
 
         // Print coverage summary
@@ -290,7 +290,7 @@
                 "focus": true,
                 "showReuseMessage": false
             },
-            "problemMatcher": [],
+            "problemMatcher": []
         },
 
         // Export coverage information
@@ -318,7 +318,7 @@
                 "focus": true,
                 "showReuseMessage": false
             },
-            "problemMatcher": [],
+            "problemMatcher": []
         }
     ]
 }

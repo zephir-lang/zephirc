@@ -18,7 +18,7 @@ target_include_directories(
           ${CMAKE_SOURCE_DIR}/src/commands)
 
 target_link_libraries(options_test PRIVATE gtest commands)
-target_code_coverage(options_test AUTO ALL)
+target_code_coverage(options_test AUTO ALL EXCLUDE ${COVERAGE_EXCLUDES})
 
 gtest_discover_tests(
   options_test
@@ -35,7 +35,7 @@ target_include_directories(
           ${CMAKE_SOURCE_DIR}/src/config)
 
 target_link_libraries(config_test PRIVATE gtest config)
-target_code_coverage(config_test AUTO ALL)
+target_code_coverage(config_test AUTO ALL EXCLUDE ${COVERAGE_EXCLUDES})
 
 gtest_discover_tests(
   config_test

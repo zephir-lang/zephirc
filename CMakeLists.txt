@@ -72,8 +72,7 @@ if(CODE_COVERAGE)
   # * tests
   # * build
   # * thridparty-code
-  set(coverage_excludes
-      EXCLUDE
+  set(COVERAGE_EXCLUDES
       "/usr/*"
       "build/*"
       "*/build/*"
@@ -81,7 +80,8 @@ if(CODE_COVERAGE)
       "*/tests/*"
       "external/*"
       "*/external/*")
-  add_code_coverage_all_targets(${coverage_excludes})
+  add_code_coverage_all_targets(EXCLUDE ${COVERAGE_EXCLUDES})
+  mark_as_advanced(COVERAGE_EXCLUDES)
 endif()
 
 add_subdirectory(external)
