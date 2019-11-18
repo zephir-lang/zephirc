@@ -15,6 +15,13 @@ namespace zephir::commands {
 class Formatter : public CLI::Formatter {
  public:
   Formatter();
+
+  /**
+   * Gets the usage line.
+   * @param app CLI::App instance
+   * @param name Application name (e.g. "zephir"). Currently not unused
+   * @return Program usage string.
+   */
   std::string make_usage(const CLI::App *app, std::string name) const override;
 };
 }  // namespace zephir::commands

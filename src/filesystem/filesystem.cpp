@@ -11,11 +11,11 @@
 
 #include <climits>
 
-bool zephir::filesystem::exists(const std::string &name) {
+bool zephir::filesystem::Exists(const std::string &name) {
   return (access(name.c_str(), F_OK) != -1);
 }
 
-std::string zephir::filesystem::current_path() {
+std::string zephir::filesystem::GetCurrentWorkingPath() {
   char temp[PATH_MAX];
   return (getcwd(temp, sizeof(temp)) ? std::string(temp) : std::string(""));
 }

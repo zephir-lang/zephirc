@@ -14,7 +14,7 @@
 #include "zephir/main.hpp"
 #include "zephir/version.hpp"
 
-int zephir::commands::optparse(int argc, char **argv) {
+int zephir::commands::ParseOptions(int argc, char **argv) {
   const char *BANNER = R"BANNER( _____              __    _
 /__  /  ___  ____  / /_  (_)____
   / /  / _ \/ __ \/ __ \/ / ___/

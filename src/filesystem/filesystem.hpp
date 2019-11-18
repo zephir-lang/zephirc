@@ -11,16 +11,18 @@
 #include <string>
 
 namespace zephir::filesystem {
-/** Fastest way to check if a file exist
+/**
+ * Fastest way to check if a file exist.
  * @param name The location of the file
  * @return true on success, false otherwise
  */
-bool exists(const std::string& name);
+bool Exists(const std::string& name);
 
-/** Gets current working compiler path
+/**
+ * Gets current working compiler path.
  * @return current working path
  */
-std::string current_path();
+std::string GetCurrentWorkingPath();
 }  // namespace zephir::filesystem
 
 #endif  // ZEPHIR_FILESYSTEM_FILESYSTEM_HPP_

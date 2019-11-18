@@ -29,7 +29,7 @@ zephir::Config::Config(const std::string &file) {
 }
 
 int zephir::Config::Populate(const std::string &file) {
-  if (!zephir::filesystem::exists(file)) {
+  if (!zephir::filesystem::Exists(file)) {
     // Do nothing.
     return EXIT_NO_CONFIG;
   }
@@ -51,7 +51,7 @@ bool zephir::Config::IsChanged() { return changed; }
 zephir::Config zephir::Config::CreateFromArgv(int argc, char **argv,
                                               const std::string &file) {
   zephir::Config config(file);
-  auto retval = zephir::commands::optparse(argc, argv);
+  auto retval = zephir::commands::ParseOptions(argc, argv);
 
   if (retval == EXIT_HELP) {
     // Do nothing on "zephir --help" command.

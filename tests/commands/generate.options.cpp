@@ -18,6 +18,6 @@ class GenerateCmdTest : public ::testing::Test {
 
 TEST_F(GenerateCmdTest, RunWithoutOptions) {
   argv.assign({"zephir", "generate"});
-  auto retval = zephir::commands::optparse(argv.argc(), argv.argv());
+  auto retval = zephir::commands::ParseOptions(argv.argc(), argv.argv());
   EXPECT_EQ(retval, 0);
 }

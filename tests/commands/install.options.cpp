@@ -18,6 +18,6 @@ class InstallCmdTest : public ::testing::Test {
 
 TEST_F(InstallCmdTest, RunWithoutOptions) {
   argv.assign({"zephir", "install"});
-  auto retval = zephir::commands::optparse(argv.argc(), argv.argv());
+  auto retval = zephir::commands::ParseOptions(argv.argc(), argv.argv());
   EXPECT_EQ(retval, 0);
 }

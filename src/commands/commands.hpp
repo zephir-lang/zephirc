@@ -9,11 +9,12 @@
 #define ZEPHIR_COMMANDS_COMMANDS_HPP_
 
 namespace zephir::commands {
-/** Parse options from both the CLI.
+/**
+ * Parse options from both the CLI.
  * @param argc Number of CLI arguments provided
  * @param argv Provided CLI arguments
  */
-int optparse(int argc, char **argv);
+int ParseOptions(int argc, char **argv);
 }  // namespace zephir::commands
 
 #endif  // ZEPHIR_COMMANDS_COMMANDS_HPP_

@@ -18,6 +18,6 @@ class StubsCmdTest : public ::testing::Test {
 
 TEST_F(StubsCmdTest, RunWithoutOptions) {
   argv.assign({"zephir", "stubs"});
-  auto retval = zephir::commands::optparse(argv.argc(), argv.argv());
+  auto retval = zephir::commands::ParseOptions(argv.argc(), argv.argv());
   EXPECT_EQ(retval, 0);
 }

@@ -9,7 +9,7 @@
 #include "filesystem/filesystem.hpp"
 
 int main(int argc, char** argv) {
-  auto cwd = zephir::filesystem::current_path();
+  auto cwd = zephir::filesystem::GetCurrentWorkingPath();
   auto config = zephir::Config::CreateFromArgv(argc, argv, cwd + "/config.yml");
 
   // TODO(klay): Catch exceptions
