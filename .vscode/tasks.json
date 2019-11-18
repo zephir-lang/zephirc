@@ -254,7 +254,38 @@
                 "command": "nmake"
             },
             "args": [
-                "coverage"
+                "ccov-all"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "focus": true,
+                "showReuseMessage": false
+            },
+            "problemMatcher": []
+        },
+
+        // Open HTML code coverage report
+        {
+            "label": "Coverage | Open HTML code coverage report",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/build",
+                "env": {
+                    "ZEPHIR_TESTS_ROOT": "${workspaceFolder}/tests"
+                }
+            },
+            "linux": {
+                "command": "make"
+            },
+            "osx": {
+                "command": "make"
+            },
+            "windows": {
+                "command": "nmake"
+            },
+            "args": [
+                "ccov-open"
             ],
             "presentation": {
                 "reveal": "always",

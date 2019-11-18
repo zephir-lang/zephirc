@@ -616,12 +616,12 @@ function(add_code_coverage_all_targets)
 
     if(APPLE)
       add_custom_target(
-        coverage
+        ccov-open
         COMMAND open ${CMAKE_COVERAGE_OUTPUT_DIRECTORY}/all-merged/index.html
         DEPENDS ccov-all)
     elseif(UNIX)
       add_custom_target(
-        coverage
+        ccov-open
         COMMAND xdg-open
                 ${CMAKE_COVERAGE_OUTPUT_DIRECTORY}/all-merged/index.html
         DEPENDS ccov-all)
