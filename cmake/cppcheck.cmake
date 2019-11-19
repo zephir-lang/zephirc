@@ -49,7 +49,7 @@ if(CPPCHECK_BIN)
         "--enable=warning,performance,portability,missingInclude"
         "--language=c++"
         "--std=c++17"
-        "--template='{file}:{line}:{column} {severity}: {message} [{id}]'"
+        "--template={file}:{line}:{column}:\ {severity}:\ {message}\ [--suppress={id}]\\n{code}"
         "--inline-suppr"
         "--suppressions-list=${CMAKE_SOURCE_DIR}/cpppcheck.supp"
         "-j${BUILD_JOBS}"
