@@ -28,9 +28,21 @@ mark_as_advanced(CPPCHECK_BIN)
 
 set(_base_message "Check for cppcheck")
 if(CPPCHECK_BIN)
-  # Version number checking for 'C++17' compatability
-  execute_process(COMMAND ${CPPCHECK_BIN} --version
-                  OUTPUT_VARIABLE CPPCHECK_VERSION_CALL_OUTPUT)
+  # Version number checking for '-std=c++17' compatability
+  execute_process(
+    COMMAND ${CPPCHECK_BIN} --version
+    OUTPUT_VARIABLE CPPCHECK_VERSION_CALL_OUTPUT
+    RESULT_VARIABLE CPPCHECK_VERSION_RESULT
+    ERROR_VARIABLE  CPPCHECK_VERSION_ERROR
+    OUTPUT_STRIP_TRAILING_WHITESPACE)
+
+  if(CPPCHECK_VERSION_RESULT)
+    string(CONCAT CPPCHECK_FIND_ERROR
+                  "Command \"${CPPCHECK_BIN} --version\" failed "
+                  "with output:\n${CPPCHECK_VERSION_ERROR}")
+
+    message(FATAL_ERROR "${CPPCHECK_FIND_ERROR}")
+  endif()
 
   string(REGEX MATCH "[0-9]+\\.[0-9]+" CPPCHECK_VERSION
                ${CPPCHECK_VERSION_CALL_OUTPUT})
