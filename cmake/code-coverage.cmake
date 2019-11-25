@@ -178,8 +178,7 @@ set(CMAKE_COVERAGE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/ccov)
 # Common Targets
 add_custom_target(
   ccov-preprocessing
-  COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_COVERAGE_OUTPUT_DIRECTORY}
-  DEPENDS ccov-clean)
+  COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_COVERAGE_OUTPUT_DIRECTORY})
 
 if(CMAKE_COMPILER_IS_CLANG OR CMAKE_COMPILER_IS_APPLE_CLANG)
   message(STATUS "Building with llvm Code Coverage Tools")
@@ -384,10 +383,10 @@ function(target_code_coverage TARGET_NAME)
         set(COVERAGE_INFO
             "${CMAKE_COVERAGE_OUTPUT_DIRECTORY}/${TARGET_NAME}.info")
 
-        # Run the executable, generating coverage information
+        # Pre-process task, cleanup old coverage data, validate target dependency
         add_custom_target(
           ccov-run-${TARGET_NAME}
-          COMMAND $<TARGET_FILE:${TARGET_NAME}> > /dev/null 2>&1
+          COMMAND ;
           DEPENDS ccov-preprocessing ${TARGET_NAME})
 
         # Generate exclusion string for use

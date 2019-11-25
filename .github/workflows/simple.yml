@@ -43,12 +43,12 @@ jobs:
     - name: Generate code coverage report
       run: |
           cd build
-          lcov --directory . --capture --output-file coverage.info
-          lcov --remove coverage.info '/usr/*' '*/tests/*' '*/build/*' '*/external/*' --output-file coverage.info
-          lcov --list coverage.info
+          # TODO(klay): We should create "ccov" dir automatically
+          mkdir ccov
+          make ccov-all
 
     - name: Upload code coverage report
       uses: codecov/codecov-action@v1.0.3
       with:
         token: ${{secrets.CODECOV_TOKEN}}
-        file: ./build/coverage.info
+        file: ./build/ccov/all-merged.info
