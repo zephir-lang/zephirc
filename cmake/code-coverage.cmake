@@ -188,7 +188,7 @@ if(CMAKE_COMPILER_IS_CLANG OR CMAKE_COMPILER_IS_APPLE_CLANG)
     message(FATAL_ERROR "llvm-cov not found! Aborting...")
   endif()
 
-  # Version number checking for 'EXCLUDE' compatability
+  # Version number checking for 'EXCLUDE' compatibility
   execute_process(COMMAND ${LLVM_COV_PATH} --version
                   OUTPUT_VARIABLE LLVM_COV_VERSION_CALL_OUTPUT)
 
@@ -322,7 +322,7 @@ function(target_code_coverage TARGET_NAME)
           endif()
         endforeach()
 
-        # Run the ex ecutable, generating raw profile data
+        # Run the executable, generating raw profile data
         add_custom_target(
           ccov-run-${TARGET_NAME}
           COMMAND LLVM_PROFILE_FILE=${TARGET_NAME}.profraw
