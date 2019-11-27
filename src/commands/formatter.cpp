@@ -42,7 +42,8 @@ std::string zephir::commands::Formatter::make_usage(
 
 std::string zephir::commands::Formatter::make_description(
     const CLI::App *app) const {
-  const char *BANNER = R"BANNER( _____              __    _
+  const char *BANNER = R"BANNER(
+ _____              __    _
 /__  /  ___  ____  / /_  (_)____
   / /  / _ \/ __ \/ __ \/ / ___/
  / /__/  __/ /_/ / / / / / /
@@ -51,8 +52,10 @@ std::string zephir::commands::Formatter::make_description(
 
   std::stringstream out;
   out << "";
+
   if (!app->get_parent()) {
-    out << BANNER << std::endl << std::endl;
+    std::string banner(BANNER);
+    out << banner.replace(0, 1, "") << std::endl << std::endl;
   }
 
   return out.str();
