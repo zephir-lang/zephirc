@@ -26,6 +26,7 @@ void zephir::commands::GenerateCommand::Configure(CLI::App& app,
   // Add options to cmd, binding them to options.
   cmd->add_option("--backend", options.backend,
                   "Used backend to generate extension", true);
+  cmd->set_help_flag("-h, --help", "Print this help message and quit");
 
   // Set the run function as callback to be called when this subcommand is
   // issued.
