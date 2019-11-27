@@ -6,12 +6,12 @@
 // the LICENSE file that was distributed with this source code.
 
 #include "commands.hpp"
-#include "cmd_generate.hpp"
 
 #include <CLI/CLI11.hpp>
 #include <memory>
 #include <string>
 
+#include "cmd_generate.hpp"
 #include "formatter.hpp"
 #include "zephir/main.hpp"
 #include "zephir/version.hpp"
@@ -63,7 +63,6 @@ int zephir::commands::ParseOptions(int argc, char** argv) {
 
   zephir::commands::GenerateCommand generate(app, main_group);
 
-  app.add_subcommand("help", "Displays help for a command")->group(main_group);
   app.add_subcommand("init", "Initializes a Zephir extension")
       ->group(main_group);
   app.add_subcommand("install",
