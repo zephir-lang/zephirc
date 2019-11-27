@@ -26,15 +26,23 @@ std::string zephir::commands::Formatter::make_usage(
 
   std::vector<std::string> groups = app->get_groups();
 
-  // Print an Options badge if any options exist
-  std::vector<const CLI::Option *> non_pos_options = app->get_options(
+  std::vector<const CLI::Option *> non_positionals = app->get_options(
       [](const CLI::Option *opt) { return opt->nonpositional(); });
 
-  if (!non_pos_options.empty()) {
+  // Print an "[options]" badge if any options exist
+  if (!non_positionals.empty()) {
     out << " [" << get_label("options") << "]";
   }
 
-  out << " [arguments]";
+  std::vector<const CLI::Option *> positionals = app->get_options(
+      [](const CLI::Option *opt) { return opt->get_positional(); });
+
+  // Print an "[arguments]" badge if any arguments exist
+  // or we're show help for the main program
+  if (!app->get_parent() || !positionals.empty()) {
+    out << " [arguments]";
+  }
+
   out << std::endl;
 
   return out.str();

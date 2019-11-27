@@ -8,19 +8,20 @@
 #include "cmd_generate.hpp"
 
 #include <CLI/CLI11.hpp>
+#include <memory>
 
 #include "formatter.hpp"
 
-zephir::commands::GenerateCommand::GenerateCommand(CLI::App& app,
+zephir::commands::GenerateCommand::GenerateCommand(CLI::App* app,
                                                    const std::string& group) {
   options.backend = "ZendEngine3";  // default
   Configure(app, group);
 }
 
-void zephir::commands::GenerateCommand::Configure(CLI::App& app,
+void zephir::commands::GenerateCommand::Configure(CLI::App* app,
                                                   const std::string& group) {
   auto cmd =
-      app.add_subcommand(
+      app->add_subcommand(
              "generate",
              "Generates C code from the Zephir code without compiling it")
           ->group(group);

@@ -17,7 +17,7 @@ namespace zephir::commands {
  */
 class GenerateCommand {
  public:
-  GenerateCommand(CLI::App& app, const std::string& group);
+  GenerateCommand(CLI::App* app, const std::string& group);
 
  private:
   /**
@@ -25,7 +25,7 @@ class GenerateCommand {
    * @param app CLI::App instance
    * @param group The command group membership
    */
-  void Configure(CLI::App& app, const std::string& group);
+  void Configure(CLI::App* app, const std::string& group);
 
   /**
    * Executes the current command.
