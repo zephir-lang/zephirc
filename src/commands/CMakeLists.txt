@@ -6,7 +6,7 @@
 # that was distributed with this source code.
 
 # Add definition for commands library.
-add_library(commands STATIC commands.cpp formatter.cpp)
+add_library(commands STATIC commands.cpp formatter.cpp cmd_generate.cpp)
 
 target_include_directories(
   commands PRIVATE $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
