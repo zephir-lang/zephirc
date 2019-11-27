@@ -17,7 +17,12 @@ std::string zephir::commands::Formatter::make_usage(
   std::stringstream out;
 
   out << get_label("Usage") << ":\n";
-  out << "  command";
+
+  if (app->get_parent()) {
+    out << "  " << app->get_name();
+  } else {
+    out << "  command";
+  }
 
   std::vector<std::string> groups = app->get_groups();
 
@@ -31,6 +36,24 @@ std::string zephir::commands::Formatter::make_usage(
 
   out << " [arguments]";
   out << std::endl;
+
+  return out.str();
+}
+
+std::string zephir::commands::Formatter::make_description(
+    const CLI::App *app) const {
+  const char *BANNER = R"BANNER( _____              __    _
+/__  /  ___  ____  / /_  (_)____
+  / /  / _ \/ __ \/ __ \/ / ___/
+ / /__/  __/ /_/ / / / / / /
+/____/\___/ .___/_/ /_/_/_/
+         /_/)BANNER";
+
+  std::stringstream out;
+  out << "";
+  if (!app->get_parent()) {
+    out << BANNER << std::endl << std::endl;
+  }
 
   return out.str();
 }

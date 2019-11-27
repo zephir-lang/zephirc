@@ -17,13 +17,6 @@
 #include "zephir/version.hpp"
 
 int zephir::commands::ParseOptions(int argc, char** argv) {
-  const char* BANNER = R"BANNER( _____              __    _
-/__  /  ___  ____  / /_  (_)____
-  / /  / _ \/ __ \/ __ \/ / ___/
- / /__/  __/ /_/ / / / / / /
-/____/\___/ .___/_/ /_/_/_/
-         /_/)BANNER";
-
   CLI::App app("zephir");
   app.description("Zephir " + std::string(ZEPHIR_VERSION_STRING) + "\n");
 
@@ -76,7 +69,6 @@ int zephir::commands::ParseOptions(int argc, char** argv) {
     app.parse(argc, argv);
 
     if (*help) {
-      std::cout << BANNER << std::endl << std::endl;
       throw CLI::CallForHelp();
     }
   } catch (const CLI::ParseError& e) {
