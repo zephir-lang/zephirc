@@ -21,7 +21,12 @@ int zephir::commands::ParseOptions(int argc, char** argv) {
   app.description("Zephir " + std::string(ZEPHIR_VERSION_STRING) + "\n");
 
   auto fmt = std::make_shared<Formatter>();
+
   fmt->column_width(17);
+  fmt->label("OPTIONS", "options");
+  fmt->label("ARGUMENTS", "arguments");
+  fmt->label("COMMAND", "command");
+
   app.formatter(fmt);
 
   // Global options

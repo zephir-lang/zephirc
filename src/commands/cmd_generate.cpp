@@ -10,8 +10,6 @@
 #include <CLI/CLI11.hpp>
 #include <memory>
 
-#include "formatter.hpp"
-
 zephir::commands::GenerateCommand::GenerateCommand(CLI::App* app,
                                                    const std::string& group) {
   options.backend = "ZendEngine3";  // default
@@ -25,10 +23,6 @@ void zephir::commands::GenerateCommand::Configure(CLI::App* app,
              "generate",
              "Generates C code from the Zephir code without compiling it")
           ->group(group);
-
-  auto fmt = std::make_shared<Formatter>();
-  fmt->column_width(17);
-  cmd->formatter(fmt);
 
   // Add options to cmd, binding them to options.
   cmd->add_option(

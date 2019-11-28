@@ -21,26 +21,24 @@ std::string zephir::commands::Formatter::make_usage(
   if (app->get_parent()) {
     out << "  " << app->get_name();
   } else {
-    out << "  command";
+    out << "  " << get_label("COMMAND");
   }
 
   std::vector<std::string> groups = app->get_groups();
 
+  // Print an OPTIONS badge if any options exist
   std::vector<const CLI::Option *> non_positionals = app->get_options(
       [](const CLI::Option *opt) { return opt->nonpositional(); });
-
-  // Print an "[options]" badge if any options exist
   if (!non_positionals.empty()) {
-    out << " [" << get_label("options") << "]";
+    out << " [" << get_label("OPTIONS") << "]";
   }
 
+  // Print an ARGUMENTS badge if any arguments exist
+  // or we're show help for the main program
   std::vector<const CLI::Option *> positionals = app->get_options(
       [](const CLI::Option *opt) { return opt->get_positional(); });
-
-  // Print an "[arguments]" badge if any arguments exist
-  // or we're show help for the main program
   if (!app->get_parent() || !positionals.empty()) {
-    out << " [arguments]";
+    out << " [" << get_label("ARGUMENTS") << "]";
   }
 
   out << std::endl;
@@ -61,6 +59,7 @@ std::string zephir::commands::Formatter::make_description(
   std::stringstream out;
   out << "";
 
+  // Show banner only for main app
   if (!app->get_parent()) {
     std::string banner(BANNER);
     out << banner.replace(0, 1, "") << std::endl << std::endl;
