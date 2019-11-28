@@ -59,11 +59,17 @@ std::string zephir::commands::Formatter::make_description(
   std::stringstream out;
   out << "";
 
-  // Show banner only for main app
+  // Show banner and version only for main app
   if (!app->get_parent()) {
     std::string banner(BANNER);
     out << banner.replace(0, 1, "") << std::endl << std::endl;
+
+    std::string desc = app->get_description();
+    out << desc << std::endl;
   }
+
+  // TODO(klay): Deal with "min_options" and "max_options".
+  // See parent class for more.
 
   return out.str();
 }
