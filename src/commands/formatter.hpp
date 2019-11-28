@@ -17,12 +17,26 @@ class Formatter : public CLI::Formatter {
   Formatter();
 
   /**
+   * Displays the description line.
+   * @param app CLI::App instance
+   * @return Program/command description string.
+   */
+  std::string make_description(const CLI::App *app) const override;
+
+  /**
    * Gets the usage line.
    * @param app CLI::App instance
    * @param name Application name (e.g. "zephir"). Currently not unused
-   * @return Program usage string.
+   * @return Program/command usage string.
    */
   std::string make_usage(const CLI::App *app, std::string name) const override;
+
+  /**
+   * Prints the footer line.
+   * @param app CLI::App instance
+   * @return Program/command footer string.
+   */
+  std::string make_footer(const CLI::App *app) const override;
 };
 }  // namespace zephir::commands
 
