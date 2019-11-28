@@ -17,13 +17,17 @@
 #include "zephir/version.hpp"
 
 int zephir::commands::ParseOptions(int argc, char** argv) {
-  CLI::App app("zephir");
-
   std::stringstream out;
   out << "Zephir " << std::string(ZEPHIR_VERSION_STRING);
   out << " by Serghei Iakovlev and Alexander Andriiako";
 
-  app.description(out.str());
+  CLI::App app(out.str(), "zephir");
+
+  std::stringstream footer;
+  footer << "See \"" << argv[0] << " <command> --help\"";
+  footer << " to read about a specific command or concept.";
+
+  app.footer(footer.str());
 
   auto fmt = std::make_shared<Formatter>();
 

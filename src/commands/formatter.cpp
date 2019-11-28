@@ -73,3 +73,21 @@ std::string zephir::commands::Formatter::make_description(
 
   return out.str();
 }
+
+std::string zephir::commands::Formatter::make_footer(
+    const CLI::App *app) const {
+  std::stringstream out;
+  out << "";
+
+  // Show general help usage only for the main app.
+  // Any particular command should provide its own concrete help.
+  const std::string &footer = app->get_footer();
+  if (!app->get_parent() && !footer.empty()) {
+    out << std::endl << footer << std::endl;
+  } else if (app->get_parent()) {
+    out << std::endl << get_label("Help") << ":" << std::endl;
+    out << "  " << app->get_description() << "." << std::endl;
+  }
+
+  return out.str();
+}

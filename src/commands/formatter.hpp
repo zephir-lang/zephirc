@@ -30,6 +30,13 @@ class Formatter : public CLI::Formatter {
    * @return Program/command usage string.
    */
   std::string make_usage(const CLI::App *app, std::string name) const override;
+
+  /**
+   * Prints the footer line.
+   * @param app CLI::App instance
+   * @return Program/command footer string.
+   */
+  std::string make_footer(const CLI::App *app) const override;
 };
 }  // namespace zephir::commands
 
