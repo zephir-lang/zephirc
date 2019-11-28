@@ -34,8 +34,8 @@ int zephir::commands::ParseOptions(int argc, char** argv) {
                "Print the version of the compiler and don't do anything else "
                "(also works with a single hyphen)");
 
-  app.set_help_flag();
-  auto help = app.add_flag("-h, --help", "Print this help message and quit");
+  auto help =
+      app.set_help_flag("-h, --help", "Print this help message and quit");
 
   app.add_flag("--vernum",
                "Print the version of the compiler as integer and quit");
