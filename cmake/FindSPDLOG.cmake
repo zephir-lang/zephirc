@@ -45,7 +45,7 @@ if(UNIX)
   # find spdlog pre-compiled library
   find_library(
     SPDLOG_LIBRARY
-    NAMES ${SPDLOG_STATIC} libspdlog
+    NAMES ${SPDLOG_STATIC} spdlog
     PATHS ${SPDLOG_DIR} /usr /usr/local /opt /opt/local
     PATH_SUFFIXES lib64 lib)
 elseif(WIN32)
@@ -58,17 +58,18 @@ elseif(WIN32)
   # find spdlog pre-compiled library
   find_library(
     SPDLOG_LIBRARY
-    NAMES ${SPDLOG_STATIC} spdlog.lib
+    NAMES ${SPDLOG_STATIC} spdlog
     PATHS ${SPDLOG_DIR} C:/
     PATH_SUFFIXES lib64 lib)
 endif()
+
+mark_as_advanced(SPDLOG_INCLUDE_DIR)
+mark_as_advanced(SPDLOG_LIBRARY)
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(
   ${CMAKE_FIND_PACKAGE_NAME} REQUIRED_VARS SPDLOG_INCLUDE_DIR SPDLOG_LIBRARY)
 
-mark_as_advanced(SPDLOG_INCLUDE_DIR)
-mark_as_advanced(SPDLOG_LIBRARY)
 
 if(NOT ${CMAKE_FIND_PACKAGE_NAME}_FIND_QUIETLY)
   if(SPDLOG_FOUND)
