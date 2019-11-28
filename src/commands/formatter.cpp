@@ -16,7 +16,7 @@ std::string zephir::commands::Formatter::make_usage(
     const CLI::App *app, __attribute__((unused)) const std::string name) const {
   std::stringstream out;
 
-  out << get_label("Usage") << ":\n";
+  out << get_label("Usage") << ":" << std::endl;
 
   if (app->get_parent()) {
     out << "  " << app->get_name();
@@ -65,7 +65,7 @@ std::string zephir::commands::Formatter::make_description(
     out << banner.replace(0, 1, "") << std::endl << std::endl;
 
     std::string desc = app->get_description();
-    out << desc << std::endl;
+    out << desc << std::endl << std::endl;
   }
 
   // TODO(klay): Deal with "min_options" and "max_options".

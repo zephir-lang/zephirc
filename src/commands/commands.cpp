@@ -18,7 +18,12 @@
 
 int zephir::commands::ParseOptions(int argc, char** argv) {
   CLI::App app("zephir");
-  app.description("Zephir " + std::string(ZEPHIR_VERSION_STRING) + "\n");
+
+  std::stringstream out;
+  out << "Zephir " << std::string(ZEPHIR_VERSION_STRING);
+  out << " by Serghei Iakovlev and Alexander Andriiako";
+
+  app.description(out.str());
 
   auto fmt = std::make_shared<Formatter>();
 
