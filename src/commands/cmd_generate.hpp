@@ -33,7 +33,6 @@ class GenerateCommand {
   void Execute();
 
   // Collection of all options of Generate Command.
-  // TODO(klay): Sort out with `-W', `-w', `-f' and `-f-no'
   struct Options {
     std::string backend;
   } options;

@@ -97,3 +97,14 @@ int zephir::commands::ParseOptions(int argc, char** argv) {
 
   return 0;
 }
+
+std::string zephir::commands::CommonCompilationFlagsHelp() {
+  const char* FLAGS = R"FLAGS(
+  Common flags are:
+      -f([a-z0-9\-]+)    Enables compiler optimizations
+      -fno-([a-z0-9\-]+) Disables compiler optimizations
+      -w([a-z0-9\-]+)    Turns a warning on
+      -W([a-z0-9\-]+)    Turns a warning off)FLAGS";
+
+  return std::string(FLAGS);
+}

@@ -8,6 +8,8 @@
 #ifndef ZEPHIR_COMMANDS_COMMANDS_HPP_
 #define ZEPHIR_COMMANDS_COMMANDS_HPP_
 
+#include <string>
+
 namespace zephir::commands {
 /**
  * Parse options from both the CLI.
@@ -15,6 +17,12 @@ namespace zephir::commands {
  * @param argv Provided CLI arguments
  */
 int ParseOptions(int argc, char **argv);
+
+/**
+ * Gets common compilation flags help.
+ * @return
+ */
+std::string CommonCompilationFlagsHelp();
 }  // namespace zephir::commands
 
 #endif  // ZEPHIR_COMMANDS_COMMANDS_HPP_

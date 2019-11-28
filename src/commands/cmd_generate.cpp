@@ -10,6 +10,8 @@
 #include <CLI/CLI11.hpp>
 #include <memory>
 
+#include "commands.hpp"
+
 zephir::commands::GenerateCommand::GenerateCommand(CLI::App* app,
                                                    const std::string& group) {
   options.backend = "ZendEngine3";  // default
@@ -29,6 +31,13 @@ void zephir::commands::GenerateCommand::Configure(CLI::App* app,
       "--backend", options.backend,
       "Used backend to generate extension [default: \"ZendEngine3\"]");
   cmd->set_help_flag("-h, --help", "Print this help message and quit");
+
+  // TODO(klay): These flags should be parsed before CLI11 initialization.
+  // Current plan is:
+  // 1. read these flags
+  // 2. set the appropriate configuration
+  // 3. remove these flags (if any) from argv
+  cmd->footer(CommonCompilationFlagsHelp());
 
   // Set the run function as callback to be called when this subcommand is
   // issued.

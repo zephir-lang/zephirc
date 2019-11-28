@@ -87,6 +87,10 @@ std::string zephir::commands::Formatter::make_footer(
   } else if (app->get_parent()) {
     out << std::endl << get_label("Help") << ":" << std::endl;
     out << "  " << app->get_description() << "." << std::endl;
+
+    // Any additional command specific help should be
+    // declared in the footer.
+    out << "  " << app->get_footer() << std::endl;
   }
 
   return out.str();
