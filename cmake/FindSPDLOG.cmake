@@ -24,7 +24,7 @@
 #
 # * SPDLOG_FOUND:       if false, do not try to link to spdlog
 # * SPDLOG_LIBRARY:     where to find spdlog
-# * SPDLOG_INCLUDE_DIR: where to find yaml.h
+# * SPDLOG_INCLUDE_DIR: where to find spdlog/spdlog.h
 
 # Attempt to find static library first if this is set
 if(SPDLOG_STATIC_LIBRARY)
@@ -63,21 +63,14 @@ elseif(WIN32)
     PATH_SUFFIXES lib64 lib)
 endif()
 
-mark_as_advanced(SPDLOG_INCLUDE_DIR)
-mark_as_advanced(SPDLOG_LIBRARY)
-
 include(FindPackageHandleStandardArgs)
+
+# handle the QUIETLY and REQUIRED arguments and set YAMLCPP_FOUND to TRUE if
+# all listed variables are TRUE
 find_package_handle_standard_args(
-  ${CMAKE_FIND_PACKAGE_NAME} REQUIRED_VARS SPDLOG_INCLUDE_DIR SPDLOG_LIBRARY)
+        ${CMAKE_FIND_PACKAGE_NAME} REQUIRED_VARS SPDLOG_INCLUDE_DIR SPDLOG_LIBRARY)
 
-
-if(NOT ${CMAKE_FIND_PACKAGE_NAME}_FIND_QUIETLY)
-  if(SPDLOG_FOUND)
-    message(STATUS "Check for spdlog: ${SPDLOG_LIBRARY}")
-  else()
-    message(STATUS "Check for spdlog: not found")
-  endif()
-endif()
+mark_as_advanced(SPDLOG_INCLUDE_DIR SPDLOG_LIBRARY)
 
 # FindSPDLOG.cmake ends here
 
