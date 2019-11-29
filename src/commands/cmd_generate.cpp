@@ -7,8 +7,9 @@
 
 #include "cmd_generate.hpp"
 
-#include <CLI/CLI11.hpp>
 #include <memory>
+
+#include <CLI/CLI11.hpp>
 
 #include "commands.hpp"
 

@@ -8,8 +8,9 @@
 #ifndef ZEPHIR_COMMANDS_CMD_GENERATE_HPP_
 #define ZEPHIR_COMMANDS_CMD_GENERATE_HPP_
 
-#include <CLI/CLI11.hpp>
 #include <string>
+
+#include <CLI/CLI11.hpp>
 
 namespace zephir::commands {
 /**

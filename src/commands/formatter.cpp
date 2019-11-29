@@ -7,8 +7,9 @@
 
 #include "formatter.hpp"
 
-#include <CLI/CLI11.hpp>
 #include <vector>
+
+#include <CLI/CLI11.hpp>
 
 zephir::commands::Formatter::Formatter() = default;
 
@@ -46,8 +47,8 @@ std::string zephir::commands::Formatter::make_usage(
   return out.str();
 }
 
-std::string zephir::commands::Formatter::make_description(
-    const CLI::App *app) const {
+std::string
+zephir::commands::Formatter::make_description(const CLI::App *app) const {
   const char *BANNER = R"BANNER(
  _____              __    _
 /__  /  ___  ____  / /_  (_)____
@@ -74,8 +75,8 @@ std::string zephir::commands::Formatter::make_description(
   return out.str();
 }
 
-std::string zephir::commands::Formatter::make_footer(
-    const CLI::App *app) const {
+std::string
+zephir::commands::Formatter::make_footer(const CLI::App *app) const {
   std::stringstream out;
   out << "";
 
