@@ -14,16 +14,15 @@ add_library(logger STATIC facade.cpp)
 target_include_directories(
   logger
   PRIVATE $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
-          $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
-          ${SPDLOG_INCLUDE_DIR}
+          $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}> ${SPDLOG_INCLUDE_DIR}
   PUBLIC ${CMAKE_SOURCE_DIR}/src)
 
 if(SPDLOG_BUILD_EXAMPLE_HO)
-    # Using header-only spdlog library
-    target_link_libraries(logger PRIVATE spdlog::spdlog_header_only)
+  # Using header-only spdlog library
+  target_link_libraries(logger PRIVATE spdlog::spdlog_header_only)
 else()
-    # Using pre-compiled spdlog library
-    target_link_libraries(logger PRIVATE spdlog::spdlog)
+  # Using pre-compiled spdlog library
+  target_link_libraries(logger PRIVATE spdlog::spdlog)
 endif()
 
 target_code_coverage(logger AUTO ALL)
