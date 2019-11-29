@@ -2,4 +2,7 @@
 * text=auto
 
 external/*     linguist-vendored
-.vscode/*.json inguist-language=jsonc
+.vscode/*.json linguist-language=jsonc
+
+.clang-format  linguist-language=YAML
+.cmake-format  linguist-language=YAML
