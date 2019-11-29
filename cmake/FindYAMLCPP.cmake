@@ -11,6 +11,12 @@
 # static ones instead, you must set the YAMLCPP_STATIC_LIBRARY variable to TRUE
 # before calling find_package(YAMLCPP ...).
 #
+# Example:
+# ~~~
+# set(YAMLCPP_STATIC_LIBRARY TRUE)
+# find_package(YAMLCPP REQUIRED)
+# ~~~
+#
 # If yaml-cpp is not installed in a standard path, you can use the YAMLCPP_DIR
 # CMake variable to tell CMake where yaml-cpp is.
 #
@@ -36,43 +42,38 @@ if(UNIX)
   # find the yaml-cpp include directory
   find_path(
     YAMLCPP_INCLUDE_DIR yaml-cpp/yaml.h
-    PATHS /usr /usr/local /opt /opt/local ${YAMLCPP_DIR}
+    PATHS ${YAMLCPP_DIR} /usr /usr/local /opt /opt/local
     PATH_SUFFIXES include)
 
   # find the yaml-cpp library
   find_library(
     YAMLCPP_LIBRARY
     NAMES ${YAMLCPP_STATIC} yaml-cpp
-    PATHS /usr /usr/local /opt /opt/local ${YAMLCPP_DIR}
+    PATHS ${YAMLCPP_DIR} /usr /usr/local /opt /opt/local
     PATH_SUFFIXES lib64 lib)
 elseif(WIN32)
   # find the yaml-cpp include directory
   find_path(
     YAMLCPP_INCLUDE_DIR yaml-cpp/yaml.h
-    PATHS C:/ ${YAMLCPP_DIR}
+    PATHS ${YAMLCPP_DIR} C:/
     PATH_SUFFIXES include)
 
   # find the yaml-cpp library
   find_library(
     YAMLCPP_LIBRARY
     NAMES ${YAMLCPP_STATIC} yaml-cpp
-    PATHS C:/ ${YAMLCPP_DIR}
+    PATHS ${YAMLCPP_DIR} C:/
     PATH_SUFFIXES lib64 lib)
 endif()
 
-mark_as_advanced(YAMLCPP_INCLUDE_DIR)
-mark_as_advanced(YAMLCPP_LIBRARY)
-
 include(FindPackageHandleStandardArgs)
-if(${CMAKE_FIND_PACKAGE_NAME}_FIND_REQUIRED
-   AND NOT ${CMAKE_FIND_PACKAGE_NAME}_FIND_QUIETLY)
-  find_package_handle_standard_args(
-    ${CMAKE_FIND_PACKAGE_NAME} REQUIRED_VARS YAMLCPP_INCLUDE_DIR
-                                             YAMLCPP_LIBRARY)
-else()
-  find_package_handle_standard_args(${CMAKE_FIND_PACKAGE_NAME} DEFAULT_MSG
-                                    YAMLCPP_INCLUDE_DIR YAMLCPP_LIBRARY)
-endif()
+
+# handle the QUIETLY and REQUIRED arguments and set YAMLCPP_FOUND to TRUE if all
+# listed variables are TRUE
+find_package_handle_standard_args(
+  ${CMAKE_FIND_PACKAGE_NAME} REQUIRED_VARS YAMLCPP_INCLUDE_DIR YAMLCPP_LIBRARY)
+
+mark_as_advanced(YAMLCPP_INCLUDE_DIR YAMLCPP_LIBRARY)
 
 # FindYAMLCPP.cmake ends here
 
