@@ -8,8 +8,9 @@
 #ifndef ZEPHIR_COMMANDS_FORMATTER_HPP_
 #define ZEPHIR_COMMANDS_FORMATTER_HPP_
 
-#include <CLI/CLI11.hpp>
 #include <string>
+
+#include <CLI/CLI11.hpp>
 
 namespace zephir::commands {
 class Formatter : public CLI::Formatter {

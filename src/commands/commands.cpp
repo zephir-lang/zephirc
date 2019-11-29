@@ -7,9 +7,10 @@
 
 #include "commands.hpp"
 
-#include <CLI/CLI11.hpp>
 #include <memory>
 #include <string>
+
+#include <CLI/CLI11.hpp>
 
 #include "cmd_generate.hpp"
 #include "formatter.hpp"
