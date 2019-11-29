@@ -9,6 +9,7 @@
 add_subdirectory(commands)
 add_subdirectory(filesystem)
 add_subdirectory(config)
+add_subdirectory(logger)
 
 # Main
 add_executable(zephir main.cpp)
