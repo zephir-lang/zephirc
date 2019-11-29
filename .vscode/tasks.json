@@ -10,13 +10,12 @@
                 "Debug",
                 "Release",
                 "RelWithDebInfo",
-                "MinSizeRel",
+                "MinSizeRel"
             ]
         }
     ],
 
     "tasks": [
-        // CMake Build - with selection for build type
         {
             "label": "Build | CMake Build",
             "group": "build",
@@ -61,7 +60,6 @@
             }
         },
 
-        // Build project
         {
             "label": "Build | Build project",
             "group": {
@@ -95,7 +93,6 @@
             }
         },
 
-        // Run tests
         {
             "label": "Tests | Run all tests",
             "group": {
@@ -140,7 +137,6 @@
             }
         },
 
-        // Format C++ code
         {
             "label": "Format | Format C++ code",
             "type": "shell",
@@ -169,7 +165,6 @@
             "problemMatcher": []
         },
 
-        // Format cmake lists
         {
             "label": "Format | Format cmake lists",
             "type": "shell",
@@ -198,7 +193,6 @@
             "problemMatcher": []
         },
 
-        // Clean coverage data
         {
             "label": "Coverage | Clean coverage data",
             "type": "shell",
@@ -235,7 +229,6 @@
             "problemMatcher": []
         },
 
-        // Generate HTML code coverage report
         {
             "label": "Coverage | Generate HTML code coverage report",
             "type": "shell",
@@ -266,7 +259,6 @@
             "problemMatcher": []
         },
 
-        // Open HTML code coverage report
         {
             "label": "Coverage | Open HTML code coverage report",
             "type": "shell",
@@ -297,7 +289,6 @@
             "problemMatcher": []
         },
 
-        // Print coverage summary
         {
             "label": "Coverage | Print coverage summary",
             "type": "shell",
@@ -325,7 +316,6 @@
             "problemMatcher": []
         },
 
-        // Export coverage information
         {
             "label": "Coverage | Export coverage information (JSON)",
             "type": "shell",
