@@ -85,7 +85,9 @@ zephir::commands::Formatter::make_footer(const CLI::App *app) const {
 
     // Any additional command specific help should be
     // declared in the footer.
-    out += "  " + app->get_footer() + "\n";
+    if (!app->get_footer().empty()) {
+      out += "  " + app->get_footer() + "\n";
+    }
   }
 
   return out;

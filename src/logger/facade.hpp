@@ -71,7 +71,8 @@ class Facade {
    * @param category - The log category
    * @param context - The log context
    */
-  void log(const std::string& message, int level, const std::string& category, const Type& context);
+  void log(const std::string& message, int level, const std::string& category,
+           const Type& context);
 };
 
 }  // namespace zephir::logger
