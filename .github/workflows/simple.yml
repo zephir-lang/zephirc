@@ -1,6 +1,15 @@
 name: build
 
-on: [push, pull_request]
+on:
+  push:
+    branches-ignore:
+      - 'wip-*'
+    paths-ignore:
+      - 'README.md'
+
+  pull_request:
+    branches:
+      - 'master'
 
 jobs:
   simple_build:

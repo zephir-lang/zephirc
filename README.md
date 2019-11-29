@@ -1,28 +1,26 @@
-<p align="center"><a href="https://zephir-lang.com" target="_blank" name="_">
-    <img src="https://assets.phalconphp.com/zephir/zephir_logo-105x36.svg" height="100" alt="Zephir"/>
-</a></p>
+# [![Zephir][zephir-logo]][zephir-link]
 
-<p align="center">
-    <a href="https://github.com/sergeyklay/cpp-zephir/actions">
-        <img src="https://github.com/sergeyklay/cpp-zephir/workflows/build/badge.svg" alt="Build Status">
-    </a>
-    <a href="https://codecov.io/gh/sergeyklay/cpp-zephir">
-        <img src="https://codecov.io/gh/sergeyklay/cpp-zephir/branch/master/graph/badge.svg?token=l1Oy2k15VP" alt="Code Coverage" />
-    </a>
-</p>
+[![Actions Status][actions-badge]][actions-link]
+[![Coverage Status][coverage-badge]][coverage-link]
 
-[Zephir][0] - is a high level programming language that eases the creation and maintainability of extensions for PHP.
-Zephir extensions are exported to C code that can be compiled and optimized by major C compilers such as gcc/clang/vc++.
-Functionality is exposed to the PHP language.
+[Zephir][zephir-link] is a high level programming language that eases the creation and maintainability of extensions for
+PHP. Zephir extensions are exported to C code that can be compiled and optimized by major C compilers such as
+gcc/clang/vc++. Functionality is exposed to the PHP language.
 
 ## Documentation
-* Official documentation is [located here][1]
-* Internals documentation is [located here](/docs)
+* Official documentation is [located here][docs-link]
+* Internals documentation is [located here][int-docs-link]
 
 ## License
 
-Zephir licensed under the MIT License. See the [LICENSE][8] file for more information.
+Zephir licensed under the MIT License. See the [LICENSE][license-link] file for more information.
 
-[0]: https://zephir-lang.com
-[1]: https://docs.zephir-lang.com
-[8]: https://github.com/phalcon/zephir/blob/master/LICENSE
+[zephir-logo]: https://assets.phalconphp.com/zephir/zephir_logo-105x36.svg
+[actions-badge]: https://github.com/sergeyklay/cpp-zephir/workflows/build/badge.svg
+[coverage-badge]: https://codecov.io/gh/sergeyklay/cpp-zephir/branch/master/graph/badge.svg?token=l1Oy2k15VP
+[actions-link]: https://github.com/sergeyklay/cpp-zephir/actions
+[coverage-link]: https://codecov.io/gh/sergeyklay/cpp-zephir
+[zephir-link]: https://zephir-lang.com
+[docs-link]: https://docs.zephir-lang.com
+[int-docs-link]: /docs
+[license-link]: https://github.com/phalcon/zephir/blob/master/LICENSE
