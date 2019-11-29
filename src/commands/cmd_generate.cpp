@@ -9,8 +9,6 @@
 
 #include <memory>
 
-#include <CLI/CLI11.hpp>
-
 #include "commands.hpp"
 
 zephir::commands::GenerateCommand::GenerateCommand(CLI::App* app,
@@ -47,5 +45,5 @@ void zephir::commands::GenerateCommand::Configure(CLI::App* app,
 
 void zephir::commands::GenerateCommand::Execute() {
   // Do stuff...
-  std::cout << "Working with backend: " << options.backend << std::endl;
+  std::cout << "NOT IMPLEMENTED" << std::endl;
 }
