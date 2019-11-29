@@ -6,7 +6,7 @@
 # that was distributed with this source code.
 
 set(SPDLOG_STATIC_LIBRARY ON)
-find_package(SPDLOG REQUIRED)
+find_package(spdlog CONFIG REQUIRED)
 
 # Add definition for logger facade library.
 add_library(logger STATIC facade.cpp)
@@ -18,7 +18,13 @@ target_include_directories(
           ${SPDLOG_INCLUDE_DIR}
   PUBLIC ${CMAKE_SOURCE_DIR}/src)
 
-target_link_libraries(logger PRIVATE ${SPDLOG_LIBRARY})
+if(SPDLOG_BUILD_EXAMPLE_HO)
+    # Using header-only spdlog library
+    target_link_libraries(logger PRIVATE spdlog::spdlog_header_only)
+else()
+    # Using pre-compiled spdlog library
+    target_link_libraries(logger PRIVATE spdlog::spdlog)
+endif()
 
 target_code_coverage(logger AUTO ALL)
 
