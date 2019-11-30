@@ -37,7 +37,6 @@ class CompileCommand {
   struct Options {
     std::string backend;
     bool dev;
-    bool no_dev;
   } options;
 };
 }  // namespace zephir::commands
