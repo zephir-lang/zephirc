@@ -8,9 +8,9 @@
 #ifndef ZEPHIR_LOGGER_FACADE_HPP_
 #define ZEPHIR_LOGGER_FACADE_HPP_
 
-#include <string>
+#include <spdlog/spdlog.h>
 
-#include "spdlog/spdlog.h"
+#include <string>
 
 namespace zephir::logger {
 
