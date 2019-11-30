@@ -39,8 +39,6 @@ macro(cxx_17)
   set(CMAKE_CXX_EXTENSIONS OFF)
 endmacro()
 
-# TODO(klay): C++20 is not supportet in currect XCode at this time.
-#
 # Set the compiler standard to C++20
 macro(cxx_20)
   message(STATUS "Set the compiler standard to C++20")
