@@ -2,8 +2,8 @@
 #
 # (c) Zephir Team <team@zephir-lang.com>
 #
-# For the full copyright and license information, please view the LICENSE file
-# that was distributed with this source code.
+# For the full copyright and license information, please view
+# the LICENSE file that was distributed with this source code.
 
 # Set a default build type for single-configuration CMake generators if no build
 # type is set.
