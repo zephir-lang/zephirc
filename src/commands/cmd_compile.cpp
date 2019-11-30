@@ -73,5 +73,8 @@ void zephir::commands::CompileCommand::Configure(CLI::App* app,
 
 void zephir::commands::CompileCommand::Execute() {
   // Do stuff...
+  std::cout << "Compile command" << std::endl;
   std::cout << "NOT IMPLEMENTED" << std::endl;
+  std::cout << "    options.dev = " << options.dev << std::endl;
+  std::cout << "    options.backend = " << options.backend << std::endl;
 }

@@ -54,5 +54,13 @@ void zephir::commands::ApiCommand::Configure(CLI::App* app,
 
 void zephir::commands::ApiCommand::Execute() {
   // Do stuff...
+  std::cout << "Api command" << std::endl;
   std::cout << "NOT IMPLEMENTED" << std::endl;
+  std::cout << "    options.template_path = " << options.template_path
+            << std::endl;
+  std::cout << "    options.backend = " << options.backend << std::endl;
+  std::cout << "    options.output = " << options.output << std::endl;
+  std::cout << "    options.theme_options = " << options.theme_options
+            << std::endl;
+  std::cout << "    options.url = " << options.url << std::endl;
 }

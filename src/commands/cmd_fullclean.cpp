@@ -34,5 +34,6 @@ void zephir::commands::FullcleanCommand::Configure(CLI::App* app,
 
 void zephir::commands::FullcleanCommand::Execute() {
   // Do stuff...
+  std::cout << "Fullclean command" << std::endl;
   std::cout << "NOT IMPLEMENTED" << std::endl;
 }
