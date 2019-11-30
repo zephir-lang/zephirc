@@ -12,6 +12,7 @@
 
 #include <CLI/CLI11.hpp>
 
+#include "cmd_compile.hpp"
 #include "cmd_fullclean.hpp"
 #include "cmd_generate.hpp"
 #include "formatter.hpp"
@@ -61,9 +62,8 @@ int zephir::commands::ParseOptions(int argc, char** argv) {
   app.add_subcommand("clean",
                      "Cleans any object files created by the extension")
       ->group(commands_group);
-  app.add_subcommand("compile", "Compile a Zephir extension")
-      ->group(commands_group);
 
+  zephir::commands::CompileCommand compile(&app, commands_group);
   zephir::commands::FullcleanCommand fullclean(&app, commands_group);
   zephir::commands::GenerateCommand generate(&app, commands_group);
 
