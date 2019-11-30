@@ -8,7 +8,7 @@
 find_package(spdlog CONFIG REQUIRED)
 
 # Add definition for logger facade library.
-add_library(logger STATIC facade.cpp)
+add_library(logger SHARED facade.cpp)
 
 target_include_directories(
   logger

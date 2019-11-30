@@ -6,7 +6,7 @@
 # that was distributed with this source code.
 
 # Add definition for filesystem library.
-add_library(filesystem STATIC filesystem.cpp)
+add_library(filesystem SHARED filesystem.cpp)
 target_code_coverage(filesystem AUTO ALL)
 
 # CMakeLists.txt ends here

@@ -19,10 +19,10 @@ Zephir licensed under the MIT License. See the [LICENSE][license link] file for 
 
 [actions link]: https://github.com/sergeyklay/cpp-zephir/actions
 [actions-badge]: https://github.com/sergeyklay/cpp-zephir/workflows/build/badge.svg
-[coverage badge]: https://codecov.io/gh/klay/cpp-zephir/branch/master/graph/badge.svg?token=l1Oy2k15VP
+[coverage badge]: https://codecov.io/gh/sergeyklay/cpp-zephir/branch/master/graph/badge.svg?token=l1Oy2k15VP
 [coverage link]: https://codecov.io/gh/sergeyklay/cpp-zephir
 [codacy badge]: https://api.codacy.com/project/badge/Grade/f261623a61494a38b383b399ae557b21
-[codacy link]:  https://www.codacy.com/app/sergeyklay/cpp-zephir?utm_source=github.com&utm_medium=referral&utm_content=CLIUtils/CLI11&utm_campaign=Badge_Grade
+[codacy link]:  https://www.codacy.com/app/klay/cpp-zephir?utm_source=github.com&utm_medium=referral&utm_content=CLIUtils/CLI11&utm_campaign=Badge_Grade
 [web site]: https://zephir-lang.com
 [documentation]: https://docs.zephir-lang.com
 [zephir logo]: https://assets.phalconphp.com/zephir/zephir_logo-105x36.svg
