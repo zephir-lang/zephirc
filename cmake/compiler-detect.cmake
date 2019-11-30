@@ -2,8 +2,8 @@
 #
 # (c) Zephir Team <team@zephir-lang.com>
 #
-# For the full copyright and license information, please view the LICENSE file
-# that was distributed with this source code.
+# For the full copyright and license information, please view
+# the LICENSE file that was distributed with this source code.
 
 set(CMAKE_COMPILER_IS_CLANG OFF)
 set(CMAKE_COMPILER_IS_APPLE_CLANG OFF)

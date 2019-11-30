@@ -12,15 +12,17 @@
 
 namespace zephir::commands {
 /**
- * Parse options from both the CLI.
+ * @brief Parse options from both the CLI.
+ *
  * @param argc Number of CLI arguments provided
  * @param argv Provided CLI arguments
  */
 int ParseOptions(int argc, char **argv);
 
 /**
- * Gets common compilation flags help.
- * @return
+ * @brief Gets a help for common compilation flags.
+ *
+ * @return A formatted text with line breaks
  */
 std::string CommonCompilationFlagsHelp();
 }  // namespace zephir::commands

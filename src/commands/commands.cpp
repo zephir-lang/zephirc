@@ -12,6 +12,7 @@
 
 #include <CLI/CLI11.hpp>
 
+#include "cmd_build.hpp"
 #include "cmd_clean.hpp"
 #include "cmd_compile.hpp"
 #include "cmd_fullclean.hpp"
@@ -58,9 +59,8 @@ int zephir::commands::ParseOptions(int argc, char** argv) {
          "api",
          "Generates a HTML API based on the classes exposed in the extension")
       ->group(commands_group);
-  app.add_subcommand("build", "Generates/Compiles/Installs a Zephir extension")
-      ->group(commands_group);
 
+  zephir::commands::BuildCommand build(&app, commands_group);
   zephir::commands::CleanCommand clean(&app, commands_group);
   zephir::commands::CompileCommand compile(&app, commands_group);
   zephir::commands::FullcleanCommand fullclean(&app, commands_group);

@@ -5,8 +5,8 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#ifndef ZEPHIR_COMMANDS_CMD_COMPILE_HPP_
-#define ZEPHIR_COMMANDS_CMD_COMPILE_HPP_
+#ifndef ZEPHIR_COMMANDS_CMD_BUILD_HPP_
+#define ZEPHIR_COMMANDS_CMD_BUILD_HPP_
 
 #include <string>
 
@@ -14,11 +14,11 @@
 
 namespace zephir::commands {
 /**
- * @brief Compile a Zephir extension.
+ * @brief Generates/Compiles/Installs a Zephir extension.
  */
-class CompileCommand {
+class BuildCommand {
  public:
-  CompileCommand(CLI::App* app, const std::string& group);
+  BuildCommand(CLI::App* app, const std::string& group);
 
  private:
   /**
@@ -34,7 +34,7 @@ class CompileCommand {
    */
   void Execute();
 
-  // Collection of all options of CompileCommand.
+  // Collection of all options of BuildCommand.
   struct Options {
     std::string backend;
     bool dev;
@@ -42,4 +42,4 @@ class CompileCommand {
 };
 }  // namespace zephir::commands
 
-#endif  // ZEPHIR_COMMANDS_CMD_COMPILE_HPP_
+#endif  // ZEPHIR_COMMANDS_CMD_BUILD_HPP_

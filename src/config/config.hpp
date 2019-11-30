@@ -17,12 +17,12 @@
 
 namespace zephir {
 /**
- * Manages compiler global configuration.
+ * @brief Manages compiler global configuration.
  */
 class Config {
  public:
   /**
-   * Config constructor.
+   * @brief Config constructor.
    *
    * @param file The default name/location of the config file
    * @throws std::runtime_error Thrown if config could not be parsed
@@ -30,15 +30,16 @@ class Config {
   explicit Config(const std::string &file);
 
   /**
-   * Is config changed?
+   * @brief Is config changed?
    *
    * @return true if default config is changed, false otherwise.
    */
   bool IsChanged();
 
   /**
-   * Factory method to create a Config instance from argv and config file.
-   * Initialize configuration from both the CLI and a possible config file.
+   * @brief Factory method to create a Config instance from argv and config
+   * file. Initialize configuration from both the CLI and a possible config
+   * file.
    *
    * @param argc Number of command line arguments provided
    * @param argv Provided command line arguments arguments
@@ -54,7 +55,7 @@ class Config {
 
  protected:
   /**
-   * Populate project configuration.
+   * @brief Populate project configuration.
    *
    * @param file Configuration file.
    * @return 0 on success, a positive number on failure

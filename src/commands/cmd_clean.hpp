@@ -22,14 +22,15 @@ class CleanCommand {
 
  private:
   /**
-   * Configures the current command.
+   * @brief Configures the current command.
+   *
    * @param app CLI::App instance
    * @param group The command group membership
    */
   void Configure(CLI::App* app, const std::string& group);
 
   /**
-   * Executes the current command.
+   * @brief Executes the current command.
    */
   void Execute();
 };
