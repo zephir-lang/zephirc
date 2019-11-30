@@ -7,7 +7,7 @@
 
 # Add definition for commands library.
 file(GLOB CMD_FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmd_*.cpp)
-add_library(commands STATIC commands.cpp formatter.cpp ${CMD_FILES})
+add_library(commands SHARED commands.cpp formatter.cpp ${CMD_FILES})
 
 target_include_directories(
   commands PRIVATE $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>

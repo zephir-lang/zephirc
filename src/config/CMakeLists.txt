@@ -5,11 +5,10 @@
 # For the full copyright and license information, please view the LICENSE file
 # that was distributed with this source code.
 
-set(YAMLCPP_STATIC_LIBRARY ON)
 find_package(YAMLCPP REQUIRED)
 
 # Add definition for config library.
-add_library(config STATIC config.cpp)
+add_library(config SHARED config.cpp)
 
 target_include_directories(
   config
@@ -18,7 +17,7 @@ target_include_directories(
           ${YAMLCPP_INCLUDE_DIR}
   PUBLIC ${CMAKE_SOURCE_DIR}/src)
 
-target_link_libraries(config PRIVATE ${YAMLCPP_LIBRARY} filesystem commands)
+target_link_libraries(config PUBLIC ${YAMLCPP_LIBRARY} filesystem commands)
 target_code_coverage(config AUTO ALL)
 
 # CMakeLists.txt ends here

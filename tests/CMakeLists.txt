@@ -34,7 +34,8 @@ target_include_directories(
           $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
           ${CMAKE_SOURCE_DIR}/src/config)
 
-target_link_libraries(config_test PRIVATE gtest config)
+target_link_libraries(config_test PRIVATE gtest)
+target_link_libraries(config_test PUBLIC config)
 target_code_coverage(config_test AUTO ALL EXCLUDE ${COVERAGE_EXCLUDES})
 
 gtest_discover_tests(
