@@ -45,5 +45,7 @@ void zephir::commands::GenerateCommand::Configure(CLI::App* app,
 
 void zephir::commands::GenerateCommand::Execute() {
   // Do stuff...
+  std::cout << "Generate command" << std::endl;
   std::cout << "NOT IMPLEMENTED" << std::endl;
+  std::cout << "    options.backend = " << options.backend << std::endl;
 }
