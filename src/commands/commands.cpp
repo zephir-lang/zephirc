@@ -12,6 +12,7 @@
 
 #include <CLI/CLI11.hpp>
 
+#include "cmd_api.hpp"
 #include "cmd_build.hpp"
 #include "cmd_clean.hpp"
 #include "cmd_compile.hpp"
@@ -54,12 +55,9 @@ int zephir::commands::ParseOptions(int argc, char** argv) {
   app.add_flag("-V, --version", "Print compiler version information and quit");
 
   // Commands
-  auto commands_group = "Available commands";
-  app.add_subcommand(
-         "api",
-         "Generates a HTML API based on the classes exposed in the extension")
-      ->group(commands_group);
+  const auto commands_group = "Available commands";
 
+  zephir::commands::ApiCommand api(&app, commands_group);
   zephir::commands::BuildCommand build(&app, commands_group);
   zephir::commands::CleanCommand clean(&app, commands_group);
   zephir::commands::CompileCommand compile(&app, commands_group);
