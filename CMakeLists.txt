@@ -8,28 +8,33 @@
 cmake_minimum_required(VERSION 3.11...3.16)
 
 # Prepare VERSION variable
-include("${CMAKE_SOURCE_DIR}/cmake/version.cmake")
+include("${CMAKE_SOURCE_DIR}/cmake/Version.cmake")
 
 project(
   zephir
   LANGUAGES CXX
-  VERSION "${VERSION}"
+  VERSION "${ZEPHIR_VERSION}"
   DESCRIPTION "A Zephir compiler")
 
 # Provide path for cmake scripts
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
+# Options
+option(CODE_COVERAGE "Builds targets with code coverage instrumentation." OFF)
+option(ZEPHIR_BUILD_TESTING "Build test project" OFF)
+
 # CMake Script Includes
 include(bootstrap)
 include(compiler-detect)
-include(c++-standards)
 include(compiler-options)
 include(cppcheck)
 include(code-coverage)
 include(formatting)
 
 # Require C++17
-cxx_17()
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Tools
 file(
@@ -91,7 +96,6 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
   include(CTest)
 endif()
 
-option(ZEPHIR_BUILD_TESTING "Build test project" OFF)
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME
    AND BUILD_TESTING
    AND ZEPHIR_BUILD_TESTING)
