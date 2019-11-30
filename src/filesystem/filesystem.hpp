@@ -12,14 +12,16 @@
 
 namespace zephir::filesystem {
 /**
- * Fastest way to check if a file exist.
+ * @brief Fastest way to check if a file exist.
+ *
  * @param name The location of the file
  * @return true on success, false otherwise
  */
 bool Exists(const std::string& name);
 
 /**
- * Gets current working compiler path.
+ * @brief Gets current working compiler path.
+ *
  * @return current working path
  */
 std::string GetCurrentWorkingPath();
