@@ -37,8 +37,9 @@ class Config {
   bool IsChanged();
 
   /**
-   * @brief Factory method to create a Config instance from argv and config file.
-   * Initialize configuration from both the CLI and a possible config file.
+   * @brief Factory method to create a Config instance from argv and config
+   * file. Initialize configuration from both the CLI and a possible config
+   * file.
    *
    * @param argc Number of command line arguments provided
    * @param argv Provided command line arguments arguments
