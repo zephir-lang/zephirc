@@ -24,9 +24,7 @@ unset(zephirVersion)
 set(ZEPHIR_VERSION
     ${ZEPHIR_VERSION_MAJOR}.${ZEPHIR_VERSION_MINOR}.${ZEPHIR_VERSION_PATCH})
 
-mark_as_advanced(ZEPHIR_VERSION_MAJOR)
-mark_as_advanced(ZEPHIR_VERSION_MINOR)
-mark_as_advanced(ZEPHIR_VERSION_PATCH)
+mark_as_advanced(ZEPHIR_VERSION_MAJOR ZEPHIR_VERSION_MINOR ZEPHIR_VERSION_PATCH)
 
 # Version.cmake ends here
 
