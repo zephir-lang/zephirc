@@ -83,7 +83,7 @@ else()
 endif()
 unset(_base_message)
 
-# cppcheck.cmake ends here
+# Cppcheck.cmake ends here
 
 # cmake-format: off
 # Local Variables:

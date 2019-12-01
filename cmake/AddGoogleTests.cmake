@@ -30,7 +30,7 @@ endif()
 set(CMAKE_CXX_CPPCHECK_ORIGIN "${CMAKE_CXX_CPPCHECK}")
 set(CMAKE_CXX_CPPCHECK "${CMAKE_CXX_CPPCHECK_ORIGIN}")
 
-# install-gtest.cmake ends here
+# AddGoogleTests.cmake ends here
 
 # cmake-format: off
 # Local Variables:

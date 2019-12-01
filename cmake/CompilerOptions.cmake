@@ -23,7 +23,7 @@ if(ENABLE_ALL_WARNINGS)
     # GCC
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
-  elseif(CMAKE_CXX_COMPILER_ID MATCHES "GNU|(Apple)?[Cc]lang")
+  elseif(CMAKE_CXX_COMPILER_ID MATCHES "(Apple)?[Cc]lang")
     # Clang
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
@@ -39,7 +39,7 @@ if(ENABLE_EFFECTIVE_CXX)
   if(CMAKE_COMPILER_IS_GNUCXX)
     # GCC
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Weffc++")
-  elseif(CMAKE_CXX_COMPILER_ID MATCHES "GNU|(Apple)?[Cc]lang")
+  elseif(CMAKE_CXX_COMPILER_ID MATCHES "(Apple)?[Cc]lang")
     # Clang
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Weffc++")
   endif()
@@ -47,7 +47,7 @@ endif()
 
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0")
 
-# compiler-options.cmake ends here
+# CompilerOptions.cmake ends here
 
 # cmake-format: off
 # Local Variables:

@@ -24,10 +24,10 @@ option(CODE_COVERAGE "Builds targets with code coverage instrumentation." OFF)
 option(ZEPHIR_BUILD_TESTING "Build test project" OFF)
 
 # CMake Script Includes
-include(bootstrap)
-include(compiler-options)
-include(cppcheck)
-include(formatting)
+include(Bootstrap)
+include(CompilerOptions)
+include(Cppcheck)
+include(Formatting)
 
 # Require C++17
 set(CMAKE_CXX_STANDARD 17)
