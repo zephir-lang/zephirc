@@ -25,7 +25,6 @@ option(ZEPHIR_BUILD_TESTING "Build test project" OFF)
 
 # CMake Script Includes
 include(bootstrap)
-include(compiler-detect)
 include(compiler-options)
 include(cppcheck)
 include(formatting)
