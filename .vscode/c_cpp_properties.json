@@ -1,41 +1,50 @@
 {
-    "version": 4,
+    "env": {
+        "projectDefaultIncludePath": [
+            "${workspaceFolder}/external/**",
+            "${workspaceFolder}/include",
+            "${workspaceFolder}/src/**"
+        ],
+        "projectCompileCommand": "${workspaceFolder}/build/compile_commands.json",
+        "projectBrowseDatabase": "${workspaceFolder}/.vscode/browse.vc.db"
+    },
     "configurations": [
         {
             "name": "Zephir for macOs",
             "intelliSenseMode": "clang-x64",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${projectDefaultIncludePath}"
             ],
             "browse": {
                 "path": [
-                    "${workspaceFolder}/**"
+                    "${projectDefaultIncludePath}"
                 ],
                 "limitSymbolsToIncludedHeaders": false,
-                "databaseFilename": "${workspaceFolder}/.vscode/browse.vc.db"
+                "databaseFilename": "${projectBrowseDatabase}"
             },
             "compilerPath": "/usr/bin/clang",
             "cppStandard": "c++17",
             "cStandard": "c11",
-            "compileCommands": "${workspaceFolder}/build/compile_commands.json"
+            "compileCommands": "${projectCompileCommand}"
         },
         {
             "name": "Zephir for Linux",
             "intelliSenseMode": "clang-x64",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${projectDefaultIncludePath}"
             ],
             "browse": {
                 "path": [
-                    "${workspaceFolder}/**"
+                    "${projectDefaultIncludePath}"
                 ],
                 "limitSymbolsToIncludedHeaders": false,
-                "databaseFilename": "${workspaceFolder}/.vscode/browse.vc.db"
+                "databaseFilename": "${projectBrowseDatabase}"
             },
             "compilerPath": "/usr/bin/gcc",
             "cppStandard": "c++17",
             "cStandard": "c11",
-            "compileCommands": "${workspaceFolder}/build/compile_commands.json"
+            "compileCommands": "${projectCompileCommand}"
         }
-    ]
+    ],
+    "version": 4
 }
