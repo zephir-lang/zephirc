@@ -21,9 +21,6 @@ target_include_directories(
           ${CMAKE_SOURCE_DIR}/src/commands)
 
 target_link_libraries(options_test PRIVATE gtest PUBLIC commands)
-#target_code_coverage(options_test
-#        AUTO ALL EXCLUDE ${COVERAGE_EXCLUDES}
-#        OBJECTS commands)
 
 gtest_discover_tests(
   options_test
@@ -40,9 +37,6 @@ target_include_directories(
           ${CMAKE_SOURCE_DIR}/src/config)
 
 target_link_libraries(config_test PRIVATE gtest PUBLIC config)
-#target_code_coverage(config_test
-#        AUTO ALL EXCLUDE ${COVERAGE_EXCLUDES}
-#        OBJECTS config)
 
 gtest_discover_tests(
   config_test
@@ -52,21 +46,6 @@ gtest_discover_tests(
 # Handle codecoverage
 if(CODE_COVERAGE)
     include(CodeCoverage)
-
-    #set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fprofile-arcs -ftest-coverage" PARENT_SCOPE)
-    #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage" PARENT_SCOPE)
-    # APPEND_COVERAGE_COMPILER_FLAGS
-
-    #"/usr/*"
-    #"build/*"
-    #"*/build/*"
-    #"tests/*"
-    #"*/tests/*"
-    #"external/*"
-    #"*/external/*"
-
-    # append_coverage_compiler_flags()
-
     set(COVERAGE_EXCLUDES '/usr/*' '*/build/*' '*/usr/include/*' '*/tests/*' '*/external/*')
 
     setup_code_coverage_target(
