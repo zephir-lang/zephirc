@@ -32,6 +32,7 @@ if(ENABLE_ALL_WARNINGS)
 endif()
 
 # TODO(klay): We can't apply this on Linux with gtests.
+# TODO(klay): Do we need check for C compiler for CXX flags?
 if(ENABLE_EFFECTIVE_CXX)
   if(CMAKE_COMPILER_IS_GNUCC
      OR CMAKE_COMPILER_IS_GNUCXX
