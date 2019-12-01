@@ -138,6 +138,54 @@
         },
 
         {
+            "label": "Tests | Run all tests with coverage",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/build",
+                "env": {
+                    "ZEPHIR_TESTS_ROOT": "${workspaceFolder}/tests"
+                }
+            },
+            "linux": {
+                "command": "make"
+            },
+            "osx": {
+                "command": "make"
+            },
+            "windows": {
+                "command": "nmake"
+            },
+            "args": [
+                "check"
+            ],
+            "dependsOn": [
+                "Coverage | Clean coverage data",
+                "Build | Build project"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "focus": true,
+                "showReuseMessage": false
+            },
+            "problemMatcher": {
+                "owner": "ctest",
+                "fileLocation": "absolute",
+                "pattern":[
+                    {
+                        "regexp": "^(.*):(\\d+):\\s+Failure$",
+                        "file": 1,
+                        "location": 2
+                    },
+                    {
+                        "regexp": "^(.*)$",
+                        "message": 1
+                    }
+                ]
+            }
+        },
+
+        {
             "label": "Format | Format C++ code",
             "type": "shell",
             "options": {
@@ -248,91 +296,10 @@
                 "command": "nmake"
             },
             "args": [
-                "ccov-all"
+                "ccov-html"
             ],
-            "presentation": {
-                "reveal": "always",
-                "panel": "shared",
-                "focus": true,
-                "showReuseMessage": false
-            },
-            "problemMatcher": []
-        },
-
-        {
-            "label": "Coverage | Open HTML code coverage report",
-            "type": "shell",
-            "options": {
-                "cwd": "${workspaceFolder}/build",
-                "env": {
-                    "ZEPHIR_TESTS_ROOT": "${workspaceFolder}/tests"
-                }
-            },
-            "linux": {
-                "command": "make"
-            },
-            "osx": {
-                "command": "make"
-            },
-            "windows": {
-                "command": "nmake"
-            },
-            "args": [
-                "ccov-open"
-            ],
-            "presentation": {
-                "reveal": "always",
-                "panel": "shared",
-                "focus": true,
-                "showReuseMessage": false
-            },
-            "problemMatcher": []
-        },
-
-        {
-            "label": "Coverage | Print coverage summary",
-            "type": "shell",
-            "options": {
-                "cwd": "${workspaceFolder}/build"
-            },
-            "linux": {
-                "command": "make"
-            },
-            "osx": {
-                "command": "make"
-            },
-            "windows": {
-                "command": "nmake"
-            },
-            "args": [
-                "ccov-all-report"
-            ],
-            "presentation": {
-                "reveal": "always",
-                "panel": "shared",
-                "focus": true,
-                "showReuseMessage": false
-            },
-            "problemMatcher": []
-        },
-
-        {
-            "label": "Coverage | Export coverage information (JSON)",
-            "type": "shell",
-            "options": {
-                "cwd": "${workspaceFolder}/build"
-            },
-            "linux": {
-                "command": "make"
-            },
-            "osx": {
-                "command": "make"
-            },
-            "windows": {
-                "command": "nmake"
-            },
-            "args": [
-                "ccov-all-export"
+            "dependsOn": [
+                "Coverage | Run all tests with coverage"
             ],
             "presentation": {
                 "reveal": "always",

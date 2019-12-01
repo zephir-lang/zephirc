@@ -48,7 +48,7 @@ else()
   set(BUILD_JOBS 2)
 endif()
 
-# build-types.cmake ends here
+# Bootstrap.cmake ends here
 
 # cmake-format: off
 # Local Variables:

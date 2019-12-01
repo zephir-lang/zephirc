@@ -159,7 +159,7 @@ function(cmake_format TARGET_NAME)
   endif()
 endfunction()
 
-# formatting.cmake ends here
+# Formatting.cmake ends here
 
 # cmake-format: off
 # Local Variables:

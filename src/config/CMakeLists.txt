@@ -17,8 +17,8 @@ target_include_directories(
           ${YAMLCPP_INCLUDE_DIR}
   PUBLIC ${CMAKE_SOURCE_DIR}/src)
 
-target_link_libraries(config PUBLIC ${YAMLCPP_LIBRARY} filesystem commands)
-target_code_coverage(config AUTO ALL)
+target_link_libraries(config PUBLIC ${YAMLCPP_LIBRARY} filesystem commands
+                                    zephir::coverage)
 
 # CMakeLists.txt ends here
 
