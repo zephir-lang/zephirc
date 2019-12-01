@@ -19,6 +19,7 @@
 #include "cmd_fullclean.hpp"
 #include "cmd_generate.hpp"
 #include "cmd_init.hpp"
+#include "cmd_install.hpp"
 #include "formatter.hpp"
 #include "zephir/main.hpp"
 #include "zephir/version.hpp"
@@ -66,11 +67,8 @@ int zephir::commands::ParseOptions(int argc, char** argv) {
   zephir::commands::FullcleanCommand fullclean(&app, commands_group);
   zephir::commands::GenerateCommand generate(&app, commands_group);
   zephir::commands::InitCommand init(&app, commands_group);
+  zephir::commands::InstallCommand install(&app, commands_group);
 
-  app.add_subcommand("install",
-                     "Installs the extension in the extension directory (may "
-                     "require root password)")
-      ->group(commands_group);
   app.add_subcommand("stubs", "Generates stubs that can be used in a PHP IDE")
       ->group(commands_group);
 
