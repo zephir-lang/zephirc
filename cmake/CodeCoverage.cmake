@@ -159,12 +159,12 @@ function(setup_code_coverage_target)
       --directory ${CMAKE_BINARY_DIR} --capture --output-file
       ${CCOV_OUTPUT_DIRECTORY}/${ARG_NAME}.info
     COMMAND
-      ${LCOV_EXECUTABLE} ${ARG_EXECUTABLE_ARGS} --gcov-tool ${GCOV_EXECUTABLE}
+      ${LCOV_EXECUTABLE} ${ARG_LCOV_ARGS} --gcov-tool ${GCOV_EXECUTABLE}
       --add-tracefile ${CCOV_OUTPUT_DIRECTORY}/${ARG_NAME}.base --add-tracefile
       ${CCOV_OUTPUT_DIRECTORY}/${ARG_NAME}.info --output-file
       ${CCOV_OUTPUT_DIRECTORY}/${ARG_NAME}.total
     COMMAND
-      ${LCOV_EXECUTABLE} ${ARG_EXECUTABLE_ARGS} --gcov-tool ${GCOV_EXECUTABLE}
+      ${LCOV_EXECUTABLE} ${ARG_LCOV_ARGS} --gcov-tool ${GCOV_EXECUTABLE}
       --remove ${CCOV_OUTPUT_DIRECTORY}/${ARG_NAME}.total ${COVERAGE_EXCLUDES}
       --output-file ${CCOV_OUTPUT_DIRECTORY}/${ARG_NAME}.clean
     COMMAND ${GENHTML_EXECUTABLE} ${ARG_GENHTML_ARGS} --output-directory
