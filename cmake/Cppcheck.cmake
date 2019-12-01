@@ -14,7 +14,7 @@ if(UNIX)
   find_program(
     CPPCHECK_BIN
     NAMES cppcheck
-    PATHS /usr /usr/local /opt /opt/local
+    PATHS /opt/local /opt /usr/local /usr
     PATH_SUFFIXES bin)
 elseif(WIN32)
   find_program(

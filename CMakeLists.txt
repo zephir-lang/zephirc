@@ -90,8 +90,6 @@ endif()
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME
    AND BUILD_TESTING
    AND ZEPHIR_BUILD_TESTING)
-  include(cppcheck)
-
   message(STATUS "Include test sources")
   add_subdirectory(tests)
 endif()
