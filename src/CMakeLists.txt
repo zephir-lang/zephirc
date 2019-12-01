@@ -13,8 +13,7 @@ add_subdirectory(logger)
 
 # Main
 add_executable(zephir main.cpp)
-target_link_libraries(zephir PRIVATE config)
-target_code_coverage(zephir AUTO ALL EXCLUDE ${COVERAGE_EXCLUDES})
+target_link_libraries(zephir PUBLIC config zephir::coverage)
 
 # CMakeLists.txt ends here
 

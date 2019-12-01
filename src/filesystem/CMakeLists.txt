@@ -7,7 +7,7 @@
 
 # Add definition for filesystem library.
 add_library(filesystem SHARED filesystem.cpp)
-target_code_coverage(filesystem AUTO ALL)
+target_link_libraries(filesystem PUBLIC zephir::coverage)
 
 # CMakeLists.txt ends here
 

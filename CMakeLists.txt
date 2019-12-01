@@ -8,12 +8,12 @@
 cmake_minimum_required(VERSION 3.11...3.16)
 
 # Prepare VERSION variable
-include("${CMAKE_SOURCE_DIR}/cmake/Version.cmake")
+include(${CMAKE_SOURCE_DIR}/cmake/Version.cmake)
 
 project(
   zephir
   LANGUAGES CXX
-  VERSION "${ZEPHIR_VERSION}"
+  VERSION ${ZEPHIR_VERSION}
   DESCRIPTION "A Zephir compiler")
 
 # Provide path for cmake scripts
@@ -28,7 +28,6 @@ include(bootstrap)
 include(compiler-detect)
 include(compiler-options)
 include(cppcheck)
-include(code-coverage)
 include(formatting)
 
 # Require C++17
@@ -68,25 +67,18 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
 
-# Handle codecoverage
-if(CODE_COVERAGE)
-  # Now we can exclude the stuff that we aren't interested in from the
-  # tracefile:
-  #
-  # * system deps
-  # * tests
-  # * build
-  # * thridparty-code
-  set(COVERAGE_EXCLUDES
-      "/usr/*"
-      "build/*"
-      "*/build/*"
-      "tests/*"
-      "*/tests/*"
-      "external/*"
-      "*/external/*")
-  add_code_coverage_all_targets(EXCLUDE ${COVERAGE_EXCLUDES})
-  mark_as_advanced(COVERAGE_EXCLUDES)
+# Code Coverage Configuration
+add_library(coverage_config INTERFACE)
+add_library(zephir::coverage ALIAS coverage_config)
+if(CODE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|(Apple)?[Cc]lang")
+  # Add required flags (GCC & LLVM/Clang)
+  target_compile_options(coverage_config INTERFACE -O0 -g --coverage)
+
+  if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.13)
+    target_link_options(coverage_config INTERFACE --coverage)
+  else()
+    target_link_libraries(coverage_config INTERFACE --coverage)
+  endif()
 endif()
 
 add_subdirectory(external)
