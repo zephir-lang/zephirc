@@ -7,8 +7,6 @@
 
 #include "cmd_init.hpp"
 
-#include "commands.hpp"
-
 zephir::commands::InitCommand::InitCommand(CLI::App* app,
                                            const std::string& group) {
   options.backend = "ZendEngine3";  // default

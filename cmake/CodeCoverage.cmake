@@ -150,9 +150,16 @@ function(setup_code_coverage_target)
     COMMAND
       ${LCOV_EXE} ${ARG_LCOV_ARGS} --remove ${COVERAGE_INFO}
       ${COVERAGE_EXCLUDES} --output-file ${COVERAGE_INFO}
+    COMMAND
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
     DEPENDS coverage-init ${ARG_DEPENDENCIES}
     COMMENT "Processing code coverage counters and generating report.")
+
+  add_custom_command(
+    TARGET ${ARG_NAME} POST_BUILD
+    COMMAND
+      find ${CMAKE_BINARY_DIR} -type f -name '*.gcda' -delete
+    COMMENT "Clean previous GCDA files")
 
   add_custom_command(
     TARGET ${ARG_NAME} POST_BUILD
