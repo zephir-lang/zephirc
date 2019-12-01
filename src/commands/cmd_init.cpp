@@ -10,26 +10,21 @@
 #include "commands.hpp"
 
 zephir::commands::InitCommand::InitCommand(CLI::App* app,
-                                                   const std::string& group) {
+                                           const std::string& group) {
   options.backend = "ZendEngine3";  // default
   Configure(app, group);
 }
 
 void zephir::commands::InitCommand::Configure(CLI::App* app,
-                                                  const std::string& group) {
-  auto cmd =
-      app->add_subcommand(
-              "init",
-              "Initializes a Zephir extension")
-          ->group(group);
+                                              const std::string& group) {
+  auto cmd = app->add_subcommand("init", "Initializes a Zephir extension")
+                 ->group(group);
 
   // Add options to cmd, binding them to options.
   cmd->add_option(
       "--backend", options.backend,
       "Used backend to generate extension [default: \"ZendEngine3\"]");
-  cmd->add_option(
-      "namespace", options.ns,
-      "The extension namespace");
+  cmd->add_option("namespace", options.ns, "The extension namespace");
   cmd->set_help_flag("-h, --help", "Print this help message and quit");
 
   // TODO(klay): Make it better.

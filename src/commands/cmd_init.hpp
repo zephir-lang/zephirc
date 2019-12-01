@@ -42,4 +42,4 @@ class InitCommand {
 };
 }  // namespace zephir::commands
 
-#endif //ZEPHIR_COMMANDS_CMD_INIT_HPP_
+#endif  // ZEPHIR_COMMANDS_CMD_INIT_HPP_
