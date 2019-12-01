@@ -145,8 +145,8 @@ function(setup_code_coverage_target)
     ccov-init
     COMMAND
       ${LCOV_EXECUTABLE} ${ARG_LCOV_ARGS} --gcov-tool ${GCOV_EXECUTABLE}
-      --capture --initial --directory ${CMAKE_BINARY_DIR} --output-file
-      ${CCOV_OUTPUT_DIRECTORY}/${ARG_NAME}.base
+      --capture --initial --directory ${CMAKE_BINARY_DIR} #
+      --output-file ${CCOV_OUTPUT_DIRECTORY}/${ARG_NAME}.base
     DEPENDS ccov-preprocessing
     COMMENT "Create baseline to make sure untouched files show up in the report"
   )
@@ -156,19 +156,20 @@ function(setup_code_coverage_target)
     COMMAND ${ARG_EXECUTABLE} ${ARG_EXECUTABLE_ARGS}
     COMMAND
       ${LCOV_EXECUTABLE} ${ARG_LCOV_ARGS} --gcov-tool ${GCOV_EXECUTABLE}
-      --directory ${CMAKE_BINARY_DIR} --capture --output-file
-      ${CCOV_OUTPUT_DIRECTORY}/${ARG_NAME}.info
+      --directory ${CMAKE_BINARY_DIR} --capture #
+      --output-file ${CCOV_OUTPUT_DIRECTORY}/${ARG_NAME}.info
     COMMAND
       ${LCOV_EXECUTABLE} ${ARG_LCOV_ARGS} --gcov-tool ${GCOV_EXECUTABLE}
-      --add-tracefile ${CCOV_OUTPUT_DIRECTORY}/${ARG_NAME}.base --add-tracefile
-      ${CCOV_OUTPUT_DIRECTORY}/${ARG_NAME}.info --output-file
-      ${CCOV_OUTPUT_DIRECTORY}/${ARG_NAME}.total
+      --add-tracefile ${CCOV_OUTPUT_DIRECTORY}/${ARG_NAME}.base #
+      --add-tracefile ${CCOV_OUTPUT_DIRECTORY}/${ARG_NAME}.info #
+      --output-file ${CCOV_OUTPUT_DIRECTORY}/${ARG_NAME}.total #
     COMMAND
       ${LCOV_EXECUTABLE} ${ARG_LCOV_ARGS} --gcov-tool ${GCOV_EXECUTABLE}
       --remove ${CCOV_OUTPUT_DIRECTORY}/${ARG_NAME}.total ${COVERAGE_EXCLUDES}
       --output-file ${CCOV_OUTPUT_DIRECTORY}/${ARG_NAME}.clean
-    COMMAND ${GENHTML_EXECUTABLE} ${ARG_GENHTML_ARGS} --output-directory
-            ${CCOV_OUTPUT_DIRECTORY} ${CCOV_OUTPUT_DIRECTORY}/${ARG_NAME}.clean
+    COMMAND ${GENHTML_EXECUTABLE} ${ARG_GENHTML_ARGS} #
+            --output-directory ${CCOV_OUTPUT_DIRECTORY}
+            ${CCOV_OUTPUT_DIRECTORY}/${ARG_NAME}.clean
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
     DEPENDS ccov-init ${ARG_DEPENDENCIES}
     COMMENT
@@ -178,7 +179,9 @@ function(setup_code_coverage_target)
   add_custom_command(
     TARGET ${ARG_NAME} POST_BUILD
     COMMAND ;
-    COMMENT "Lcov code coverage info report saved in ${ARG_NAME}.info")
+    COMMENT
+      "Lcov code coverage info report saved in ${ARG_NAME}.info\nCleaned report in ${ARG_NAME}.clean"
+  )
 
   add_custom_target(
     ccov-html
