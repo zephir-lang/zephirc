@@ -20,7 +20,10 @@ target_include_directories(
           $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
           ${CMAKE_SOURCE_DIR}/src/commands)
 
-target_link_libraries(options_test PRIVATE gtest PUBLIC commands)
+target_link_libraries(
+  options_test
+  PRIVATE gtest
+  PUBLIC commands)
 
 gtest_discover_tests(
   options_test
@@ -36,7 +39,10 @@ target_include_directories(
           $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
           ${CMAKE_SOURCE_DIR}/src/config)
 
-target_link_libraries(config_test PRIVATE gtest PUBLIC config)
+target_link_libraries(
+  config_test
+  PRIVATE gtest
+  PUBLIC config)
 
 gtest_discover_tests(
   config_test
@@ -44,14 +50,16 @@ gtest_discover_tests(
   PROPERTIES LABELS ConfigTest)
 
 # Handle codecoverage
-if(CODE_COVERAGE)
-    include(CodeCoverage)
-    set(COVERAGE_EXCLUDES '/usr/*' '*/build/*' '*/usr/include/*' '*/tests/*' '*/external/*')
+if(CODE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|(Apple)?[Cc]lang")
+  include(CodeCoverage)
+  set(COVERAGE_EXCLUDES '/usr/*' '*/build/*' '*/usr/include/*' '*/tests/*'
+                        '*/external/*')
 
-    setup_code_coverage_target(
-            NAME check
-            EXECUTABLE ctest -j ${BUILD_JOBS} --output-on-failure
-            DEPENDENCIES ${ZEPHIR_TESTS})
+  setup_code_coverage_target(
+    NAME check
+    EXECUTABLE ctest
+    EXECUTABLE_ARGS -j ${BUILD_JOBS} --output-on-failure
+    DEPENDENCIES ${ZEPHIR_TESTS})
 endif()
 
 # cmake-format: off
