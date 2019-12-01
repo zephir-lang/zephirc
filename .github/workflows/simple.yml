@@ -37,25 +37,17 @@ jobs:
             -DCMAKE_BUILD_TYPE=Debug  \
             -DZEPHIR_BUILD_TESTING=ON \
             -DENABLE_ALL_WARNINGS=ON  \
-            -DCODE_COVERAGE=ON        \
-            -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+            -DCODE_COVERAGE=ON
         echo ::set-env name=ZEPHIR_TESTS_ROOT::${GITHUB_WORKSPACE}/tests
 
     - name: Build
       run: cmake --build build -j "$(getconf _NPROCESSORS_ONLN)"
 
     - name: Run Tests
-      run: |
-          cd build
-          ctest -j $(getconf _NPROCESSORS_ONLN) --output-on-failure
-
-    - name: Generate code coverage report
-      run: |
-          cd build
-          make ccov-all-capture
+      run: cmake --build build --target check
 
     - name: Upload code coverage report
       uses: codecov/codecov-action@v1.0.3
       with:
         token: ${{secrets.CODECOV_TOKEN}}
-        file: ./build/ccov/all-merged.info
+        file: ./build/ccov/check.info
