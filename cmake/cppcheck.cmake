@@ -28,7 +28,7 @@ mark_as_advanced(CPPCHECK_BIN)
 
 set(_base_message "Check for cppcheck")
 if(CPPCHECK_BIN)
-  # Version number checking for '-std=c++17' compatability
+  # Version number checking for '-std=c++17' compatibility
   execute_process(
     COMMAND ${CPPCHECK_BIN} --version
     OUTPUT_VARIABLE CPPCHECK_VERSION_CALL_OUTPUT
