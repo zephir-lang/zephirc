@@ -172,7 +172,7 @@ function(setup_code_coverage_target)
     COMMAND ;
     COMMENT "Lcov code coverage info report saved in ${ARG_NAME}.info")
 
-  add_custom_command(ccov-html
+  add_custom_target(ccov-html
     COMMAND ${GENHTML_EXECUTABLE} ${ARG_GENHTML_ARGS}
             --output-directory ${CCOV_OUTPUT_DIRECTORY}
             ${CCOV_OUTPUT_DIRECTORY}/${ARG_NAME}.clean
