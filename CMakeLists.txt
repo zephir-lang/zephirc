@@ -71,12 +71,15 @@ add_library(coverage_config INTERFACE)
 add_library(zephir::coverage ALIAS coverage_config)
 if(CODE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|(Apple)?[Cc]lang")
   # Add required flags (GCC & LLVM/Clang)
-  target_compile_options(coverage_config INTERFACE -O0 -g --coverage)
+  target_compile_options(coverage_config INTERFACE -O0 -g -fprofile-arcs
+                                                   -ftest-coverage)
 
   if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.13)
-    target_link_options(coverage_config INTERFACE --coverage)
+    target_link_options(coverage_config INTERFACE -fprofile-arcs
+                        -ftest-coverage)
   else()
-    target_link_libraries(coverage_config INTERFACE --coverage)
+    target_link_libraries(coverage_config INTERFACE -fprofile-arcs
+                                                    -ftest-coverage)
   endif()
 endif()
 

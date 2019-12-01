@@ -52,13 +52,15 @@ gtest_discover_tests(
 # Handle codecoverage
 if(CODE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|(Apple)?[Cc]lang")
   include(CodeCoverage)
-  set(COVERAGE_EXCLUDES '/usr/*' '*/build/*' '*/usr/include/*' '*/tests/*'
+  set(COVERAGE_EXCLUDES '/usr/*' '*/build/*' '/Applications/*' '*/tests/*'
                         '*/external/*')
 
   setup_code_coverage_target(
     NAME check
     EXECUTABLE ctest
     EXECUTABLE_ARGS -j ${BUILD_JOBS} --output-on-failure
+    LCOV_ARGS --quiet
+    GENHTML_ARGS --quiet
     DEPENDENCIES ${ZEPHIR_TESTS})
 endif()
 

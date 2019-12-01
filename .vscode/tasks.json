@@ -296,7 +296,7 @@
                 "command": "nmake"
             },
             "args": [
-                "ccov-html"
+                "coverage-html"
             ],
             "dependsOn": [
                 "Coverage | Run all tests with coverage"

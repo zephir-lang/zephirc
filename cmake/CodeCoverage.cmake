@@ -5,6 +5,13 @@
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
 
+# Common checks to not run twice
+if(CCOV_ADDED)
+  return()
+endif()
+
+set(CCOV_ADDED ON)
+
 # Check compiler support
 macro(assert_compiler_supported)
   if(NOT CMAKE_CXX_COMPILER_ID MATCHES "GNU|(Apple)?[Cc]lang")
@@ -40,59 +47,61 @@ endmacro()
 # Check prerequisites
 if(UNIX)
   find_program(
-    GCOV_EXECUTABLE
-    NAMES gcov
-    PATHS /usr/local /usr
-    PATH_SUFFIXES bin)
-
-  find_program(
-    LCOV_EXECUTABLE
+    LCOV_EXE
     NAMES lcov lcov.perl
     PATHS /usr/local /usr
     PATH_SUFFIXES bin)
 
   find_program(
-    GENHTML_EXECUTABLE
+    GENHTML_EXE
     NAMES genhtml genhtml.perl
     PATHS /usr/local /usr
     PATH_SUFFIXES bin)
 
   find_program(
-    GCOVR_EXECUTABLE
+    GCOVR_EXE
     NAMES gcovr
     PATHS /usr/local /usr
     PATH_SUFFIXES bin)
 elseif(WIN32)
   find_program(
-    GCOV_EXECUTABLE
-    NAMES gcov.exe gcov.bat
-    PATHS C:/
-    PATH_SUFFIXES "")
-
-  find_program(
-    LCOV_EXECUTABLE
+    LCOV_EXE
     NAMES lcov.exe lcov.bat lcov.perl
     PATHS C:/
     PATH_SUFFIXES "")
 
   find_program(
-    GENHTML_EXECUTABLE
+    GENHTML_EXE
     NAMES genhtml.exe genhtml.bat genhtml.perl
     PATHS C:/
     PATH_SUFFIXES "")
 
   find_program(
-    GCOVR_EXECUTABLE
+    GCOVR_EXE
     NAMES gcovr.exe
     PATHS C:/
     PATH_SUFFIXES "")
 endif()
 
-mark_as_advanced(GCOV_EXECUTABLE LCOV_EXECUTABLE GENHTML_EXECUTABLE
-                 GCOVR_EXECUTABLE)
+mark_as_advanced(LCOV_EXE GENHTML_EXE GCOVR_EXE CCOV_ADDED)
+
+if(NOT LCOV_EXE)
+  message(FATAL_ERROR "lcov not found! Aborting...")
+endif()
 
 # Variables
 set(CCOV_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/ccov)
+
+add_custom_target(
+  coverage-preprocessing
+  COMMAND ${CMAKE_COMMAND} -E make_directory ${CCOV_OUTPUT_DIRECTORY}
+  DEPENDS coverage-clean
+  COMMENT "Create directory to collect coverage data")
+
+add_custom_target(
+  coverage-clean
+  COMMAND ${LCOV_EXE} --directory ${CMAKE_BINARY_DIR} --zerocounters
+  COMMENT "Resetting code coverage counters to zero")
 
 function(setup_code_coverage_target)
   # Define the supported set of keywords
@@ -103,94 +112,61 @@ function(setup_code_coverage_target)
                   GENHTML_ARGS)
 
   # Process the arguments passed in
-  include(CMakeParseArguments)
-
   cmake_parse_arguments(${prefix} "${noValues}" "${singleValues}"
                         "${multiValues}" ${ARGN})
 
   assert_compiler_supported()
   ensure_built_type()
 
-  if(NOT LCOV_EXECUTABLE)
-    message(FATAL_ERROR "lcov not found! Aborting...")
-  endif()
-
-  if(NOT GCOV_EXECUTABLE)
-    message(FATAL_ERROR "gcov not found! Aborting...")
-  endif()
-
-  if(NOT GENHTML_EXECUTABLE)
+  if(NOT GENHTML_EXE)
     message(FATAL_ERROR "genhtml not found! Aborting...")
   endif()
+
+  set(COVERAGE_INFO "${CCOV_OUTPUT_DIRECTORY}/${ARG_NAME}.info")
 
   # Setup targets
 
   add_custom_target(
-    ccov-clean
-    COMMAND ${CMAKE_COMMAND} -E remove ${CCOV_OUTPUT_DIRECTORY}/${ARG_NAME}.base
-            ${CCOV_OUTPUT_DIRECTORY}/${ARG_NAME}.total
-            ${CCOV_OUTPUT_DIRECTORY}/${ARG_NAME}.clean
+    coverage-init
     COMMAND
-      ${LCOV_EXECUTABLE} ${ARG_LCOV_ARGS} --gcov-tool ${GCOV_EXECUTABLE}
-      --directory ${CMAKE_BINARY_DIR} --zerocounters
-    COMMENT "Reset all execution counts to zero")
-
-  add_custom_target(
-    ccov-preprocessing
-    COMMAND ${CMAKE_COMMAND} -E make_directory ${CCOV_OUTPUT_DIRECTORY}
-    DEPENDS ccov-clean
-    COMMENT "Create directory to collect coverage data")
-
-  add_custom_target(
-    ccov-init
-    COMMAND
-      ${LCOV_EXECUTABLE} ${ARG_LCOV_ARGS} --gcov-tool ${GCOV_EXECUTABLE}
-      --capture --initial --directory ${CMAKE_BINARY_DIR} #
-      --output-file ${CCOV_OUTPUT_DIRECTORY}/${ARG_NAME}.base
-    DEPENDS ccov-preprocessing
-    COMMENT "Create baseline to make sure untouched files show up in the report"
-  )
+      ${LCOV_EXE} ${ARG_LCOV_ARGS} --capture --initial #
+      --directory ${CMAKE_BINARY_DIR} #
+      --output-file ${CCOV_OUTPUT_DIRECTORY}/${ARG_NAME}.base 2> /dev/null
+    DEPENDS coverage-preprocessing
+    COMMENT "Capture base info")
 
   add_custom_target(
     ${ARG_NAME}
+    COMMAND ${CMAKE_COMMAND} -E remove ${COVERAGE_INFO}
     COMMAND ${ARG_EXECUTABLE} ${ARG_EXECUTABLE_ARGS}
     COMMAND
-      ${LCOV_EXECUTABLE} ${ARG_LCOV_ARGS} --gcov-tool ${GCOV_EXECUTABLE}
-      --directory ${CMAKE_BINARY_DIR} --capture #
-      --output-file ${CCOV_OUTPUT_DIRECTORY}/${ARG_NAME}.info
+      ${LCOV_EXE} ${ARG_LCOV_ARGS} --directory ${CMAKE_BINARY_DIR} --capture #
+      --output-file ${COVERAGE_INFO} 2> /dev/null
     COMMAND
-      ${LCOV_EXECUTABLE} ${ARG_LCOV_ARGS} --gcov-tool ${GCOV_EXECUTABLE}
+      ${LCOV_EXE} ${ARG_LCOV_ARGS} #
+      --add-tracefile ${COVERAGE_INFO} #
       --add-tracefile ${CCOV_OUTPUT_DIRECTORY}/${ARG_NAME}.base #
-      --add-tracefile ${CCOV_OUTPUT_DIRECTORY}/${ARG_NAME}.info #
-      --output-file ${CCOV_OUTPUT_DIRECTORY}/${ARG_NAME}.total #
+      --output-file ${COVERAGE_INFO} #
     COMMAND
-      ${LCOV_EXECUTABLE} ${ARG_LCOV_ARGS} --gcov-tool ${GCOV_EXECUTABLE}
-      --remove ${CCOV_OUTPUT_DIRECTORY}/${ARG_NAME}.total ${COVERAGE_EXCLUDES}
-      --output-file ${CCOV_OUTPUT_DIRECTORY}/${ARG_NAME}.clean
-    COMMAND ${GENHTML_EXECUTABLE} ${ARG_GENHTML_ARGS} #
-            --output-directory ${CCOV_OUTPUT_DIRECTORY}
-            ${CCOV_OUTPUT_DIRECTORY}/${ARG_NAME}.clean
+      ${LCOV_EXE} ${ARG_LCOV_ARGS} --remove ${COVERAGE_INFO}
+      ${COVERAGE_EXCLUDES} --output-file ${COVERAGE_INFO}
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
-    DEPENDS ccov-init ${ARG_DEPENDENCIES}
-    COMMENT
-      "Resetting code coverage counters to zero.\nProcessing code coverage counters and generating report."
-  )
+    DEPENDS coverage-init ${ARG_DEPENDENCIES}
+    COMMENT "Processing code coverage counters and generating report.")
 
   add_custom_command(
     TARGET ${ARG_NAME} POST_BUILD
     COMMAND ;
-    COMMENT
-      "Lcov code coverage info report saved in ${ARG_NAME}.info\nCleaned report in ${ARG_NAME}.clean"
-  )
+    COMMENT "Lcov code coverage info report saved in ${COVERAGE_INFO}")
 
   add_custom_target(
-    ccov-html
-    COMMAND ${GENHTML_EXECUTABLE} ${ARG_GENHTML_ARGS} --output-directory
-            ${CCOV_OUTPUT_DIRECTORY} ${CCOV_OUTPUT_DIRECTORY}/${ARG_NAME}.clean
+    coverage-html
+    COMMAND ${GENHTML_EXE} ${ARG_GENHTML_ARGS} #
+            --output-directory ${CCOV_OUTPUT_DIRECTORY} ${COVERAGE_INFO}
     COMMENT "Generating HTML coverage report")
 
   add_custom_command(
-    TARGET ccov-html POST_BUILD
+    TARGET coverage-html POST_BUILD
     COMMAND ;
     COMMENT
       "Open ${CCOV_OUTPUT_DIRECTORY}/index.html in your browser to view the coverage report."
