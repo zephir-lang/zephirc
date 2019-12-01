@@ -13,11 +13,7 @@ indent_style             = space
 [Makefile]
 indent_style             = tab
 
-[*.cmake]
-indent_size              = 2
-
-# Space indentation with accordance to clang format
-[*.cpp, *.hpp]
+[*.{cpp, hpp, cmake}]
 indent_size              = 2
 
 [*.json]

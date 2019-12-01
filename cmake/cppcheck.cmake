@@ -28,7 +28,7 @@ mark_as_advanced(CPPCHECK_BIN)
 
 set(_base_message "Check for cppcheck")
 if(CPPCHECK_BIN)
-  # Version number checking for '-std=c++17' compatability
+  # Version number checking for '-std=c++17' compatibility
   execute_process(
     COMMAND ${CPPCHECK_BIN} --version
     OUTPUT_VARIABLE CPPCHECK_VERSION_CALL_OUTPUT
@@ -63,7 +63,7 @@ if(CPPCHECK_BIN)
         "--std=c++17"
         "--template={file}:{line}:{column}:\ {severity}:\ {message}\ [--suppress={id}]\\n{code}"
         "--inline-suppr"
-        "--suppressions-list=${CMAKE_SOURCE_DIR}/cpppcheck.supp"
+        "--suppressions-list=${CMAKE_SOURCE_DIR}/cppcheck.supp"
         "-j${BUILD_JOBS}"
         "--quiet"
         "--verbose"
@@ -81,6 +81,7 @@ else()
       ""
       CACHE STRING "" FORCE) # delete it
 endif()
+unset(_base_message)
 
 # cppcheck.cmake ends here
 

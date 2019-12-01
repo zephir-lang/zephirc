@@ -5,21 +5,28 @@
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
 
-file(STRINGS "${CMAKE_SOURCE_DIR}/include/zephir/version.hpp" zephir_version
-     REGEX "#define ZEPHIR_VERSION_(MAJOR|MINOR|PATCH)")
+set(versionRegex "#define[ \t]+ZEPHIR_VERSION_(MAJOR|MINOR|PATCH)")
 
-foreach(part ${zephir_version})
-  if(part MATCHES "#define ZEPHIR_VERSION_(MAJOR|MINOR|PATCH) +([^ ]+)$")
+file(STRINGS "${CMAKE_SOURCE_DIR}/include/zephir/version.hpp" zephirVersion
+     REGEX ${versionRegex})
+
+foreach(part ${zephirVersion})
+  if(part MATCHES "${versionRegex}[ \t]+([^ ]+)$")
     set(ZEPHIR_VERSION_${CMAKE_MATCH_1}
         "${CMAKE_MATCH_2}"
         CACHE INTERNAL "")
   endif()
 endforeach()
 
-set(VERSION
+unset(versionRegex)
+unset(zephirVersion)
+
+set(ZEPHIR_VERSION
     ${ZEPHIR_VERSION_MAJOR}.${ZEPHIR_VERSION_MINOR}.${ZEPHIR_VERSION_PATCH})
 
-# version.cmake ends here
+mark_as_advanced(ZEPHIR_VERSION_MAJOR ZEPHIR_VERSION_MINOR ZEPHIR_VERSION_PATCH)
+
+# Version.cmake ends here
 
 # cmake-format: off
 # Local Variables:
