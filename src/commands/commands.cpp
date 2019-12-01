@@ -18,6 +18,7 @@
 #include "cmd_compile.hpp"
 #include "cmd_fullclean.hpp"
 #include "cmd_generate.hpp"
+#include "cmd_init.hpp"
 #include "formatter.hpp"
 #include "zephir/main.hpp"
 #include "zephir/version.hpp"
@@ -39,6 +40,7 @@ int zephir::commands::ParseOptions(int argc, char** argv) {
   fmt->label("OPTIONS", "options");
   fmt->label("ARGUMENTS", "arguments");
   fmt->label("COMMAND", "command");
+  fmt->label("Positionals", "Arguments");
 
   app.formatter(fmt);
 
@@ -63,9 +65,8 @@ int zephir::commands::ParseOptions(int argc, char** argv) {
   zephir::commands::CompileCommand compile(&app, commands_group);
   zephir::commands::FullcleanCommand fullclean(&app, commands_group);
   zephir::commands::GenerateCommand generate(&app, commands_group);
+  zephir::commands::InitCommand init(&app, commands_group);
 
-  app.add_subcommand("init", "Initializes a Zephir extension")
-      ->group(commands_group);
   app.add_subcommand("install",
                      "Installs the extension in the extension directory (may "
                      "require root password)")

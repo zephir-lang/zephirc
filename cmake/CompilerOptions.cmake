@@ -19,28 +19,25 @@ option(ENABLE_EFFECTIVE_CXX "Enable Effective C++ warnings." OFF)
 # TODO(klay): add_definitions(-DZEPHIR_RELEASE)
 
 if(ENABLE_ALL_WARNINGS)
-  if(CMAKE_COMPILER_IS_GNUCXX)
-    # GCC
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
-  elseif(CMAKE_CXX_COMPILER_ID MATCHES "(Apple)?[Cc]lang")
-    # Clang
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
+  if(CMAKE_COMPILER_IS_GNUCC
+     OR CMAKE_COMPILER_IS_GNUCXX
+     OR CMAKE_CXX_COMPILER_ID MATCHES "(Apple)?[Cc]lang"
+     OR CMAKE_C_COMPILER_ID MATCHES "(Apple)?[Cc]lang")
+    # GCC/Clang
+    add_compile_options(-Wall -Wextra)
   elseif(MSVC)
     # MSVC
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /W4")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
+    add_compile_options(/W4)
   endif()
 endif()
 
 # TODO(klay): We can't apply this on Linux with gtests.
 if(ENABLE_EFFECTIVE_CXX)
-  if(CMAKE_COMPILER_IS_GNUCXX)
-    # GCC
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Weffc++")
-  elseif(CMAKE_CXX_COMPILER_ID MATCHES "(Apple)?[Cc]lang")
-    # Clang
+  if(CMAKE_COMPILER_IS_GNUCC
+     OR CMAKE_COMPILER_IS_GNUCXX
+     OR CMAKE_CXX_COMPILER_ID MATCHES "(Apple)?[Cc]lang"
+     OR CMAKE_C_COMPILER_ID MATCHES "(Apple)?[Cc]lang")
+    # GCC/Clang
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Weffc++")
   endif()
 endif()

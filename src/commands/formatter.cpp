@@ -37,7 +37,7 @@ std::string zephir::commands::Formatter::make_usage(
   std::vector<const CLI::Option *> positionals = app->get_options(
       [](const CLI::Option *opt) { return opt->get_positional(); });
   if (!app->get_parent() || !positionals.empty()) {
-    out += " [" + get_label("ARGUMENTS") + "]";
+    out += " [--] [" + get_label("ARGUMENTS") + "]";
   }
 
   return out += "\n";
