@@ -8,8 +8,8 @@
 #ifndef ZEPHIR_LOGGER_FACADE_HPP_
 #define ZEPHIR_LOGGER_FACADE_HPP_
 
-#include <spdlog/sinks/stdout_color_sinks.h>
 #include <spdlog/spdlog.h>
+#include <spdlog/sinks/stdout_sinks.h>
 
 #include <string>
 
@@ -22,7 +22,9 @@ namespace zephir::logger {
 template <class Type>
 class Facade {
  private:
+  // spdlog's global registry name
   const std::string _logger_name = "zephir_logger";
+
   std::shared_ptr<Type> _logger;
 
  public:
@@ -31,7 +33,7 @@ class Facade {
   /**
    * @brief Construct a new logger
    *
-   * @param logger_name - spdlog's global registry name
+   * @param logger - shared pointer to logger instance
    */
   Facade(std::shared_ptr<Type> logger);
 
