@@ -8,14 +8,6 @@
 first_comment_is_literal: true
 
 additional_commands:
-  setup_code_coverage_target:
-    kwargs:
-      NAME: '*'
-      EXECUTABLE: '*'
-      EXECUTABLE_ARGS: '*'
-      DEPENDENCIES: '*'
-      LCOV_ARGS: '*'
-      GENHTML_ARGS: '*'
   file:
     kwargs:
       GLOB: '*'
