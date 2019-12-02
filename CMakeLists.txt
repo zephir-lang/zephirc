@@ -8,7 +8,7 @@
 cmake_minimum_required(VERSION 3.11...3.16)
 
 # Prepare VERSION variable
-include(${CMAKE_SOURCE_DIR}/cmake/Version.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/Version.cmake)
 
 project(
   zephir
@@ -17,7 +17,7 @@ project(
   DESCRIPTION "A Zephir compiler")
 
 # Provide path for cmake scripts
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
+list(APPEND CMAKE_MODULE_PATH ${zephir_SOURCE_DIR}/cmake)
 
 # Options
 option(CODE_COVERAGE "Builds targets with code coverage instrumentation." OFF)
@@ -25,36 +25,41 @@ option(ZEPHIR_BUILD_TESTING "Build test project" OFF)
 
 # CMake Script Includes
 include(Bootstrap)
-include(CompilerOptions)
 include(Cppcheck)
-include(Formatting)
+
+if(NOT EXISTS "${zephir_SOURCE_DIR}/external/cmake-scripts/c++-standards.cmake")
+  message(FATAL_ERROR "Modules not installed Please run: git submodule update --init")
+endif()
+list(APPEND CMAKE_MODULE_PATH ${zephir_SOURCE_DIR}/external/cmake-scripts)
+
+# TODO(klay): Remove symlinks after this https://github.com/StableCoder/cmake-scripts/pull/10
+include(formatting)
+include(c++-standards)
+include(compiler-options)
 
 # Require C++17
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
+cxx_17()
 
 # Tools
 file(
   GLOB_RECURSE
-    FFILES
+    SOURCE_FILES
     ${CMAKE_CURRENT_SOURCE_DIR}/include/*.[hc]
     ${CMAKE_CURRENT_SOURCE_DIR}/include/*.[hc]pp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/*.[hc]
     ${CMAKE_CURRENT_SOURCE_DIR}/src/*.[hc]pp
     ${CMAKE_CURRENT_SOURCE_DIR}/tests/*.[hc]
     ${CMAKE_CURRENT_SOURCE_DIR}/tests/*.[hc]pp)
-clang_format(cpp-format ${FFILES})
+clang_format(cpp-format ${SOURCE_FILES})
 
 file(
   GLOB_RECURSE
-    FFILES
+    CMAKE_FILES
     ${CMAKE_CURRENT_SOURCE_DIR}/cmake/*.cmake
-    ${CMAKE_CURRENT_SOURCE_DIR}/external/*.cmake
     ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cmake
     ${CMAKE_CURRENT_SOURCE_DIR}/tests/*.cmake
     ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt)
-cmake_format(cmake-format ${FFILES})
+cmake_format(cmake-format ${CMAKE_FILES})
 
 if(NOT CMAKE_INSTALL_PREFIX)
   set(CMAKE_INSTALL_PREFIX
