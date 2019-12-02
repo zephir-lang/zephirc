@@ -84,13 +84,13 @@ if(CODE_COVERAGE)
   # * build
   # * thridparty-code
   set(COVERAGE_EXCLUDES
-          "/usr/*"
-          "build/*"
-          "*/build/*"
-          "tests/*"
-          "*/tests/*"
-          "external/*"
-          "*/external/*")
+      "/usr/*"
+      "build/*"
+      "*/build/*"
+      "tests/*"
+      "*/tests/*"
+      "external/*"
+      "*/external/*")
 
   # This introduces the 'ccov-all' targets
   add_code_coverage_all_targets(EXCLUDE ${COVERAGE_EXCLUDES})

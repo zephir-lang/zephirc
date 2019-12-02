@@ -87,7 +87,7 @@ export ZEPHIR_TESTS_ROOT=$(pwd)/tests
 
 cd build
 make
-ctest --output-on-failure
+make check
 ```
 
 Environment variable `ZEPHIR_TESTS_ROOT` is needed for those tests which reads fixture files from the disk.
