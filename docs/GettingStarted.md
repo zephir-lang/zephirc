@@ -51,6 +51,17 @@ Please note that specific versions of libraries and programs at the time of read
 
 ## Building from Source
 
+First you need to get initial project:
+
+```shell script
+git clone git@github.com:sergeyklay/cpp-zephir.git
+cd cpp-zephir
+git submodule init
+git submodule update
+```
+
+And wait for load any required dependencies. The next step is to build project.
+
 ### POSIX
 
 ```shell script
