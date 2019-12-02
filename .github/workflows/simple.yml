@@ -24,6 +24,10 @@ jobs:
 
     - name: Setup Prerequisites
       run: |
+        pip3 install conan
+        conan remote add conan-center https://api.bintray.com/conan/conan/conan-center
+        conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
+
         sudo apt-get update --quiet --yes 1>/dev/null
         sudo apt-get install --no-install-recommends --quiet --yes \
             lcov          \
