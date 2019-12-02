@@ -12,6 +12,7 @@
 /build/
 /build-*/
 *.profraw
+.conan/
 
 # I use this as my wish list
 LATER

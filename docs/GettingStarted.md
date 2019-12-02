@@ -8,6 +8,7 @@ To build Zephir compiler you need the following requirements:
 
 * A C compiler such as  [Gcc](https://gcc.gnu.org) >= 7.0.0, [Clang](https://clang.llvm.org) >= 5.0.0 or [Apple Clang](https://apps.apple.com/us/app/xcode/id497799835) >= 10.0.0
 * [cmake](https://cmake.org/) 3.11 or later
+* [conan](https://conan.io) decentralized package manager with a client-server architecture
 * Library for easy read/write for Yaml data: [yaml-cpp](https://github.com/jbeder/yaml-cpp) >= 0.6
 * Library for logging: [spdlog](https://github.com/gabime/spdlog) >= 1.4
 * C++ language standard support: C++17
@@ -45,7 +46,8 @@ brew install \
     pkg-config \
     yaml-cpp \
     spdlog \
-    clang-format
+    clang-format \
+    conan
 ```
 
 Please note that specific versions of libraries and programs at the time of reading this guide may vary.
@@ -66,6 +68,7 @@ And wait for load any required dependencies. The next step is to build project.
 ### POSIX
 
 ```shell script
+conan install . --install-folder=./conaninfo
 cmake -H. -Bbuild -DCMAKE_BUILD_TYPE=Release
 cmake --build build
 ```
