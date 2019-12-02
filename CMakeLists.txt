@@ -25,7 +25,6 @@ option(ZEPHIR_BUILD_TESTING "Build test project" OFF)
 
 # CMake Script Includes
 include(Bootstrap)
-include(CompilerOptions)
 include(Cppcheck)
 
 if(NOT EXISTS "${zephir_SOURCE_DIR}/external/cmake-scripts/c++-standards.cmake")
@@ -33,9 +32,10 @@ if(NOT EXISTS "${zephir_SOURCE_DIR}/external/cmake-scripts/c++-standards.cmake")
 endif()
 list(APPEND CMAKE_MODULE_PATH ${zephir_SOURCE_DIR}/external/cmake-scripts)
 
-include(c++-standards)
 # TODO(klay): Remove symlinks after this https://github.com/StableCoder/cmake-scripts/pull/10
 include(formatting)
+include(c++-standards)
+include(compiler-options)
 
 # Require C++17
 cxx_17()
