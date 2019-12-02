@@ -41,6 +41,7 @@ jobs:
             lcov          \
             libspdlog-dev \
             libyaml-cpp-dev
+        conan install . --install-folder=./.conan
 
     - name: Configure
       run: |
