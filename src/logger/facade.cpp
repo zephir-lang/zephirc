@@ -8,8 +8,14 @@
 #include "facade.hpp"
 
 template <class Type>
-zephir::logger::Facade<Type>::Facade(const std::string& logger_name) {
-  _logger = spdlog::stdout_color_mt(logger_name);
+zephir::logger::Facade<Type>::Facade() {
+  _logger = spdlog::stdout_color_mt(this->_logger_name);
+}
+
+template <class Type>
+zephir::logger::Facade<Type>::Facade(std::shared_ptr<Type> logger) {
+  _logger =
+      logger == nullptr ? spdlog::stdout_color_mt(this->_logger_name) : logger;
 }
 
 template <class Type>
