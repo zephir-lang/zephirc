@@ -6,8 +6,6 @@ These instructions will get you a copy of the project up and running on your loc
 
 To build Zephir compiler you need the following requirements:
 
-### POSIX
-
 * A C compiler such as  [Gcc](https://gcc.gnu.org) >= 7.0.0, [Clang](https://clang.llvm.org) >= 5.0.0 or [Apple Clang](https://apps.apple.com/us/app/xcode/id497799835) >= 10.0.0
 * [cmake](https://cmake.org/) 3.11 or later
 * Library for easy read/write for Yaml data: [yaml-cpp](https://github.com/jbeder/yaml-cpp) >= 0.6
@@ -19,9 +17,10 @@ To build Zephir compiler you need the following requirements:
 * Static analysis tool for C/C++ code: [Cppcheck](https://github.com/danmar/cppcheck) >= 1.89
 * Cmake formatting tool: [cmake-format](https://github.com/cheshirekow/cmake_format)
 * C, C++ formatting tool: [clang-format](https://clang.llvm.org/docs/ClangFormat.html)
-* To enable test coverage reports you need the following requirements:
-  * Gcc: `lcov`, `genhtml`
-  * Clang, Apple Clang: `llvm-profdata`, `llvm-cov`
+
+To enable test coverage reports you need the following requirements:
+* Gcc: `lcov`, `genhtml`
+* Clang, Apple Clang: `llvm-profdata`, `llvm-cov`
 
 If you're using Ubuntu, you can install the required packages this way:
 
@@ -75,8 +74,6 @@ cmake --build build
 
 To run the tests, you have to configure Zephir with special flags:
 
-### POSIX
-
 ```shell script
 cmake -H. \
   -Bbuild \
@@ -87,7 +84,7 @@ export ZEPHIR_TESTS_ROOT=$(pwd)/tests
 
 cd build
 make
-ctest --output-on-failure
+make check
 ```
 
 Environment variable `ZEPHIR_TESTS_ROOT` is needed for those tests which reads fixture files from the disk.

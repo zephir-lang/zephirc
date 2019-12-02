@@ -46,23 +46,21 @@ cxx_17()
 # Tools
 file(
   GLOB_RECURSE
-    SOURCE_FILES
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/*.[hc]
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/*.[hc]pp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/*.[hc]
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/*.[hc]pp
-    ${CMAKE_CURRENT_SOURCE_DIR}/tests/*.[hc]
-    ${CMAKE_CURRENT_SOURCE_DIR}/tests/*.[hc]pp)
-clang_format(cpp-format ${SOURCE_FILES})
+    ZEPHIR_SOURCE_FILES
+    ${zephir_SOURCE_DIR}/include/*.[hc]
+    ${zephir_SOURCE_DIR}/include/*.[hc]pp
+    ${zephir_SOURCE_DIR}/src/*.[hc]
+    ${zephir_SOURCE_DIR}/src/*.[hc]pp
+    ${zephir_SOURCE_DIR}/tests/*.[hc]
+    ${zephir_SOURCE_DIR}/tests/*.[hc]pp)
+clang_format(cpp-format ${ZEPHIR_SOURCE_FILES})
 
 file(
   GLOB_RECURSE
-    CMAKE_FILES
-    ${CMAKE_CURRENT_SOURCE_DIR}/cmake/*.cmake
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cmake
-    ${CMAKE_CURRENT_SOURCE_DIR}/tests/*.cmake
-    ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt)
-cmake_format(cmake-format ${CMAKE_FILES})
+    ZEPHIR_CMAKE_FILES ${zephir_SOURCE_DIR}/cmake/*.cmake
+    ${zephir_SOURCE_DIR}/src/*.cmake ${zephir_SOURCE_DIR}/tests/*.cmake
+    ${zephir_SOURCE_DIR}/CMakeLists.txt)
+cmake_format(cmake-format ${ZEPHIR_CMAKE_FILES})
 
 if(NOT CMAKE_INSTALL_PREFIX)
   set(CMAKE_INSTALL_PREFIX
@@ -84,13 +82,13 @@ if(CODE_COVERAGE)
   # * build
   # * thridparty-code
   set(COVERAGE_EXCLUDES
-          "/usr/*"
-          "build/*"
-          "*/build/*"
-          "tests/*"
-          "*/tests/*"
-          "external/*"
-          "*/external/*")
+      "/usr/*"
+      "build/*"
+      "*/build/*"
+      "tests/*"
+      "*/tests/*"
+      "external/*"
+      "*/external/*")
 
   # This introduces the 'ccov-all' targets
   add_code_coverage_all_targets(EXCLUDE ${COVERAGE_EXCLUDES})

@@ -100,9 +100,17 @@
                 "isDefault": true
             },
             "type":"shell",
-            "command": "ctest",
+            "linux": {
+                "command": "make"
+            },
+            "osx": {
+                "command": "make"
+            },
+            "windows": {
+                "command": "nmake"
+            },
             "args": [
-                "--output-on-failure"
+                "check"
             ],
             "options": {
                 "cwd": "${workspaceFolder}/build",
