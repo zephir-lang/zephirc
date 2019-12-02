@@ -19,7 +19,9 @@ To build Zephir compiler you need the following requirements:
 * Static analysis tool for C/C++ code: [Cppcheck](https://github.com/danmar/cppcheck) >= 1.89
 * Cmake formatting tool: [cmake-format](https://github.com/cheshirekow/cmake_format)
 * C, C++ formatting tool: [clang-format](https://clang.llvm.org/docs/ClangFormat.html)
-* To enable test coverage reports you need the following requirements: `lcov`, `gcov`, `genhtml`
+* To enable test coverage reports you need the following requirements:
+  * Gcc: `lcov`, `genhtml`
+  * Clang, Apple Clang: `llvm-profdata`, `llvm-cov`
 
 If you're using Ubuntu, you can install the required packages this way:
 
@@ -106,5 +108,5 @@ Additional cmake flags are (e.g. to enable `FEATURE` use `-DFEATURE=ON`):
 Follow these steps:
 
 1. Build project using `-DCODE_COVERAGE=ON`
-2. Go to `build` directory
-3. Call `make check` and `make ccov-html` commands
+2. Run tests
+3. Call `make ccov-all` inside the `build` directory
