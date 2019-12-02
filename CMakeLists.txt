@@ -27,7 +27,6 @@ option(ZEPHIR_BUILD_TESTING "Build test project" OFF)
 include(Bootstrap)
 include(CompilerOptions)
 include(Cppcheck)
-include(Formatting)
 
 if(NOT EXISTS "${zephir_SOURCE_DIR}/external/cmake-scripts/c++-standards.cmake")
   message(FATAL_ERROR "Modules not installed Please run: git submodule update --init")
@@ -35,6 +34,8 @@ endif()
 list(APPEND CMAKE_MODULE_PATH ${zephir_SOURCE_DIR}/external/cmake-scripts)
 
 include(c++-standards)
+# TODO(klay): Remove symlinks after this https://github.com/StableCoder/cmake-scripts/pull/10
+include(formatting)
 
 # Require C++17
 cxx_17()
