@@ -20,6 +20,10 @@ target_include_directories(
           $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
           ${CMAKE_SOURCE_DIR}/src/commands)
 
+# Adds the executable to the 'ccov' and 'ccov-all' targets and excludes the file
+# itself via regex
+target_code_coverage(options_test AUTO ALL EXTERNAL)
+
 target_link_libraries(
   options_test
   PRIVATE gtest
@@ -39,6 +43,10 @@ target_include_directories(
           $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
           ${CMAKE_SOURCE_DIR}/src/config)
 
+# Adds the executable to the 'ccov' and 'ccov-all' targets and excludes the file
+# itself via regex
+target_code_coverage(config_test AUTO ALL EXTERNAL)
+
 target_link_libraries(
   config_test
   PRIVATE gtest
@@ -48,21 +56,6 @@ gtest_discover_tests(
   config_test
   TEST_PREFIX gtest:
   PROPERTIES LABELS ConfigTest)
-
-# Handle codecoverage
-if(CODE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|(Apple)?[Cc]lang")
-  include(CodeCoverage)
-  set(COVERAGE_EXCLUDES '/usr/*' '*/build/*' '/Applications/*' '*/tests/*'
-                        '*/external/*')
-
-  setup_code_coverage_target(
-    NAME check
-    EXECUTABLE ctest
-    EXECUTABLE_ARGS -j ${BUILD_JOBS} --output-on-failure
-    LCOV_ARGS --quiet
-    GENHTML_ARGS --quiet
-    DEPENDENCIES ${ZEPHIR_TESTS})
-endif()
 
 # cmake-format: off
 # TODO: sharness tests

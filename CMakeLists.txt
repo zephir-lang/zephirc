@@ -28,14 +28,17 @@ include(Bootstrap)
 include(Cppcheck)
 
 if(NOT EXISTS "${zephir_SOURCE_DIR}/external/cmake-scripts/c++-standards.cmake")
-  message(FATAL_ERROR "Modules not installed Please run: git submodule update --init")
+  message(
+    FATAL_ERROR "Modules not installed Please run: git submodule update --init")
 endif()
 list(APPEND CMAKE_MODULE_PATH ${zephir_SOURCE_DIR}/external/cmake-scripts)
 
-# TODO(klay): Remove symlinks after this https://github.com/StableCoder/cmake-scripts/pull/10
+# TODO(klay): Remove symlinks after this https://github.com/StableCoder/cmake-
+# scripts/pull/10
 include(formatting)
 include(c++-standards)
 include(compiler-options)
+include(code-coverage)
 
 # Require C++17
 cxx_17()
@@ -71,21 +74,26 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
 
-# Code Coverage Configuration
-add_library(coverage_config INTERFACE)
-add_library(zephir::coverage ALIAS coverage_config)
-if(CODE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|(Apple)?[Cc]lang")
-  # Add required flags (GCC & LLVM/Clang)
-  target_compile_options(coverage_config INTERFACE -O0 -g -fprofile-arcs
-                                                   -ftest-coverage)
+# Handle codecoverage
+if(CODE_COVERAGE)
+  # Now we can exclude the stuff that we aren't interested in from the
+  # tracefile:
+  #
+  # * system deps
+  # * tests
+  # * build
+  # * thridparty-code
+  set(COVERAGE_EXCLUDES
+          "/usr/*"
+          "build/*"
+          "*/build/*"
+          "tests/*"
+          "*/tests/*"
+          "external/*"
+          "*/external/*")
 
-  if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.13)
-    target_link_options(coverage_config INTERFACE -fprofile-arcs
-                        -ftest-coverage)
-  else()
-    target_link_libraries(coverage_config INTERFACE -fprofile-arcs
-                                                    -ftest-coverage)
-  endif()
+  # This introduces the 'ccov-all' targets
+  add_code_coverage_all_targets(EXCLUDE ${COVERAGE_EXCLUDES})
 endif()
 
 add_subdirectory(external)

@@ -16,8 +16,10 @@ target_include_directories(
           $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}> ${SPDLOG_INCLUDE_DIR}
   PUBLIC ${CMAKE_SOURCE_DIR}/src)
 
+# Instruments the library
+target_code_coverage(logger AUTO ALL)
+
 target_link_libraries(logger PRIVATE spdlog::spdlog)
-target_link_libraries(logger PUBLIC zephir::coverage)
 
 # CMakeLists.txt ends here
 

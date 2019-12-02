@@ -13,7 +13,10 @@ target_include_directories(
   commands PRIVATE $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
                    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 
-target_link_libraries(commands PUBLIC CLI11 zephir::coverage)
+# Instruments the library
+target_code_coverage(commands AUTO ALL)
+
+target_link_libraries(commands PUBLIC CLI11)
 
 # CMakeLists.txt ends here
 
