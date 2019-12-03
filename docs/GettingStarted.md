@@ -10,7 +10,6 @@ To build Zephir compiler you need the following requirements:
 * [cmake](https://cmake.org/) 3.11 or later
 * [conan](https://conan.io) decentralized package manager with a client-server architecture
 * Library for easy read/write for Yaml data: [yaml-cpp](https://github.com/jbeder/yaml-cpp) >= 0.6
-* Library for logging: [spdlog](https://github.com/gabime/spdlog) >= 1.4
 * C++ language standard support: C++17
 
 For the full dependency list see `conanfile.txt` file located in the sources root.
@@ -48,29 +47,19 @@ brew install \
 ```
 
 Please note that specific versions of libraries and programs at the time of reading this guide may vary.
-Optional dependencies like `cppcheck`, `cmake-format` and so on can be installed using pip as follows:
+The following dependencies is recommended install using [`pip`](https://pip.pypa.io):
+
+* `conan`
+* `cppcheck`
+* `cmake-format`
+
+They can be installed using pip as follows:
 
 ```shell script
-pip install cppcheck
-pip install cmake-format
+pip install --upgrade conan cppcheck cmake-format
 ```
 
 ## Building from Source
-
-First you need to get initial project:
-
-```shell script
-git clone git@github.com:sergeyklay/cpp-zephir.git
-```
-
-Then you'll need to install conan as follows:
-
-```shell script
-pip install conan
-conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
-```
-
-And finally build the project:
 
 ```shell script
 cmake -H. -Bbuild -DCMAKE_BUILD_TYPE=Release
