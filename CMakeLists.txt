@@ -119,40 +119,19 @@ if(CODE_COVERAGE)
 endif()
 
 # Conan bootstrap
-#
-# Assumptions:
-#
-# * The file conanfile.txt is in this directory
-# * This CMakeLists.txt file is in the project ROOT directory
-# * The conan application is the project $PATH environment variable and
-#   accessible from command line
-if(NOT EXISTS "${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
-  execute_process(
-    COMMAND conan install . #
-            --install-folder "${CMAKE_BINARY_DIR}" #
-            --build=missing
-    WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
-    RESULT_VARIABLE result
-    OUTPUT_VARIABLE output
-    OUTPUT_STRIP_TRAILING_WHITESPACE)
-
-  if(NOT ${result} EQUAL 0)
-    string(REPLACE "\n" "\n    " output "${output}")
-    # cmake-format: off
-    message(FATAL_ERROR
-            "Failed to get required libraries.\n"
-            "  Result: ${result}\n"
-            "  Output:\n"
-            "    ${output}\n")
-    # cmake-format: on
-  endif()
-
-  unset(result)
-  unset(output)
+if(NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
+  message(STATUS "Downloading conan.cmake from https://github.com/conan-io/cmake-conan")
+  file(DOWNLOAD "https://github.com/conan-io/cmake-conan/raw/v0.13/conan.cmake"
+          "${CMAKE_BINARY_DIR}/conan.cmake")
 endif()
 
-include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-conan_basic_setup(TARGETS KEEP_RPATHS)
+include(${CMAKE_BINARY_DIR}/conan.cmake)
+conan_check()
+conan_add_remote(NAME bincrafters URL https://api.bintray.com/conan/bincrafters/public-conan)
+
+conan_cmake_run(CONANFILE conanfile.txt
+        BASIC_SETUP CMAKE_TARGETS KEEP_RPATHS
+        BUILD missing)
 
 add_subdirectory(external)
 add_subdirectory(src)
