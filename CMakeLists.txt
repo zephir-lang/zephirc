@@ -36,8 +36,16 @@ if(NOT EXISTS "${zephir_SOURCE_DIR}/external/cmake-scripts/c++-standards.cmake")
     RESULT_VARIABLE result
     OUTPUT_VARIABLE output
     OUTPUT_STRIP_TRAILING_WHITESPACE)
-  if(result)
-    message(FATAL_ERROR "Failed to get required git modules: ${output}")
+
+  if(NOT ${result} EQUAL 0)
+    string(REPLACE "\n" "\n    " output "${output}")
+    # cmake-format: off
+    message(FATAL_ERROR
+      "Failed to get required git modules: ${output}"
+      "  Result: ${result}\n"
+      "  Output:\n"
+      "    ${output}\n")
+    # cmake-format: on
   endif()
 
   unset(result)
