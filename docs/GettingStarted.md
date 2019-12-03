@@ -13,6 +13,8 @@ To build Zephir compiler you need the following requirements:
 * Library for logging: [spdlog](https://github.com/gabime/spdlog) >= 1.4
 * C++ language standard support: C++17
 
+For the full dependency list see `conanfile.txt` file located in the sources root.
+
 #### Optional
 
 * Static analysis tool for C/C++ code: [Cppcheck](https://github.com/danmar/cppcheck) >= 1.89
@@ -33,7 +35,6 @@ sudo apt-get install \
     cppcheck \
     pkg-config \
     build-essential \
-    libspdlog-dev \
     libyaml-cpp-dev \
     clang-format
 ```
@@ -45,8 +46,7 @@ brew install \
     cppcheck \
     pkg-config \
     yaml-cpp \
-    spdlog \
-    clang-format \
+    clang-format
 ```
 
 Please note that specific versions of libraries and programs at the time of reading this guide may vary.
