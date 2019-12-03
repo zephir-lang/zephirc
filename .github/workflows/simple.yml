@@ -39,7 +39,7 @@ jobs:
         sudo apt-get update --quiet --yes 1>/dev/null
         sudo apt-get install --no-install-recommends --quiet --yes \
             lcov          \
-            libspdlog-dev
+            libyaml-cpp-dev
         conan install . --install-folder=./.conan --build=missed
 
     - name: Configure
