@@ -25,8 +25,8 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v1
       with:
-        version: "3.6.x"
-        architecture: "x64"
+        version: 3.8
+        architecture: x64
 
     - name: Install conan
       run: |

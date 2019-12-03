@@ -68,7 +68,8 @@ And wait for load any required dependencies. The next step is to build project.
 ### POSIX
 
 ```shell script
-conan install . --install-folder=./conaninfo
+conan install . --install-folder=./.conan
+
 cmake -H. -Bbuild -DCMAKE_BUILD_TYPE=Release
 cmake --build build
 ```
