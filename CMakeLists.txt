@@ -53,8 +53,6 @@ if(NOT EXISTS "${zephir_SOURCE_DIR}/external/cmake-scripts/c++-standards.cmake")
 endif()
 list(APPEND CMAKE_MODULE_PATH ${zephir_SOURCE_DIR}/external/cmake-scripts)
 
-# TODO(klay): Remove symlinks after this https://github.com/StableCoder/cmake-
-# scripts/pull/10
 include(formatting)
 include(c++-standards)
 include(compiler-options)
@@ -126,7 +124,7 @@ if(NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
 endif()
 
 include(${CMAKE_BINARY_DIR}/conan.cmake)
-conan_check()
+conan_check(REQUIRED)
 conan_add_remote(NAME bincrafters URL https://api.bintray.com/conan/bincrafters/public-conan)
 
 conan_cmake_run(CONANFILE conanfile.txt
