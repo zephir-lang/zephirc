@@ -66,21 +66,25 @@ cxx_17()
 # Tools
 file(
   GLOB_RECURSE
-    ZEPHIR_SOURCE_FILES
+    glob_files
     ${zephir_SOURCE_DIR}/include/*.[hc]
     ${zephir_SOURCE_DIR}/include/*.[hc]pp
     ${zephir_SOURCE_DIR}/src/*.[hc]
     ${zephir_SOURCE_DIR}/src/*.[hc]pp
     ${zephir_SOURCE_DIR}/tests/*.[hc]
     ${zephir_SOURCE_DIR}/tests/*.[hc]pp)
-clang_format(cpp-format ${ZEPHIR_SOURCE_FILES})
 
-file(
-  GLOB_RECURSE
-    ZEPHIR_CMAKE_FILES ${zephir_SOURCE_DIR}/cmake/*.cmake
-    ${zephir_SOURCE_DIR}/src/*.cmake ${zephir_SOURCE_DIR}/tests/*.cmake
-    ${zephir_SOURCE_DIR}/CMakeLists.txt)
-cmake_format(cmake-format ${ZEPHIR_CMAKE_FILES})
+clang_format(cpp-format ${glob_files})
+
+file(GLOB_RECURSE glob_files ${zephir_SOURCE_DIR}/cmake/*.cmake)
+list(
+  APPEND glob_files #
+         ${zephir_SOURCE_DIR}/CMakeLists.txt
+         ${zephir_SOURCE_DIR}/src/CMakeLists.txt
+         ${zephir_SOURCE_DIR}/tests/CMakeLists.txt
+         ${zephir_SOURCE_DIR}/external/CMakeLists.txt)
+
+cmake_format(cmake-format "${glob_files}")
 
 if(NOT CMAKE_INSTALL_PREFIX)
   set(CMAKE_INSTALL_PREFIX
