@@ -69,7 +69,7 @@ And wait for load any required dependencies. The next step is to build project.
 
 ```shell script
 conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
-conan install . --install-folder=./.conan
+conan install . --install-folder=./.conan --build=missing
 
 cmake -H. -Bbuild -DCMAKE_BUILD_TYPE=Release
 cmake --build build
