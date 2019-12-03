@@ -27,6 +27,10 @@ option(ZEPHIR_BUILD_TESTING "Build test project" OFF)
 include(Bootstrap)
 include(Cppcheck)
 
+# Conan Package Manager Includes
+include(${zephir_SOURCE_DIR}/.conan/conanbuildinfo.cmake)
+conan_basic_setup()
+
 if(NOT EXISTS "${zephir_SOURCE_DIR}/external/cmake-scripts/c++-standards.cmake")
   message(
     FATAL_ERROR "Modules not installed Please run: git submodule update --init")
