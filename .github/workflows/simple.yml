@@ -40,7 +40,6 @@ jobs:
         sudo apt-get install --no-install-recommends --quiet --yes \
             lcov          \
             libyaml-cpp-dev
-        conan install . --install-folder=./.conan --build=missed
 
     - name: Configure
       run: |
