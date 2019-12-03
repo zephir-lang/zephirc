@@ -61,7 +61,6 @@ First you need to get initial project:
 
 ```shell script
 git clone git@github.com:sergeyklay/cpp-zephir.git
-cd cpp-zephir
 ```
 
 Then you'll need to install conan as follows:
@@ -71,11 +70,9 @@ pip install conan
 conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
 ```
 
-And finally install project dependencies:
+And finally build the project:
 
 ```shell script
-conan install . --install-folder=./.conan --build=missing
-
 cmake -H. -Bbuild -DCMAKE_BUILD_TYPE=Release
 cmake --build build
 ```
