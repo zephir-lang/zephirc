@@ -18,13 +18,3 @@ target_include_directories(
 target_code_coverage(logger AUTO ALL)
 
 target_link_libraries(logger PRIVATE CONAN_PKG::spdlog)
-
-# CMakeLists.txt ends here
-
-# cmake-format: off
-# Local Variables:
-# mode: cmake
-# tab-width: 4
-# indent-tabs-mode: nil
-# End:
-# cmake-format: on

@@ -30,12 +30,3 @@ endif()
 set(CMAKE_CXX_CPPCHECK_ORIGIN "${CMAKE_CXX_CPPCHECK}")
 set(CMAKE_CXX_CPPCHECK "${CMAKE_CXX_CPPCHECK_ORIGIN}")
 
-# AddGoogleTests.cmake ends here
-
-# cmake-format: off
-# Local Variables:
-# mode: cmake
-# tab-width: 4
-# indent-tabs-mode: nil
-# End:
-# cmake-format: on

@@ -146,13 +146,3 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME
   message(STATUS "Include test sources")
   add_subdirectory(tests)
 endif()
-
-# CMakeLists.txt ends here
-
-# cmake-format: off
-# Local Variables:
-# mode: cmake
-# tab-width: 4
-# indent-tabs-mode: nil
-# End:
-# cmake-format: on

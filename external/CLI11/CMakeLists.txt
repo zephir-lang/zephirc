@@ -11,13 +11,3 @@ project(CLI11)
 # Library
 add_library(CLI11 INTERFACE)
 target_include_directories(CLI11 INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
-
-# CMakeLists.txt ends here
-
-# cmake-format: off
-# Local Variables:
-# mode: cmake
-# tab-width: 4
-# indent-tabs-mode: nil
-# End:
-# cmake-format: on

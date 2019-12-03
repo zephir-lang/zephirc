@@ -57,13 +57,3 @@ find_package_handle_standard_args(
   ${CMAKE_FIND_PACKAGE_NAME} REQUIRED_VARS YAMLCPP_INCLUDE_DIR YAMLCPP_LIBRARY)
 
 mark_as_advanced(YAMLCPP_INCLUDE_DIR YAMLCPP_LIBRARY)
-
-# FindYAMLCPP.cmake ends here
-
-# cmake-format: off
-# Local Variables:
-# mode: cmake
-# tab-width: 4
-# indent-tabs-mode: nil
-# End:
-# cmake-format: on

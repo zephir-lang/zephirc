@@ -82,13 +82,3 @@ else()
       CACHE STRING "" FORCE) # delete it
 endif()
 unset(_base_message)
-
-# Cppcheck.cmake ends here
-
-# cmake-format: off
-# Local Variables:
-# mode: cmake
-# tab-width: 4
-# indent-tabs-mode: nil
-# End:
-# cmake-format: on

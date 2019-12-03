@@ -2,8 +2,8 @@
 #
 # (c) Zephir Team <team@zephir-lang.com>
 #
-# For the full copyright and license information, please view the LICENSE file
-# that was distributed with this source code.
+# For the full copyright and license information, please view
+# the LICENSE file that was distributed with this source code.
 
 find_package(YAMLCPP REQUIRED)
 
@@ -21,13 +21,3 @@ target_include_directories(
 target_code_coverage(config AUTO ALL)
 
 target_link_libraries(config PUBLIC ${YAMLCPP_LIBRARY} filesystem commands)
-
-# CMakeLists.txt ends here
-
-# cmake-format: off
-# Local Variables:
-# mode: cmake
-# tab-width: 4
-# indent-tabs-mode: nil
-# End:
-# cmake-format: on

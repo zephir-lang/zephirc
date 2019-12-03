@@ -47,13 +47,3 @@ else()
       "There's a problem determining the processor count. Set fallback to: 2")
   set(BUILD_JOBS 2)
 endif()
-
-# Bootstrap.cmake ends here
-
-# cmake-format: off
-# Local Variables:
-# mode: cmake
-# tab-width: 4
-# indent-tabs-mode: nil
-# End:
-# cmake-format: on
