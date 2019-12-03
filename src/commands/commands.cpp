@@ -20,6 +20,7 @@
 #include "cmd_generate.hpp"
 #include "cmd_init.hpp"
 #include "cmd_install.hpp"
+#include "cmd_stubs.hpp"
 #include "formatter.hpp"
 #include "zephir/main.hpp"
 #include "zephir/version.hpp"
@@ -68,9 +69,7 @@ int zephir::commands::ParseOptions(int argc, char** argv) {
   zephir::commands::GenerateCommand generate(&app, commands_group);
   zephir::commands::InitCommand init(&app, commands_group);
   zephir::commands::InstallCommand install(&app, commands_group);
-
-  app.add_subcommand("stubs", "Generates stubs that can be used in a PHP IDE")
-      ->group(commands_group);
+  zephir::commands::StubsCommand stubs(&app, commands_group);
 
   try {
     app.parse(argc, argv);

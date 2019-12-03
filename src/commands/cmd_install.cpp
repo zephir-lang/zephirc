@@ -10,23 +10,23 @@
 #include "commands.hpp"
 
 zephir::commands::InstallCommand::InstallCommand(CLI::App* app,
-                                           const std::string& group) {
+                                                 const std::string& group) {
   options.dev = true;  // default
   Configure(app, group);
 }
 
 void zephir::commands::InstallCommand::Configure(CLI::App* app,
-                                              const std::string& group) {
-  auto cmd = app->add_subcommand("install", "Installs the extension in the extension directory")
-      ->group(group);
+                                                 const std::string& group) {
+  auto cmd =
+      app->add_subcommand("install",
+                          "Installs the extension in the extension directory")
+          ->group(group);
 
   // Add options to cmd, binding them to options.
   CLI::Option* dev = cmd->add_flag(
       "--dev", "Compile the extension in development mode [default]");
   CLI::Option* no_dev =
       cmd->add_flag("--no-dev", "Compile the extension in production mode");
-  cmd->set_help_flag("-h, --help", "Print this help message and quit");
-
   cmd->set_help_flag("-h, --help", "Print this help message and quit");
 
   if (no_dev->count()) {
