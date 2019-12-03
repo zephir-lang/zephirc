@@ -41,7 +41,7 @@ if(NOT EXISTS "${zephir_SOURCE_DIR}/external/cmake-scripts/c++-standards.cmake")
     string(REPLACE "\n" "\n    " output "${output}")
     # cmake-format: off
     message(FATAL_ERROR
-      "Failed to get required git modules: ${output}"
+      "Failed to get required git modules.\n"
       "  Result: ${result}\n"
       "  Output:\n"
       "    ${output}\n")

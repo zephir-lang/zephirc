@@ -11,7 +11,7 @@ add_library(logger SHARED facade.cpp)
 target_include_directories(
   logger
   PRIVATE $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
-          $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}> ${SPDLOG_INCLUDE_DIR}
+          $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
   PUBLIC ${CMAKE_SOURCE_DIR}/src)
 
 # Instruments the library
