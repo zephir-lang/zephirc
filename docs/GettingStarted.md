@@ -62,19 +62,7 @@ First you need to get initial project:
 ```shell script
 git clone git@github.com:sergeyklay/cpp-zephir.git
 cd cpp-zephir
-git submodule init
-git submodule update
 ```
-
-And wait for load any required dependencies. To easy way pull latest of all submodules
-you can use something similar to:
-
-```shell script
-git submodule update --remote --merge
-```
-
-See [git-submodule(1)](http://www.kernel.org/pub/software/scm/git/docs/v1.6.1.3/git-submodule.html)
-for details.
 
 Then you'll need to install conan:
 

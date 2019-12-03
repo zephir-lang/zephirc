@@ -28,8 +28,22 @@ include(Bootstrap)
 include(Cppcheck)
 
 if(NOT EXISTS "${zephir_SOURCE_DIR}/external/cmake-scripts/c++-standards.cmake")
-  message(
-    FATAL_ERROR "Modules not installed Please run: git submodule update --init")
+  # Here, it provides the GIT_EXECUTABLE variable after searching for the git
+  # binary in some standard/well-known locations for the current platform.
+  find_package(Git REQUIRED)
+  execute_process(
+    COMMAND ${GIT_EXECUTABLE} submodule update --init
+    RESULT_VARIABLE result
+    OUTPUT_VARIABLE submodulesOutput
+    OUTPUT_STRIP_TRAILING_WHITESPACE)
+  if(result)
+    message(
+      FATAL_ERROR "Failed to get required git modules: ${submodulesOutput}"
+    )
+  endif()
+
+  unset(result)
+  unset(submodulesOutput)
 endif()
 list(APPEND CMAKE_MODULE_PATH ${zephir_SOURCE_DIR}/external/cmake-scripts)
 
