@@ -5,8 +5,6 @@
 # For the full copyright and license information, please view the LICENSE file
 # that was distributed with this source code.
 
-find_package(spdlog CONFIG REQUIRED)
-
 # Add definition for logger facade library.
 add_library(logger SHARED facade.cpp)
 
@@ -19,7 +17,7 @@ target_include_directories(
 # Instruments the library
 target_code_coverage(logger AUTO ALL)
 
-target_link_libraries(logger PRIVATE spdlog::spdlog)
+target_link_libraries(logger PRIVATE CONAN_PKG::spdlog)
 
 # CMakeLists.txt ends here
 

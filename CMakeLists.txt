@@ -106,22 +106,6 @@ if(CODE_COVERAGE)
   add_code_coverage_all_targets(EXCLUDE ${COVERAGE_EXCLUDES})
 endif()
 
-add_subdirectory(external)
-add_subdirectory(src)
-
-if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
-  include(CTest)
-endif()
-
-if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME
-   AND BUILD_TESTING
-   AND ZEPHIR_BUILD_TESTING)
-  message(STATUS "Include test sources")
-  add_subdirectory(tests)
-endif()
-
-# Conan Package Manager Includes
-
 # Conan bootstrap
 #
 # Assumptions:
@@ -149,7 +133,21 @@ if(NOT EXISTS "${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
 endif()
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-conan_basic_setup()
+conan_basic_setup(TARGETS)
+
+add_subdirectory(external)
+add_subdirectory(src)
+
+if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
+  include(CTest)
+endif()
+
+if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME
+   AND BUILD_TESTING
+   AND ZEPHIR_BUILD_TESTING)
+  message(STATUS "Include test sources")
+  add_subdirectory(tests)
+endif()
 
 # CMakeLists.txt ends here
 
