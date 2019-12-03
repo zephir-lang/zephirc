@@ -136,8 +136,15 @@ if(NOT EXISTS "${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
     OUTPUT_VARIABLE output
     OUTPUT_STRIP_TRAILING_WHITESPACE)
 
-  if(result)
-    message(FATAL_ERROR "Failed to get required libraries: ${output}")
+  if(NOT ${result} EQUAL 0)
+    string(REPLACE "\n" "\n    " output "${output}")
+    # cmake-format: off
+    message(FATAL_ERROR
+            "Failed to get required libraries.\n"
+            "  Result: ${result}\n"
+            "  Output:\n"
+            "    ${output}\n")
+    # cmake-format: on
   endif()
 
   unset(result)
@@ -145,7 +152,7 @@ if(NOT EXISTS "${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
 endif()
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-conan_basic_setup(TARGETS)
+conan_basic_setup(TARGETS KEEP_RPATHS)
 
 add_subdirectory(external)
 add_subdirectory(src)
