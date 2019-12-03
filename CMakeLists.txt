@@ -34,16 +34,14 @@ if(NOT EXISTS "${zephir_SOURCE_DIR}/external/cmake-scripts/c++-standards.cmake")
   execute_process(
     COMMAND ${GIT_EXECUTABLE} submodule update --init
     RESULT_VARIABLE result
-    OUTPUT_VARIABLE submodulesOutput
+    OUTPUT_VARIABLE output
     OUTPUT_STRIP_TRAILING_WHITESPACE)
   if(result)
-    message(
-      FATAL_ERROR "Failed to get required git modules: ${submodulesOutput}"
-    )
+    message(FATAL_ERROR "Failed to get required git modules: ${output}")
   endif()
 
   unset(result)
-  unset(submodulesOutput)
+  unset(output)
 endif()
 list(APPEND CMAKE_MODULE_PATH ${zephir_SOURCE_DIR}/external/cmake-scripts)
 
@@ -123,14 +121,35 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME
 endif()
 
 # Conan Package Manager Includes
-if(NOT EXISTS "${zephir_SOURCE_DIR}/.conan/conanbuildinfo.cmake")
-  message(
-    FATAL_ERROR
-      "Conan needs to be executed: conan install . --install-folder=./.conan")
+
+# Conan bootstrap
+#
+# Assumptions:
+#
+# * The file conanfile.txt is in this directory
+# * This CMakeLists.txt file is in the project ROOT directory
+# * The conan application is the project $PATH environment variable and
+#   accessible from command line
+if(NOT EXISTS "${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
+  execute_process(
+    COMMAND conan install . #
+            --install-folder "${CMAKE_BINARY_DIR}" #
+            --build=missing
+    WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
+    RESULT_VARIABLE result
+    OUTPUT_VARIABLE output
+    OUTPUT_STRIP_TRAILING_WHITESPACE)
+
+  if(result)
+    message(FATAL_ERROR "Failed to get required libraries: ${output}")
+  endif()
+
+  unset(result)
+  unset(output)
 endif()
 
-include(${zephir_SOURCE_DIR}/.conan/conanbuildinfo.cmake)
-conan_basic_setup(TARGETS)
+include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+conan_basic_setup()
 
 # CMakeLists.txt ends here
 
