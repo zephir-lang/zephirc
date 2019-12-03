@@ -28,8 +28,28 @@ include(Bootstrap)
 include(Cppcheck)
 
 if(NOT EXISTS "${zephir_SOURCE_DIR}/external/cmake-scripts/c++-standards.cmake")
-  message(
-    FATAL_ERROR "Modules not installed Please run: git submodule update --init")
+  # Here, it provides the GIT_EXECUTABLE variable after searching for the git
+  # binary in some standard/well-known locations for the current platform.
+  find_package(Git REQUIRED)
+  execute_process(
+    COMMAND ${GIT_EXECUTABLE} submodule update --init
+    RESULT_VARIABLE result
+    OUTPUT_VARIABLE output
+    OUTPUT_STRIP_TRAILING_WHITESPACE)
+
+  if(NOT ${result} EQUAL 0)
+    string(REPLACE "\n" "\n    " output "${output}")
+    # cmake-format: off
+    message(FATAL_ERROR
+      "Failed to get required git modules.\n"
+      "  Result: ${result}\n"
+      "  Output:\n"
+      "    ${output}\n")
+    # cmake-format: on
+  endif()
+
+  unset(result)
+  unset(output)
 endif()
 list(APPEND CMAKE_MODULE_PATH ${zephir_SOURCE_DIR}/external/cmake-scripts)
 
@@ -46,21 +66,25 @@ cxx_17()
 # Tools
 file(
   GLOB_RECURSE
-    ZEPHIR_SOURCE_FILES
+    glob_files
     ${zephir_SOURCE_DIR}/include/*.[hc]
     ${zephir_SOURCE_DIR}/include/*.[hc]pp
     ${zephir_SOURCE_DIR}/src/*.[hc]
     ${zephir_SOURCE_DIR}/src/*.[hc]pp
     ${zephir_SOURCE_DIR}/tests/*.[hc]
     ${zephir_SOURCE_DIR}/tests/*.[hc]pp)
-clang_format(cpp-format ${ZEPHIR_SOURCE_FILES})
 
-file(
-  GLOB_RECURSE
-    ZEPHIR_CMAKE_FILES ${zephir_SOURCE_DIR}/cmake/*.cmake
-    ${zephir_SOURCE_DIR}/src/*.cmake ${zephir_SOURCE_DIR}/tests/*.cmake
-    ${zephir_SOURCE_DIR}/CMakeLists.txt)
-cmake_format(cmake-format ${ZEPHIR_CMAKE_FILES})
+clang_format(cpp-format ${glob_files})
+
+file(GLOB_RECURSE glob_files ${zephir_SOURCE_DIR}/cmake/*.cmake)
+list(
+  APPEND glob_files #
+         ${zephir_SOURCE_DIR}/CMakeLists.txt
+         ${zephir_SOURCE_DIR}/src/CMakeLists.txt
+         ${zephir_SOURCE_DIR}/tests/CMakeLists.txt
+         ${zephir_SOURCE_DIR}/external/CMakeLists.txt)
+
+cmake_format(cmake-format "${glob_files}")
 
 if(NOT CMAKE_INSTALL_PREFIX)
   set(CMAKE_INSTALL_PREFIX
@@ -93,6 +117,21 @@ if(CODE_COVERAGE)
   # This introduces the 'ccov-all' targets
   add_code_coverage_all_targets(EXCLUDE ${COVERAGE_EXCLUDES})
 endif()
+
+# Conan bootstrap
+if(NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
+  message(STATUS "Downloading conan.cmake from https://github.com/conan-io/cmake-conan")
+  file(DOWNLOAD "https://github.com/conan-io/cmake-conan/raw/v0.13/conan.cmake"
+          "${CMAKE_BINARY_DIR}/conan.cmake")
+endif()
+
+include(${CMAKE_BINARY_DIR}/conan.cmake)
+conan_check()
+conan_add_remote(NAME bincrafters URL https://api.bintray.com/conan/bincrafters/public-conan)
+
+conan_cmake_run(CONANFILE conanfile.txt
+        BASIC_SETUP CMAKE_TARGETS KEEP_RPATHS
+        BUILD missing)
 
 add_subdirectory(external)
 add_subdirectory(src)

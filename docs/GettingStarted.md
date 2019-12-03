@@ -8,9 +8,11 @@ To build Zephir compiler you need the following requirements:
 
 * A C compiler such as  [Gcc](https://gcc.gnu.org) >= 7.0.0, [Clang](https://clang.llvm.org) >= 5.0.0 or [Apple Clang](https://apps.apple.com/us/app/xcode/id497799835) >= 10.0.0
 * [cmake](https://cmake.org/) 3.11 or later
+* [conan](https://conan.io) decentralized package manager with a client-server architecture
 * Library for easy read/write for Yaml data: [yaml-cpp](https://github.com/jbeder/yaml-cpp) >= 0.6
-* Library for logging: [spdlog](https://github.com/gabime/spdlog) >= 1.4
 * C++ language standard support: C++17
+
+For the full dependency list see `conanfile.txt` file located in the sources root.
 
 #### Optional
 
@@ -29,10 +31,8 @@ If you're using Ubuntu, you can install the required packages this way:
 sudo apt-get install \
     gcc \
     cmake \
-    cppcheck \
     pkg-config \
     build-essential \
-    libspdlog-dev \
     libyaml-cpp-dev \
     clang-format
 ```
@@ -41,29 +41,25 @@ On macOS you will need to use brew with a command as follows:
 ```shell script
 brew install \
     cmake \
-    cppcheck \
     pkg-config \
     yaml-cpp \
-    spdlog \
     clang-format
 ```
 
 Please note that specific versions of libraries and programs at the time of reading this guide may vary.
+The following dependencies is recommended install using [`pip`](https://pip.pypa.io):
 
-## Building from Source
+* `conan`
+* `cppcheck`
+* `cmake-format`
 
-First you need to get initial project:
+They can be installed using pip as follows:
 
 ```shell script
-git clone git@github.com:sergeyklay/cpp-zephir.git
-cd cpp-zephir
-git submodule init
-git submodule update
+pip install --upgrade conan cppcheck cmake-format
 ```
 
-And wait for load any required dependencies. The next step is to build project.
-
-### POSIX
+## Building from Source
 
 ```shell script
 cmake -H. -Bbuild -DCMAKE_BUILD_TYPE=Release
