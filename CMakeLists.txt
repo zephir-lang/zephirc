@@ -28,6 +28,12 @@ include(Bootstrap)
 include(Cppcheck)
 
 # Conan Package Manager Includes
+if(NOT EXISTS "${zephir_SOURCE_DIR}/.conan/conanbuildinfo.cmake")
+  message(
+    FATAL_ERROR
+      "Conan needs to be executed: conan install <path_to_your_conanfile.txt>")
+endif()
+
 include(${zephir_SOURCE_DIR}/.conan/conanbuildinfo.cmake)
 conan_basic_setup()
 
