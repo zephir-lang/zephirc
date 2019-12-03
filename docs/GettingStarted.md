@@ -32,7 +32,6 @@ If you're using Ubuntu, you can install the required packages this way:
 sudo apt-get install \
     gcc \
     cmake \
-    cppcheck \
     pkg-config \
     build-essential \
     libyaml-cpp-dev \
@@ -43,13 +42,18 @@ On macOS you will need to use brew with a command as follows:
 ```shell script
 brew install \
     cmake \
-    cppcheck \
     pkg-config \
     yaml-cpp \
     clang-format
 ```
 
 Please note that specific versions of libraries and programs at the time of reading this guide may vary.
+Optional dependencies like `cppcheck`, `cmake-format` and so on can be installed using pip as follows:
+
+```shell script
+pip install cppcheck
+pip install cmake-format
+```
 
 ## Building from Source
 
@@ -60,12 +64,25 @@ git clone git@github.com:sergeyklay/cpp-zephir.git
 cd cpp-zephir
 git submodule init
 git submodule update
+```
+
+And wait for load any required dependencies. To easy way pull latest of all submodules
+you can use something similar to:
+
+```shell script
+git submodule update --remote --merge
+```
+
+See [git-submodule(1)](http://www.kernel.org/pub/software/scm/git/docs/v1.6.1.3/git-submodule.html)
+for details.
+
+Then you'll need to install conan:
+
+```shell script
 pip install conan
 ```
 
-And wait for load any required dependencies. The next step is to build project.
-
-### POSIX
+And finally install project dependencies:
 
 ```shell script
 conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
