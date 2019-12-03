@@ -27,16 +27,6 @@ option(ZEPHIR_BUILD_TESTING "Build test project" OFF)
 include(Bootstrap)
 include(Cppcheck)
 
-# Conan Package Manager Includes
-if(NOT EXISTS "${zephir_SOURCE_DIR}/.conan/conanbuildinfo.cmake")
-  message(
-    FATAL_ERROR
-      "Conan needs to be executed: conan install <path_to_your_conanfile.txt>")
-endif()
-
-include(${zephir_SOURCE_DIR}/.conan/conanbuildinfo.cmake)
-conan_basic_setup()
-
 if(NOT EXISTS "${zephir_SOURCE_DIR}/external/cmake-scripts/c++-standards.cmake")
   message(
     FATAL_ERROR "Modules not installed Please run: git submodule update --init")
@@ -117,6 +107,16 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME
   message(STATUS "Include test sources")
   add_subdirectory(tests)
 endif()
+
+# Conan Package Manager Includes
+if(NOT EXISTS "${zephir_SOURCE_DIR}/.conan/conanbuildinfo.cmake")
+  message(
+    FATAL_ERROR
+      "Conan needs to be executed: conan install . --install-folder=./.conan")
+endif()
+
+include(${zephir_SOURCE_DIR}/.conan/conanbuildinfo.cmake)
+conan_basic_setup(TARGETS)
 
 # CMakeLists.txt ends here
 

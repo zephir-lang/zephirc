@@ -47,7 +47,6 @@ brew install \
     yaml-cpp \
     spdlog \
     clang-format \
-    conan
 ```
 
 Please note that specific versions of libraries and programs at the time of reading this guide may vary.
@@ -61,6 +60,7 @@ git clone git@github.com:sergeyklay/cpp-zephir.git
 cd cpp-zephir
 git submodule init
 git submodule update
+pip install conan
 ```
 
 And wait for load any required dependencies. The next step is to build project.
@@ -68,6 +68,7 @@ And wait for load any required dependencies. The next step is to build project.
 ### POSIX
 
 ```shell script
+conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
 conan install . --install-folder=./.conan
 
 cmake -H. -Bbuild -DCMAKE_BUILD_TYPE=Release
