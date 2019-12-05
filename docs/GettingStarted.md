@@ -9,8 +9,6 @@ To build Zephir compiler you need the following requirements:
 * A C compiler such as  [Gcc](https://gcc.gnu.org) >= 7.0.0, [Clang](https://clang.llvm.org) >= 5.0.0 or [Apple Clang](https://apps.apple.com/us/app/xcode/id497799835) >= 10.0.0
 * [cmake](https://cmake.org/) 3.11 or later
 * [conan](https://conan.io) decentralized package manager with a client-server architecture
-* Library for easy read/write for Yaml data: [yaml-cpp](https://github.com/jbeder/yaml-cpp) >= 0.6
-* C++ language standard support: C++17
 
 For the full dependency list see `conanfile.txt` file located in the sources root.
 
@@ -25,25 +23,13 @@ To enable test coverage reports you need the following requirements:
 * Clang, Apple Clang: `llvm-profdata`, `llvm-cov`
 
 If you're using Ubuntu, you can install the required packages this way:
-
 ```shell script
-# on Ubuntu libspdlog-dev is available from 16.04
-sudo apt-get install \
-    gcc \
-    cmake \
-    pkg-config \
-    build-essential \
-    libyaml-cpp-dev \
-    clang-format
+sudo apt install gcc cmake pkg-config build-essential
 ```
 
 On macOS you will need to use brew with a command as follows:
 ```shell script
-brew install \
-    cmake \
-    pkg-config \
-    yaml-cpp \
-    clang-format
+brew install cmake pkg-config clang-format
 ```
 
 Please note that specific versions of libraries and programs at the time of reading this guide may vary.
@@ -52,12 +38,15 @@ The following dependencies is recommended install using [`pip`](https://pip.pypa
 * `conan`
 * `cppcheck`
 * `cmake-format`
+* `clang-format`
 
 They can be installed using pip as follows:
 
 ```shell script
-pip install --upgrade conan cppcheck cmake-format
+pip install --upgrade conan cppcheck cmake-format clang-format
 ```
+
+Note: On macOS you'll need `brew install clang-format` instead of `pip`-variant.
 
 ## Building from source
 
