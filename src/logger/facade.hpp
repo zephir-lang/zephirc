@@ -15,6 +15,8 @@
 
 namespace zephir::logger {
 
+typedef std::vector<std::tuple<std::string, std::string>> string_dict;
+
 /**
  * @brief Wrap third party log library
  * and provide minimalistic interface for Zephir log writer
@@ -73,9 +75,7 @@ class Facade {
    * @param message - The log message
    * @param context - The process context detail
    */
-  void
-  exception(const std::exception& error,
-            const std::vector<std::tuple<std::string, std::string>>& context);
+  void exception(const std::exception& error, const string_dict& context);
 
   /**
    * @brief Add a log record with specified level, category and context
@@ -86,7 +86,7 @@ class Facade {
    * @param context - The log context
    */
   void log(const std::string& message, int level, const std::string& category,
-           const std::vector<std::tuple<std::string, std::string>>& context);
+           const string_dict& context);
 };
 
 }  // namespace zephir::logger
