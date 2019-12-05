@@ -34,6 +34,7 @@ jobs:
 
       - name: Cmake Check
         run: |
+          ls -al
           cmake-format --version
           cmake-format -i $(find ./cmake -name "*.cmake")
           cmake-format -i $(find . -name "CMakeLists.txt")
