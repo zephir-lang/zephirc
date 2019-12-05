@@ -14,32 +14,25 @@
 
 namespace zephir::commands {
 /**
- * @brief Initializes a Zephir extension.
+ * Collection of all options of init command.
  */
-class InitCommand {
- public:
-  InitCommand(CLI::App* app, const std::string& group);
-
- private:
-  /**
-   * @brief Configures the current command.
-   *
-   * @param app CLI::App instance
-   * @param group The command group membership
-   */
-  void Configure(CLI::App* app, const std::string& group);
-
-  /**
-   * @brief Executes the current command.
-   */
-  void Execute();
-
-  // Collection of all options of InitCommand.
-  struct Options {
-    std::string backend;
-    std::string ns;
-  } options;
+struct InitOptions {
+  std::string backend;
+  std::string ns;
 };
+
+/**
+ * @brief Configures the current command.
+ *
+ * @param app CLI::App instance
+ * @param group The command group membership
+ */
+void SetupInitCommand(CLI::App &app, const std::string &group);
+
+/**
+ * @brief Executes the current command.
+ */
+void ExecuteInitCommand(InitOptions const &opt);
 }  // namespace zephir::commands
 
 #endif  // ZEPHIR_COMMANDS_CMD_INIT_HPP_

@@ -9,18 +9,15 @@
 
 #include "commands.hpp"
 
-zephir::commands::InstallCommand::InstallCommand(CLI::App* app,
-                                                 const std::string& group) {
-  options.dev = true;  // default
-  Configure(app, group);
-}
-
-void zephir::commands::InstallCommand::Configure(CLI::App* app,
-                                                 const std::string& group) {
+void zephir::commands::SetupInstallCommand(CLI::App& app,
+                                           const std::string& group) {
+  auto options = std::make_shared<InstallOptions>();
   auto cmd =
-      app->add_subcommand("install",
-                          "Installs the extension in the extension directory")
+      app.add_subcommand("install",
+                         "Installs the extension in the extension directory")
           ->group(group);
+
+  options->dev = true;
 
   // Add options to cmd, binding them to options.
   CLI::Option* dev = cmd->add_flag(
@@ -30,11 +27,11 @@ void zephir::commands::InstallCommand::Configure(CLI::App* app,
   cmd->set_help_flag("-h, --help", "Print this help message and quit");
 
   if (no_dev->count()) {
-    options.dev = false;
+    options->dev = false;
   }
 
   if (dev->count()) {
-    options.dev = true;
+    options->dev = true;
   }
 
   // TODO(klay): Check for PHP build mode
@@ -63,10 +60,10 @@ void zephir::commands::InstallCommand::Configure(CLI::App* app,
 
   // Set the run function as callback to be called when this subcommand is
   // issued.
-  cmd->callback([&]() { Execute(); });
+  cmd->callback([&]() { ExecuteInstallCommand(*options); });
 }
 
-void zephir::commands::InstallCommand::Execute() {
+void zephir::commands::ExecuteInstallCommand(InstallOptions const& options) {
   // Do stuff...
   std::cout << "Install command" << std::endl;
   std::cout << "NOT IMPLEMENTED" << std::endl;
