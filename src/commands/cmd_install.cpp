@@ -9,6 +9,8 @@
 
 #include "commands.hpp"
 
+using zephir::commands::InstallOptions;
+
 void zephir::commands::SetupInstallCommand(CLI::App& app,
                                            const std::string& group) {
   auto options = std::make_shared<InstallOptions>();

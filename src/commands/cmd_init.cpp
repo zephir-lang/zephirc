@@ -7,6 +7,8 @@
 
 #include "cmd_init.hpp"
 
+using zephir::commands::InitOptions;
+
 void zephir::commands::SetupInitCommand(CLI::App& app,
                                         const std::string& group) {
   auto options = std::make_shared<InitOptions>();

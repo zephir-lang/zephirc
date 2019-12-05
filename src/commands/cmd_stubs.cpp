@@ -9,6 +9,8 @@
 
 #include "commands.hpp"
 
+using zephir::commands::StubsOptions;
+
 void zephir::commands::SetupStubsCommand(CLI::App &app,
                                          const std::string &group) {
   auto options = std::make_shared<StubsOptions>();
