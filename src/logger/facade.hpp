@@ -73,7 +73,9 @@ class Facade {
    * @param message - The log message
    * @param context - The process context detail
    */
-  void exception(const std::exception& error, const T& context);
+  void
+  exception(const std::exception& error,
+            const std::vector<std::tuple<std::string, std::string>>& context);
 
   /**
    * @brief Add a log record with specified level, category and context
@@ -84,7 +86,7 @@ class Facade {
    * @param context - The log context
    */
   void log(const std::string& message, int level, const std::string& category,
-           const T& context);
+           const std::vector<std::tuple<std::string, std::string>>& context);
 };
 
 }  // namespace zephir::logger
