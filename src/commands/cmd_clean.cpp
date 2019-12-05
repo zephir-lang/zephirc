@@ -7,14 +7,9 @@
 
 #include "cmd_clean.hpp"
 
-zephir::commands::CleanCommand::CleanCommand(CLI::App* app,
-                                             const std::string& group) {
-  Configure(app, group);
-}
-
-void zephir::commands::CleanCommand::Configure(CLI::App* app,
-                                               const std::string& group) {
-  auto cmd = app->add_subcommand(
+void zephir::commands::SetupCleanCommand(CLI::App &app,
+                                         const std::string &group) {
+  auto cmd = app.add_subcommand(
                     "clean", "Cleans any object files created by the extension")
                  ->group(group);
 
@@ -27,10 +22,11 @@ void zephir::commands::CleanCommand::Configure(CLI::App* app,
 
   // Set the run function as callback to be called when this subcommand is
   // issued.
-  cmd->callback([&]() { Execute(); });
+  cmd->callback([]() { ExecuteCleanCommand(); });
 }
 
-void zephir::commands::CleanCommand::Execute() {
+void zephir::commands::ExecuteCleanCommand() {
   // Do stuff...
+  std::cout << "Fullclean command" << std::endl;
   std::cout << "NOT IMPLEMENTED" << std::endl;
 }
