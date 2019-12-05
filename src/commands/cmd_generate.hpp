@@ -14,7 +14,7 @@
 
 namespace zephir::commands {
 /**
- * Collection of all options of generate command.
+ * @brief Collection of all options of generate command.
  */
 struct GenerateOptions {
   std::string backend;

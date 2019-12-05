@@ -14,7 +14,7 @@
 
 namespace zephir::commands {
 /**
- * Collection of all options of init command.
+ * @brief Collection of all options of init command.
  */
 struct InitOptions {
   std::string backend;

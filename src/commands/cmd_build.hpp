@@ -14,7 +14,7 @@
 
 namespace zephir::commands {
 /**
- * Collection of all options of build command.
+ * @brief Collection of all options of build command.
  */
 struct BuildOptions {
   std::string backend;

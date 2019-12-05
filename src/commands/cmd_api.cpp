@@ -9,34 +9,31 @@
 
 #include "commands.hpp"
 
-zephir::commands::ApiCommand::ApiCommand(CLI::App* app,
-                                         const std::string& group) {
-  // defaults
-  options.backend = "ZendEngine3";
+using zephir::commands::ApiOptions;
 
-  Configure(app, group);
-}
-
-void zephir::commands::ApiCommand::Configure(CLI::App* app,
-                                             const std::string& group) {
-  auto cmd = app->add_subcommand("api",
-                                 "Generates a HTML API based on the classes "
-                                 "exposed in the extension")
+void zephir::commands::SetupApiCommand(CLI::App& app,
+                                       const std::string& group) {
+  auto options = std::make_shared<ApiOptions>();
+  auto cmd = app.add_subcommand("api",
+                                "Generates a HTML API based on the classes "
+                                "exposed in the extension")
                  ->group(group);
+
+  options->backend = "ZendEngine3";
 
   cmd->get_formatter()->column_width(19);
 
   // Add options to cmd, binding them to options.
   cmd->add_option(
-      "--backend", options.backend,
+      "--backend", options->backend,
       "Used backend to generate extension [default: \"ZendEngine3\"]");
-  cmd->add_option("-p,--path", options.template_path,
+  cmd->add_option("-p,--path", options->template_path,
                   "The API theme to be used");
-  cmd->add_option("-o,--output", options.output,
+  cmd->add_option("-o,--output", options->output,
                   "Output directory to generate theme");
-  cmd->add_option("--options", options.theme_options,
+  cmd->add_option("--options", options->theme_options,
                   "Output directory to generate theme");
-  cmd->add_option("--url", options.url,
+  cmd->add_option("--url", options->url,
                   "The base URL to be used when generating links");
   cmd->set_help_flag("-h, --help", "Print this help message and quit");
 
@@ -49,10 +46,10 @@ void zephir::commands::ApiCommand::Configure(CLI::App* app,
 
   // Set the run function as callback to be called when this subcommand is
   // issued.
-  cmd->callback([&]() { Execute(); });
+  cmd->callback([options]() { ExecuteApiCommand(*options); });
 }
 
-void zephir::commands::ApiCommand::Execute() {
+void zephir::commands::ExecuteApiCommand(ApiOptions const& options) {
   // Do stuff...
   std::cout << "Api command" << std::endl;
   std::cout << "NOT IMPLEMENTED" << std::endl;

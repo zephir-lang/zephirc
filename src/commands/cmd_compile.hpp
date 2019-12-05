@@ -14,7 +14,7 @@
 
 namespace zephir::commands {
 /**
- * Collection of all options of compile command.
+ * @brief Collection of all options of compile command.
  */
 struct CompileOptions {
   std::string backend;

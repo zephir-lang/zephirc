@@ -15,7 +15,7 @@
 namespace zephir::commands {
 
 /**
- * Collection of all options of stubs command.
+ * @brief Collection of all options of stubs command.
  */
 struct StubsOptions {
   std::string backend;

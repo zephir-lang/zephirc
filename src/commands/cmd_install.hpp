@@ -15,7 +15,7 @@
 namespace zephir::commands {
 
 /**
- * Collection of all options of install command.
+ * @brief Collection of all options of install command.
  */
 struct InstallOptions {
   bool dev;

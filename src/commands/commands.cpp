@@ -61,8 +61,7 @@ int zephir::commands::ParseOptions(int argc, char** argv) {
   // Commands
   const auto commands_group = "Available commands";
 
-  zephir::commands::ApiCommand api(&app, commands_group);
-
+  zephir::commands::SetupApiCommand(app, commands_group);
   zephir::commands::SetupBuildCommand(app, commands_group);
   zephir::commands::SetupCleanCommand(app, commands_group);
   zephir::commands::SetupCompileCommand(app, commands_group);
