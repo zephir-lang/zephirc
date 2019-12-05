@@ -11,10 +11,12 @@ gcc/clang/vc++. Functionality is exposed to the PHP language.
 
 ## Documentation
 * Official documentation is [located here][documentation]
-* Internals documentation is [located here](./docs)
+
+## Contributing
+Zephir is an Open Source, community-driven project.
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for details about contributions to this repository.
 
 ## License
-
 Zephir licensed under the MIT License. See the [LICENSE][license link] file for more information.
 
 [actions link]: https://github.com/sergeyklay/cpp-zephir/actions
