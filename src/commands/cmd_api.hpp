@@ -14,35 +14,29 @@
 
 namespace zephir::commands {
 /**
- * @brief Generates a HTML API based on the classes exposed in the extension.
+ * @brief Collection of all options of api command.
  */
-class ApiCommand {
- public:
-  ApiCommand(CLI::App* app, const std::string& group);
-
- private:
-  /**
-   * @brief Configures the current command.
-   *
-   * @param app CLI::App instance
-   * @param group The command group membership
-   */
-  void Configure(CLI::App* app, const std::string& group);
-
-  /**
-   * @brief Executes the current command.
-   */
-  void Execute();
-
-  // Collection of all options of ApiCommand.
-  struct Options {
-    std::string backend;
-    std::string template_path;
-    std::string output;
-    std::string theme_options;
-    std::string url;
-  } options;
+struct ApiOptions {
+  std::string backend;
+  std::string template_path;
+  std::string output;
+  std::string theme_options;
+  std::string url;
 };
+
+/**
+ * @brief Configures the current command.
+ *
+ * @param app CLI::App instance
+ * @param group The command group membership
+ */
+void SetupApiCommand(CLI::App &app, const std::string &group);
+
+/**
+ * @brief Executes the current command.
+ * @param opt Collection of all options of api command.
+ */
+void ExecuteApiCommand(ApiOptions const &opt);
 }  // namespace zephir::commands
 
 #endif  // ZEPHIR_COMMANDS_CMD_API_HPP_

@@ -9,21 +9,18 @@
 
 #include "commands.hpp"
 
-zephir::commands::StubsCommand::StubsCommand(CLI::App* app,
-                                             const std::string& group) {
-  options.backend = "ZendEngine3";  // default
-  Configure(app, group);
-}
+using zephir::commands::StubsOptions;
 
-void zephir::commands::StubsCommand::Configure(CLI::App* app,
-                                               const std::string& group) {
-  auto cmd = app->add_subcommand(
-                    "stubs", "Generates stubs that can be used in a PHP IDE")
+void zephir::commands::SetupStubsCommand(CLI::App &app,
+                                         const std::string &group) {
+  auto options = std::make_shared<StubsOptions>();
+  auto cmd = app.add_subcommand("stubs",
+                                "Generates stubs that can be used in a PHP IDE")
                  ->group(group);
 
   // Add options to cmd, binding them to options.
   cmd->add_option(
-      "--backend", options.backend,
+      "--backend", options->backend,
       "Used backend to generate extension [default: \"ZendEngine3\"]");
   cmd->set_help_flag("-h, --help", "Print this help message and quit");
 
@@ -36,10 +33,10 @@ void zephir::commands::StubsCommand::Configure(CLI::App* app,
 
   // Set the run function as callback to be called when this subcommand is
   // issued.
-  cmd->callback([&]() { Execute(); });
+  cmd->callback([options]() { ExecuteStubsCommand(*options); });
 }
 
-void zephir::commands::StubsCommand::Execute() {
+void zephir::commands::ExecuteStubsCommand(StubsOptions const &options) {
   // Do stuff...
   std::cout << "Stubs command" << std::endl;
   std::cout << "NOT IMPLEMENTED" << std::endl;

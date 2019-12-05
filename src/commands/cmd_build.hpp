@@ -14,32 +14,26 @@
 
 namespace zephir::commands {
 /**
- * @brief Generates/Compiles/Installs a Zephir extension.
+ * @brief Collection of all options of build command.
  */
-class BuildCommand {
- public:
-  BuildCommand(CLI::App* app, const std::string& group);
-
- private:
-  /**
-   * @brief Configures the current command.
-   *
-   * @param app CLI::App instance
-   * @param group The command group membership
-   */
-  void Configure(CLI::App* app, const std::string& group);
-
-  /**
-   * @brief Executes the current command.
-   */
-  void Execute();
-
-  // Collection of all options of BuildCommand.
-  struct Options {
-    std::string backend;
-    bool dev;
-  } options;
+struct BuildOptions {
+  std::string backend;
+  bool dev;
 };
+
+/**
+ * @brief Configures the current command.
+ *
+ * @param app CLI::App instance
+ * @param group The command group membership
+ */
+void SetupBuildCommand(CLI::App &app, const std::string &group);
+
+/**
+ * @brief Executes the current command.
+ * @param opt Collection of all options of build command.
+ */
+void ExecuteBuildCommand(BuildOptions const &opt);
 }  // namespace zephir::commands
 
 #endif  // ZEPHIR_COMMANDS_CMD_BUILD_HPP_

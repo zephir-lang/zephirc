@@ -11,23 +11,22 @@
 
 #include "commands.hpp"
 
-zephir::commands::GenerateCommand::GenerateCommand(CLI::App* app,
-                                                   const std::string& group) {
-  options.backend = "ZendEngine3";  // default
-  Configure(app, group);
-}
+using zephir::commands::GenerateOptions;
 
-void zephir::commands::GenerateCommand::Configure(CLI::App* app,
-                                                  const std::string& group) {
+void zephir::commands::SetupGenerateCommand(CLI::App& app,
+                                            const std::string& group) {
+  auto options = std::make_shared<GenerateOptions>();
   auto cmd =
-      app->add_subcommand(
+      app.add_subcommand(
              "generate",
              "Generates C code from the Zephir code without compiling it")
           ->group(group);
 
+  options->backend = "ZendEngine3";
+
   // Add options to cmd, binding them to options.
   cmd->add_option(
-      "--backend", options.backend,
+      "--backend", options->backend,
       "Used backend to generate extension [default: \"ZendEngine3\"]");
   cmd->set_help_flag("-h, --help", "Print this help message and quit");
 
@@ -40,10 +39,10 @@ void zephir::commands::GenerateCommand::Configure(CLI::App* app,
 
   // Set the run function as callback to be called when this subcommand is
   // issued.
-  cmd->callback([&]() { Execute(); });
+  cmd->callback([options]() { ExecuteGenerateCommand(*options); });
 }
 
-void zephir::commands::GenerateCommand::Execute() {
+void zephir::commands::ExecuteGenerateCommand(GenerateOptions const& options) {
   // Do stuff...
   std::cout << "Generate command" << std::endl;
   std::cout << "NOT IMPLEMENTED" << std::endl;

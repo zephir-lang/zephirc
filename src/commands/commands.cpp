@@ -61,15 +61,15 @@ int zephir::commands::ParseOptions(int argc, char** argv) {
   // Commands
   const auto commands_group = "Available commands";
 
-  zephir::commands::ApiCommand api(&app, commands_group);
-  zephir::commands::BuildCommand build(&app, commands_group);
-  zephir::commands::CleanCommand clean(&app, commands_group);
-  zephir::commands::CompileCommand compile(&app, commands_group);
-  zephir::commands::FullcleanCommand fullclean(&app, commands_group);
-  zephir::commands::GenerateCommand generate(&app, commands_group);
-  zephir::commands::InitCommand init(&app, commands_group);
-  zephir::commands::InstallCommand install(&app, commands_group);
-  zephir::commands::StubsCommand stubs(&app, commands_group);
+  zephir::commands::SetupApiCommand(app, commands_group);
+  zephir::commands::SetupBuildCommand(app, commands_group);
+  zephir::commands::SetupCleanCommand(app, commands_group);
+  zephir::commands::SetupCompileCommand(app, commands_group);
+  zephir::commands::SetupFullcleanCommand(app, commands_group);
+  zephir::commands::SetupGenerateCommand(app, commands_group);
+  zephir::commands::SetupInitCommand(app, commands_group);
+  zephir::commands::SetupInstallCommand(app, commands_group);
+  zephir::commands::SetupStubsCommand(app, commands_group);
 
   try {
     app.parse(argc, argv);

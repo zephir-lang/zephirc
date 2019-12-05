@@ -13,32 +13,27 @@
 #include <CLI/CLI11.hpp>
 
 namespace zephir::commands {
+
 /**
- * @brief Generates stubs that can be used in a PHP IDE.
+ * @brief Collection of all options of stubs command.
  */
-class StubsCommand {
- public:
-  StubsCommand(CLI::App* app, const std::string& group);
-
- private:
-  /**
-   * @brief Configures the current command.
-   *
-   * @param app CLI::App instance
-   * @param group The command group membership
-   */
-  void Configure(CLI::App* app, const std::string& group);
-
-  /**
-   * @brief Executes the current command.
-   */
-  void Execute();
-
-  // Collection of all options of StubsCommand.
-  struct Options {
-    std::string backend;
-  } options;
+struct StubsOptions {
+  std::string backend;
 };
+
+/**
+ * @brief Configures the current command.
+ *
+ * @param app CLI::App instance
+ * @param group The command group membership
+ */
+void SetupStubsCommand(CLI::App &app, const std::string &group);
+
+/**
+ * @brief Executes the current command.
+ * @param opt Collection of all options of stubs command.
+ */
+void ExecuteStubsCommand(StubsOptions const &opt);
 }  // namespace zephir::commands
 
 #endif  // ZEPHIR_COMMANDS_CMD_STUBS_HPP_

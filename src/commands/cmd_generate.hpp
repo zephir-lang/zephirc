@@ -14,31 +14,25 @@
 
 namespace zephir::commands {
 /**
- * @brief Generates C code from the Zephir code without compiling it.
+ * @brief Collection of all options of generate command.
  */
-class GenerateCommand {
- public:
-  GenerateCommand(CLI::App* app, const std::string& group);
-
- private:
-  /**
-   * @brief Configures the current command.
-   *
-   * @param app CLI::App instance
-   * @param group The command group membership
-   */
-  void Configure(CLI::App* app, const std::string& group);
-
-  /**
-   * @brief Executes the current command.
-   */
-  void Execute();
-
-  // Collection of all options of GenerateCommand.
-  struct Options {
-    std::string backend;
-  } options;
+struct GenerateOptions {
+  std::string backend;
 };
+
+/**
+ * @brief Configures the current command.
+ *
+ * @param app CLI::App instance
+ * @param group The command group membership
+ */
+void SetupGenerateCommand(CLI::App &app, const std::string &group);
+
+/**
+ * @brief Executes the current command.
+ * @param opt Collection of all options of generate command.
+ */
+void ExecuteGenerateCommand(GenerateOptions const &opt);
 }  // namespace zephir::commands
 
 #endif  // ZEPHIR_COMMANDS_CMD_GENERATE_HPP_

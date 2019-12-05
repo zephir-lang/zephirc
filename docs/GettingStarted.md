@@ -14,7 +14,7 @@ To build Zephir compiler you need the following requirements:
 
 For the full dependency list see `conanfile.txt` file located in the sources root.
 
-#### Optional
+### Optional
 
 * Static analysis tool for C/C++ code: [Cppcheck](https://github.com/danmar/cppcheck) >= 1.89
 * Cmake formatting tool: [cmake-format](https://github.com/cheshirekow/cmake_format)
@@ -59,7 +59,25 @@ They can be installed using pip as follows:
 pip install --upgrade conan cppcheck cmake-format
 ```
 
-## Building from Source
+## Building from source
+
+First you'll need clone the project and fetch its modules:
+
+```shell script
+git clone git@github.com:sergeyklay/cpp-zephir.git
+cd cpp-zephir
+git submodule init
+git submodule update
+```
+
+And wait for load any required dependencies. For git 1.6.1 or above you can use something similar to command bellow
+to pull latest of all submodules:
+
+```shell script
+git submodule update --remote --merge
+```
+
+Finally build project as follows:
 
 ```shell script
 cmake -H. -Bbuild -DCMAKE_BUILD_TYPE=Release
@@ -83,7 +101,7 @@ make
 make check
 ```
 
-Environment variable `ZEPHIR_TESTS_ROOT` is needed for those tests which reads fixture files from the disk.
+Environment variable `ZEPHIR_TESTS_ROOT` is needed for the tests which use fixture files.
 
 ### Additional cmake flags
 

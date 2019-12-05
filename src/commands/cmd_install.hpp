@@ -13,32 +13,27 @@
 #include <CLI/CLI11.hpp>
 
 namespace zephir::commands {
+
 /**
- * @brief Installs the extension in the extension directory.
+ * @brief Collection of all options of install command.
  */
-class InstallCommand {
- public:
-  InstallCommand(CLI::App* app, const std::string& group);
-
- private:
-  /**
-   * @brief Configures the current command.
-   *
-   * @param app CLI::App instance
-   * @param group The command group membership
-   */
-  void Configure(CLI::App* app, const std::string& group);
-
-  /**
-   * @brief Executes the current command.
-   */
-  void Execute();
-
-  // Collection of all options of InstallCommand.
-  struct Options {
-    bool dev;
-  } options;
+struct InstallOptions {
+  bool dev;
 };
+
+/**
+ * @brief Configures the current command.
+ *
+ * @param app CLI::App instance
+ * @param group The command group membership
+ */
+void SetupInstallCommand(CLI::App &app, const std::string &group);
+
+/**
+ * @brief Executes the current command.
+ * @param opt Collection of all options of install command.
+ */
+void ExecuteInstallCommand(InstallOptions const &opt);
 }  // namespace zephir::commands
 
 #endif  // ZEPHIR_COMMANDS_CMD_INSTALL_HPP_

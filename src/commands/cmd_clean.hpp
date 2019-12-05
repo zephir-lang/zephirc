@@ -14,26 +14,17 @@
 
 namespace zephir::commands {
 /**
- * @brief Cleans any object files created by the extension.
+ * @brief Configures the current command.
+ *
+ * @param app CLI::App instance
+ * @param group The command group membership
  */
-class CleanCommand {
- public:
-  CleanCommand(CLI::App* app, const std::string& group);
+void SetupCleanCommand(CLI::App &app, const std::string &group);
 
- private:
-  /**
-   * @brief Configures the current command.
-   *
-   * @param app CLI::App instance
-   * @param group The command group membership
-   */
-  void Configure(CLI::App* app, const std::string& group);
-
-  /**
-   * @brief Executes the current command.
-   */
-  void Execute();
-};
+/**
+ * @brief Executes the current command.
+ */
+void ExecuteCleanCommand();
 }  // namespace zephir::commands
 
 #endif  // ZEPHIR_COMMANDS_CMD_CLEAN_HPP_

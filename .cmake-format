@@ -36,12 +36,6 @@ additional_commands:
       - NO_OUTPUT_DIRS
       - OUTPUT_QUIET
       - NO_IMPORTS
-  conan_add_remote:
-    kwargs:
-      URL: 1
-      NAME: 1
-      INDEX: 1
-      COMMAND: 1
   file:
     kwargs:
       GLOB: '*'
