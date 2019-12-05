@@ -1,0 +1,49 @@
+name: analysis
+
+on:
+  push:
+    branches-ignore:
+      - 'wip-*'
+    paths-ignore:
+      - 'README.md'
+
+  pull_request:
+    branches:
+      - 'master'
+
+jobs:
+  code_style:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2-beta
+        with:
+            fetch-depth: 1
+
+      - name: Setup Python
+        uses: actions/setup-python@v1
+        with:
+          version: 3.x
+          architecture: x64
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install --upgrade cmake-format clang-format PyYAML
+
+      - name: Cmake Check
+        run: |
+          cmake-format --version
+          cmake-format -i $(find ./cmake -name '*.cmake')
+          cmake-format -i $(find . -name 'CMakeLists.txt')
+          git diff --exit-code
+
+      - name: C++ Check
+        run: |
+          clang-format --version
+          clang-format -i $(find ./src -name '*.cpp')
+          clang-format -i $(find ./src -name '*.hpp')
+          clang-format -i $(find ./include -name '*.cpp')
+          clang-format -i $(find ./include -name '*.hpp')
+          git diff --exit-code
