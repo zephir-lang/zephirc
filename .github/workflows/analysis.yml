@@ -34,10 +34,9 @@ jobs:
 
       - name: Cmake Check
         run: |
-          ls -al
           cmake-format --version
-          cmake-format -i $(find ./cmake -name "*.cmake")
-          cmake-format -i $(find . -name "CMakeLists.txt")
+          cmake-format -c $(pwd)/.cmake-format -i $(find ./cmake -name "*.cmake")
+          cmake-format -c $(pwd)/.cmake-format $(find . -name "CMakeLists.txt")
           git diff --exit-code
 
       - name: C++ Check
