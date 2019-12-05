@@ -6,3 +6,12 @@ external/*     linguist-vendored
 
 .clang-format  linguist-language=YAML
 .cmake-format  linguist-language=YAML
+
+.clang-format   export-ignore
+.cmake-format   export-ignore
+.codecov.yml    export-ignore
+.editorconfig   export-ignore
+.gitattributes  export-ignore
+.github         export-ignore
+.vscode         export-ignore
+CPPLINT.cfg     export-ignore
