@@ -34,6 +34,7 @@ jobs:
 
       - name: Cmake Check
         run: |
+          pip show PyYAML
           cmake-format --version
           cmake-format -c $(pwd)/.cmake-format -i $(find ./cmake -name "*.cmake")
           cmake-format -c $(pwd)/.cmake-format $(find . -name "CMakeLists.txt")
