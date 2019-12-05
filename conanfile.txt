@@ -8,7 +8,6 @@ cmake
 
 [options]
 spdlog:shared=True
-gtest:shared=True
 yaml-cpp:shared=True
 
 [imports]
