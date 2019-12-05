@@ -21,10 +21,10 @@ jobs:
         with:
             fetch-depth: 1
 
-      - name: Set up Python
+      - name: Setup Python
         uses: actions/setup-python@v1
         with:
-          version: 3.8
+          version: 3.x
           architecture: x64
 
       - name: Install dependencies
@@ -35,15 +35,15 @@ jobs:
       - name: Cmake Check
         run: |
           cmake-format --version
-          cmake-format -i $(find ./cmake -name "*.cmake")
-          cmake-format -i $(find . -name "CMakeLists.txt")
+          cmake-format -i $(find ./cmake -name '*.cmake')
+          cmake-format -i $(find . -name 'CMakeLists.txt')
           git diff --exit-code
 
       - name: C++ Check
         run: |
           clang-format --version
-          clang-format -i $(find . -name "*.c")
-          clang-format -i $(find . -name "*.cpp")
-          clang-format -i $(find . -name "*.h")
-          clang-format -i $(find . -name "*.hpp")
+          clang-format -i $(find ./src -name '*.cpp')
+          clang-format -i $(find ./src -name '*.hpp')
+          clang-format -i $(find ./include -name '*.cpp')
+          clang-format -i $(find ./include -name '*.hpp')
           git diff --exit-code
