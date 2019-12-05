@@ -41,4 +41,4 @@ class InstallCommand {
 };
 }  // namespace zephir::commands
 
-#endif //ZEPHIR_COMMANDS_CMD_INSTALL_HPP_
+#endif  // ZEPHIR_COMMANDS_CMD_INSTALL_HPP_
