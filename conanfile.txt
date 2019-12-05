@@ -1,6 +1,7 @@
 [requires]
 spdlog/1.4.2
 gtest/1.10.0
+yaml-cpp/0.6.3
 
 [generators]
 cmake
@@ -8,6 +9,7 @@ cmake
 [options]
 spdlog:shared=True
 gtest:shared=True
+yaml-cpp:shared=True
 
 [imports]
 bin, *.dll -> ./bin

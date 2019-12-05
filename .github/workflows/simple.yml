@@ -53,9 +53,7 @@ jobs:
     - name: Setup Prerequisites
       run: |
         sudo apt-get update --quiet --yes 1>/dev/null
-        sudo apt-get install --no-install-recommends --quiet --yes \
-            lcov          \
-            libyaml-cpp-dev
+        sudo apt-get install --no-install-recommends --quiet --yes lcov
 
     - name: Configure
       run: |
