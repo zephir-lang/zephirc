@@ -21,6 +21,15 @@ jobs:
       with:
         fetch-depth: 5
 
+    - uses: actions/cache@v1
+      name: Setup Conan Cache
+      id: cache
+      with:
+        path: ~/.conan
+        key: ${{ runner.os }}-conan-${{ hashFiles('**/conanfile.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-conan-
+
     - name: Setup Python
       uses: actions/setup-python@v1
       with:
