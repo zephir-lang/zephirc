@@ -8,8 +8,8 @@
 #ifndef ZEPHIR_LOGGER_FACADE_HPP_
 #define ZEPHIR_LOGGER_FACADE_HPP_
 
-#include <spdlog/spdlog.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
+#include <spdlog/spdlog.h>
 
 #include <string>
 
@@ -19,13 +19,13 @@ namespace zephir::logger {
  * @brief Wrap third party log library
  * and provide minimalistic interface for Zephir log writer
  */
-template <class Type>
+template <class T>
 class Facade {
  private:
   // spdlog's global registry name
   const std::string _logger_name = "zephir_logger";
 
-  std::shared_ptr<Type> _logger;
+  std::shared_ptr<T> _logger;
 
  public:
   Facade();
@@ -35,7 +35,7 @@ class Facade {
    *
    * @param logger - shared pointer to logger instance
    */
-  Facade(std::shared_ptr<Type> logger);
+  Facade(std::shared_ptr<T> logger);
 
   ~Facade();
 
@@ -73,7 +73,7 @@ class Facade {
    * @param message - The log message
    * @param context - The process context detail
    */
-  void exception(const std::exception& error, const Type& context);
+  void exception(const std::exception& error, const T& context);
 
   /**
    * @brief Add a log record with specified level, category and context
@@ -84,7 +84,7 @@ class Facade {
    * @param context - The log context
    */
   void log(const std::string& message, int level, const std::string& category,
-           const Type& context);
+           const T& context);
 };
 
 }  // namespace zephir::logger

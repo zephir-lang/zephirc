@@ -7,51 +7,51 @@
 
 #include "facade.hpp"
 
-template <class Type>
-zephir::logger::Facade<Type>::Facade() {
+template <class T>
+zephir::logger::Facade<T>::Facade() {
   _logger = spdlog::stdout_color_mt(this->_logger_name);
 }
 
-template <class Type>
-zephir::logger::Facade<Type>::Facade(std::shared_ptr<Type> logger) {
+template <class T>
+zephir::logger::Facade<T>::Facade(std::shared_ptr<T> logger) {
   _logger =
       logger == nullptr ? spdlog::stdout_color_mt(this->_logger_name) : logger;
 }
 
-template <class Type>
-zephir::logger::Facade<Type>::~Facade() {
+template <class T>
+zephir::logger::Facade<T>::~Facade() {
   spdlog::drop_all();
 }
 
-template <class Type>
-void zephir::logger::Facade<Type>::info(const std::string& message) {
+template <class T>
+void zephir::logger::Facade<T>::info(const std::string& message) {
   _logger->info(message);
 }
 
-template <class Type>
-void zephir::logger::Facade<Type>::warning(const std::string& message) {
+template <class T>
+void zephir::logger::Facade<T>::warning(const std::string& message) {
   _logger->warn(message);
 }
 
-template <class Type>
-void zephir::logger::Facade<Type>::error(const std::string& message) {
+template <class T>
+void zephir::logger::Facade<T>::error(const std::string& message) {
   _logger->error(message);
 }
 
-template <class Type>
-void zephir::logger::Facade<Type>::debug(const std::string& message) {
+template <class T>
+void zephir::logger::Facade<T>::debug(const std::string& message) {
   _logger->debug(message);
 }
 
-template <class Type>
-void zephir::logger::Facade<Type>::exception(const std::exception& error,
-                                             const Type& context) {
+template <class T>
+void zephir::logger::Facade<T>::exception(const std::exception& error,
+                                          const T& context) {
   ///
 }
 
-template <class Type>
-void zephir::logger::Facade<Type>::log(const std::string& message, int level,
-                                       const std::string& category,
-                                       const Type& context) {
+template <class T>
+void zephir::logger::Facade<T>::log(const std::string& message, int level,
+                                    const std::string& category,
+                                    const T& context) {
   ///
 }
