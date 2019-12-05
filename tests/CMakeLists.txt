@@ -5,7 +5,6 @@
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
 
-include(AddGoogleTests)
 include(GoogleTest)
 
 set(ZEPHIR_TESTS options_test config_test)
@@ -27,7 +26,7 @@ target_code_coverage(options_test AUTO ALL EXTERNAL)
 
 target_link_libraries(
   options_test
-  PRIVATE gtest
+  PRIVATE CONAN_PKG::GTest
   PUBLIC commands)
 
 gtest_discover_tests(
@@ -51,7 +50,7 @@ target_code_coverage(config_test AUTO ALL EXTERNAL)
 
 target_link_libraries(
   config_test
-  PRIVATE gtest
+  PRIVATE CONAN_PKG::GTest
   PUBLIC filesystem config)
 
 gtest_discover_tests(
