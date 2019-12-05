@@ -20,4 +20,4 @@ target_include_directories(
 # Instruments the library
 target_code_coverage(config AUTO ALL)
 
-target_link_libraries(config PUBLIC ${YAMLCPP_LIBRARY} filesystem commands)
+target_link_libraries(config PUBLIC ${YAMLCPP_LIBRARY} filesystem)

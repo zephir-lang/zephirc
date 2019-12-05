@@ -5,12 +5,12 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#include "config.hpp"
+#include "zephir/config.hpp"
 
 #include <yaml-cpp/yaml.h>
 
 #include "commands/commands.hpp"
-#include "filesystem/filesystem.hpp"
+#include "zephir/filesystem.hpp"
 #include "zephir/main.hpp"
 
 zephir::Config::Config(const std::string &file) {
@@ -51,16 +51,8 @@ bool zephir::Config::IsChanged() { return changed; }
 zephir::Config zephir::Config::CreateFromArgv(int argc, char **argv,
                                               const std::string &file) {
   zephir::Config config(file);
-  auto retval = zephir::commands::ParseOptions(argc, argv);
 
-  if (retval == EXIT_HELP) {
-    // Do nothing on "zephir --help" command.
-    return config;
-  }
-
-  if (retval != 0) {
-    // TODO(klay): Throw exception. Args related?
-  }
+  // TODO(klay): Process config, use argv
 
   return config;
 }
