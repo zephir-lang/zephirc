@@ -10,7 +10,7 @@
 !.vscode/tasks.json
 
 /build/
-/build-*/
+/cmake-build-*/
 *.profraw
 
 # I use this as my wish list
