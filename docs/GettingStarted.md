@@ -77,6 +77,8 @@ to pull latest of all submodules:
 git submodule update --remote --merge
 ```
 
+Finally build project as follows:
+
 ```shell script
 cmake -H. -Bbuild -DCMAKE_BUILD_TYPE=Release
 cmake --build build
@@ -99,7 +101,7 @@ make
 make check
 ```
 
-Environment variable `ZEPHIR_TESTS_ROOT` is needed for those tests which reads fixture files from the disk.
+Environment variable `ZEPHIR_TESTS_ROOT` is needed for the tests which use fixture files.
 
 ### Additional cmake flags
 
