@@ -8,6 +8,40 @@
 first_comment_is_literal: true
 
 additional_commands:
+  conan_cmake_run:
+    kwargs:
+      CONANFILE: 1
+      ARCH: 1
+      BUILD_TYPE: 1
+      INSTALL_FOLDER: 1
+      CONAN_COMMAND: 1
+      DEBUG_PROFILE: '*'
+      RELEASE_PROFILE: '*'
+      RELWITHDEBINFO_PROFILE: '*'
+      MINSIZEREL_PROFILE: '*'
+      PROFILE REQUIRES: '*'
+      OPTIONS IMPORTS: '*'
+      SETTINGS: '*'
+      BUILD: '*'
+      ENV: '*'
+      GENERATORS: '*'
+      PROFILE_AUTO: '*'
+      INSTALL_ARGS: '*'
+    flags:
+      - BASIC_SETUP
+      - CMAKE_TARGETS
+      - UPDATE
+      - KEEP_RPATHS
+      - NO_LOAD
+      - NO_OUTPUT_DIRS
+      - OUTPUT_QUIET
+      - NO_IMPORTS
+  conan_add_remote:
+    kwargs:
+      URL: 1
+      NAME: 1
+      INDEX: 1
+      COMMAND: 1
   file:
     kwargs:
       GLOB: '*'
