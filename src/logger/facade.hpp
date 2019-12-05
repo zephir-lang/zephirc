@@ -9,7 +9,7 @@
 #define ZEPHIR_LOGGER_FACADE_HPP_
 
 #include <spdlog/spdlog.h>
-#include <spdlog/sinks/stdout_sinks.h>
+#include <spdlog/sinks/stdout_color_sinks.h>
 
 #include <string>
 
