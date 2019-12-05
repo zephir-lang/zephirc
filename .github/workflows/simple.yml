@@ -31,6 +31,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install --upgrade conan
+        conan remote add conan-center-index https://api.bintray.com/conan/conan/conan-center
 
     - name: Setup Prerequisites
       run: |
