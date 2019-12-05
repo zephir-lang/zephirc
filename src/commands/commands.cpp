@@ -66,8 +66,8 @@ int zephir::commands::ParseOptions(int argc, char** argv) {
   zephir::commands::CleanCommand clean(&app, commands_group);
   zephir::commands::CompileCommand compile(&app, commands_group);
   zephir::commands::FullcleanCommand fullclean(&app, commands_group);
-  zephir::commands::GenerateCommand generate(&app, commands_group);
 
+  zephir::commands::SetupGenerateCommand(app, commands_group);
   zephir::commands::SetupInitCommand(app, commands_group);
   zephir::commands::SetupInstallCommand(app, commands_group);
   zephir::commands::SetupStubsCommand(app, commands_group);
