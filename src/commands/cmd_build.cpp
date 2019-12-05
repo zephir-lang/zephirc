@@ -9,24 +9,20 @@
 
 #include "commands.hpp"
 
-zephir::commands::BuildCommand::BuildCommand(CLI::App* app,
-                                             const std::string& group) {
-  // defaults
-  options.backend = "ZendEngine3";
-  options.dev = true;
+using zephir::commands::BuildOptions;
 
-  Configure(app, group);
-}
-
-void zephir::commands::BuildCommand::Configure(CLI::App* app,
-                                               const std::string& group) {
-  auto cmd = app->add_subcommand(
+void zephir::commands::SetupBuildCommand(CLI::App& app,
+                                         const std::string& group) {
+  auto options = std::make_shared<BuildOptions>();
+  auto cmd = app.add_subcommand(
                     "build", "Generates/Compiles/Installs a Zephir extension")
                  ->group(group);
 
+  options->backend = "ZendEngine3";
+
   // Add options to cmd, binding them to options.
   cmd->add_option(
-      "--backend", options.backend,
+      "--backend", options->backend,
       "Used backend to generate extension [default: \"ZendEngine3\"]");
 
   CLI::Option* dev = cmd->add_flag(
@@ -36,11 +32,11 @@ void zephir::commands::BuildCommand::Configure(CLI::App* app,
   cmd->set_help_flag("-h, --help", "Print this help message and quit");
 
   if (no_dev->count()) {
-    options.dev = false;
+    options->dev = false;
   }
 
   if (dev->count()) {
-    options.dev = true;
+    options->dev = true;
   }
 
   // TODO(klay): Check for PHP build mode
@@ -71,10 +67,10 @@ void zephir::commands::BuildCommand::Configure(CLI::App* app,
 
   // Set the run function as callback to be called when this subcommand is
   // issued.
-  cmd->callback([&]() { Execute(); });
+  cmd->callback([options]() { ExecuteBuildCommand(*options); });
 }
 
-void zephir::commands::BuildCommand::Execute() {
+void zephir::commands::ExecuteBuildCommand(BuildOptions const& options) {
   // Do stuff...
   std::cout << "Build command" << std::endl;
   std::cout << "NOT IMPLEMENTED" << std::endl;
