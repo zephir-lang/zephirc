@@ -1,9 +1,12 @@
 [requires]
-spdlog/1.4.2@bincrafters/stable
+spdlog/1.4.2
 
 [generators]
 cmake
 
+[options]
+spdlog:shared=True
+
 [imports]
-bin, *.dll -> ./bin # Copies all dll files from packages bin folder to my local "bin" folder
-lib, *.dylib* -> ./bin # Copies all dylib files from packages lib folder to my local "bin" folder
+bin, *.dll -> ./bin
+lib, *.dylib* -> ./bin
