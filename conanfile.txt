@@ -1,11 +1,13 @@
 [requires]
 spdlog/1.4.2
+gtest/1.10.0
 
 [generators]
 cmake
 
 [options]
 spdlog:shared=True
+gtest:shared=True
 
 [imports]
 bin, *.dll -> ./bin
