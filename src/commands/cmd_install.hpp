@@ -31,6 +31,7 @@ void SetupInstallCommand(CLI::App &app, const std::string &group);
 
 /**
  * @brief Executes the current command.
+ * @param opt Collection of all options of install command.
  */
 void ExecuteInstallCommand(InstallOptions const &opt);
 }  // namespace zephir::commands

@@ -30,6 +30,7 @@ void SetupGenerateCommand(CLI::App &app, const std::string &group);
 
 /**
  * @brief Executes the current command.
+ * @param opt Collection of all options of generate command.
  */
 void ExecuteGenerateCommand(GenerateOptions const &opt);
 }  // namespace zephir::commands

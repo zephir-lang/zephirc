@@ -31,6 +31,7 @@ void SetupInitCommand(CLI::App &app, const std::string &group);
 
 /**
  * @brief Executes the current command.
+ * @param opt Collection of all options of init command.
  */
 void ExecuteInitCommand(InitOptions const &opt);
 }  // namespace zephir::commands
