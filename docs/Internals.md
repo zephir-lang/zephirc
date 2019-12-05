@@ -36,7 +36,7 @@ Legend:
 
 ## Dependency graph
 
-```
+```text
 .
 └── zephir
     ├── config
