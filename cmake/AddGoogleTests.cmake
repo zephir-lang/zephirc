@@ -29,4 +29,3 @@ endif()
 # Restore cppcheck configuration
 set(CMAKE_CXX_CPPCHECK_ORIGIN "${CMAKE_CXX_CPPCHECK}")
 set(CMAKE_CXX_CPPCHECK "${CMAKE_CXX_CPPCHECK_ORIGIN}")
-

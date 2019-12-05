@@ -76,7 +76,7 @@ clang_format(cpp-format ${glob_files})
 
 file(GLOB_RECURSE glob_files ${zephir_SOURCE_DIR}/cmake/*.cmake)
 list(
-  APPEND glob_files #
+  APPEND glob_files
          ${zephir_SOURCE_DIR}/CMakeLists.txt
          ${zephir_SOURCE_DIR}/src/CMakeLists.txt
          ${zephir_SOURCE_DIR}/tests/CMakeLists.txt
@@ -118,18 +118,22 @@ endif()
 
 # Conan bootstrap
 if(NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
-  message(STATUS "Downloading conan.cmake from https://github.com/conan-io/cmake-conan")
+  message(
+    STATUS
+      "Downloading conan.cmake from https://github.com/conan-io/cmake-conan")
   file(DOWNLOAD "https://github.com/conan-io/cmake-conan/raw/v0.13/conan.cmake"
-          "${CMAKE_BINARY_DIR}/conan.cmake")
+       "${CMAKE_BINARY_DIR}/conan.cmake")
 endif()
 
 include(${CMAKE_BINARY_DIR}/conan.cmake)
 conan_check(REQUIRED)
-conan_add_remote(NAME bincrafters URL https://api.bintray.com/conan/bincrafters/public-conan)
+conan_add_remote(NAME bincrafters
+                 URL https://api.bintray.com/conan/bincrafters/public-conan)
 
-conan_cmake_run(CONANFILE conanfile.txt
-        BASIC_SETUP CMAKE_TARGETS KEEP_RPATHS
-        BUILD missing)
+conan_cmake_run(
+  CONANFILE conanfile.txt
+  BASIC_SETUP CMAKE_TARGETS KEEP_RPATHS
+  BUILD missing)
 
 add_subdirectory(external)
 add_subdirectory(src)
