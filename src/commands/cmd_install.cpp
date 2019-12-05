@@ -62,7 +62,7 @@ void zephir::commands::SetupInstallCommand(CLI::App& app,
 
   // Set the run function as callback to be called when this subcommand is
   // issued.
-  cmd->callback([&]() { ExecuteInstallCommand(*options); });
+  cmd->callback([options]() { ExecuteInstallCommand(*options); });
 }
 
 void zephir::commands::ExecuteInstallCommand(InstallOptions const& options) {

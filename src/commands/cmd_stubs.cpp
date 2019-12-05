@@ -33,7 +33,7 @@ void zephir::commands::SetupStubsCommand(CLI::App &app,
 
   // Set the run function as callback to be called when this subcommand is
   // issued.
-  cmd->callback([&]() { ExecuteStubsCommand(*options); });
+  cmd->callback([options]() { ExecuteStubsCommand(*options); });
 }
 
 void zephir::commands::ExecuteStubsCommand(StubsOptions const &options) {

@@ -30,7 +30,7 @@ void zephir::commands::SetupInitCommand(CLI::App& app,
 
   // Set the run function as callback to be called when this subcommand is
   // issued.
-  cmd->callback([&]() { ExecuteInitCommand(*options); });
+  cmd->callback([options]() { ExecuteInitCommand(*options); });
 }
 
 void zephir::commands::ExecuteInitCommand(InitOptions const& options) {
