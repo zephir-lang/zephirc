@@ -17,7 +17,7 @@ namespace zephir::commands {
  * @param argc Number of CLI arguments provided
  * @param argv Provided CLI arguments
  */
-int ParseOptions(int argc, char **argv);
+int CreateFromArgv(int argc, char **argv);
 
 /**
  * @brief Gets a help for common compilation flags.

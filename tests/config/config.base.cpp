@@ -9,8 +9,8 @@
 
 #include "argv.hpp"
 #include "asserts.hpp"
-#include "config/config.hpp"
 #include "env/base.hpp"
+#include "zephir/config.hpp"
 
 class ConfigBaseTest : public ::testing::Test {
  protected:

@@ -5,14 +5,16 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#include "config/config.hpp"
-#include "filesystem/filesystem.hpp"
+#include "zephir/main.hpp"
+
+#include "commands/commands.hpp"
 
 int main(int argc, char** argv) {
-  auto cwd = zephir::filesystem::GetCurrentWorkingPath();
-  auto config = zephir::Config::CreateFromArgv(argc, argv, cwd + "/config.yml");
+  auto retval = zephir::commands::CreateFromArgv(argc, argv);
 
-  // TODO(klay): Catch exceptions
+  if (retval == EXIT_HELP) {
+    retval = EXIT_SUCCESS;
+  }
 
-  return EXIT_SUCCESS;
+  return retval;
 }

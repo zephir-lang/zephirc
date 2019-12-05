@@ -64,17 +64,18 @@ cxx_17()
 # Tools
 file(
   GLOB_RECURSE
-    glob_files
-    ${zephir_SOURCE_DIR}/include/*.[hc]
-    ${zephir_SOURCE_DIR}/include/*.[hc]pp
-    ${zephir_SOURCE_DIR}/src/*.[hc]
-    ${zephir_SOURCE_DIR}/src/*.[hc]pp
-    ${zephir_SOURCE_DIR}/tests/*.[hc]
-    ${zephir_SOURCE_DIR}/tests/*.[hc]pp)
+  glob_files
+  ${zephir_SOURCE_DIR}/include/*.[hc]
+  ${zephir_SOURCE_DIR}/include/*.[hc]pp
+  ${zephir_SOURCE_DIR}/src/*.[hc]
+  ${zephir_SOURCE_DIR}/src/*.[hc]pp
+  ${zephir_SOURCE_DIR}/tests/*.[hc]
+  ${zephir_SOURCE_DIR}/tests/*.[hc]pp)
 
 clang_format(cpp-format ${glob_files})
 
-file(GLOB_RECURSE glob_files ${zephir_SOURCE_DIR}/cmake/*.cmake)
+file(GLOB_RECURSE glob_files "${zephir_SOURCE_DIR}/cmake/*.cmake"
+     "${zephir_SOURCE_DIR}/src/CMakeLists.txt")
 list(
   APPEND glob_files
          ${zephir_SOURCE_DIR}/CMakeLists.txt

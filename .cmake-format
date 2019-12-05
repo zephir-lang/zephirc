@@ -36,12 +36,6 @@ additional_commands:
       - NO_OUTPUT_DIRS
       - OUTPUT_QUIET
       - NO_IMPORTS
-  file:
-    kwargs:
-      GLOB: '*'
-      GLOB_RECURSE: '*'
-      STRINGS: '*'
-      REGEX: '*'
   gtest_discover_tests:
     flags:
       - NO_PRETTY_TYPES

@@ -27,7 +27,7 @@ TEST_P(NoneCmdTest, RunUsingGlobalOptions) {
   const std::string& option = std::get<0>(GetParam());
 
   argv.assign({"zephir", option.c_str()});
-  auto actual = zephir::commands::ParseOptions(argv.argc(), argv.argv());
+  auto actual = zephir::commands::CreateFromArgv(argv.argc(), argv.argv());
   EXPECT_EQ(expected, actual);
 }
 

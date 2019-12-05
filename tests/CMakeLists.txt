@@ -18,6 +18,7 @@ target_include_directories(
   options_test
   PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
           $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
+          $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
           ${CMAKE_SOURCE_DIR}/src/commands)
 
 # Adds the executable to the 'ccov' and 'ccov-all' targets and excludes the file
@@ -41,6 +42,7 @@ target_include_directories(
   config_test
   PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
           $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
+          $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
           ${CMAKE_SOURCE_DIR}/src/config)
 
 # Adds the executable to the 'ccov' and 'ccov-all' targets and excludes the file
@@ -50,7 +52,7 @@ target_code_coverage(config_test AUTO ALL EXTERNAL)
 target_link_libraries(
   config_test
   PRIVATE gtest
-  PUBLIC config)
+  PUBLIC filesystem config)
 
 gtest_discover_tests(
   config_test

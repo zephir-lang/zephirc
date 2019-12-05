@@ -5,8 +5,8 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#ifndef ZEPHIR_CONFIG_CONFIG_HPP_
-#define ZEPHIR_CONFIG_CONFIG_HPP_
+#ifndef ZEPHIR_CONFIG_HPP_
+#define ZEPHIR_CONFIG_HPP_
 
 #include <set>
 #include <string>
@@ -149,4 +149,4 @@ class Config {
 };
 }  // namespace zephir
 
-#endif  // ZEPHIR_CONFIG_CONFIG_HPP_
+#endif  // ZEPHIR_CONFIG_HPP_

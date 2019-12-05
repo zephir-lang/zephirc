@@ -14,7 +14,11 @@ add_subdirectory(logger)
 # Main
 add_executable(zephir main.cpp)
 
-target_link_libraries(zephir PUBLIC config)
+target_include_directories(
+  zephir PRIVATE $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
+                 $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
+
+target_link_libraries(zephir PUBLIC commands)
 
 # Adds the executable to the 'ccov' and 'ccov-all' targets and excludes the file
 # itself via regex

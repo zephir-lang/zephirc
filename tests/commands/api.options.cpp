@@ -18,6 +18,6 @@ class ApiCmdTest : public ::testing::Test {
 
 TEST_F(ApiCmdTest, RunWithoutOptions) {
   argv.assign({"zephir", "api"});
-  auto retval = zephir::commands::ParseOptions(argv.argc(), argv.argv());
+  auto retval = zephir::commands::CreateFromArgv(argv.argc(), argv.argv());
   EXPECT_EQ(retval, 0);
 }

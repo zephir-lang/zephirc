@@ -22,10 +22,16 @@
 #include "cmd_install.hpp"
 #include "cmd_stubs.hpp"
 #include "formatter.hpp"
+#include "zephir/config.hpp"
+#include "zephir/filesystem.hpp"
 #include "zephir/main.hpp"
 #include "zephir/version.hpp"
 
-int zephir::commands::ParseOptions(int argc, char** argv) {
+int zephir::commands::CreateFromArgv(int argc, char** argv) {
+  auto cwd = zephir::filesystem::GetCurrentWorkingPath();
+  auto config =
+      zephir::Config::CreateFromArgv(argc, argv, cwd + "/.zephir.yml");
+
   std::string out = "Zephir " + std::string(ZEPHIR_VERSION_STRING);
   out += " by Serghei Iakovlev and Alexander Andriiako";
 

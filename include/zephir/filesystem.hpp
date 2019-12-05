@@ -5,8 +5,8 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#ifndef ZEPHIR_FILESYSTEM_FILESYSTEM_HPP_
-#define ZEPHIR_FILESYSTEM_FILESYSTEM_HPP_
+#ifndef ZEPHIR_FILESYSTEM_HPP_
+#define ZEPHIR_FILESYSTEM_HPP_
 
 #include <string>
 
@@ -27,4 +27,4 @@ bool Exists(const std::string& name);
 std::string GetCurrentWorkingPath();
 }  // namespace zephir::filesystem
 
-#endif  // ZEPHIR_FILESYSTEM_FILESYSTEM_HPP_
+#endif  // ZEPHIR_FILESYSTEM_HPP_
