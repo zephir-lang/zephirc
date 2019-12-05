@@ -9,23 +9,19 @@
 
 #include "commands.hpp"
 
-zephir::commands::CompileCommand::CompileCommand(CLI::App* app,
-                                                 const std::string& group) {
-  // defaults
-  options.backend = "ZendEngine3";
-  options.dev = true;
+using zephir::commands::CompileOptions;
 
-  Configure(app, group);
-}
+void zephir::commands::SetupCompileCommand(CLI::App& app,
+                                           const std::string& group) {
+  auto options = std::make_shared<CompileOptions>();
+  auto cmd =
+      app.add_subcommand("compile", "Compile a Zephir extension")->group(group);
 
-void zephir::commands::CompileCommand::Configure(CLI::App* app,
-                                                 const std::string& group) {
-  auto cmd = app->add_subcommand("compile", "Compile a Zephir extension")
-                 ->group(group);
+  options->backend = "ZendEngine3";
 
   // Add options to cmd, binding them to options.
   cmd->add_option(
-      "--backend", options.backend,
+      "--backend", options->backend,
       "Used backend to generate extension [default: \"ZendEngine3\"]");
 
   CLI::Option* dev = cmd->add_flag(
@@ -35,11 +31,11 @@ void zephir::commands::CompileCommand::Configure(CLI::App* app,
   cmd->set_help_flag("-h, --help", "Print this help message and quit");
 
   if (no_dev->count()) {
-    options.dev = false;
+    options->dev = false;
   }
 
   if (dev->count()) {
-    options.dev = true;
+    options->dev = true;
   }
 
   // TODO(klay): Check for PHP build mode
@@ -68,10 +64,10 @@ void zephir::commands::CompileCommand::Configure(CLI::App* app,
 
   // Set the run function as callback to be called when this subcommand is
   // issued.
-  cmd->callback([&]() { Execute(); });
+  cmd->callback([options]() { ExecuteCompileCommand(*options); });
 }
 
-void zephir::commands::CompileCommand::Execute() {
+void zephir::commands::ExecuteCompileCommand(CompileOptions const& options) {
   // Do stuff...
   std::cout << "Compile command" << std::endl;
   std::cout << "NOT IMPLEMENTED" << std::endl;
