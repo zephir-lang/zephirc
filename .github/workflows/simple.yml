@@ -70,7 +70,7 @@ jobs:
     - name: Setup Prerequisites (macOS)
       if: runner.os == 'macOS'
       run: |
-        brew install cmake pkg-config clang-format lcov
+        brew install pkg-config lcov
 
     - uses: actions/cache@v1
       name: Setup conan cache
