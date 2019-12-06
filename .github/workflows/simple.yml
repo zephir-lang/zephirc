@@ -118,7 +118,8 @@ jobs:
       run: cmake --build build --target check
 
     - name: Generate code coverage report
-      run: cmake --build build --target ccov-all-capture
+      # TODO(klay): ccov-all-capture works only on gcc, fix it
+      run: cmake --build build --target ccov-all
 
     - name: Upload code coverage report
       uses: codecov/codecov-action@v1
