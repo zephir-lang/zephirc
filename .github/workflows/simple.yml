@@ -24,6 +24,7 @@ jobs:
         name:
           - ubuntu-18.04-gcc-7
           - ubuntu-18.04-clang-5.0
+          - macos-latest-gcc-7
 
         include:
           - name: ubuntu-18.04-gcc-7
@@ -36,6 +37,11 @@ jobs:
             compiler: clang
             version: '5.0'
             ccov: OFF
+          - name: macos-latest-gcc-7
+            os: masOS-latest
+            compiler: gcc
+            version: '7'
+            ccov: ON
 
     steps:
     - uses: actions/checkout@v2-beta
@@ -61,6 +67,19 @@ jobs:
 
           echo "::set-env name=CC::clang-${{ matrix.version }}"
           echo "::set-env name=CXX::clang++-${{ matrix.version }}"
+        fi
+
+    - name: Setup Prerequisites (macOS)
+      if: runner.os == 'macOS'
+      run: |
+        brew install cmake pkg-config clang-format
+        if [ "${{ matrix.compiler }}" = "gcc" ]; then
+          brew install \
+            lcov  \
+            gcc@${{ matrix.version }}
+
+          echo "::set-env name=CC::gcc-${{ matrix.version }}"
+          echo "::set-env name=CXX::g++-${{ matrix.version }}"
         fi
 
     - uses: actions/cache@v1
