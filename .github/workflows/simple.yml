@@ -30,11 +30,12 @@ jobs:
             os: ubuntu-18.04
             compiler: gcc
             version: '7'
+            ccov: on
           - name: ubuntu-18.04-clang-5.0
             os: ubuntu-18.04
             compiler: clang
             version: '5.0'
-            llvm: '8'
+            ccov: off
 
     steps:
     - uses: actions/checkout@v2-beta
@@ -51,18 +52,12 @@ jobs:
           sudo apt-get install --no-install-recommends --quiet --yes \
             lcov  \
             gcc-${{ matrix.version }}
+
           echo "::set-env name=CC::gcc-${{ matrix.version }}"
           echo "::set-env name=CXX::g++-${{ matrix.version }}"
         else
           sudo apt-get install --no-install-recommends --quiet --yes \
             clang-${{ matrix.version }}
-
-          wget --quiet https://apt.llvm.org/llvm.sh
-          chmod +x llvm.sh
-          sudo ./llvm.sh ${{ matrix.llvm }}
-
-          sudo ln -sf /usr/bin/llvm-cov-${{ matrix.llvm }} /usr/bin/llvm-cov
-          sudo ln -sf /usr/bin/llvm-profdata-${{ matrix.llvm }} /usr/bin/llvm-profdata
 
           echo "::set-env name=CC::clang-${{ matrix.version }}"
           echo "::set-env name=CXX::clang++-${{ matrix.version }}"
@@ -97,31 +92,43 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Configure
+    - name: Configure x64 Debug
       run: |
         $CC --version
 
-        cmake                         \
+        if ("${{ matrix.ccov }}" -eq "on") {
+          cmake                         \
+              -S .                      \
+              -Bbuild                   \
+              -DCMAKE_BUILD_TYPE=Debug  \
+              -DZEPHIR_BUILD_TESTING=ON \
+              -DENABLE_ALL_WARNINGS=ON  \
+              -DCODE_COVERAGE=ON
+        } else {
+          cmake                       \
             -S .                      \
             -Bbuild                   \
             -DCMAKE_BUILD_TYPE=Debug  \
             -DZEPHIR_BUILD_TESTING=ON \
             -DENABLE_ALL_WARNINGS=ON  \
-            -DCODE_COVERAGE=ON        \
             -D_GLIBCXX_USE_CXX11_ABI=ON
+        }
+
         echo ::set-env name=ZEPHIR_TESTS_ROOT::${GITHUB_WORKSPACE}/tests
 
-    - name: Build
+    - name: Build x64 Debug
       run: cmake --build build -j "$(getconf _NPROCESSORS_ONLN)"
 
     - name: Run Tests
       run: cmake --build build --target check
 
     - name: Generate code coverage report
+      if: matrix.ccov == 'on'
       # TODO(klay): ccov-all-capture works only on gcc, fix it
-      run: cmake --build build --target ccov-all
+      run: cmake --build build --target ccov-all-capture
 
     - name: Upload code coverage report
+      if: matrix.ccov == 'on'
       uses: codecov/codecov-action@v1
       with:
         token: ${{secrets.CODECOV_TOKEN}}
