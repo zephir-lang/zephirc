@@ -107,7 +107,8 @@ jobs:
             -DCMAKE_BUILD_TYPE=Debug  \
             -DZEPHIR_BUILD_TESTING=ON \
             -DENABLE_ALL_WARNINGS=ON  \
-            -DCODE_COVERAGE=ON
+            -DCODE_COVERAGE=ON        \
+            -D_GLIBCXX_USE_CXX11_ABI=ON
         echo ::set-env name=ZEPHIR_TESTS_ROOT::${GITHUB_WORKSPACE}/tests
 
     - name: Build
