@@ -45,13 +45,13 @@ void zephir::logger::Facade<T>::debug(const std::string& message) {
 
 template <class T>
 void zephir::logger::Facade<T>::exception(const std::exception& error,
-                                          const string_dict& context) {
+                                          const Context& ctx) {
   ///
 }
 
 template <class T>
 void zephir::logger::Facade<T>::log(const std::string& message, int level,
                                     const std::string& category,
-                                    const string_dict& context) {
+                                    const Context& ctx) {
   ///
 }
