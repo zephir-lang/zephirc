@@ -76,10 +76,10 @@ jobs:
         pip install cmake-format
 
         sudo xcode-select -switch /Applications/Xcode_${{ matrix.version }}.app
+        ln -sfv /usr/local/opt/llvm/bin/clang-format /usr/local/bin
 
         echo "::set-env name=CC::clang"
         echo "::set-env name=CXX::clang++"
-        echo "::add-path::/usr/local/opt/llvm/bin"
 
     - uses: actions/cache@v1
       name: Setup conan cache
