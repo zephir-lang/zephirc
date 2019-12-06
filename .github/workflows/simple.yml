@@ -24,12 +24,13 @@ jobs:
         name:
           - ubuntu-18.04-gcc-7
           - ubuntu-18.04-clang-5.0
+
         include:
           - name: ubuntu-18.04-gcc-7
             os: ubuntu-18.04
             compiler: gcc
             version: '7.0'
-          - name: ubuntu-18.04-gcc-7
+          - name: ubuntu-18.04-clang-5.0
             os: ubuntu-18.04
             compiler: clang
             version: '5.0'
