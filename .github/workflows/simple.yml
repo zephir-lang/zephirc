@@ -70,7 +70,7 @@ jobs:
     - name: Setup Prerequisites (macOS)
       if: runner.os == 'macOS'
       run: |
-        brew install pkg-config lcov
+        brew install pkg-config lcov clang-format conan
 
     - uses: actions/cache@v1
       name: Setup conan cache
@@ -91,12 +91,14 @@ jobs:
           ${{ runner.os }}-pip-
 
     - name: Setup Python
+      if: runner.os == 'Linux'
       uses: actions/setup-python@v1
       with:
         version: 3.8
         architecture: x64
 
     - name: Install dependencies
+      if: runner.os == 'Linux'
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
