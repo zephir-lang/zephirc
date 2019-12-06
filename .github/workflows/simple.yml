@@ -76,7 +76,7 @@ jobs:
         pip install cmake-format
 
         sudo xcode-select -switch /Applications/Xcode_${{ matrix.version }}.app
-        ln -sfv /usr/local/opt/llvm/bin/clang-format /usr/local/bin
+        ln -sfv /usr/local/opt/llvm/bin/llvm-cov /usr/local/bin
 
         echo "::set-env name=CC::clang"
         echo "::set-env name=CXX::clang++"
