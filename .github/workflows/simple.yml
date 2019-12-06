@@ -43,10 +43,6 @@ jobs:
     - name: Setup Prerequisites (Linux)
       if: runner.os == 'Linux'
       run: |
-        # Required for libc6-dbg:i386 and g++-multilib packages which are
-        # needed for x86 builds.
-        sudo dpkg --add-architecture i386
-
         sudo add-apt-repository ppa:ubuntu-toolchain-r/test --yes
         sudo apt-get update --quiet --yes 1>/dev/null
 
@@ -54,13 +50,12 @@ jobs:
           sudo apt-get install --no-install-recommends --quiet --yes \
             lcov  \
             gcc-${{ matrix.version }}
-            # g++-${{ matrix.version }}-multilib
           echo "::set-env name=CC::gcc-${{ matrix.version }}"
           echo "::set-env name=CXX::g++-${{ matrix.version }}"
         else
           sudo apt-get install --no-install-recommends --quiet --yes \
-            clang-${{ matrix.version }}
-            # g++-multilib
+            clang-${{ matrix.version }} \
+            llvm
           echo "::set-env name=CC::clang-${{ matrix.version }}"
           echo "::set-env name=CXX::clang++-${{ matrix.version }}"
         fi
