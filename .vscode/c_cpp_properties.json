@@ -3,9 +3,10 @@
         "projectDefaultIncludePath": [
             "${workspaceFolder}/external/**",
             "${workspaceFolder}/include",
-            "${workspaceFolder}/src/**"
+            "${workspaceFolder}/src/**",
+            "${default}"
         ],
-        "projectCompileCommand": "${workspaceFolder}/build/compile_commands.json",
+        "projectCompileCommand": "${workspaceFolder}/cmake-build-*/compile_commands.json",
         "projectBrowseDatabase": "${workspaceFolder}/.vscode/browse.vc.db"
     },
     "configurations": [
