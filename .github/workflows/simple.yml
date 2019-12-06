@@ -60,7 +60,9 @@ jobs:
           wget --quiet https://apt.llvm.org/llvm.sh
           chmod +x llvm.sh
           sudo ./llvm.sh ${{ matrix.llvm }}
+
           sudo ln -sf /usr/bin/llvm-cov-${{ matrix.llvm }} /usr/bin/llvm-cov
+          sudo ln -sf /usr/bin/llvm-profdata-${{ matrix.llvm }} /usr/bin/llvm-profdata
 
           echo "::set-env name=CC::clang-${{ matrix.version }}"
           echo "::set-env name=CXX::clang++-${{ matrix.version }}"
