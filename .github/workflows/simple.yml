@@ -40,7 +40,7 @@ jobs:
           - name: macOS-10.14-clang
             os: macOS-10.14
             compiler: xcode
-            version: '10.3'
+            version: '11.2'
             ccov: ON
 
     steps:
@@ -75,7 +75,6 @@ jobs:
         brew install pkg-config lcov llvm clang-format conan
         pip install cmake-format
 
-        ls -lah /Applications | grep Xcode
         sudo xcode-select -switch /Applications/Xcode_${{ matrix.version }}.app
 
         echo "::set-env name=CC::clang"
