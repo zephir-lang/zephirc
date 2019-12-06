@@ -9,6 +9,7 @@ cmake
 [options]
 spdlog:shared=True
 yaml-cpp:shared=True
+# gtest:shared=True
 
 [imports]
 bin, *.dll -> ./bin

@@ -14,12 +14,54 @@ on:
 jobs:
   simple_build:
 
-    runs-on: ubuntu-latest
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        name:
+          - ubuntu-18.04-gcc-7
+          - ubuntu-18.04-clang-5.0
+
+        include:
+          - name: ubuntu-18.04-gcc-7
+            os: ubuntu-18.04
+            compiler: gcc
+            version: '7'
+            ccov: ON
+          - name: ubuntu-18.04-clang-5.0
+            os: ubuntu-18.04
+            compiler: clang
+            version: '5.0'
+            ccov: OFF
 
     steps:
     - uses: actions/checkout@v2-beta
       with:
         fetch-depth: 5
+
+    - name: Setup Prerequisites (Linux)
+      if: runner.os == 'Linux'
+      run: |
+        sudo add-apt-repository ppa:ubuntu-toolchain-r/test --yes
+        sudo apt-get update --quiet --yes 1>/dev/null
+
+        if [ "${{ matrix.compiler }}" = "gcc" ]; then
+          sudo apt-get install --no-install-recommends --quiet --yes \
+            lcov  \
+            gcc-${{ matrix.version }}
+
+          echo "::set-env name=CC::gcc-${{ matrix.version }}"
+          echo "::set-env name=CXX::g++-${{ matrix.version }}"
+        else
+          sudo apt-get install --no-install-recommends --quiet --yes \
+            clang-${{ matrix.version }}
+
+          echo "::set-env name=CC::clang-${{ matrix.version }}"
+          echo "::set-env name=CXX::clang++-${{ matrix.version }}"
+        fi
 
     - uses: actions/cache@v1
       name: Setup conan cache
@@ -50,34 +92,38 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Setup Prerequisites
+    - name: Configure x64 Debug
       run: |
-        sudo apt-get update --quiet --yes 1>/dev/null
-        sudo apt-get install --no-install-recommends --quiet --yes lcov
+        $CC --version
 
-    - name: Configure
-      run: |
-        cmake                         \
-            -S .                      \
-            -Bbuild                   \
-            -DCMAKE_BUILD_TYPE=Debug  \
-            -DZEPHIR_BUILD_TESTING=ON \
-            -DENABLE_ALL_WARNINGS=ON  \
-            -DCODE_COVERAGE=ON
+        cmake                                  \
+            -S .                               \
+            -Bbuild                            \
+            -DCMAKE_BUILD_TYPE=Debug           \
+            -DZEPHIR_BUILD_TESTING=ON          \
+            -DENABLE_ALL_WARNINGS=ON           \
+            -DCODE_COVERAGE=${{ matrix.ccov }} \
+            -D_GLIBCXX_USE_CXX11_ABI=ON
+
         echo ::set-env name=ZEPHIR_TESTS_ROOT::${GITHUB_WORKSPACE}/tests
 
-    - name: Build
+    - name: Build x64 Debug
       run: cmake --build build -j "$(getconf _NPROCESSORS_ONLN)"
 
     - name: Run Tests
       run: cmake --build build --target check
 
     - name: Generate code coverage report
+      if: matrix.ccov == 'ON'
+      # TODO(klay): ccov-all-capture works only on gcc, fix it
       run: cmake --build build --target ccov-all-capture
 
     - name: Upload code coverage report
+      if: matrix.ccov == 'ON'
       uses: codecov/codecov-action@v1
       with:
         token: ${{secrets.CODECOV_TOKEN}}
         file: ./build/ccov/all-merged.info
         yml: ./.codecov.yml
+        flags: unittests
+        fail_ci_if_error: true
