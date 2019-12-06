@@ -71,6 +71,7 @@ jobs:
       if: runner.os == 'macOS'
       run: |
         brew install pkg-config lcov clang-format conan
+        pip install cmake-format
 
         echo "::set-env name=CC::clang"
         echo "::set-env name=CXX::clang++"
