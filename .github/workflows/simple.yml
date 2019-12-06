@@ -30,12 +30,12 @@ jobs:
             os: ubuntu-18.04
             compiler: gcc
             version: '7'
-            ccov: on
+            ccov: ON
           - name: ubuntu-18.04-clang-5.0
             os: ubuntu-18.04
             compiler: clang
             version: '5.0'
-            ccov: off
+            ccov: OFF
 
     steps:
     - uses: actions/checkout@v2-beta
@@ -96,23 +96,14 @@ jobs:
       run: |
         $CC --version
 
-        if ("${{ matrix.ccov }}" -eq "on") {
-          cmake                         \
-              -S .                      \
-              -Bbuild                   \
-              -DCMAKE_BUILD_TYPE=Debug  \
-              -DZEPHIR_BUILD_TESTING=ON \
-              -DENABLE_ALL_WARNINGS=ON  \
-              -DCODE_COVERAGE=ON
-        } else {
-          cmake                       \
-            -S .                      \
-            -Bbuild                   \
-            -DCMAKE_BUILD_TYPE=Debug  \
-            -DZEPHIR_BUILD_TESTING=ON \
-            -DENABLE_ALL_WARNINGS=ON  \
+        cmake                                  \
+            -S .                               \
+            -Bbuild                            \
+            -DCMAKE_BUILD_TYPE=Debug           \
+            -DZEPHIR_BUILD_TESTING=ON          \
+            -DENABLE_ALL_WARNINGS=ON           \
+            -DCODE_COVERAGE=${{ matrix.ccov }} \
             -D_GLIBCXX_USE_CXX11_ABI=ON
-        }
 
         echo ::set-env name=ZEPHIR_TESTS_ROOT::${GITHUB_WORKSPACE}/tests
 
@@ -123,12 +114,12 @@ jobs:
       run: cmake --build build --target check
 
     - name: Generate code coverage report
-      if: matrix.ccov == 'on'
+      if: matrix.ccov == 'ON'
       # TODO(klay): ccov-all-capture works only on gcc, fix it
       run: cmake --build build --target ccov-all-capture
 
     - name: Upload code coverage report
-      if: matrix.ccov == 'on'
+      if: matrix.ccov == 'ON'
       uses: codecov/codecov-action@v1
       with:
         token: ${{secrets.CODECOV_TOKEN}}
