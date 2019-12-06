@@ -14,12 +14,50 @@ on:
 jobs:
   simple_build:
 
-    runs-on: ubuntu-latest
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        name:
+          - ubuntu-18.04-gcc-7
+          - ubuntu-18.04-clang-5.0
+        include:
+          - name: ubuntu-18.04-gcc-7
+            os: ubuntu-18.04
+            compiler: gcc
+            version: '7.0'
+          - name: ubuntu-18.04-gcc-7
+            os: ubuntu-18.04
+            compiler: clang
+            version: '5.0'
 
     steps:
     - uses: actions/checkout@v2-beta
       with:
         fetch-depth: 5
+
+    - name: Setup Prerequisites (Linux)
+      if: runner.os == 'Linux'
+      run: |
+        # sudo apt-get update --quiet --yes 1>/dev/null
+
+        if [ "${{ matrix.compiler }}" = "gcc" ]; then
+          sudo apt-get install --no-install-recommends --quiet --yes \
+            lcov  \
+            g++-${{ matrix.version }} \
+            g++-${{ matrix.version }}-multilib
+          echo "::set-env name=CC::gcc-${{ matrix.version }}"
+          echo "::set-env name=CXX::g++-${{ matrix.version }}"
+        else
+          sudo apt-get install --no-install-recommends --quiet --yes \
+            clang-${{ matrix.version }} \
+            g++-multilib
+          echo "::set-env name=CC::clang-${{ matrix.version }}"
+          echo "::set-env name=CXX::clang++-${{ matrix.version }}"
+        fi
 
     - uses: actions/cache@v1
       name: Setup conan cache
@@ -50,13 +88,10 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Setup Prerequisites
-      run: |
-        sudo apt-get update --quiet --yes 1>/dev/null
-        sudo apt-get install --no-install-recommends --quiet --yes lcov
-
     - name: Configure
       run: |
+        $CC --version
+
         cmake                         \
             -S .                      \
             -Bbuild                   \
@@ -81,3 +116,5 @@ jobs:
         token: ${{secrets.CODECOV_TOKEN}}
         file: ./build/ccov/all-merged.info
         yml: ./.codecov.yml
+        flags: unittests
+        fail_ci_if_error: true
