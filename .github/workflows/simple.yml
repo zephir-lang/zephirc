@@ -34,6 +34,7 @@ jobs:
             os: ubuntu-18.04
             compiler: clang
             version: '5.0'
+            llvm: '8'
 
     steps:
     - uses: actions/checkout@v2-beta
@@ -54,8 +55,12 @@ jobs:
           echo "::set-env name=CXX::g++-${{ matrix.version }}"
         else
           sudo apt-get install --no-install-recommends --quiet --yes \
-            clang-${{ matrix.version }} \
-            llvm
+            clang-${{ matrix.version }}
+
+          wget --quiet https://apt.llvm.org/llvm.sh
+          chmod +x llvm.sh
+          sudo ./llvm.sh ${{ matrix.llvm }}
+
           echo "::set-env name=CC::clang-${{ matrix.version }}"
           echo "::set-env name=CXX::clang++-${{ matrix.version }}"
         fi
