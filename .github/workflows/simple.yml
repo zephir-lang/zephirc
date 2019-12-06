@@ -29,7 +29,7 @@ jobs:
           - name: ubuntu-18.04-gcc-7
             os: ubuntu-18.04
             compiler: gcc
-            version: '7.0'
+            version: '7'
           - name: ubuntu-18.04-clang-5.0
             os: ubuntu-18.04
             compiler: clang
@@ -53,14 +53,14 @@ jobs:
         if [ "${{ matrix.compiler }}" = "gcc" ]; then
           sudo apt-get install --no-install-recommends --quiet --yes \
             lcov  \
-            g++-${{ matrix.version }} \
-            g++-${{ matrix.version }}-multilib
+            gcc-${{ matrix.version }}
+            # g++-${{ matrix.version }}-multilib
           echo "::set-env name=CC::gcc-${{ matrix.version }}"
           echo "::set-env name=CXX::g++-${{ matrix.version }}"
         else
           sudo apt-get install --no-install-recommends --quiet --yes \
-            clang-${{ matrix.version }} \
-            g++-multilib
+            clang-${{ matrix.version }}
+            # g++-multilib
           echo "::set-env name=CC::clang-${{ matrix.version }}"
           echo "::set-env name=CXX::clang++-${{ matrix.version }}"
         fi
