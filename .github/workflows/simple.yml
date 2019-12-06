@@ -43,7 +43,11 @@ jobs:
     - name: Setup Prerequisites (Linux)
       if: runner.os == 'Linux'
       run: |
-        # sudo apt-get update --quiet --yes 1>/dev/null
+        # Required for libc6-dbg:i386 and g++-multilib packages which are
+        # needed for x86 builds.
+        sudo dpkg --add-architecture i386
+
+        sudo apt-get update --quiet --yes 1>/dev/null
 
         if [ "${{ matrix.compiler }}" = "gcc" ]; then
           sudo apt-get install --no-install-recommends --quiet --yes \
