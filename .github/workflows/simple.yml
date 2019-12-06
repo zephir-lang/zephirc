@@ -70,11 +70,12 @@ jobs:
     - name: Setup Prerequisites (macOS)
       if: runner.os == 'macOS'
       run: |
-        brew install pkg-config lcov clang-format conan
+        brew install pkg-config lcov llvm clang-format conan
         pip install cmake-format
 
         echo "::set-env name=CC::clang"
         echo "::set-env name=CXX::clang++"
+        echo "::add-path::/usr/local/opt/llvm/bin"
 
     - uses: actions/cache@v1
       name: Setup conan cache
