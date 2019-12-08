@@ -24,6 +24,7 @@ jobs:
         name:
           - ubuntu-18.04-gcc-7
           - ubuntu-18.04-clang-5.0
+          - macOS-latest
 
         include:
           - name: ubuntu-18.04-gcc-7
@@ -36,13 +37,22 @@ jobs:
             compiler: clang
             version: '5.0'
             ccov: OFF
+          - name: macOS-latest
+            os: macOS-latest
+            compiler: xcode
+            version: 'NOT USED'
+            ccov: OFF
 
     steps:
     - uses: actions/checkout@v2-beta
       with:
         fetch-depth: 5
 
-    - name: Setup Prerequisites (Linux)
+    - name: Setup Prerequisites (Linux, Code Coverage)
+      if: runner.os == 'Linux' && matrix.ccov == 'ON'
+      run: sudo apt-get install --no-install-recommends --quiet --yes lcov
+
+    - name: Setup Prerequisites (Linux, Generic)
       if: runner.os == 'Linux'
       run: |
         sudo add-apt-repository ppa:ubuntu-toolchain-r/test --yes
@@ -50,7 +60,6 @@ jobs:
 
         if [ "${{ matrix.compiler }}" = "gcc" ]; then
           sudo apt-get install --no-install-recommends --quiet --yes \
-            lcov  \
             gcc-${{ matrix.version }}
 
           echo "::set-env name=CC::gcc-${{ matrix.version }}"
@@ -62,6 +71,17 @@ jobs:
           echo "::set-env name=CC::clang-${{ matrix.version }}"
           echo "::set-env name=CXX::clang++-${{ matrix.version }}"
         fi
+
+    - name: Setup Prerequisites (macOS)
+      if: runner.os == 'macOS'
+      run: |
+        brew install pkg-config llvm
+
+        sudo xcode-select -switch /Applications/Xcode.app
+
+        echo "::set-env name=CC::clang"
+        echo "::set-env name=CXX::clang++"
+        echo "::set-env name=PATH::$PATH:$(brew --prefix llvm)/bin"
 
     - uses: actions/cache@v1
       name: Setup conan cache
@@ -92,18 +112,34 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
+        if [ "${{ runner.os }}" = "macOS" ]; then
+          brew install clang-format
+        else
+          pip install --upgrade clang-format
+        fi
+
     - name: Configure x64 Debug
       run: |
         $CC --version
 
-        cmake                                  \
-            -S .                               \
-            -Bbuild                            \
-            -DCMAKE_BUILD_TYPE=Debug           \
-            -DZEPHIR_BUILD_TESTING=ON          \
-            -DENABLE_ALL_WARNINGS=ON           \
-            -DCODE_COVERAGE=${{ matrix.ccov }} \
-            -D_GLIBCXX_USE_CXX11_ABI=ON
+        if [ "${{ runner.os }}" = "macOS" ]; then
+          cmake                                  \
+              -S .                               \
+              -Bbuild                            \
+              -DCMAKE_BUILD_TYPE=Debug           \
+              -DZEPHIR_BUILD_TESTING=ON          \
+              -DENABLE_ALL_WARNINGS=ON           \
+              -DCODE_COVERAGE=${{ matrix.ccov }}
+        else
+          cmake                                  \
+              -S .                               \
+              -Bbuild                            \
+              -DCMAKE_BUILD_TYPE=Debug           \
+              -DZEPHIR_BUILD_TESTING=ON          \
+              -DENABLE_ALL_WARNINGS=ON           \
+              -DCODE_COVERAGE=${{ matrix.ccov }} \
+              -D_GLIBCXX_USE_CXX11_ABI=ON
+        fi
 
         echo ::set-env name=ZEPHIR_TESTS_ROOT::${GITHUB_WORKSPACE}/tests
 
@@ -116,7 +152,12 @@ jobs:
     - name: Generate code coverage report
       if: matrix.ccov == 'ON'
       # TODO(klay): ccov-all-capture works only on gcc, fix it
-      run: cmake --build build --target ccov-all-capture
+      run: |
+        if [ "${{ runner.os }}" = "macOS" ]; then
+          cmake --build build --target ccov-all
+        else
+          cmake --build build --target ccov-all-capture
+        fi
 
     - name: Upload code coverage report
       if: matrix.ccov == 'ON'
@@ -126,4 +167,4 @@ jobs:
         file: ./build/ccov/all-merged.info
         yml: ./.codecov.yml
         flags: unittests
-        fail_ci_if_error: true
+        fail_ci_if_error: false

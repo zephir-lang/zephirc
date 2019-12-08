@@ -7,9 +7,30 @@ yaml-cpp/0.6.3
 cmake
 
 [options]
+
+# Possible spdlog options are:
+#   - shared
+#   - fPIC
+#   - header_only
+#   - wchar_support
+#   - wchar_filenames
+#   - no_exceptions
 spdlog:shared=True
-yaml-cpp:shared=True
-# gtest:shared=True
+
+# Possible yaml-cpp options are:
+#   - shared
+#   - fPIC
+yaml-cpp:shared=False
+
+# Possible gtest options are:
+#   - shared
+#   - build_gmock
+#   - fPIC
+#   - no_main
+#   - debug_postfix
+#   - hide_symbols
+gtest:shared=False
+gtest:no_main=True
 
 [imports]
 bin, *.dll -> ./bin
