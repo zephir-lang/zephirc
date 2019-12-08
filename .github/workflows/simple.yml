@@ -118,8 +118,6 @@ jobs:
           pip install --upgrade clang-format
         fi
 
-        conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
-
     - name: Configure x64 Debug
       run: |
         $CC --version
