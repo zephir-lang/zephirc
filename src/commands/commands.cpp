@@ -27,17 +27,16 @@
 #include "zephir/main.hpp"
 #include "zephir/version.hpp"
 
-int zephir::commands::CreateFromArgv(int argc, char** argv) {
+int zephir::commands::CreateFromArgv(std::vector<std::string>& options) {
   auto cwd = zephir::filesystem::GetCurrentWorkingPath();
-  auto config =
-      zephir::Config::CreateFromArgv(argc, argv, cwd + "/.zephir.yml");
+  auto config = zephir::Config::CreateFromArgv(options, cwd + "/.zephir.yml");
 
   std::string out = "Zephir " + std::string(ZEPHIR_VERSION_STRING);
   out += " by Serghei Iakovlev and Alexander Andriiako";
 
   CLI::App app(out, "zephir");
 
-  out = "See \"" + std::string(argv[0]) + " <command> --help\"";
+  out = "See \"" + app.get_name() + " <command> --help\"";
   out += " to read about a specific command or concept.";
 
   app.footer(out);
@@ -78,7 +77,7 @@ int zephir::commands::CreateFromArgv(int argc, char** argv) {
   zephir::commands::SetupStubsCommand(app, commands_group);
 
   try {
-    app.parse(argc, argv);
+    app.parse(options);
 
     if (*help) {
       throw CLI::CallForHelp();

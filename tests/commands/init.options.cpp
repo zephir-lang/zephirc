@@ -7,17 +7,21 @@
 
 #include <gtest/gtest.h>
 
-#include "argv.hpp"
+#include <string>
+#include <vector>
+
 #include "commands.hpp"
+
+using input_t = std::vector<std::string>;
 
 class InitCmdTest : public ::testing::Test {
  protected:
   InitCmdTest() : argv(){};
-  Argv argv;
+  input_t argv;
 };
 
 TEST_F(InitCmdTest, RunWithoutOptions) {
-  argv.assign({"zephir", "init"});
-  auto retval = zephir::commands::CreateFromArgv(argv.argc(), argv.argv());
+  argv.assign({"init"});
+  auto retval = zephir::commands::CreateFromArgv(argv);
   EXPECT_EQ(retval, 0);
 }

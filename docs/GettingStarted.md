@@ -102,6 +102,7 @@ Additional cmake flags are (e.g. to enable `FEATURE` use `-DFEATURE=ON`):
 | Generate code coverage report.                      | `CODE_COVERAGE`        |
 | Compile with all warnings for the major compilers.  | `ENABLE_ALL_WARNINGS`  |
 | Enable Effective C++ warnings.                      | `ENABLE_EFFECTIVE_CXX` |
+| Builds a visual representation of the project.      | `BUILD_DEP_GRAPH`      |
 
 ### Generate HTML code coverage report
 

@@ -10,24 +10,26 @@
 #include <string>
 #include <tuple>
 #include <utility>
+#include <vector>
 
-#include "argv.hpp"
 #include "commands.hpp"
 #include "zephir/main.hpp"
+
+using input_t = std::vector<std::string>;
 
 class NoneCmdTest
     : public testing::TestWithParam<std::tuple<std::string, int>> {
  protected:
   NoneCmdTest() : argv(){};
-  Argv argv;
+  input_t argv;
 };
 
 TEST_P(NoneCmdTest, RunUsingGlobalOptions) {
   int expected = std::get<1>(GetParam());
   const std::string& option = std::get<0>(GetParam());
 
-  argv.assign({"zephir", option.c_str()});
-  auto actual = zephir::commands::CreateFromArgv(argv.argc(), argv.argv());
+  argv.assign({option});
+  auto actual = zephir::commands::CreateFromArgv(argv);
   EXPECT_EQ(expected, actual);
 }
 

@@ -7,17 +7,21 @@
 
 #include <gtest/gtest.h>
 
-#include "argv.hpp"
+#include <string>
+#include <vector>
+
 #include "commands.hpp"
+
+using input_t = std::vector<std::string>;
 
 class ApiCmdTest : public ::testing::Test {
  protected:
   ApiCmdTest() : argv(){};
-  Argv argv;
+  input_t argv;
 };
 
 TEST_F(ApiCmdTest, RunWithoutOptions) {
-  argv.assign({"zephir", "api"});
-  auto retval = zephir::commands::CreateFromArgv(argv.argc(), argv.argv());
+  argv.assign({"api"});
+  auto retval = zephir::commands::CreateFromArgv(argv);
   EXPECT_EQ(retval, 0);
 }
