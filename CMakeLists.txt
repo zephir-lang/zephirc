@@ -57,9 +57,13 @@ include(formatting)
 include(c++-standards)
 include(compiler-options)
 include(code-coverage)
+include(dependency-graph)
 
 # Require C++17
 cxx_17()
+
+# Builds a dependency graph
+gen_dep_graph(png)
 
 # Tools
 file(
