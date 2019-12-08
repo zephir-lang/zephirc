@@ -1,3 +1,4 @@
 conan >= 1.20.5
 cmake-format >= 0.6.2
+clang-format >= 9.0.0 ; sys_platform == 'linux'
 PyYAML
