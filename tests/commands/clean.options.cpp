@@ -7,17 +7,21 @@
 
 #include <gtest/gtest.h>
 
-#include "argv.hpp"
+#include <string>
+#include <vector>
+
 #include "commands.hpp"
+
+using input_t = std::vector<std::string>;
 
 class CleanCmdTest : public ::testing::Test {
  protected:
   CleanCmdTest() : argv(){};
-  Argv argv;
+  input_t argv;
 };
 
 TEST_F(CleanCmdTest, RunWithoutOptions) {
-  argv.assign({"zephir", "clean"});
-  auto retval = zephir::commands::CreateFromArgv(argv.argc(), argv.argv());
+  argv.assign({"clean"});
+  auto retval = zephir::commands::CreateFromArgv(argv);
   EXPECT_EQ(retval, 0);
 }

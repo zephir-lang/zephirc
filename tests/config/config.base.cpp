@@ -7,27 +7,30 @@
 
 #include <gtest/gtest.h>
 
-#include "argv.hpp"
+#include <string>
+#include <vector>
+
 #include "asserts.hpp"
 #include "env/base.hpp"
 #include "zephir/config.hpp"
 
+using input_t = std::vector<std::string>;
+
 class ConfigBaseTest : public ::testing::Test {
  protected:
   ConfigBaseTest() : argv() {}
-  Argv argv;
+  input_t argv;
 };
 
 TEST_F(ConfigBaseTest, DoNothingOnHelp) {
-  argv.assign({"zephir", "--help"});
+  argv.assign({"--help"});
 
   // Redirect std::cout
   std::streambuf* oldCoutStreamBuf = std::cout.rdbuf();
   std::ostringstream strCout;
   std::cout.rdbuf(strCout.rdbuf());
 
-  zephir::Config config =
-      zephir::Config::CreateFromArgv(argv.argc(), argv.argv(), "foo");
+  zephir::Config config = zephir::Config::CreateFromArgv(argv, "foo");
 
   // Restore old std::cout
   std::cout.rdbuf(oldCoutStreamBuf);
@@ -41,12 +44,11 @@ TEST_F(ConfigBaseTest, BrokenConfigFile) {
     GTEST_SKIP();
   }
 
-  argv.assign({"zephir"});
+  argv.assign({});
   std::string file = tests_root + "/fixtures/bad-config.yml";
-  EXPECT_THROW_EXCEPTION(
-      std::runtime_error,
-      zephir::Config::CreateFromArgv(argv.argc(), argv.argv(), file),
-      "Config file is broken");
+  EXPECT_THROW_EXCEPTION(std::runtime_error,
+                         zephir::Config::CreateFromArgv(argv, file),
+                         "Config file is broken");
 }
 
 TEST_F(ConfigBaseTest, CorrectConfigFile) {
@@ -55,10 +57,9 @@ TEST_F(ConfigBaseTest, CorrectConfigFile) {
     GTEST_SKIP();
   }
 
-  argv.assign({"zephir"});
+  argv.assign({});
   std::string file = tests_root + "/fixtures/phalcon-4x.yml";
-  zephir::Config config =
-      zephir::Config::CreateFromArgv(argv.argc(), argv.argv(), file);
+  zephir::Config config = zephir::Config::CreateFromArgv(argv, file);
 
   EXPECT_FALSE(config.IsChanged());
 }
