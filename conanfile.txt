@@ -9,7 +9,16 @@ cmake
 [options]
 spdlog:shared=True
 yaml-cpp:shared=True
-# gtest:shared=True
+
+# Possible options for gtest are:
+#   - shared
+#   - build_gmock
+#   - fPIC
+#   - no_main
+#   - debug_postfix
+#   - hide_symbols
+gtest:shared=False
+gtest:no_main=True
 
 [imports]
 bin, *.dll -> ./bin
