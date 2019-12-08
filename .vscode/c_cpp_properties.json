@@ -6,7 +6,7 @@
             "${workspaceFolder}/src/**",
             "${default}"
         ],
-        "projectCompileCommand": "${workspaceFolder}/cmake-build-*/compile_commands.json",
+        "projectCompileCommand": "${workspaceFolder}/build/*/compile_commands.json",
         "projectBrowseDatabase": "${workspaceFolder}/.vscode/browse.vc.db"
     },
     "configurations": [
