@@ -5,6 +5,15 @@
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
 
+# Conan bootstrap
+include(${CMAKE_BINARY_DIR}/conan.cmake)
+conan_check(REQUIRED)
+
+conan_cmake_run(
+  CONANFILE conanfile.txt
+  BASIC_SETUP CMAKE_TARGETS KEEP_RPATHS
+  BUILD missing)
+
 include(GoogleTest)
 
 set(ZEPHIR_TESTS options_test config_test)
