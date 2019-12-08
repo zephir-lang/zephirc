@@ -72,14 +72,14 @@ jobs:
     - name: Setup Prerequisites (macOS)
       if: runner.os == 'macOS'
       run: |
-        brew install pkg-config lcov llvm clang-format conan
+        brew install pkg-config llvm clang-format conan
         pip install cmake-format
 
-        sudo xcode-select -switch /Applications/Xcode_${{ matrix.version }}.app
-        ln -sfv /usr/local/opt/llvm/bin/llvm-cov /usr/local/bin
+        sudo xcode-select -switch /Applications/Xcode.app
 
         echo "::set-env name=CC::clang"
         echo "::set-env name=CXX::clang++"
+        echo "::set-env name=PATH::$PATH:$(brew --prefix llvm)/bin"
 
     - uses: actions/cache@v1
       name: Setup conan cache
@@ -146,4 +146,4 @@ jobs:
         file: ./build/ccov/all-merged.info
         yml: ./.codecov.yml
         flags: unittests
-        fail_ci_if_error: true
+        fail_ci_if_error: false
