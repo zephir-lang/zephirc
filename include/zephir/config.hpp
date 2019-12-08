@@ -41,8 +41,7 @@ class Config {
    * file. Initialize configuration from both the CLI and a possible config
    * file.
    *
-   * @param argc Number of command line arguments provided
-   * @param argv Provided command line arguments arguments
+   * @param options Provided command line arguments
    * @param file The default name/location of the config file
    * @return A fresh Config instance with loaded configurations
    *
@@ -51,7 +50,8 @@ class Config {
    * or set specifically in the CLI, will also search through any search paths
    * provided from the CLI for the provided filename.
    */
-  static Config CreateFromArgv(int argc, char **argv, const std::string &file);
+  static Config CreateFromArgv(std::vector<std::string> &options,
+                               const std::string &file);
 
  protected:
   /**

@@ -8,8 +8,9 @@
 # Keep Visual Studio Code settings
 !.vscode/c_cpp_properties.json
 !.vscode/tasks.json
+!.vscode/extensions.json
 
-/cmake-build-*/
+/build/
 *.profraw
 
 # I use this as my wish list

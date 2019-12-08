@@ -7,17 +7,21 @@
 
 #include <gtest/gtest.h>
 
-#include "argv.hpp"
+#include <string>
+#include <vector>
+
 #include "commands.hpp"
+
+using input_t = std::vector<std::string>;
 
 class StubsCmdTest : public ::testing::Test {
  protected:
   StubsCmdTest() : argv(){};
-  Argv argv;
+  input_t argv;
 };
 
 TEST_F(StubsCmdTest, RunWithoutOptions) {
-  argv.assign({"zephir", "stubs"});
-  auto retval = zephir::commands::CreateFromArgv(argv.argc(), argv.argv());
+  argv.assign({"stubs"});
+  auto retval = zephir::commands::CreateFromArgv(argv);
   EXPECT_EQ(retval, 0);
 }

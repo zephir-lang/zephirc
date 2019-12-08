@@ -9,15 +9,15 @@
 #define ZEPHIR_COMMANDS_COMMANDS_HPP_
 
 #include <string>
+#include <vector>
 
 namespace zephir::commands {
 /**
- * @brief Parse options from both the CLI.
+ * @brief Parse CLI options.
  *
- * @param argc Number of CLI arguments provided
- * @param argv Provided CLI arguments
+ * @param options Provided CLI arguments
  */
-int CreateFromArgv(int argc, char **argv);
+int CreateFromArgv(std::vector<std::string> &options);
 
 /**
  * @brief Gets a help for common compilation flags.

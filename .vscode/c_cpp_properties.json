@@ -3,14 +3,14 @@
         "projectDefaultIncludePath": [
             "${workspaceFolder}/external/**",
             "${workspaceFolder}/include",
-            "${workspaceFolder}/src/**"
+            "${workspaceFolder}/src/**",
+            "${default}"
         ],
-        "projectCompileCommand": "${workspaceFolder}/build/compile_commands.json",
         "projectBrowseDatabase": "${workspaceFolder}/.vscode/browse.vc.db"
     },
     "configurations": [
         {
-            "name": "Zephir for macOs",
+            "name": "Zephir for macOs (Debug)",
             "intelliSenseMode": "clang-x64",
             "includePath": [
                 "${projectDefaultIncludePath}"
@@ -25,10 +25,11 @@
             "compilerPath": "/usr/bin/clang",
             "cppStandard": "c++17",
             "cStandard": "c11",
-            "compileCommands": "${projectCompileCommand}"
+            "compileCommands": "${workspaceFolder}/build/Debug/compile_commands.json",
+            "configurationProvider": "ms-vscode.cmake-tools"
         },
         {
-            "name": "Zephir for Linux",
+            "name": "Zephir for Linux (Debug)",
             "intelliSenseMode": "clang-x64",
             "includePath": [
                 "${projectDefaultIncludePath}"
@@ -43,7 +44,8 @@
             "compilerPath": "/usr/bin/gcc",
             "cppStandard": "c++17",
             "cStandard": "c11",
-            "compileCommands": "${projectCompileCommand}"
+            "compileCommands": "${workspaceFolder}/build/Debug/compile_commands.json",
+            "configurationProvider": "ms-vscode.cmake-tools"
         }
     ],
     "version": 4

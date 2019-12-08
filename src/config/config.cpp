@@ -48,9 +48,12 @@ int zephir::Config::Populate(const std::string &file) {
 
 bool zephir::Config::IsChanged() { return changed; }
 
-zephir::Config zephir::Config::CreateFromArgv(int argc, char **argv,
+zephir::Config zephir::Config::CreateFromArgv(std::vector<std::string> &options,
                                               const std::string &file) {
   zephir::Config config(file);
+  if (options.size() == 1) {
+    return config;
+  }
 
   // TODO(klay): Process config, use argv
 

@@ -5,13 +5,22 @@
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
 
+# Conan bootstrap
+include(${CMAKE_BINARY_DIR}/conan.cmake)
+conan_check(REQUIRED)
+
+conan_cmake_run(
+  CONANFILE conanfile.txt
+  BASIC_SETUP CMAKE_TARGETS KEEP_RPATHS
+  BUILD missing)
+
 include(GoogleTest)
 
 set(ZEPHIR_TESTS options_test config_test)
 mark_as_advanced(ZEPHIR_TESTS)
 
 file(GLOB TESTSF ${CMAKE_CURRENT_SOURCE_DIR}/commands/*.options.cpp)
-add_executable(options_test main.cpp argv.cpp env/base.cpp ${TESTSF})
+add_executable(options_test main.cpp env/base.cpp ${TESTSF})
 
 target_include_directories(
   options_test
@@ -35,7 +44,7 @@ gtest_discover_tests(
   PROPERTIES LABELS OptionsTest)
 
 file(GLOB TESTSF ${CMAKE_CURRENT_SOURCE_DIR}/config/*.cpp)
-add_executable(config_test main.cpp argv.cpp env/base.cpp ${TESTSF})
+add_executable(config_test main.cpp env/base.cpp ${TESTSF})
 
 target_include_directories(
   config_test
