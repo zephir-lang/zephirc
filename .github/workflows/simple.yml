@@ -24,7 +24,7 @@ jobs:
         name:
           - ubuntu-18.04-gcc-7
           - ubuntu-18.04-clang-5.0
-          - macOS-10.14-clang
+          - macOS-10.15-xcode
 
         include:
           - name: ubuntu-18.04-gcc-7
@@ -37,11 +37,11 @@ jobs:
             compiler: clang
             version: '5.0'
             ccov: OFF
-          - name: macOS-10.14-clang
-            os: macOS-10.14
+          - name: macOS-10.15-xcode
+            os: macOS-10.15
             compiler: xcode
-            version: '11.2'
-            ccov: ON
+            version: 'NOT USED'
+            ccov: OFF
 
     steps:
     - uses: actions/checkout@v2-beta
