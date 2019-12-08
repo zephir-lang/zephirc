@@ -1,16 +1,28 @@
 [requires]
 spdlog/1.4.2
 gtest/1.10.0
-yaml-cpp/0.6.2@bincrafters/stable
+yaml-cpp/0.6.3
 
 [generators]
 cmake
 
 [options]
-spdlog:shared=True
-yaml-cpp:shared=True
 
-# Possible options for gtest are:
+# Possible spdlog options are:
+#   - shared
+#   - fPIC
+#   - header_only
+#   - wchar_support
+#   - wchar_filenames
+#   - no_exceptions
+spdlog:shared=True
+
+# Possible yaml-cpp options are:
+#   - shared
+#   - fPIC
+yaml-cpp:shared=False
+
+# Possible gtest options are:
 #   - shared
 #   - build_gmock
 #   - fPIC
