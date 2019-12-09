@@ -53,7 +53,7 @@ Note: On macOS you'll need `brew install clang-format` instead of `pip`-variant.
 First you'll need clone the project and fetch its modules:
 
 ```shell script
-git clone git@github.com:sergeyklay/cpp-zephir.git
+git clone https://github.com/zephir-lang/zephirc
 cd cpp-zephir
 git submodule init
 git submodule update
