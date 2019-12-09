@@ -30,12 +30,12 @@ TEST_F(ConfigBaseTest, DoNothingOnHelp) {
   std::ostringstream strCout;
   std::cout.rdbuf(strCout.rdbuf());
 
-  zephir::Config config = zephir::Config::CreateFromArgv(argv, "foo");
+  auto config = zephir::Config::CreateFromArgv(argv, "foo").get();
 
   // Restore old std::cout
   std::cout.rdbuf(oldCoutStreamBuf);
 
-  EXPECT_FALSE(config.IsChanged());
+  EXPECT_FALSE(config->IsChanged());
 }
 
 TEST_F(ConfigBaseTest, BrokenConfigFile) {
@@ -59,7 +59,7 @@ TEST_F(ConfigBaseTest, CorrectConfigFile) {
 
   argv.assign({});
   std::string file = tests_root + "/fixtures/phalcon-4x.yml";
-  zephir::Config config = zephir::Config::CreateFromArgv(argv, file);
+  auto config = zephir::Config::CreateFromArgv(argv, file).get();
 
-  EXPECT_FALSE(config.IsChanged());
+  EXPECT_FALSE(config->IsChanged());
 }
