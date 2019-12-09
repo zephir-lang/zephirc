@@ -17,16 +17,15 @@ Zephir is an Open Source, community-driven project.
 See [CONTRIBUTING.md](./CONTRIBUTING.md) for details about contributions to this repository.
 
 ## License
-Zephir licensed under the MIT License. See the [LICENSE][license link] file for more information.
+Zephir licensed under the MIT License. See the [LICENSE](./LICENSE) file for more information.
 
-[actions link]: https://github.com/sergeyklay/cpp-zephir/actions
-[actions-badge]: https://github.com/sergeyklay/cpp-zephir/workflows/build/badge.svg
-[coverage badge]: https://codecov.io/gh/sergeyklay/cpp-zephir/branch/master/graph/badge.svg?token=l1Oy2k15VP
-[coverage link]: https://codecov.io/gh/sergeyklay/cpp-zephir
-[codacy badge]: https://api.codacy.com/project/badge/Grade/f261623a61494a38b383b399ae557b21
-[codacy link]:  https://www.codacy.com/app/klay/cpp-zephir?utm_source=github.com&utm_medium=referral&utm_content=CLIUtils/CLI11&utm_campaign=Badge_Grade
+[actions link]: https://github.com/zephir-lang/zephirc/actions
+[actions-badge]: https://github.com/zephir-lang/zephirc/workflows/build/badge.svg
+[coverage badge]: https://codecov.io/gh/zephir-lang/zephirc/branch/master/graph/badge.svg
+[coverage link]: https://codecov.io/gh/zephir-lang/zephirc
+[codacy badge]: https://api.codacy.com/project/badge/Grade/96eb715c8e1d4dfcb20514cfcdd876ba
+[codacy link]:  https://www.codacy.com/manual/klay/zephirc?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=zephir-lang/zephirc&amp;utm_campaign=Badge_Grade
 [web site]: https://zephir-lang.com
 [documentation]: https://docs.zephir-lang.com
 [zephir logo]: https://assets.phalconphp.com/zephir/zephir_logo-105x36.svg
-[license link]: https://github.com/phalcon/zephir/blob/master/LICENSE
 [license badge]: https://img.shields.io/badge/License-MIT-blue.svg
