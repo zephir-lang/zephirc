@@ -8,6 +8,7 @@
 #ifndef ZEPHIR_CONFIG_HPP_
 #define ZEPHIR_CONFIG_HPP_
 
+#include <memory>
 #include <set>
 #include <string>
 #include <vector>
@@ -24,10 +25,20 @@ class Config {
   /**
    * @brief Config constructor.
    *
-   * @param file The default name/location of the config file
+   * @param path The default name/location of the config file
    * @throws std::runtime_error Thrown if config could not be parsed
    */
-  explicit Config(const std::string &file);
+  explicit Config(std::string path);
+
+  /**
+   * @brief Config destructor.
+   */
+  ~Config();
+
+  /**
+   * @brief Writes the configuration if it has been changed.
+   */
+  void DumpToFile();
 
   /**
    * @brief Is config changed?
@@ -42,7 +53,7 @@ class Config {
    * file.
    *
    * @param options Provided command line arguments
-   * @param file The default name/location of the config file
+   * @param path The default name/location of the config file
    * @return A fresh Config instance with loaded configurations
    *
    * Items specified in the CLI take priority over any settings loaded from
@@ -50,22 +61,17 @@ class Config {
    * or set specifically in the CLI, will also search through any search paths
    * provided from the CLI for the provided filename.
    */
-  static Config CreateFromArgv(std::vector<std::string> &options,
-                               const std::string &file);
+  static std::shared_ptr<Config>
+  CreateFromArgv(std::vector<std::string> &options, const std::string &path);
 
- protected:
+ private:
   /**
    * @brief Populate project configuration.
    *
-   * @param file Configuration file.
+   * @param path Configuration file.
    * @return 0 on success, a positive number on failure
    */
-  static int Populate(const std::string &file);
-
-  /**
-   * Is config changed?
-   */
-  bool changed = false;
+  static int Populate(const std::string &path);
 
   /**
    * Default configuration for project.
@@ -145,7 +151,14 @@ class Config {
       unsigned char indent = INDENT_USING_SPACES;
       bool export_classes = false;
     } extra;
-  } container;
+  } container_;
+
+  std::string path_;
+
+  /**
+   * Is config changed?
+   */
+  bool changed_;
 };
 }  // namespace zephir
 

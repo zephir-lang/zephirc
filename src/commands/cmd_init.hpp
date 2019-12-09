@@ -12,6 +12,8 @@
 
 #include <CLI/CLI11.hpp>
 
+#include "zephir/config.hpp"
+
 namespace zephir::commands {
 /**
  * @brief Collection of all options of init command.
