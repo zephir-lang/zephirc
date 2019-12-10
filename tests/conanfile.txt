@@ -14,7 +14,3 @@ cmake
 #   - hide_symbols
 gtest:shared=False
 gtest:no_main=True
-
-[imports]
-bin, *.dll -> ./bin
-lib, *.dylib* -> ./bin
