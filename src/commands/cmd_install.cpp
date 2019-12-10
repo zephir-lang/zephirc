@@ -7,7 +7,7 @@
 
 #include "cmd_install.hpp"
 
-#include "commands.hpp"
+#include "zephir/commands.hpp"
 
 using zephir::commands::InstallOptions;
 

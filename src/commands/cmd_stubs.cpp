@@ -7,7 +7,7 @@
 
 #include "cmd_stubs.hpp"
 
-#include "commands.hpp"
+#include "zephir/commands.hpp"
 
 using zephir::commands::StubsOptions;
 
