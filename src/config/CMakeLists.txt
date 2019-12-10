@@ -9,10 +9,8 @@
 add_library(config SHARED config.cpp)
 
 target_include_directories(
-  config
-  PRIVATE $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
-          $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
-  PUBLIC ${CMAKE_SOURCE_DIR}/src)
+  config PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+                $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 
 # Instruments the library
 target_code_coverage(config AUTO ALL)

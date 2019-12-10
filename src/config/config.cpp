@@ -11,7 +11,7 @@
 
 #include <memory>
 
-#include "commands/commands.hpp"
+#include "zephir/commands.hpp"
 #include "zephir/filesystem.hpp"
 #include "zephir/main.hpp"
 

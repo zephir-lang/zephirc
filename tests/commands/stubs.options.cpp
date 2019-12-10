@@ -10,7 +10,7 @@
 #include <string>
 #include <vector>
 
-#include "commands.hpp"
+#include "zephir/commands.hpp"
 
 using input_t = std::vector<std::string>;
 

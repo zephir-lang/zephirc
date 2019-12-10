@@ -10,7 +10,7 @@
 #include <string>
 #include <vector>
 
-#include "commands/commands.hpp"
+#include "zephir/commands.hpp"
 
 static inline std::vector<std::string> prepare_args(int argc, char** argv) {
   std::vector<std::string> args;

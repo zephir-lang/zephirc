@@ -7,7 +7,7 @@
 
 #include "cmd_compile.hpp"
 
-#include "commands.hpp"
+#include "zephir/commands.hpp"
 
 using zephir::commands::CompileOptions;
 

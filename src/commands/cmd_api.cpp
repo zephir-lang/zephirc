@@ -7,7 +7,7 @@
 
 #include "cmd_api.hpp"
 
-#include "commands.hpp"
+#include "zephir/commands.hpp"
 
 using zephir::commands::ApiOptions;
 

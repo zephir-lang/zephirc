@@ -15,8 +15,8 @@ add_subdirectory(logger)
 add_executable(zephir main.cpp)
 
 target_include_directories(
-  zephir PRIVATE $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
-                 $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
+  zephir PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+                $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 
 target_link_libraries(zephir PUBLIC commands)
 
