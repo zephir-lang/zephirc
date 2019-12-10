@@ -11,7 +11,7 @@ conan_check(REQUIRED)
 
 conan_cmake_run(
   CONANFILE conanfile.txt
-  BASIC_SETUP CMAKE_TARGETS KEEP_RPATHS
+  BASIC_SETUP CMAKE_TARGETS
   BUILD missing)
 
 include(GoogleTest)
