@@ -29,7 +29,7 @@ sudo apt install gcc cmake pkg-config build-essential
 
 On macOS you will need to use brew with a command as follows:
 ```shell script
-brew install cmake pkg-config clang-format
+brew install cmake
 ```
 
 Please note that specific versions of libraries and programs at the time of reading this guide may vary.
