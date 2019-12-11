@@ -55,7 +55,7 @@ jobs:
         sudo add-apt-repository ppa:ubuntu-toolchain-r/test --yes
         sudo apt-get update --quiet --yes 1>/dev/null
 
-        if [ "${{ rmatrix.ccov }}" = "ON" ]; then
+        if [ "${{ matrix.ccov }}" = "ON" ]; then
           sudo apt-get install --no-install-recommends -q -y lcov
         fi
 
