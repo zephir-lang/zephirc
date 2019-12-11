@@ -43,12 +43,12 @@ The following dependencies is recommended install using [`pip`](https://pip.pypa
 They can be installed using pip as follows:
 
 ```shell script
-pip install --upgrade conan cppcheck cmake-format clang-format
+pip install -r requirements.txt
 ```
 
-Note: On macOS you'll need `brew install clang-format` instead of `pip`-variant.
+Note: On macOS to install `clang-format` you'll need use `brew`.
 
-## Building from source
+## Building
 
 First you'll need clone the project and fetch its modules:
 
@@ -75,7 +75,7 @@ cmake --build build
 
 ## Running the tests
 
-To run the tests, you have to configure Zephir with special flags:
+To build with testing support, you have to configure Zephir with special flags:
 
 ```shell script
 cmake -H. \
@@ -83,14 +83,17 @@ cmake -H. \
   -DCMAKE_BUILD_TYPE=Debug \
   -DZEPHIR_BUILD_TESTING=ON
 
-export ZEPHIR_TESTS_ROOT=$(pwd)/tests
-
-cd build
-make
-make check
+cmake --build build
 ```
 
-Environment variable `ZEPHIR_TESTS_ROOT` is needed for the tests which use fixture files.
+Tests expect `ZEPHIR_TESTS_ROOT` environment variable to use fixtures.
+This variable should point to the test directory root. Set this variable and
+run the tests as follows:
+
+```shell script
+export ZEPHIR_TESTS_ROOT=$(pwd)/tests
+cmake --build build --target check
+```
 
 ### Additional cmake flags
 
