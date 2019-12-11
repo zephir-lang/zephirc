@@ -16,6 +16,9 @@ project(
   VERSION ${ZEPHIR_VERSION}
   DESCRIPTION "A Zephir compiler")
 
+# See: https://github.com/conan-io/cmake-conan/issues/159
+cmake_policy(SET CMP0025 NEW)
+
 # Provide path for cmake scripts
 list(APPEND CMAKE_MODULE_PATH ${zephir_SOURCE_DIR}/cmake)
 
@@ -126,7 +129,7 @@ if(NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
   message(
     STATUS
       "Downloading conan.cmake from https://github.com/conan-io/cmake-conan")
-  file(DOWNLOAD "https://github.com/conan-io/cmake-conan/raw/v0.13/conan.cmake"
+  file(DOWNLOAD "https://github.com/conan-io/cmake-conan/raw/v0.14/conan.cmake"
        "${CMAKE_BINARY_DIR}/conan.cmake")
 endif()
 
@@ -137,6 +140,9 @@ conan_cmake_run(
   CONANFILE conanfile.txt
   BASIC_SETUP CMAKE_TARGETS KEEP_RPATHS
   BUILD missing)
+
+# Adjusts the standard library flags (libc++`, libstdc++, libstdc++11)
+conan_set_libcxx()
 
 add_subdirectory(external)
 add_subdirectory(src)

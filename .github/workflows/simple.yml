@@ -39,7 +39,7 @@ jobs:
             ccov: OFF
           - name: macOS-latest
             os: macOS-latest
-            compiler: xcode
+            compiler: apple-clang
             version: 'NOT USED'
             ccov: OFF
 
@@ -48,26 +48,23 @@ jobs:
       with:
         fetch-depth: 5
 
-    - name: Setup Prerequisites (Linux, Code Coverage)
-      if: runner.os == 'Linux' && matrix.ccov == 'ON'
-      run: sudo apt-get install --no-install-recommends --quiet --yes lcov
-
-    - name: Setup Prerequisites (Linux, Generic)
+    - name: Setup Prerequisites (Linux)
       if: runner.os == 'Linux'
       run: |
+        echo 'debconf debconf/frontend select Noninteractive' | sudo debconf-set-selections
         sudo add-apt-repository ppa:ubuntu-toolchain-r/test --yes
         sudo apt-get update --quiet --yes 1>/dev/null
 
-        if [ "${{ matrix.compiler }}" = "gcc" ]; then
-          sudo apt-get install --no-install-recommends --quiet --yes \
-            gcc-${{ matrix.version }}
+        if [ "${{ matrix.ccov }}" = "ON" ]; then
+          sudo apt-get install --no-install-recommends -q -y lcov
+        fi
 
+        if [ "${{ matrix.compiler }}" = "gcc" ]; then
+          sudo apt-get install --no-install-recommends -q -y gcc-${{ matrix.version }}
           echo "::set-env name=CC::gcc-${{ matrix.version }}"
           echo "::set-env name=CXX::g++-${{ matrix.version }}"
         else
-          sudo apt-get install --no-install-recommends --quiet --yes \
-            clang-${{ matrix.version }}
-
+          sudo apt-get install --no-install-recommends -q -y clang-${{ matrix.version }}
           echo "::set-env name=CC::clang-${{ matrix.version }}"
           echo "::set-env name=CXX::clang++-${{ matrix.version }}"
         fi
@@ -75,13 +72,12 @@ jobs:
     - name: Setup Prerequisites (macOS)
       if: runner.os == 'macOS'
       run: |
-        brew install pkg-config llvm clang-format
-
         sudo xcode-select -switch /Applications/Xcode.app
 
-        echo "::set-env name=CC::clang"
-        echo "::set-env name=CXX::clang++"
-        echo "::set-env name=PATH::$PATH:$(brew --prefix llvm)/bin"
+        echo "::set-env name=CC::$(xcrun -f clang)"
+        echo "::set-env name=CXX::$(xcrun -f clang++)"
+        echo "::set-env name=SDKROOT::$(xcodebuild -version -sdk macosx Path)"
+        echo "::set-env name=PATH::$(dirname $(xcrun -f clang)):$PATH"
 
     - uses: actions/cache@v1
       name: Setup conan cache
@@ -115,29 +111,19 @@ jobs:
     - name: Configure x64 Debug
       run: |
         $CC --version
+        cmake --version
 
-        if [ "${{ runner.os }}" = "macOS" ]; then
-          cmake                                  \
-              -S .                               \
-              -Bbuild                            \
-              -DCMAKE_BUILD_TYPE=Debug           \
-              -DZEPHIR_BUILD_TESTING=ON          \
-              -DENABLE_ALL_WARNINGS=ON           \
-              -DCODE_COVERAGE=${{ matrix.ccov }}
-        else
-          cmake                                  \
-              -S .                               \
-              -Bbuild                            \
-              -DCMAKE_BUILD_TYPE=Debug           \
-              -DZEPHIR_BUILD_TESTING=ON          \
-              -DENABLE_ALL_WARNINGS=ON           \
-              -DCODE_COVERAGE=${{ matrix.ccov }} \
-              -D_GLIBCXX_USE_CXX11_ABI=ON
-        fi
+        cmake                         \
+            -S .                      \
+            -Bbuild                   \
+            -DCMAKE_BUILD_TYPE=Debug  \
+            -DZEPHIR_BUILD_TESTING=ON \
+            -DENABLE_ALL_WARNINGS=ON  \
+            -DCODE_COVERAGE=${{ matrix.ccov }}
 
         echo ::set-env name=ZEPHIR_TESTS_ROOT::${GITHUB_WORKSPACE}/tests
 
-    - name: Build x64 Debug
+    - name: Build with ${{ matrix.compiler }}
       run: cmake --build build -j "$(getconf _NPROCESSORS_ONLN)"
 
     - name: Run Tests
