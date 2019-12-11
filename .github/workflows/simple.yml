@@ -72,14 +72,13 @@ jobs:
     - name: Setup Prerequisites (macOS)
       if: runner.os == 'macOS'
       run: |
-        brew install pkg-config clang-format
+        brew install clang-format
 
         sudo xcode-select -switch /Applications/Xcode.app
 
         echo "::set-env name=CC::$(xcrun -f clang)"
         echo "::set-env name=CXX::$(xcrun -f clang++)"
         echo "::set-env name=SDKROOT::$(xcodebuild -version -sdk macosx Path)"
-        echo "::set-env name=PATH::$(brew --prefix clang-format)/bin:$PATH"
         echo "::set-env name=PATH::$(dirname $(xcrun -f clang)):$PATH"
 
     - uses: actions/cache@v1
