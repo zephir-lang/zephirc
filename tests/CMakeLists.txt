@@ -19,8 +19,9 @@ include(GoogleTest)
 set(ZEPHIR_TESTS options_test config_test)
 mark_as_advanced(ZEPHIR_TESTS)
 
-file(GLOB TESTSF ${CMAKE_CURRENT_SOURCE_DIR}/commands/*.options.cpp)
-add_executable(options_test main.cpp env/base.cpp ${TESTSF})
+file(GLOB_RECURSE OPTIONS_TEST
+     ${CMAKE_CURRENT_SOURCE_DIR}/commands/*.options.cpp)
+add_executable(options_test main.cpp env/base.cpp ${OPTIONS_TEST})
 
 target_include_directories(
   options_test

@@ -5,7 +5,7 @@
 
 #include "zephir/config/optimizations.hpp"
 
-TEST(MetadataTest, EncodeClass) {
+TEST(OptimizationsTest, EncodeClass) {
   zephir::config::OptimizationsPtr metadata =
       std::make_shared<zephir::config::Optimizations>(true, true, true, true,
                                                       true, true, false, false);
