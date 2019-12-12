@@ -23,7 +23,6 @@ cmake_policy(SET CMP0025 NEW)
 list(APPEND CMAKE_MODULE_PATH ${zephir_SOURCE_DIR}/cmake)
 
 # Options
-option(CODE_COVERAGE "Builds targets with code coverage instrumentation." OFF)
 option(ZEPHIR_BUILD_TESTING "Build test project" OFF)
 
 # CMake Script Includes
@@ -125,12 +124,12 @@ if(CODE_COVERAGE)
 endif()
 
 # Conan bootstrap
-if(NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
+if(NOT EXISTS "${zephir_BINARY_DIR}/conan.cmake")
   message(
     STATUS
       "Downloading conan.cmake from https://github.com/conan-io/cmake-conan")
   file(DOWNLOAD "https://github.com/conan-io/cmake-conan/raw/v0.14/conan.cmake"
-       "${CMAKE_BINARY_DIR}/conan.cmake")
+       "${zephir_BINARY_DIR}/conan.cmake")
 endif()
 
 include(${CMAKE_BINARY_DIR}/conan.cmake)

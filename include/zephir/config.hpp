@@ -13,6 +13,8 @@
 #include <string>
 #include <vector>
 
+#include "zephir/config/optimizations.hpp"
+
 #define INDENT_USING_SPACES 1;
 #define INDENT_USING_TABS 2;
 
@@ -136,16 +138,7 @@ class Config {
       bool conditional_initialization = true;
     } warnings;
 
-    struct Optimizations {
-      bool static_type_inference = true;
-      bool static_type_inference_second_pass = true;
-      bool local_context_pass = true;
-      bool constant_folding = true;
-      bool static_constant_class_folding = true;
-      bool call_gatherer_pass = true;
-      bool check_invalid_reads = false;
-      bool internal_call_transformation = false;
-    } optimizations;
+    zephir::config::Optimizations optimizations;
 
     struct Extra {
       unsigned char indent = INDENT_USING_SPACES;

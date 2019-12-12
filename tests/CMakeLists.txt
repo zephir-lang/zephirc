@@ -32,18 +32,15 @@ target_include_directories(
 # itself via regex
 target_code_coverage(options_test AUTO ALL EXTERNAL)
 
-target_link_libraries(
-  options_test
-  PRIVATE CONAN_PKG::GTest
-  PUBLIC commands)
+target_link_libraries(options_test PRIVATE commands CONAN_PKG::GTest)
 
 gtest_discover_tests(
   options_test
-  TEST_PREFIX gtest:
+  TEST_PREFIX zephir:
   PROPERTIES LABELS OptionsTest)
 
-file(GLOB TESTSF ${CMAKE_CURRENT_SOURCE_DIR}/config/*.cpp)
-add_executable(config_test main.cpp env/base.cpp ${TESTSF})
+file(GLOB_RECURSE CONFIG_TESTS ${CMAKE_CURRENT_SOURCE_DIR}/config/*.cpp)
+add_executable(config_test main.cpp env/base.cpp ${CONFIG_TESTS})
 
 target_include_directories(
   config_test
@@ -54,14 +51,11 @@ target_include_directories(
 # itself via regex
 target_code_coverage(config_test AUTO ALL EXTERNAL)
 
-target_link_libraries(
-  config_test
-  PRIVATE CONAN_PKG::GTest
-  PUBLIC filesystem config)
+target_link_libraries(config_test PRIVATE config filesystem CONAN_PKG::GTest)
 
 gtest_discover_tests(
   config_test
-  TEST_PREFIX gtest:
+  TEST_PREFIX zephir:
   PROPERTIES LABELS ConfigTest)
 
 add_custom_target(

@@ -39,13 +39,13 @@ TEST_F(ConfigBaseTest, DoNothingOnHelp) {
 }
 
 TEST_F(ConfigBaseTest, BrokenConfigFile) {
-  std::string tests_root = TestEnvironment::tests_root();
+  auto tests_root = TestEnvironment::tests_root();
   if (tests_root.empty()) {
     GTEST_SKIP();
   }
 
   argv.assign({});
-  std::string file = tests_root + "/fixtures/bad-config.yml";
+  auto file = tests_root + "/fixtures/bad-config.yml";
   EXPECT_THROW_EXCEPTION(std::runtime_error,
                          zephir::Config::CreateFromArgv(argv, file),
                          "Config file is broken");
