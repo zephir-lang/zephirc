@@ -42,22 +42,20 @@ gtest_discover_tests(
   TEST_PREFIX gtest:
   PROPERTIES LABELS OptionsTest)
 
-file(GLOB TESTSF ${CMAKE_CURRENT_SOURCE_DIR}/config/*.cpp)
-add_executable(config_test main.cpp env/base.cpp ${TESTSF})
+file(GLOB_RECURSE CONFIG_TESTS ${CMAKE_CURRENT_SOURCE_DIR}/config/*.cpp)
+add_executable(config_test main.cpp env/base.cpp ${CONFIG_TESTS})
 
 target_include_directories(
   config_test
   PUBLIC $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
-  PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>)
+  PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+          $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src/config>)
 
 # Adds the executable to the 'ccov' and 'ccov-all' targets and excludes the file
 # itself via regex
 target_code_coverage(config_test AUTO ALL EXTERNAL)
 
-target_link_libraries(
-  config_test
-  PRIVATE CONAN_PKG::GTest
-  PUBLIC filesystem config)
+target_link_libraries(config_test PRIVATE config filesystem CONAN_PKG::GTest)
 
 gtest_discover_tests(
   config_test
