@@ -23,3 +23,12 @@ TEST(OptimizationsTest, DecodeString) {
       node["optimizations"], actual));
   EXPECT_EQ(*actual, expected);
 }
+
+TEST(OptimizationsTest, DecodeInvalid) {
+  YAML::Node node = YAML::Load("foo: bar");
+  zephir::config::OptimizationsPtr actual =
+      std::make_shared<zephir::config::Optimizations>();
+
+  EXPECT_FALSE(YAML::convert<zephir::config::OptimizationsPtr>::decode(
+      node["foo"], actual));
+}
