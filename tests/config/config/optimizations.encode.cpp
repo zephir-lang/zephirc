@@ -6,13 +6,13 @@
 #include "zephir/config/optimizations.hpp"
 
 TEST(OptimizationsTest, EncodeClass) {
-  zephir::config::OptimizationsPtr metadata =
+  zephir::config::OptimizationsPtr opt =
       std::make_shared<zephir::config::Optimizations>(true, true, true, true,
                                                       true, true, false, false);
 
   YAML::Node node;
   node["optimizations"] =
-      YAML::convert<zephir::config::OptimizationsPtr>::encode(metadata);
+      YAML::convert<zephir::config::OptimizationsPtr>::encode(opt);
 
   EXPECT_TRUE(node.IsMap());
 

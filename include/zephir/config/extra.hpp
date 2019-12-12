@@ -7,6 +7,8 @@
 #ifndef ZEPHIR_CONFIG_EXTRA_HPP_
 #define ZEPHIR_CONFIG_EXTRA_HPP_
 
+#include <string>
+
 #include "zephir/config/yaml/extra.hpp"
 
 namespace zephir {
