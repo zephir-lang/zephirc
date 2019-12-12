@@ -6,11 +6,11 @@
 #include "zephir/config/extra.hpp"
 
 TEST(ExtraTest, EncodeClass) {
-  zephir::config::ExtraPtr metadata =
+  zephir::config::ExtraPtr extra =
       std::make_shared<zephir::config::Extra>("spaces", false);
 
   YAML::Node node;
-  node["extra"] = YAML::convert<zephir::config::ExtraPtr>::encode(metadata);
+  node["extra"] = YAML::convert<zephir::config::ExtraPtr>::encode(extra);
 
   EXPECT_TRUE(node.IsMap());
 

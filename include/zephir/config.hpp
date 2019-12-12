@@ -15,6 +15,7 @@
 
 #include "zephir/config/extra.hpp"
 #include "zephir/config/optimizations.hpp"
+#include "zephir/config/stubs.hpp"
 
 namespace zephir {
 /**
@@ -88,11 +89,7 @@ class Config {
       std::set<std::string> extensions = {};
     } requires;
 
-    struct Stubs {
-      std::string path = "ide/%version%/%namespace%";
-      bool stubs_run_after_generate = false;
-      std::string banner = "";
-    } stubs;
+    zephir::config::Stubs stubs;
 
     struct Api {
       std::string path = "doc/%version%";
