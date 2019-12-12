@@ -13,10 +13,8 @@
 #include <string>
 #include <vector>
 
+#include "zephir/config/extra.hpp"
 #include "zephir/config/optimizations.hpp"
-
-#define INDENT_USING_SPACES 1;
-#define INDENT_USING_TABS 2;
 
 namespace zephir {
 /**
@@ -139,11 +137,7 @@ class Config {
     } warnings;
 
     zephir::config::Optimizations optimizations;
-
-    struct Extra {
-      unsigned char indent = INDENT_USING_SPACES;
-      bool export_classes = false;
-    } extra;
+    zephir::config::Extra extra;
   } container_;
 
   std::string path_;
