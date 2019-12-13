@@ -9,7 +9,6 @@
 #define ZEPHIR_CONFIG_HPP_
 
 #include <memory>
-#include <set>
 #include <string>
 #include <vector>
 
