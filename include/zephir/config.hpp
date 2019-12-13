@@ -86,8 +86,8 @@ class Config {
     std::string version = "0.0.1";
     bool verbose = false;
 
-    zephir::config::Requires requires;
-    zephir::config::Stubs stubs;
+    config::Requires requires;
+    config::Stubs stubs;
 
     struct Api {
       std::string path = "doc/%version%";
@@ -104,9 +104,9 @@ class Config {
       } theme;
     } api;
 
-    zephir::config::Warnings warnings;
-    zephir::config::Optimizations optimizations;
-    zephir::config::Extra extra;
+    config::Warnings warnings;
+    config::Optimizations optimizations;
+    config::Extra extra;
   } container_;
 
   std::string path_;
