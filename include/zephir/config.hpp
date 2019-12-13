@@ -9,12 +9,12 @@
 #define ZEPHIR_CONFIG_HPP_
 
 #include <memory>
-#include <set>
 #include <string>
 #include <vector>
 
 #include "zephir/config/extra.hpp"
 #include "zephir/config/optimizations.hpp"
+#include "zephir/config/requires.hpp"
 #include "zephir/config/stubs.hpp"
 
 namespace zephir {
@@ -85,10 +85,7 @@ class Config {
     std::string version = "0.0.1";
     bool verbose = false;
 
-    struct Requires {
-      std::set<std::string> extensions = {};
-    } requires;
-
+    zephir::config::Requires requires;
     zephir::config::Stubs stubs;
 
     struct Api {

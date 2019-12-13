@@ -5,8 +5,7 @@
 
 TEST(StubsTest, DecodeString) {
   YAML::Node node = YAML::Load(
-      "stubs: {path: \"ide/%version%/%namespace%\", "
-      "stubs-run-after-generate: false, banner: \"\"}");
+      R"(stubs: {path: "ide/%version%/%namespace%", stubs-run-after-generate: false, banner: ""})");
 
   zephir::config::Stubs expected("ide/%version%/%namespace%", false, "");
   zephir::config::StubsPtr actual = std::make_shared<zephir::config::Stubs>();

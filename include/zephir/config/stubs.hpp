@@ -16,7 +16,7 @@ namespace config {
 class Stubs {
  public:
   Stubs();
-  Stubs(std::string path, bool regenerate, std::string banner);
+  explicit Stubs(std::string path, bool regenerate, std::string banner);
 
   friend YAML::Node
   YAML::convert<StubsPtr>::encode(const zephir::config::StubsPtr &sptr);
