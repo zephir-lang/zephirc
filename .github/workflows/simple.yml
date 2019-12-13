@@ -51,6 +51,9 @@ jobs:
     - name: Setup Prerequisites (Linux)
       if: runner.os == 'Linux'
       run: |
+        # debug
+        grep -nr microsoft /etc/apt/
+
         echo 'debconf debconf/frontend select Noninteractive' | sudo debconf-set-selections
         sudo add-apt-repository ppa:ubuntu-toolchain-r/test --yes
         sudo apt-get update --quiet --yes 1>/dev/null
