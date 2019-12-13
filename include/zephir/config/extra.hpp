@@ -11,8 +11,7 @@
 
 #include "zephir/config/yaml/extra.hpp"
 
-namespace zephir {
-namespace config {
+namespace zephir::config {
 class Extra {
  public:
   Extra();
@@ -30,6 +29,5 @@ class Extra {
   std::string indent_;
   bool exportc_;
 };
-}  // namespace config
-}  // namespace zephir
+}  // namespace zephir::config
 #endif  // ZEPHIR_CONFIG_EXTRA_HPP_

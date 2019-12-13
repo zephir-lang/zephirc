@@ -10,8 +10,7 @@
 
 #include "zephir/config/yaml/optimizations.hpp"
 
-namespace zephir {
-namespace config {
+namespace zephir::config {
 class Optimizations {
  public:
   Optimizations();
@@ -44,7 +43,6 @@ class Optimizations {
   // internal call transformation
   bool ict_;
 };
-}  // namespace config
-}  // namespace zephir
+}  // namespace zephir::config
 
 #endif  // ZEPHIR_CONFIG_OPTIMIZATIONS_HPP_

@@ -10,11 +10,9 @@
 
 #include <memory>
 
-namespace zephir {
-namespace config {
-struct Warnings;
+namespace zephir::config {
+class Warnings;
 using WarningsPtr = std::shared_ptr<Warnings>;
-}  // namespace config
-}  // namespace zephir
+}  // namespace zephir::config
 
 #endif  // ZEPHIR_CONFIG_PTR_WARNINGS_HPP_

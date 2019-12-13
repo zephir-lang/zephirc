@@ -11,8 +11,7 @@
 
 #include "zephir/config/yaml/stubs.hpp"
 
-namespace zephir {
-namespace config {
+namespace zephir::config {
 class Stubs {
  public:
   Stubs();
@@ -31,6 +30,5 @@ class Stubs {
   bool regenerate_;
   std::string banner_;
 };
-}  // namespace config
-}  // namespace zephir
+}  // namespace zephir::config
 #endif  // ZEPHIR_CONFIG_STUBS_HPP_
