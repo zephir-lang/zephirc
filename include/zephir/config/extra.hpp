@@ -16,7 +16,7 @@ namespace config {
 class Extra {
  public:
   Extra();
-  Extra(std::string indent, bool exportc);
+  explicit Extra(std::string indent, bool exportc);
 
   friend YAML::Node
   YAML::convert<ExtraPtr>::encode(const zephir::config::ExtraPtr &eptr);

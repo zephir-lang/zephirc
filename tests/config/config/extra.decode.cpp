@@ -5,7 +5,7 @@
 
 TEST(ExtraTest, DecodeString) {
   YAML::Node node =
-      YAML::Load("extra: {indent: \"spaces\", export-classes: false }");
+      YAML::Load(R"(extra: {indent: "spaces", export-classes: false})");
 
   zephir::config::Extra expected("spaces", false);
   zephir::config::ExtraPtr actual = std::make_shared<zephir::config::Extra>();
