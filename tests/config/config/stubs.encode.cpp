@@ -13,7 +13,7 @@
 #include "zephir/config/stubs.hpp"
 
 TEST(StubsTest, EncodeClass) {
-  zephir::config::StubsPtr stubs = std::make_shared<zephir::config::Stubs>(
+  auto stubs = std::make_shared<zephir::config::Stubs>(
       "ide/%version%/%namespace%", false, "");
 
   YAML::Node node;

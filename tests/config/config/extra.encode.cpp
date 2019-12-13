@@ -13,8 +13,7 @@
 #include "zephir/config/extra.hpp"
 
 TEST(ExtraTest, EncodeClass) {
-  zephir::config::ExtraPtr extra =
-      std::make_shared<zephir::config::Extra>("spaces", false);
+  auto extra = std::make_shared<zephir::config::Extra>("spaces", false);
 
   YAML::Node node;
   node["extra"] = YAML::convert<zephir::config::ExtraPtr>::encode(extra);

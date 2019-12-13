@@ -11,7 +11,7 @@
 #include "zephir/config/optimizations.hpp"
 
 TEST(OptimizationsTest, DecodeString) {
-  YAML::Node node = YAML::Load(
+  auto node = YAML::Load(
       "optimizations: {static-type-inference: true, "
       "static-type-inference-second-pass: true, "
       "local-context-pass: true, "
@@ -23,8 +23,7 @@ TEST(OptimizationsTest, DecodeString) {
 
   zephir::config::Optimizations expected(true, true, true, true, true, true,
                                          false, false);
-  zephir::config::OptimizationsPtr actual =
-      std::make_shared<zephir::config::Optimizations>();
+  auto actual = std::make_shared<zephir::config::Optimizations>();
 
   EXPECT_TRUE(YAML::convert<zephir::config::OptimizationsPtr>::decode(
       node["optimizations"], actual));
@@ -32,9 +31,8 @@ TEST(OptimizationsTest, DecodeString) {
 }
 
 TEST(OptimizationsTest, DecodeInvalid) {
-  YAML::Node node = YAML::Load("foo: bar");
-  zephir::config::OptimizationsPtr actual =
-      std::make_shared<zephir::config::Optimizations>();
+  auto node = YAML::Load("foo: bar");
+  auto actual = std::make_shared<zephir::config::Optimizations>();
 
   EXPECT_FALSE(YAML::convert<zephir::config::OptimizationsPtr>::decode(
       node["foo"], actual));

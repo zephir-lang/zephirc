@@ -13,9 +13,8 @@
 #include "zephir/config/optimizations.hpp"
 
 TEST(OptimizationsTest, EncodeClass) {
-  zephir::config::OptimizationsPtr opt =
-      std::make_shared<zephir::config::Optimizations>(true, true, true, true,
-                                                      true, true, false, false);
+  auto opt = std::make_shared<zephir::config::Optimizations>(
+      true, true, true, true, true, true, false, false);
 
   YAML::Node node;
   node["optimizations"] =

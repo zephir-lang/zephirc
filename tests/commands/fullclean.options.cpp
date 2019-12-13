@@ -12,12 +12,10 @@
 
 #include "zephir/commands.hpp"
 
-using input_t = std::vector<std::string>;
-
 class FullcleanCmdTest : public ::testing::Test {
  protected:
   FullcleanCmdTest() : argv(){};
-  input_t argv;
+  std::vector<std::string> argv;
 };
 
 TEST_F(FullcleanCmdTest, RunWithoutOptions) {

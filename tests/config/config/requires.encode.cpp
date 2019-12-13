@@ -15,8 +15,7 @@
 TEST(RequiresTest, EncodeClass) {
   std::vector<std::string> extensions = {"PDO", "SPL", "standard", "hash",
                                          "json"};
-  zephir::config::RequiresPtr requires =
-      std::make_shared<zephir::config::Requires>(extensions);
+  auto requires = std::make_shared<zephir::config::Requires>(extensions);
 
   YAML::Node node;
   node["requires"] =

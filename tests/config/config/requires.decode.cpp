@@ -11,12 +11,11 @@
 #include "zephir/config/requires.hpp"
 
 TEST(RequiresTest, DecodeString) {
-  YAML::Node node = YAML::Load(
+  auto node = YAML::Load(
       R"(requires: {extensions: ["PDO", "SPL", "standard", "hash", "json"]})");
 
   zephir::config::Requires expected({"PDO", "SPL", "standard", "hash", "json"});
-  zephir::config::RequiresPtr actual =
-      std::make_shared<zephir::config::Requires>();
+  auto actual = std::make_shared<zephir::config::Requires>();
 
   EXPECT_TRUE(YAML::convert<zephir::config::RequiresPtr>::decode(
       node["requires"], actual));
@@ -24,9 +23,8 @@ TEST(RequiresTest, DecodeString) {
 }
 
 TEST(RequiresTest, DecodeInvalid) {
-  YAML::Node node = YAML::Load("foo: bar");
-  zephir::config::RequiresPtr actual =
-      std::make_shared<zephir::config::Requires>();
+  auto node = YAML::Load("foo: bar");
+  auto actual = std::make_shared<zephir::config::Requires>();
 
   EXPECT_FALSE(
       YAML::convert<zephir::config::RequiresPtr>::decode(node["foo"], actual));

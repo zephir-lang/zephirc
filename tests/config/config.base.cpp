@@ -26,7 +26,7 @@ TEST_F(ConfigBaseTest, DoNothingOnHelp) {
   argv.assign({"--help"});
 
   // Redirect std::cout
-  std::streambuf* oldCoutStreamBuf = std::cout.rdbuf();
+  auto oldCoutStreamBuf = std::cout.rdbuf();
   std::ostringstream strCout;
   std::cout.rdbuf(strCout.rdbuf());
 
@@ -52,13 +52,13 @@ TEST_F(ConfigBaseTest, BrokenConfigFile) {
 }
 
 TEST_F(ConfigBaseTest, CorrectConfigFile) {
-  std::string tests_root = TestEnvironment::tests_root();
+  auto tests_root = TestEnvironment::tests_root();
   if (tests_root.empty()) {
     GTEST_SKIP();
   }
 
   argv.assign({});
-  std::string file = tests_root + "/fixtures/phalcon-4x.yml";
+  auto file = tests_root + "/fixtures/phalcon-4x.yml";
   auto config = zephir::Config::CreateFromArgv(argv, file).get();
 
   EXPECT_FALSE(config->IsChanged());
