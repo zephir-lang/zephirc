@@ -16,6 +16,7 @@
 #include "zephir/config/optimizations.hpp"
 #include "zephir/config/requires.hpp"
 #include "zephir/config/stubs.hpp"
+#include "zephir/config/warnings.hpp"
 
 namespace zephir {
 /**
@@ -103,33 +104,7 @@ class Config {
       } theme;
     } api;
 
-    struct Warnings {
-      bool unused_variable = false;
-      bool unused_variable_external = false;
-      bool possible_wrong_parameter = false;
-      bool possible_wrong_parameter_undefined = false;
-      bool nonexistent_function = true;
-      bool nonexistent_class = true;
-      bool non_valid_isset = true;
-      bool non_array_update = true;
-      bool non_valid_objectupdate = true;
-      bool non_valid_fetch = true;
-      bool invalid_array_index = true;
-      bool non_array_append = true;
-      bool invalid_return_type = true;
-      bool unreachable_code = true;
-      bool nonexistent_constant = true;
-      bool not_supported_magic_constant = true;
-      bool non_valid_decrement = true;
-      bool non_valid_increment = true;
-      bool non_valid_clone = true;
-      bool non_valid_new = true;
-      bool non_array_access = true;
-      bool invalid_reference = true;
-      bool invalid_typeof_comparison = true;
-      bool conditional_initialization = true;
-    } warnings;
-
+    zephir::config::Warnings warnings;
     zephir::config::Optimizations optimizations;
     zephir::config::Extra extra;
   } container_;
