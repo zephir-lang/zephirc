@@ -10,11 +10,9 @@
 
 #include <memory>
 
-namespace zephir {
-namespace config {
+namespace zephir::config {
 class Stubs;
 using StubsPtr = std::shared_ptr<Stubs>;
-}  // namespace config
-}  // namespace zephir
+}  // namespace zephir::config
 
 #endif  // ZEPHIR_CONFIG_PTR_STUBS_HPP_

@@ -10,11 +10,9 @@
 
 #include <memory>
 
-namespace zephir {
-namespace config {
+namespace zephir::config {
 class Requires;
 using RequiresPtr = std::shared_ptr<Requires>;
-}  // namespace config
-}  // namespace zephir
+}  // namespace zephir::config
 
 #endif  // ZEPHIR_CONFIG_PTR_REQUIRES_HPP_

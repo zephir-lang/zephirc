@@ -10,11 +10,9 @@
 
 #include <memory>
 
-namespace zephir {
-namespace config {
+namespace zephir::config {
 class Extra;
 using ExtraPtr = std::shared_ptr<Extra>;
-}  // namespace config
-}  // namespace zephir
+}  // namespace zephir::config
 
 #endif  // ZEPHIR_CONFIG_PTR_EXTRA_HPP_

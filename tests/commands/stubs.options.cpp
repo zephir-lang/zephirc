@@ -12,12 +12,10 @@
 
 #include "zephir/commands.hpp"
 
-using input_t = std::vector<std::string>;
-
 class StubsCmdTest : public ::testing::Test {
  protected:
   StubsCmdTest() : argv(){};
-  input_t argv;
+  std::vector<std::string> argv;
 };
 
 TEST_F(StubsCmdTest, RunWithoutOptions) {

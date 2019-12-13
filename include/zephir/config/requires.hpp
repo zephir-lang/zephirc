@@ -13,8 +13,7 @@
 
 #include "zephir/config/yaml/requires.hpp"
 
-namespace zephir {
-namespace config {
+namespace zephir::config {
 class Requires {
  public:
   Requires();
@@ -32,7 +31,6 @@ class Requires {
  private:
   std::vector<std::string> extensions_;
 };
-}  // namespace config
-}  // namespace zephir
+}  // namespace zephir::config
 
 #endif  // ZEPHIR_CONFIG_REQUIRES_HPP_

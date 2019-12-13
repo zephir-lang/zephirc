@@ -1,3 +1,10 @@
+// This file is part of the Zephir.
+//
+// (c) Zephir Team <team@zephir-lang.com>
+//
+// For the full copyright and license information, please view
+// the LICENSE file that was distributed with this source code.
+
 #include <gtest/gtest.h>
 #include <yaml-cpp/yaml.h>
 
@@ -6,7 +13,7 @@
 #include "zephir/config/stubs.hpp"
 
 TEST(StubsTest, EncodeClass) {
-  zephir::config::StubsPtr stubs = std::make_shared<zephir::config::Stubs>(
+  auto stubs = std::make_shared<zephir::config::Stubs>(
       "ide/%version%/%namespace%", false, "");
 
   YAML::Node node;

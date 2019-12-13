@@ -11,7 +11,7 @@
 #include "zephir/config/warnings.hpp"
 
 TEST(WarningsTest, DecodeString) {
-  YAML::Node node = YAML::Load(R"(
+  auto node = YAML::Load(R"(
 "warnings": {
   "unused-variable": true,
   "unused-variable-external": false,
@@ -66,8 +66,7 @@ TEST(WarningsTest, DecodeString) {
       {"conditional-initialization", true},
   });
 
-  zephir::config::WarningsPtr actual =
-      std::make_shared<zephir::config::Warnings>();
+  auto actual = std::make_shared<zephir::config::Warnings>();
 
   EXPECT_TRUE(YAML::convert<zephir::config::WarningsPtr>::decode(
       node["warnings"], actual));
@@ -75,9 +74,8 @@ TEST(WarningsTest, DecodeString) {
 }
 
 TEST(WarningsTest, DecodeInvalid) {
-  YAML::Node node = YAML::Load("foo: bar");
-  zephir::config::WarningsPtr actual =
-      std::make_shared<zephir::config::Warnings>();
+  auto node = YAML::Load("foo: bar");
+  auto actual = std::make_shared<zephir::config::Warnings>();
 
   EXPECT_FALSE(
       YAML::convert<zephir::config::WarningsPtr>::decode(node["foo"], actual));

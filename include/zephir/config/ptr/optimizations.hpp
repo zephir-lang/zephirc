@@ -10,11 +10,9 @@
 
 #include <memory>
 
-namespace zephir {
-namespace config {
+namespace zephir::config {
 class Optimizations;
 using OptimizationsPtr = std::shared_ptr<Optimizations>;
-}  // namespace config
-}  // namespace zephir
+}  // namespace zephir::config
 
 #endif  // ZEPHIR_CONFIG_PTR_OPTIMIZATIONS_HPP_

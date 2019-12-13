@@ -12,9 +12,8 @@
 
 #include "zephir/config/yaml/warnings.hpp"
 
-namespace zephir {
-namespace config {
-struct Warnings {
+namespace zephir::config {
+class Warnings {
  public:
   Warnings();
   explicit Warnings(std::map<std::string, bool> container);
@@ -31,6 +30,5 @@ struct Warnings {
  private:
   std::map<std::string, bool> container_;
 };
-}  // namespace config
-}  // namespace zephir
+}  // namespace zephir::config
 #endif  // ZEPHIR_CONFIG_WARNINGS_HPP_
