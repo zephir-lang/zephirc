@@ -51,8 +51,9 @@ jobs:
     - name: Setup Prerequisites (Linux)
       if: runner.os == 'Linux'
       run: |
-        # debug
-        grep -nr microsoft /etc/apt/
+        # E: Repository 'https://packages.microsoft.com/repos/microsoft-ubuntu-bionic-prod bionic InRelease'
+        # changed its 'Origin' value from 'microsoft-ubuntu-bionic-prod bionic' to 'vscode stable'
+        sudo rm -f /etc/apt/sources.list.d/dotnetdev.list
 
         echo 'debconf debconf/frontend select Noninteractive' | sudo debconf-set-selections
         sudo add-apt-repository ppa:ubuntu-toolchain-r/test --yes
