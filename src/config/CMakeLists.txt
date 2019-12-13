@@ -6,10 +6,9 @@
 # the LICENSE file that was distributed with this source code.
 
 # Add definition for config library.
-file(GLOB CONFIG_YAML ${CMAKE_CURRENT_SOURCE_DIR}/config/yaml/*.cpp)
-add_library(
-  config SHARED ${CONFIG_YAML} config/stubs.cpp config/optimizations.cpp
-                config/requires.cpp config/extra.cpp config.cpp)
+file(GLOB CONFIG_LIBS ${CMAKE_CURRENT_SOURCE_DIR}/config/*.cpp)
+file(GLOB CONFIG_PARTS ${CMAKE_CURRENT_SOURCE_DIR}/config/yaml/*.cpp)
+add_library(config SHARED ${CONFIG_LIBS} ${CONFIG_PARTS} config.cpp)
 
 target_include_directories(
   config PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
