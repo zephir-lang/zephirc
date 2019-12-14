@@ -12,14 +12,12 @@
 #include <string>
 #include <vector>
 
-#include "zephir/config/api/theme/options.hpp"
+#include "zephir/config/api/theme.hpp"
 #include "zephir/config/extra.hpp"
 #include "zephir/config/optimizations.hpp"
 #include "zephir/config/requires.hpp"
 #include "zephir/config/stubs.hpp"
 #include "zephir/config/warnings.hpp"
-
-namespace ztheme = zephir::config::api::theme;
 
 namespace zephir {
 /**
@@ -94,11 +92,7 @@ class Config {
 
     struct Api {
       std::string path = "doc/%version%";
-
-      struct Theme {
-        std::string name = "zephir";
-        ztheme::Options options;
-      } theme;
+      zephir::config::api::Theme theme;
     } api;
 
     config::Warnings warnings;
