@@ -19,11 +19,11 @@ api: {
   theme: {
     name: zephir,
     options: {
-      github: "",
-      analytics: "",
-      main_color: "#3E6496",
-      link_color: "#3E6496",
-      link_hover_color: "#5F9AE7"
+      github: '',
+      analytics: '',
+      main_color: '#3E6496',
+      link_color: '#3E6496',
+      link_hover_color: '#5F9AE7'
     }
   }
 })");
