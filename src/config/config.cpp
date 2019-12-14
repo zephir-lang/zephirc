@@ -16,7 +16,7 @@
 #include "zephir/main.hpp"
 
 zephir::Config::Config(std::string path)
-    : path_{std::move(path)}, changed_{false} {
+    : path_(std::move(path)), changed_(false) {
   if (!path_.empty()) {
     switch (Populate(path_)) {
       case EXIT_BAD_CONFIG:
