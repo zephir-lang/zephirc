@@ -8,8 +8,6 @@
 #include <gtest/gtest.h>
 #include <yaml-cpp/yaml.h>
 
-#include <string>
-
 #include "zephir/config/warnings.hpp"
 
 TEST(WarningsTest, EncodeClass) {

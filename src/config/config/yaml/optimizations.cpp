@@ -28,7 +28,7 @@ bool YAML::convert<zephir::config::OptimizationsPtr>::decode(
 
   for (YAML::const_iterator n = node.begin(); n != node.end(); ++n) {
     auto it = optr->container_.find(n->first.as<std::string>());
-    if (it != optr->container_.end()) {
+    if (it != optr->container_.end() && n->second.IsScalar()) {
       it->second = n->second.as<bool>();
     }
   }

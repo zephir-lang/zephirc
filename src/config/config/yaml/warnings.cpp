@@ -28,7 +28,7 @@ bool YAML::convert<zephir::config::WarningsPtr>::decode(
 
   for (YAML::const_iterator n = node.begin(); n != node.end(); ++n) {
     auto it = wptr->container_.find(n->first.as<std::string>());
-    if (it != wptr->container_.end()) {
+    if (it != wptr->container_.end() && n->second.IsScalar()) {
       it->second = n->second.as<bool>();
     }
   }
