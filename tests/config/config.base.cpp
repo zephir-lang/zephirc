@@ -10,9 +10,10 @@
 #include <string>
 #include <vector>
 
+#include <zephir/config.hpp>
+
 #include "asserts.hpp"
 #include "env/base.hpp"
-#include "zephir/config.hpp"
 
 using input_t = std::vector<std::string>;
 

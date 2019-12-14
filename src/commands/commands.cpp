@@ -5,12 +5,15 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#include "zephir/commands.hpp"
-
 #include <memory>
 #include <string>
 
 #include <CLI/CLI11.hpp>
+#include <zephir/commands.hpp>
+#include <zephir/config.hpp>
+#include <zephir/filesystem.hpp>
+#include <zephir/main.hpp>
+#include <zephir/version.hpp>
 
 #include "cmd_api.hpp"
 #include "cmd_build.hpp"
@@ -22,10 +25,6 @@
 #include "cmd_install.hpp"
 #include "cmd_stubs.hpp"
 #include "formatter.hpp"
-#include "zephir/config.hpp"
-#include "zephir/filesystem.hpp"
-#include "zephir/main.hpp"
-#include "zephir/version.hpp"
 
 int zephir::commands::CreateFromArgv(std::vector<std::string>& options) {
   auto cwd = zephir::filesystem::GetCurrentWorkingPath();

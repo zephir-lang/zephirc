@@ -10,7 +10,7 @@
 
 #include <string>
 
-#include "zephir/config/stubs.hpp"
+#include <zephir/config/stubs.hpp>
 
 TEST(StubsTest, EncodeClass) {
   auto stubs = std::make_shared<zephir::config::Stubs>(

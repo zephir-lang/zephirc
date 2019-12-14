@@ -10,7 +10,7 @@
 
 #include <yaml-cpp/yaml.h>
 
-#include "zephir/config/ptr/warnings.hpp"
+#include <zephir/config/ptr/warnings.hpp>
 
 namespace YAML {
 template <>

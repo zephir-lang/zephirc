@@ -11,7 +11,7 @@
 #include <string>
 #include <vector>
 
-#include "zephir/config/yaml/requires.hpp"
+#include <zephir/config/yaml/requires.hpp>
 
 namespace zephir::config {
 class Requires {

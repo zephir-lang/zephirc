@@ -8,7 +8,7 @@
 #include <gtest/gtest.h>
 #include <yaml-cpp/yaml.h>
 
-#include "zephir/config/requires.hpp"
+#include <zephir/config/requires.hpp>
 
 TEST(RequiresTest, DecodeString) {
   auto node = YAML::Load(

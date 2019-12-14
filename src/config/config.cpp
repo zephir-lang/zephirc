@@ -5,15 +5,14 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#include "zephir/config.hpp"
-
 #include <yaml-cpp/yaml.h>
 
 #include <memory>
 
-#include "zephir/commands.hpp"
-#include "zephir/filesystem.hpp"
-#include "zephir/main.hpp"
+#include <zephir/commands.hpp>
+#include <zephir/config.hpp>
+#include <zephir/filesystem.hpp>
+#include <zephir/main.hpp>
 
 zephir::Config::Config(std::string path)
     : path_(std::move(path)), changed_(false) {
