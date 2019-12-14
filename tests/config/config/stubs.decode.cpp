@@ -12,7 +12,12 @@
 
 TEST(StubsTest, DecodeString) {
   auto node = YAML::Load(
-      R"(stubs: {path: "ide/%version%/%namespace%", stubs-run-after-generate: false, banner: ""})");
+      R"(
+stubs: {
+  path: ide/%version%/%namespace%,
+  stubs-run-after-generate: false,
+  banner: ""
+})");
 
   zephir::config::Stubs expected("ide/%version%/%namespace%", false, "");
   auto actual = std::make_shared<zephir::config::Stubs>();

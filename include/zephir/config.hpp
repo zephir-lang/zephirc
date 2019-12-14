@@ -12,12 +12,13 @@
 #include <string>
 #include <vector>
 
-#include "zephir/config/api/theme.hpp"
-#include "zephir/config/extra.hpp"
-#include "zephir/config/optimizations.hpp"
-#include "zephir/config/requires.hpp"
-#include "zephir/config/stubs.hpp"
-#include "zephir/config/warnings.hpp"
+#include <zephir/config/api.hpp>
+#include <zephir/config/extra.hpp>
+#include <zephir/config/optimizations.hpp>
+#include <zephir/config/requires.hpp>
+#include <zephir/config/stubs.hpp>
+#include <zephir/config/warnings.hpp>
+#include <zephir/ptr/config.hpp>
 
 namespace zephir {
 /**
@@ -64,8 +65,8 @@ class Config {
    * or set specifically in the CLI, will also search through any search paths
    * provided from the CLI for the provided filename.
    */
-  static std::shared_ptr<Config>
-  CreateFromArgv(std::vector<std::string> &options, const std::string &path);
+  static ConfigPtr CreateFromArgv(std::vector<std::string> &options,
+                                  const std::string &path);
 
  private:
   /**
@@ -76,36 +77,29 @@ class Config {
    */
   static int Populate(const std::string &path);
 
+  std::string ns_;
+  std::string name_;
+  std::string description_;
+  std::string author_;
+  std::string version_;
+  bool verbose_;
+
   /**
-   * Default configuration for project.
+   * @brief Used path to load project configuration.
    */
-  struct Container {
-    std::string ns;
-    std::string name;
-    std::string description;
-    std::string author;
-    std::string version = "0.0.1";
-    bool verbose = false;
-
-    config::Requires requires;
-    config::Stubs stubs;
-
-    struct Api {
-      std::string path = "doc/%version%";
-      zephir::config::api::Theme theme;
-    } api;
-
-    config::Warnings warnings;
-    config::Optimizations optimizations;
-    config::Extra extra;
-  } container_;
-
   std::string path_;
 
   /**
-   * Is config changed?
+   * @brief Is project configuration was changed?
    */
   bool changed_;
+
+  config::Requires requires_;
+  config::Stubs stubs_;
+  config::Api api_;
+  config::Warnings warnings_;
+  config::Optimizations optimizations_;
+  zephir::config::Extra extra;
 };
 }  // namespace zephir
 

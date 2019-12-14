@@ -11,8 +11,10 @@
 #include <zephir/config/requires.hpp>
 
 TEST(RequiresTest, DecodeString) {
-  auto node = YAML::Load(
-      R"(requires: {extensions: ["PDO", "SPL", "standard", "hash", "json"]})");
+  auto node = YAML::Load(R"(
+requires: {
+  extensions: [PDO, SPL, standard, hash, json]
+})");
 
   zephir::config::Requires expected({"PDO", "SPL", "standard", "hash", "json"});
   auto actual = std::make_shared<zephir::config::Requires>();

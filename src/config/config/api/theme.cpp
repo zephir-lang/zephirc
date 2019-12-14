@@ -22,3 +22,6 @@ bool zephir::config::api::Theme::operator==(
 
   return lhs_key == rhs_key;
 }
+
+zephir::config::api::Theme &zephir::config::api::Theme::operator=(
+    const zephir::config::api::Theme &rhs) = default;

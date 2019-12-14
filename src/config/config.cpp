@@ -58,7 +58,7 @@ int zephir::Config::Populate(const std::string &path) {
 
 bool zephir::Config::IsChanged() { return changed_; }
 
-std::shared_ptr<zephir::Config>
+zephir::ConfigPtr
 zephir::Config::CreateFromArgv(std::vector<std::string> &options,
                                const std::string &path) {
   auto config = std::make_shared<zephir::Config>(path);
