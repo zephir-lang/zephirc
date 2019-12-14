@@ -11,7 +11,7 @@
 #include <zephir/config/extra.hpp>
 
 TEST(ExtraTest, DecodeString) {
-  auto node = YAML::Load(R"(extra: {indent: "spaces", export-classes: false})");
+  auto node = YAML::Load(R"(extra: {indent: spaces, export-classes: false})");
 
   zephir::config::Extra expected("spaces", false);
   auto actual = std::make_shared<zephir::config::Extra>();
