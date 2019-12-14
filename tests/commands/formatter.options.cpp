@@ -8,9 +8,9 @@
 #include <gtest/gtest.h>
 
 #include <CLI/CLI11.hpp>
+#include <zephir/commands.hpp>
 
 #include "formatter.hpp"
-#include "zephir/commands.hpp"
 
 class FormatterTest : public ::testing::Test {
  protected:

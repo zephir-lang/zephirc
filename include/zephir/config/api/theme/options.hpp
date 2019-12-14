@@ -10,7 +10,7 @@
 
 #include <string>
 
-#include "zephir/config/api/theme/yaml/options.hpp"
+#include <zephir/config/api/theme/yaml/options.hpp>
 
 namespace ztheme = zephir::config::api::theme;
 

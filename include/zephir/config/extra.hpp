@@ -10,7 +10,7 @@
 
 #include <string>
 
-#include "zephir/config/yaml/extra.hpp"
+#include <zephir/config/yaml/extra.hpp>
 
 namespace zephir::config {
 class Extra {

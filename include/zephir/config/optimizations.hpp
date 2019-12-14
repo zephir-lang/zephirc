@@ -11,7 +11,7 @@
 #include <map>
 #include <string>
 
-#include "zephir/config/yaml/optimizations.hpp"
+#include <zephir/config/yaml/optimizations.hpp>
 
 namespace zephir::config {
 class Optimizations {

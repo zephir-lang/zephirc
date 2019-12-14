@@ -12,8 +12,8 @@
 #include <utility>
 #include <vector>
 
-#include "zephir/commands.hpp"
-#include "zephir/main.hpp"
+#include <zephir/commands.hpp>
+#include <zephir/main.hpp>
 
 class NoneCmdTest
     : public testing::TestWithParam<std::tuple<std::string, int>> {

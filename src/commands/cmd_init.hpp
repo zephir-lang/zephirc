@@ -11,8 +11,7 @@
 #include <string>
 
 #include <CLI/CLI11.hpp>
-
-#include "zephir/config.hpp"
+#include <zephir/config.hpp>
 
 namespace zephir::commands {
 /**

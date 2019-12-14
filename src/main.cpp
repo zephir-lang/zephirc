@@ -5,12 +5,11 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#include "zephir/main.hpp"
-
 #include <string>
 #include <vector>
 
-#include "zephir/commands.hpp"
+#include <zephir/commands.hpp>
+#include <zephir/main.hpp>
 
 static inline std::vector<std::string> prepare_args(int argc, char** argv) {
   std::vector<std::string> args;

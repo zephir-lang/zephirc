@@ -10,7 +10,7 @@
 
 #include <string>
 
-#include "zephir/config/extra.hpp"
+#include <zephir/config/extra.hpp>
 
 TEST(ExtraTest, EncodeClass) {
   auto extra = std::make_shared<zephir::config::Extra>("spaces", false);

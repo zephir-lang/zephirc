@@ -10,7 +10,7 @@
 
 #include <string>
 
-#include "zephir/config/requires.hpp"
+#include <zephir/config/requires.hpp>
 
 TEST(RequiresTest, EncodeClass) {
   std::vector<std::string> extensions = {"PDO", "SPL", "standard", "hash",

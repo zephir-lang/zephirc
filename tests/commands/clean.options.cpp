@@ -10,7 +10,7 @@
 #include <string>
 #include <vector>
 
-#include "zephir/commands.hpp"
+#include <zephir/commands.hpp>
 
 class CleanCmdTest : public ::testing::Test {
  protected:

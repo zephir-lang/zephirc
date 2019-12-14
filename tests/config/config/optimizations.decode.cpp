@@ -8,7 +8,7 @@
 #include <gtest/gtest.h>
 #include <yaml-cpp/yaml.h>
 
-#include "zephir/config/optimizations.hpp"
+#include <zephir/config/optimizations.hpp>
 
 TEST(OptimizationsTest, DecodeString) {
   auto node = YAML::Load(R"(

@@ -10,7 +10,7 @@
 
 #include <string>
 
-#include "zephir/config/yaml/stubs.hpp"
+#include <zephir/config/yaml/stubs.hpp>
 
 namespace zephir::config {
 class Stubs {

@@ -8,7 +8,7 @@
 #include <gtest/gtest.h>
 #include <yaml-cpp/yaml.h>
 
-#include "zephir/config/warnings.hpp"
+#include <zephir/config/warnings.hpp>
 
 TEST(WarningsTest, EncodeClass) {
   std::map<std::string, bool> container = {
