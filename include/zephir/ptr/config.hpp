@@ -6,6 +6,6 @@
 namespace zephir {
 class Config;
 using ConfigPtr = std::shared_ptr<Config>;
-}
+}  // namespace zephir
 
 #endif  // ZEPHIR_PTR_CONFIG_HPP_
