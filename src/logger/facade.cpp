@@ -7,51 +7,40 @@
 
 #include "facade.hpp"
 
-template <class T>
-zephir::logger::Facade<T>::Facade() {
+zephir::logger::Facade::Facade() {
   _logger = spdlog::stdout_color_mt(this->_logger_name);
 }
 
-template <class T>
-zephir::logger::Facade<T>::Facade(std::shared_ptr<T> logger) {
+zephir::logger::Facade::Facade(std::shared_ptr<spdlog::logger> logger) {
   _logger =
       logger == nullptr ? spdlog::stdout_color_mt(this->_logger_name) : logger;
 }
 
-template <class T>
-zephir::logger::Facade<T>::~Facade() {
-  spdlog::drop_all();
-}
+zephir::logger::Facade::~Facade() { spdlog::drop_all(); }
 
-template <class T>
-void zephir::logger::Facade<T>::info(const std::string& message) {
+void zephir::logger::Facade::info(const std::string& message) {
   _logger->info(message);
 }
 
-template <class T>
-void zephir::logger::Facade<T>::warning(const std::string& message) {
+void zephir::logger::Facade::warning(const std::string& message) {
   _logger->warn(message);
 }
 
-template <class T>
-void zephir::logger::Facade<T>::error(const std::string& message) {
+void zephir::logger::Facade::error(const std::string& message) {
   _logger->error(message);
 }
 
-template <class T>
-void zephir::logger::Facade<T>::debug(const std::string& message) {
+void zephir::logger::Facade::debug(const std::string& message) {
   _logger->debug(message);
 }
 
-template <class T>
-void zephir::logger::Facade<T>::exception(const std::exception& error,
-                                          const Context& ctx) {
+void zephir::logger::Facade::exception(const std::exception& error,
+                                       const Context& ctx) {
   ///
 }
 
-template <class T>
-void zephir::logger::Facade<T>::log(const std::string& message, int level,
-                                    const std::string& category,
-                                    const Context& ctx) {
+void zephir::logger::Facade::log(const std::string& message, int level,
+                                 const std::string& category,
+                                 const Context& ctx) {
   ///
 }
