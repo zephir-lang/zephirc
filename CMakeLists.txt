@@ -25,6 +25,14 @@ list(APPEND CMAKE_MODULE_PATH ${zephir_SOURCE_DIR}/cmake)
 # Options
 option(ZEPHIR_BUILD_TESTING "Build test project" OFF)
 
+# Determine if zephir is built as a subproject (using add_subdirectory) or if it
+# is the master project.
+set(MASTER_PROJECT OFF)
+if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
+  set(MASTER_PROJECT ON)
+  message(STATUS "CMake version: ${CMAKE_VERSION}")
+endif()
+
 # CMake Script Includes
 include(Bootstrap)
 include(Cppcheck)
@@ -146,11 +154,11 @@ conan_set_libcxx()
 add_subdirectory(external)
 add_subdirectory(src)
 
-if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
+if(MASTER_PROJECT)
   include(CTest)
 endif()
 
-if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME
+if(MASTER_PROJECT
    AND BUILD_TESTING
    AND ZEPHIR_BUILD_TESTING)
   message(STATUS "Include test sources")

@@ -12,11 +12,14 @@
 #include <string>
 #include <vector>
 
+#include "zephir/config/api/theme/options.hpp"
 #include "zephir/config/extra.hpp"
 #include "zephir/config/optimizations.hpp"
 #include "zephir/config/requires.hpp"
 #include "zephir/config/stubs.hpp"
 #include "zephir/config/warnings.hpp"
+
+namespace ztheme = zephir::config::api::theme;
 
 namespace zephir {
 /**
@@ -94,13 +97,7 @@ class Config {
 
       struct Theme {
         std::string name = "zephir";
-        struct Options {
-          std::string github = "";
-          std::string analytics = "";
-          std::string main_color = "#3E6496";
-          std::string link_color = "#3E6496";
-          std::string link_hover_color = "#5F9AE7";
-        } options;
+        ztheme::Options options;
       } theme;
     } api;
 
