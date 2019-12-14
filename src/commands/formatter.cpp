@@ -15,7 +15,7 @@ zephir::commands::Formatter::Formatter() = default;
 
 std::string zephir::commands::Formatter::make_usage(
     const CLI::App *app, __attribute__((unused)) const std::string name) const {
-  std::string out = get_label("Usage") + ":\n";
+  auto out = get_label("Usage") + ":\n";
 
   if (app->get_parent()) {
     out += "  " + app->get_name();
@@ -23,10 +23,10 @@ std::string zephir::commands::Formatter::make_usage(
     out += "  " + get_label("COMMAND");
   }
 
-  std::vector<std::string> groups = app->get_groups();
+  auto groups = app->get_groups();
 
   // Print an OPTIONS badge if any options exist
-  std::vector<const CLI::Option *> non_positionals = app->get_options(
+  auto non_positionals = app->get_options(
       [](const CLI::Option *opt) { return opt->nonpositional(); });
   if (!non_positionals.empty()) {
     out += " [" + get_label("OPTIONS") + "]";
@@ -34,7 +34,7 @@ std::string zephir::commands::Formatter::make_usage(
 
   // Print an ARGUMENTS badge if any arguments exist
   // or we're show help for the main program
-  std::vector<const CLI::Option *> positionals = app->get_options(
+  auto positionals = app->get_options(
       [](const CLI::Option *opt) { return opt->get_positional(); });
   if (!app->get_parent() || !positionals.empty()) {
     out += " [--] [" + get_label("ARGUMENTS") + "]";
@@ -49,7 +49,7 @@ zephir::commands::Formatter::make_description(const CLI::App *app) const {
 
   // Show banner and version only for main app
   if (!app->get_parent()) {
-    const char *BANNER = R"BANNER(
+    const auto BANNER = R"BANNER(
  _____              __    _
 /__  /  ___  ____  / /_  (_)____
   / /  / _ \/ __ \/ __ \/ / ___/
@@ -60,7 +60,7 @@ zephir::commands::Formatter::make_description(const CLI::App *app) const {
     std::string banner(BANNER);
     out += banner.replace(0, 1, "") + "\n\n";
 
-    std::string desc = app->get_description();
+    auto desc = app->get_description();
     out += desc + "\n\n";
   }
 
@@ -76,7 +76,7 @@ zephir::commands::Formatter::make_footer(const CLI::App *app) const {
 
   // Show general help usage only for the main app.
   // Any particular command should provide its own concrete help.
-  const std::string &footer = app->get_footer();
+  const auto &footer = app->get_footer();
   if (!app->get_parent() && !footer.empty()) {
     out += "\n" + footer + "\n";
   } else if (app->get_parent()) {

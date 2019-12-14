@@ -31,7 +31,7 @@ int zephir::commands::CreateFromArgv(std::vector<std::string>& options) {
   auto cwd = zephir::filesystem::GetCurrentWorkingPath();
   auto config = zephir::Config::CreateFromArgv(options, cwd + "/.zephir.yml");
 
-  std::string out = "Zephir " + std::string(ZEPHIR_VERSION_STRING);
+  auto out = "Zephir " + std::string(ZEPHIR_VERSION_STRING);
   out += " by Serghei Iakovlev and Alexander Andriiako";
 
   CLI::App app(out, "zephir");
@@ -83,7 +83,7 @@ int zephir::commands::CreateFromArgv(std::vector<std::string>& options) {
       throw CLI::CallForHelp();
     }
   } catch (const CLI::ParseError& e) {
-    int retval = app.exit(e);
+    auto retval = app.exit(e);
     if (e.get_name() == "CallForHelp") {
       retval = EXIT_HELP;
     }
@@ -96,12 +96,12 @@ int zephir::commands::CreateFromArgv(std::vector<std::string>& options) {
 }
 
 std::string zephir::commands::CommonCompilationFlagsHelp() {
-  const char* FLAGS = R"FLAGS(
+  const auto FLAGS = R"FLAGS(
   Common flags are:
       -f([a-z0-9\-]+)    Enables compiler optimizations
       -fno-([a-z0-9\-]+) Disables compiler optimizations
       -w([a-z0-9\-]+)    Turns a warning on
       -W([a-z0-9\-]+)    Turns a warning off)FLAGS";
 
-  return std::string(FLAGS);
+  return FLAGS;
 }
