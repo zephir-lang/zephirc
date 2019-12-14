@@ -18,6 +18,7 @@
 #include <zephir/config/requires.hpp>
 #include <zephir/config/stubs.hpp>
 #include <zephir/config/warnings.hpp>
+#include <zephir/ptr/config.hpp>
 
 namespace zephir {
 /**
@@ -64,8 +65,8 @@ class Config {
    * or set specifically in the CLI, will also search through any search paths
    * provided from the CLI for the provided filename.
    */
-  static std::shared_ptr<Config>
-  CreateFromArgv(std::vector<std::string> &options, const std::string &path);
+  static ConfigPtr CreateFromArgv(std::vector<std::string> &options,
+                                  const std::string &path);
 
  private:
   /**
@@ -93,11 +94,11 @@ class Config {
    */
   bool changed_;
 
-  config::Requires requires;
-  config::Stubs stubs;
-  config::Api api;
-  config::Warnings warnings;
-  config::Optimizations optimizations;
+  config::Requires requires_;
+  config::Stubs stubs_;
+  config::Api api_;
+  config::Warnings warnings_;
+  config::Optimizations optimizations_;
   zephir::config::Extra extra;
 };
 }  // namespace zephir
