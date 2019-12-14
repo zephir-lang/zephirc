@@ -13,8 +13,17 @@
 #include "zephir/config/optimizations.hpp"
 
 TEST(OptimizationsTest, EncodeClass) {
-  auto opt = std::make_shared<zephir::config::Optimizations>(
-      true, true, true, true, true, true, false, false);
+  std::map<std::string, bool> container = {
+      {"static-type-inference", true},
+      {"static-type-inference-second-pass", true},
+      {"local-context-pass", true},
+      {"constant-folding", true},
+      {"static-constant-class-folding", true},
+      {"call-gatherer-pass", true},
+      {"check-invalid-reads", false},
+      {"internal-call-transformation", false},
+  };
+  auto opt = std::make_shared<zephir::config::Optimizations>(container);
 
   YAML::Node node;
   node["optimizations"] =
@@ -30,6 +39,7 @@ TEST(OptimizationsTest, EncodeClass) {
   EXPECT_TRUE(
       node["optimizations"]["static-constant-class-folding"].as<bool>());
   EXPECT_TRUE(node["optimizations"]["call-gatherer-pass"].as<bool>());
+
   EXPECT_FALSE(node["optimizations"]["check-invalid-reads"].as<bool>());
   EXPECT_FALSE(
       node["optimizations"]["internal-call-transformation"].as<bool>());
