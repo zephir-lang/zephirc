@@ -32,9 +32,9 @@ bool YAML::convert<zephir::config::api::ThemePtr>::decode(
   }
 
   if (node["options"] && node["options"].IsMap()) {
-    ztheme::OptionsPtr o = std::make_shared<ztheme::Options>();
+    auto o = std::make_shared<ztheme::Options>();
     YAML::convert<ztheme::OptionsPtr>::decode(node["options"], o);
-    tptr->options_ = *o.get();
+    tptr->options_ = *o;
   }
 
   return true;
