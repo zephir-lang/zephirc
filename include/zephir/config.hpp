@@ -8,13 +8,33 @@
 #ifndef ZEPHIR_CONFIG_HPP_
 #define ZEPHIR_CONFIG_HPP_
 
-#include <set>
+#include <memory>
 #include <string>
 #include <vector>
 
-#define INDENT_USING_SPACES 1;
-#define INDENT_USING_TABS 2;
+#include <zephir/config/api.hpp>
+#include <zephir/config/extra.hpp>
+#include <zephir/config/optimizations.hpp>
+#include <zephir/config/requires.hpp>
+#include <zephir/config/stubs.hpp>
+#include <zephir/config/warnings.hpp>
+#include <zephir/yaml/config.hpp>
 
+// TODO(klay): Add config sections:
+// - constants-sources
+// - destructors
+// - extension-name
+// - external-dependencies
+// - extra-cflags
+// - extra-classes
+// - extra-libs
+// - extra-sources
+// - globals
+// - info
+// - initializers
+// - optimizer-dirs
+// - package-dependencies
+// - prototype-dir
 namespace zephir {
 /**
  * @brief Manages compiler global configuration.
@@ -23,11 +43,18 @@ class Config {
  public:
   /**
    * @brief Config constructor.
-   *
-   * @param file The default name/location of the config file
-   * @throws std::runtime_error Thrown if config could not be parsed
    */
-  explicit Config(const std::string &file);
+  Config();
+
+  /**
+   * @brief Config destructor.
+   */
+  ~Config();
+
+  /**
+   * @brief Writes the configuration if it has been changed.
+   */
+  void DumpToFile();
 
   /**
    * @brief Is config changed?
@@ -42,7 +69,7 @@ class Config {
    * file.
    *
    * @param options Provided command line arguments
-   * @param file The default name/location of the config file
+   * @param path The default name/location of the config file
    * @return A fresh Config instance with loaded configurations
    *
    * Items specified in the CLI take priority over any settings loaded from
@@ -50,102 +77,119 @@ class Config {
    * or set specifically in the CLI, will also search through any search paths
    * provided from the CLI for the provided filename.
    */
-  static Config CreateFromArgv(std::vector<std::string> &options,
-                               const std::string &file);
+  static ConfigPtr CreateFromArgv(std::vector<std::string> &options,
+                                  const std::string &path);
 
- protected:
   /**
-   * @brief Populate project configuration.
+   * @brief Encode Config object to the Yaml Node.
    *
-   * @param file Configuration file.
-   * @return 0 on success, a positive number on failure
+   * @param cptr Config smart pointer
+   * @return Yaml Node
    */
-  static int Populate(const std::string &file);
+  friend YAML::Node
+  YAML::convert<ConfigPtr>::encode(const zephir::ConfigPtr &cptr);
 
   /**
-   * Is config changed?
+   * @brief Decode Yaml Node to the Config object.
+   *
+   * @param node Yaml Node
+   * @param cptr Config smart pointer
+   * @return true on success, false otherwise
    */
-  bool changed = false;
+  friend bool YAML::convert<ConfigPtr>::decode(const YAML::Node &node,
+                                               zephir::ConfigPtr &cptr);
+
+  bool operator==(const Config &rhs) const;
+  Config &operator=(const Config &rhs);
+
+ private:
+  /**
+   * @brief The namespace of the extension.
+   */
+  std::string ns_;
 
   /**
-   * Default configuration for project.
+   * @brief Extension name used in compiled C code.
    */
-  struct Container {
-    std::string ns;
-    std::string name;
-    std::string description;
-    std::string author;
-    std::string version = "0.0.1";
-    bool verbose = false;
+  std::string name_;
 
-    struct Requires {
-      std::set<std::string> extensions = {};
-    } requires;
+  /**
+   * @brief Extension description.
+   */
+  std::string description_;
 
-    struct Stubs {
-      std::string path = "ide/%version%/%namespace%";
-      bool stubs_run_after_generate = false;
-      std::string banner = "";
-    } stubs;
+  /**
+   * @brief Company, developer, institution, etc that developed the extension.
+   */
+  std::string author_;
 
-    struct Api {
-      std::string path = "doc/%version%";
+  /**
+   * @brief Extension version.
+   */
+  std::string version_;
 
-      struct Theme {
-        std::string name = "zephir";
-        struct Options {
-          std::string github = "";
-          std::string analytics = "";
-          std::string main_color = "#3E6496";
-          std::string link_color = "#3E6496";
-          std::string link_hover_color = "#5F9AE7";
-        } options;
-      } theme;
-    } api;
+  /**
+   * @brief Provides a way to configure the Zend Engine backend used by your
+   * extension.
+   */
+  std::string backend_;
 
-    struct Warnings {
-      bool unused_variable = false;
-      bool unused_variable_external = false;
-      bool possible_wrong_parameter = false;
-      bool possible_wrong_parameter_undefined = false;
-      bool nonexistent_function = true;
-      bool nonexistent_class = true;
-      bool non_valid_isset = true;
-      bool non_array_update = true;
-      bool non_valid_objectupdate = true;
-      bool non_valid_fetch = true;
-      bool invalid_array_index = true;
-      bool non_array_append = true;
-      bool invalid_return_type = true;
-      bool unreachable_code = true;
-      bool nonexistent_constant = true;
-      bool not_supported_magic_constant = true;
-      bool non_valid_decrement = true;
-      bool non_valid_increment = true;
-      bool non_valid_clone = true;
-      bool non_valid_new = true;
-      bool non_array_access = true;
-      bool invalid_reference = true;
-      bool invalid_typeof_comparison = true;
-      bool conditional_initialization = true;
-    } warnings;
+  /**
+   * @brief Displays more detail in error messages from exceptions generated by
+   * zephir commands (same as --verbose).
+   */
+  bool verbose_;
 
-    struct Optimizations {
-      bool static_type_inference = true;
-      bool static_type_inference_second_pass = true;
-      bool local_context_pass = true;
-      bool constant_folding = true;
-      bool static_constant_class_folding = true;
-      bool call_gatherer_pass = true;
-      bool check_invalid_reads = false;
-      bool internal_call_transformation = false;
-    } optimizations;
+  /**
+   * @brief Suppresses most/all output from zephir commands
+   * (same as -w, -q or --quiet).
+   * @TODO(klay): add support for "-w"
+   */
+  bool silent_;
 
-    struct Extra {
-      unsigned char indent = INDENT_USING_SPACES;
-      bool export_classes = false;
-    } extra;
-  } container;
+  /**
+   * @brief Used path to load project configuration.
+   */
+  std::string path_;
+
+  /**
+   * @brief Is project configuration was changed?
+   */
+  bool changed_;
+
+  /**
+   * @brief Allows you to list other extensions as required to build/use your
+   * own.
+   */
+  config::Requires requires_;
+
+  /**
+   * @brief Allows adjusting the way IDE documentation stubs are generated.
+   */
+  config::Stubs stubs_;
+
+  /**
+   * @brief Used to configure the automatically generated HTML documentation for
+   * your extension.
+   */
+  config::Api api_;
+
+  /**
+   * @brief Compiler warnings which should be enabled or disabled in the current
+   * project.
+   */
+  config::Warnings warnings_;
+  /**
+   * @brief Compiler optimizations which should be enabled or disabled in the
+   * current project.
+   */
+  config::Optimizations optimizations_;
+
+  /**
+   * @brief Contains extra settings that also can be passed, as is, on the
+   * command line.
+   */
+  zephir::config::Extra extra_;
 };
 }  // namespace zephir
 

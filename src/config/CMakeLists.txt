@@ -6,13 +6,13 @@
 # the LICENSE file that was distributed with this source code.
 
 # Add definition for config library.
-add_library(config SHARED config.cpp)
+file(GLOB_RECURSE CONFIG_PARTS ${CMAKE_CURRENT_SOURCE_DIR}/config/*.cpp)
+file(GLOB YAML_PARTS ${CMAKE_CURRENT_SOURCE_DIR}/yaml/*.cpp)
+add_library(config SHARED ${CONFIG_PARTS} ${YAML_PARTS} config.cpp)
 
 target_include_directories(
-  config
-  PRIVATE $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
-          $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
-  PUBLIC ${CMAKE_SOURCE_DIR}/src)
+  config PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+                $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 
 # Instruments the library
 target_code_coverage(config AUTO ALL)

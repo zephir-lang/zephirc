@@ -5,8 +5,8 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#ifndef ZEPHIR_COMMANDS_COMMANDS_HPP_
-#define ZEPHIR_COMMANDS_COMMANDS_HPP_
+#ifndef ZEPHIR_COMMANDS_HPP_
+#define ZEPHIR_COMMANDS_HPP_
 
 #include <string>
 #include <vector>

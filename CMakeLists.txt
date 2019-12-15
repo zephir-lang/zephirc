@@ -16,12 +16,22 @@ project(
   VERSION ${ZEPHIR_VERSION}
   DESCRIPTION "A Zephir compiler")
 
+# See: https://github.com/conan-io/cmake-conan/issues/159
+cmake_policy(SET CMP0025 NEW)
+
 # Provide path for cmake scripts
 list(APPEND CMAKE_MODULE_PATH ${zephir_SOURCE_DIR}/cmake)
 
 # Options
-option(CODE_COVERAGE "Builds targets with code coverage instrumentation." OFF)
 option(ZEPHIR_BUILD_TESTING "Build test project" OFF)
+
+# Determine if zephir is built as a subproject (using add_subdirectory) or if it
+# is the master project.
+set(MASTER_PROJECT OFF)
+if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
+  set(MASTER_PROJECT ON)
+  message(STATUS "CMake version: ${CMAKE_VERSION}")
+endif()
 
 # CMake Script Includes
 include(Bootstrap)
@@ -110,6 +120,7 @@ if(CODE_COVERAGE)
   # * thridparty-code
   set(COVERAGE_EXCLUDES
       "/usr/*"
+      "*/.conan/*"
       "build/*"
       "*/build/*"
       "tests/*"
@@ -122,12 +133,12 @@ if(CODE_COVERAGE)
 endif()
 
 # Conan bootstrap
-if(NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
+if(NOT EXISTS "${zephir_BINARY_DIR}/conan.cmake")
   message(
     STATUS
       "Downloading conan.cmake from https://github.com/conan-io/cmake-conan")
-  file(DOWNLOAD "https://github.com/conan-io/cmake-conan/raw/v0.13/conan.cmake"
-       "${CMAKE_BINARY_DIR}/conan.cmake")
+  file(DOWNLOAD "https://github.com/conan-io/cmake-conan/raw/v0.14/conan.cmake"
+       "${zephir_BINARY_DIR}/conan.cmake")
 endif()
 
 include(${CMAKE_BINARY_DIR}/conan.cmake)
@@ -138,14 +149,17 @@ conan_cmake_run(
   BASIC_SETUP CMAKE_TARGETS KEEP_RPATHS
   BUILD missing)
 
+# Adjusts the standard library flags (libc++`, libstdc++, libstdc++11)
+conan_set_libcxx()
+
 add_subdirectory(external)
 add_subdirectory(src)
 
-if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
+if(MASTER_PROJECT)
   include(CTest)
 endif()
 
-if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME
+if(MASTER_PROJECT
    AND BUILD_TESTING
    AND ZEPHIR_BUILD_TESTING)
   message(STATUS "Include test sources")

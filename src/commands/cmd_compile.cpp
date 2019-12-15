@@ -7,7 +7,7 @@
 
 #include "cmd_compile.hpp"
 
-#include "commands.hpp"
+#include <zephir/commands.hpp>
 
 using zephir::commands::CompileOptions;
 
@@ -24,9 +24,9 @@ void zephir::commands::SetupCompileCommand(CLI::App& app,
       "--backend", options->backend,
       "Used backend to generate extension [default: \"ZendEngine3\"]");
 
-  CLI::Option* dev = cmd->add_flag(
+  auto dev = cmd->add_flag(
       "--dev", "Compile the extension in development mode [default]");
-  CLI::Option* no_dev =
+  auto no_dev =
       cmd->add_flag("--no-dev", "Compile the extension in production mode");
   cmd->set_help_flag("-h, --help", "Print this help message and quit");
 

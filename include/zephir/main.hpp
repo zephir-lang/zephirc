@@ -8,9 +8,8 @@
 #ifndef ZEPHIR_MAIN_HPP_
 #define ZEPHIR_MAIN_HPP_
 
+// TODO(klay): Do we need this?
 #define EXIT_HELP 2
-#define EXIT_NO_CONFIG 4
-#define EXIT_BAD_CONFIG 8
 
 #define STRINGIFY(s) #s
 #define TOSTRING(s) STRINGIFY(s)

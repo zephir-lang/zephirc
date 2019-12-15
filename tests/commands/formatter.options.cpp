@@ -8,6 +8,7 @@
 #include <gtest/gtest.h>
 
 #include <CLI/CLI11.hpp>
+#include <zephir/commands.hpp>
 
 #include "formatter.hpp"
 
@@ -20,6 +21,6 @@ TEST_F(FormatterTest, MakeUsage) {
   CLI::App app{"Zephir"};
   zephir::commands::Formatter formatter;
 
-  std::string usage = formatter.make_usage(&app, "not used");
+  auto usage = formatter.make_usage(&app, "not used");
   EXPECT_EQ(usage, "Usage:\n  COMMAND [OPTIONS] [--] [ARGUMENTS]\n");
 }
