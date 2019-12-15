@@ -25,3 +25,4 @@ yaml-cpp:shared=False
 [imports]
 bin, *.dll -> ./bin
 lib, *.dylib* -> ./bin
+lib, *.dylib* -> ./tests/bin
