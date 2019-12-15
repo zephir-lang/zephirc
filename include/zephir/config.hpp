@@ -77,23 +77,23 @@ class Config {
    * or set specifically in the CLI, will also search through any search paths
    * provided from the CLI for the provided filename.
    */
-  static ConfigPtr CreateFromArgv(std::vector<std::string> &options,
-                                  const std::string &path);
+  static ConfigPtr Factory(std::vector<std::string> &options,
+                           const std::string &path);
 
   /**
-   * @brief Encode Config object to the Yaml Node.
+   * @brief Encode Config object to a Yaml Node.
    *
-   * @param cptr Config smart pointer
+   * @param cptr The smart pointer to a Config instance
    * @return Yaml Node
    */
   friend YAML::Node
   YAML::convert<ConfigPtr>::encode(const zephir::ConfigPtr &cptr);
 
   /**
-   * @brief Decode Yaml Node to the Config object.
+   * @brief Decode Yaml Node to a Config object.
    *
-   * @param node Yaml Node
-   * @param cptr Config smart pointer
+   * @param node The Yaml Node
+   * @param cptr The smart pointer to a Config instance
    * @return true on success, false otherwise
    */
   friend bool YAML::convert<ConfigPtr>::decode(const YAML::Node &node,

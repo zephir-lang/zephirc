@@ -31,7 +31,7 @@ TEST_F(ConfigBaseTest, DoNothingOnHelp) {
   std::ostringstream strCout;
   std::cout.rdbuf(strCout.rdbuf());
 
-  auto config = zephir::Config::CreateFromArgv(argv, "foo").get();
+  auto config = zephir::Config::Factory(argv, "foo").get();
 
   // Restore old std::cout
   std::cout.rdbuf(oldCoutStreamBuf);
@@ -48,7 +48,7 @@ TEST_F(ConfigBaseTest, BrokenConfigFile) {
   argv.assign({});
   auto file = tests_root + "/fixtures/bad-config.yml";
   EXPECT_THROW_EXCEPTION(std::runtime_error,
-                         zephir::Config::CreateFromArgv(argv, file),
+                         zephir::Config::Factory(argv, file),
                          "Config file is broken");
 }
 
@@ -60,7 +60,7 @@ TEST_F(ConfigBaseTest, CorrectConfigFile) {
 
   argv.assign({});
   auto file = tests_root + "/fixtures/phalcon-4x.yml";
-  auto config = zephir::Config::CreateFromArgv(argv, file).get();
+  auto config = zephir::Config::Factory(argv, file).get();
 
   EXPECT_FALSE(config->IsChanged());
 }

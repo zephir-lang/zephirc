@@ -23,7 +23,7 @@ TEST(ConfigTest, EncodeClass) {
   auto file = tests_root + "/fixtures/legacy.yml";
   input_t argv({});
 
-  auto config = zephir::Config::CreateFromArgv(argv, file);
+  auto config = zephir::Config::Factory(argv, file);
   auto yaml = YAML::convert<zephir::ConfigPtr>::encode(config);
 
   EXPECT_TRUE(yaml.IsMap());

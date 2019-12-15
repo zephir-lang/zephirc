@@ -20,19 +20,19 @@ class Optimizations {
   explicit Optimizations(std::map<std::string, bool> container);
 
   /**
-   * @brief Encode Optimizations object to the Yaml Node.
+   * @brief Encode Optimizations object to a Yaml Node.
    *
-   * @param optr Optimizations smart pointer
+   * @param optr The smart pointer to a Optimizations instance
    * @return Yaml Node
    */
   friend YAML::Node YAML::convert<OptimizationsPtr>::encode(
       const zephir::config::OptimizationsPtr &optr);
 
   /**
-   * @brief Decode Yaml Node to the Optimizations object.
+   * @brief Decode Yaml Node to a Optimizations object.
    *
-   * @param node Yaml Node
-   * @param optr Optimizations smart pointer
+   * @param node The Yaml Node
+   * @param optr The smart pointer to a Optimizations instance
    * @return true on success, false otherwise
    */
   friend bool YAML::convert<OptimizationsPtr>::decode(
