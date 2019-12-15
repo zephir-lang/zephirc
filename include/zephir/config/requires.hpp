@@ -20,19 +20,19 @@ class Requires {
   explicit Requires(std::vector<std::string> extensions);
 
   /**
-   * @brief Encode Requires object to the Yaml Node.
+   * @brief Encode Requires object to a Yaml Node.
    *
-   * @param rptr Requires smart pointer
+   * @param rptr The smart pointer to a Requires instance
    * @return Yaml Node
    */
   friend YAML::Node
   YAML::convert<RequiresPtr>::encode(const zephir::config::RequiresPtr &rptr);
 
   /**
-   * @brief Decode Yaml Node to the Requires object.
+   * @brief Decode Yaml Node to a Requires object.
    *
-   * @param node Yaml Node
-   * @param rptr Requires smart pointer
+   * @param node The Yaml Node
+   * @param rptr The smart pointer to a Requires instance
    * @return true on success, false otherwise
    */
   friend bool

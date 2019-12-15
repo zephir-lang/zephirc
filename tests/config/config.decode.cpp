@@ -97,7 +97,7 @@ TEST(ConfigTest, DecodeString) {
   auto file = tests_root + "/fixtures/legacy.yml";
   input_t argv({});
 
-  auto expected = zephir::Config::CreateFromArgv(argv, file);
+  auto expected = zephir::Config::Factory(argv, file);
   auto actual = std::make_shared<zephir::Config>();
 
   EXPECT_TRUE(YAML::convert<zephir::ConfigPtr>::decode(yaml, actual));

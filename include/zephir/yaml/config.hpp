@@ -16,18 +16,18 @@ namespace YAML {
 template <>
 struct convert<zephir::ConfigPtr> {
   /**
-   * @brief Encode Config object to the Yaml Node.
+   * @brief Encode Config object to a Yaml Node.
    *
-   * @param cptr Config smart pointer
+   * @param cptr The smart pointer to a Config instance
    * @return Yaml Node
    */
   static Node encode(const zephir::ConfigPtr &cptr);
 
   /**
-   * @brief Decode Yaml Node to the Config object.
+   * @brief Decode Yaml Node to a Config object.
    *
-   * @param node Yaml Node
-   * @param cptr Config smart pointer
+   * @param node The Yaml Node
+   * @param cptr The smart pointer to a Config instance
    * @return true on success, false otherwise
    */
   static bool decode(const Node &node, zephir::ConfigPtr &cptr);

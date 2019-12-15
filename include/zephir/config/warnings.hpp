@@ -20,19 +20,19 @@ class Warnings {
   explicit Warnings(std::map<std::string, bool> container);
 
   /**
-   * @brief Encode Warnings object to the Yaml Node.
+   * @brief Encode Warnings object to a Yaml Node.
    *
-   * @param wptr Warnings smart pointer
+   * @param wptr The smart pointer to a Warnings instance
    * @return Yaml Node
    */
   friend YAML::Node
   YAML::convert<WarningsPtr>::encode(const zephir::config::WarningsPtr &wptr);
 
   /**
-   * @brief Decode Yaml Node to the Warnings object.
+   * @brief Decode Yaml Node to a Warnings object.
    *
-   * @param node Yaml Node
-   * @param wptr Warnings smart pointer
+   * @param node The Yaml Node
+   * @param wptr The smart pointer to a Warnings instance
    * @return true on success, false otherwise
    */
   friend bool
