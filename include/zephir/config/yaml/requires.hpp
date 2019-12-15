@@ -16,18 +16,18 @@ namespace YAML {
 template <>
 struct convert<zephir::config::RequiresPtr> {
   /**
-   * @brief Encode Requires object to the Yaml Node.
+   * @brief Encode Requires object to a Yaml Node.
    *
-   * @param rptr Requires smart pointer
+   * @param rptr The smart pointer to a Requires instance
    * @return Yaml Node
    */
   static Node encode(const zephir::config::RequiresPtr &rptr);
 
   /**
-   * @brief Decode Yaml Node to the Requires object.
+   * @brief Decode Yaml Node to a Requires object.
    *
-   * @param node Yaml Node
-   * @param rptr Requires smart pointer
+   * @param node The Yaml Node
+   * @param rptr The smart pointer to a Requires instance
    * @return true on success, false otherwise
    */
   static bool decode(const Node &node, zephir::config::RequiresPtr &rptr);

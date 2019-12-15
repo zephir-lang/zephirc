@@ -16,18 +16,18 @@ namespace YAML {
 template <>
 struct convert<zephir::config::StubsPtr> {
   /**
-   * @brief Encode Stubs object to the Yaml Node.
+   * @brief Encode Stubs object to a Yaml Node.
    *
-   * @param sptr Stubs smart pointer
+   * @param sptr The smart pointer to a Stubs instance
    * @return Yaml Node
    */
   static Node encode(const zephir::config::StubsPtr &sptr);
 
   /**
-   * @brief Decode Yaml Node to the Warnings object.
+   * @brief Decode Yaml Node to a Warnings object.
    *
-   * @param node Yaml Node
-   * @param wptr Warnings smart pointer
+   * @param node The Yaml Node
+   * @param wptr The smart pointer to a Warnings instance
    * @return true on success, false otherwise
    */
   static bool decode(const Node &node, zephir::config::StubsPtr &sptr);

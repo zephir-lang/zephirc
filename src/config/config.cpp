@@ -71,10 +71,8 @@ void zephir::Config::DumpToFile() {
 
 bool zephir::Config::IsChanged() { return changed_; }
 
-// TODO(klay): Rename CreateFromArgv -> Factory
-zephir::ConfigPtr
-zephir::Config::CreateFromArgv(std::vector<std::string> &options,
-                               const std::string &path) {
+zephir::ConfigPtr zephir::Config::Factory(std::vector<std::string> &options,
+                                          const std::string &path) {
   auto config = PopulateConfig(path);
 
   if (options.size() == 1) {

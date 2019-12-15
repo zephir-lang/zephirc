@@ -28,7 +28,7 @@
 
 int zephir::commands::CreateFromArgv(std::vector<std::string>& options) {
   auto cwd = zephir::filesystem::GetCurrentWorkingPath();
-  auto config = zephir::Config::CreateFromArgv(options, cwd + "/.zephir.yml");
+  auto config = zephir::Config::Factory(options, cwd + "/.zephir.yml");
 
   auto out = "Zephir " + std::string(ZEPHIR_VERSION_STRING);
   out += " by Serghei Iakovlev and Alexander Andriiako";
