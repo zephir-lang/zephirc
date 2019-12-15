@@ -21,12 +21,11 @@ TEST(ConfigTest, EncodeClass) {
   }
 
   auto file = tests_root + "/fixtures/legacy.yml";
+
   input_t argv({});
 
   auto config = zephir::Config::CreateFromArgv(argv, file);
-
-  YAML::Node yaml;
-  yaml = YAML::convert<zephir::ConfigPtr>::encode(config);
+  auto yaml = YAML::convert<zephir::ConfigPtr>::encode(config);
 
   EXPECT_TRUE(yaml.IsMap());
 
@@ -39,4 +38,32 @@ TEST(ConfigTest, EncodeClass) {
 
   EXPECT_FALSE(yaml["verbose"].as<bool>());
   EXPECT_FALSE(yaml["silent"].as<bool>());
+
+  EXPECT_TRUE(yaml["requires"].IsMap());
+  EXPECT_TRUE(yaml["requires"]["extensions"].IsSequence());
+  EXPECT_EQ(0, yaml["requires"]["extensions"].size());
+
+  EXPECT_TRUE(yaml["stubs"].IsMap());
+  auto stubs = yaml["stubs"];
+  EXPECT_EQ("ide/%version%/%namespace%", stubs["path"].as<std::string>());
+  EXPECT_FALSE(stubs["stubs-run-after-generate"].as<bool>());
+  EXPECT_EQ("", stubs["banner"].as<std::string>());
+
+  EXPECT_TRUE(yaml["api"].IsMap());
+  EXPECT_EQ("doc/%version%", yaml["api"]["path"].as<std::string>());
+  EXPECT_EQ("zephir", yaml["api"]["theme"]["name"].as<std::string>());
+
+  EXPECT_TRUE(yaml["api"]["theme"].IsMap());
+  EXPECT_TRUE(yaml["api"]["theme"]["options"].IsMap());
+
+  auto options = yaml["api"]["theme"]["options"];
+  EXPECT_EQ("", options["github"].as<std::string>());
+  EXPECT_EQ("", options["analytics"].as<std::string>());
+  EXPECT_EQ("#3E6496", options["main_color"].as<std::string>());
+  EXPECT_EQ("#3E6496", options["link_color"].as<std::string>());
+  EXPECT_EQ("#5F9AE7", options["link_hover_color"].as<std::string>());
+
+  EXPECT_TRUE(yaml["warnings"].IsMap());
+  EXPECT_TRUE(yaml["optimizations"].IsMap());
+  EXPECT_TRUE(yaml["extra"].IsMap());
 }

@@ -21,13 +21,13 @@ YAML::convert<zephir::ConfigPtr>::encode(const zephir::ConfigPtr &cptr) {
   node["silent"] = cptr->silent_;
   node["requires"] =
       std::make_shared<zephir::config::Requires>(cptr->requires_);
-  node["requires"] = std::make_shared<zephir::config::Stubs>(cptr->stubs_);
-  node["requires"] = std::make_shared<zephir::config::Api>(cptr->api_);
-  node["requires"] =
+  node["stubs"] = std::make_shared<zephir::config::Stubs>(cptr->stubs_);
+  node["api"] = std::make_shared<zephir::config::Api>(cptr->api_);
+  node["warnings"] =
       std::make_shared<zephir::config::Warnings>(cptr->warnings_);
-  node["requires"] =
+  node["optimizations"] =
       std::make_shared<zephir::config::Optimizations>(cptr->optimizations_);
-  node["requires"] = std::make_shared<zephir::config::Extra>(cptr->extra_);
+  node["extra"] = std::make_shared<zephir::config::Extra>(cptr->extra_);
 
   return node;
 }
