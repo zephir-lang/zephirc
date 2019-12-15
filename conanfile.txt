@@ -1,6 +1,7 @@
 [requires]
 spdlog/1.4.2
 yaml-cpp/0.6.3
+CLI11/1.8.0@cliutils/stable
 
 [generators]
 cmake

@@ -7,7 +7,7 @@
 
 #include <gtest/gtest.h>
 
-#include <CLI/CLI11.hpp>
+#include <CLI/CLI.hpp>
 #include <zephir/commands.hpp>
 
 #include "formatter.hpp"
