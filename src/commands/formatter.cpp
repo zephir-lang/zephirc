@@ -9,7 +9,7 @@
 
 #include <vector>
 
-#include <CLI/CLI11.hpp>
+#include <CLI/CLI.hpp>
 
 zephir::commands::Formatter::Formatter() = default;
 

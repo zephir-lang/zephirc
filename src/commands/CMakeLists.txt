@@ -16,4 +16,4 @@ target_include_directories(
 # Instruments the library
 target_code_coverage(commands AUTO ALL)
 
-target_link_libraries(commands PUBLIC CLI11 config)
+target_link_libraries(commands PUBLIC CONAN_PKG::CLI11 config)

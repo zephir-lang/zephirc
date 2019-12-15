@@ -10,7 +10,7 @@
 
 #include <string>
 
-#include <CLI/CLI11.hpp>
+#include <CLI/CLI.hpp>
 #include <zephir/config.hpp>
 
 namespace zephir::commands {

@@ -8,7 +8,7 @@
 #include <memory>
 #include <string>
 
-#include <CLI/CLI11.hpp>
+#include <CLI/CLI.hpp>
 #include <zephir/commands.hpp>
 #include <zephir/config.hpp>
 #include <zephir/filesystem.hpp>
