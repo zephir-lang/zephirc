@@ -15,7 +15,21 @@
 namespace YAML {
 template <>
 struct convert<zephir::config::ExtraPtr> {
+  /**
+   * @brief Encode Extra object to the Yaml Node.
+   *
+   * @param eptr Extra smart pointer
+   * @return Yaml Node
+   */
   static Node encode(const zephir::config::ExtraPtr &eptr);
+
+  /**
+   * @brief Decode Yaml Node to the Extra object.
+   *
+   * @param node Yaml Node
+   * @param eptr Extra smart pointer
+   * @return true on success, false otherwise
+   */
   static bool decode(const Node &node, zephir::config::ExtraPtr &eptr);
 };
 }  // namespace YAML

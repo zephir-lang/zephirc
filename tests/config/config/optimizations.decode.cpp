@@ -11,8 +11,8 @@
 #include <zephir/config/optimizations.hpp>
 
 TEST(OptimizationsTest, DecodeString) {
-  auto node = YAML::Load(R"(
-optimizations: {
+  auto yaml = YAML::Load(R"(
+{
   call-gatherer-pass: true,
   check-invalid-reads: false,
   constant-folding: true,
@@ -35,15 +35,15 @@ optimizations: {
   });
   auto actual = std::make_shared<zephir::config::Optimizations>();
 
-  EXPECT_TRUE(YAML::convert<zephir::config::OptimizationsPtr>::decode(
-      node["optimizations"], actual));
+  EXPECT_TRUE(
+      YAML::convert<zephir::config::OptimizationsPtr>::decode(yaml, actual));
   EXPECT_EQ(*actual, expected);
 }
 
 TEST(OptimizationsTest, DecodeInvalid) {
-  auto node = YAML::Load("foo: bar");
+  auto yaml = YAML::Load("foo: bar");
   auto actual = std::make_shared<zephir::config::Optimizations>();
 
   EXPECT_FALSE(YAML::convert<zephir::config::OptimizationsPtr>::decode(
-      node["foo"], actual));
+      yaml["foo"], actual));
 }

@@ -5,8 +5,10 @@ description: Web framework delivered as a C-extension for PHP
 author: Phalcon Team and contributors
 version: 4.0.0-rc.3
 verbose: false
+
 optimizer-dirs:
   - optimizers
+
 requires:
   extensions:
     - PDO
@@ -15,17 +17,21 @@ requires:
     - hash
     - json
     - psr
+
 optimizations:
   static-type-inference: true
   static-type-inference-second-pass: true
   local-context-pass: true
   constant-folding: true
   static-constant-class-folding: true
+
 prototype-dir: {}
+
 constants-sources:
   - ext/phalcon/mvc/model/query/scanner.h
   - ext/phalcon/annotations/scanner.h
   - ext/phalcon/mvc/view/engine/volt/scanner.h
+
 extra-sources:
   - phalcon/annotations/scanner.c
   - phalcon/annotations/parser.c
@@ -35,10 +41,12 @@ extra-sources:
   - phalcon/mvc/view/engine/volt/parser.c
   - phalcon/mvc/view/engine/volt/scanner.c
   - phalcon/url/utils.c
+
 destructors:
   request:
     - include: phalcon/mvc/model/orm.h
       code: phalcon_orm_destroy_cache(TSRMLS_C)
+
 globals:
   db.escape_identifiers:
     type: bool
@@ -109,9 +117,11 @@ globals:
   warning.enable:
     type: bool
     default: true
+
 stubs:
   path: ide/%version%/%namespace%/
   stubs-run-after-generate: false
+
 api:
   path: doc/%version%
   theme:
@@ -119,6 +129,6 @@ api:
     options:
       github: https://github.com/phalcon/cphalcon
       analytics:
-      main_color: "#3E6496"
-      link_color: "#3E6496"
-      link_hover_color: "#5F9AE7"
+      main_color: '#3E6496'
+      link_color: '#3E6496'
+      link_hover_color: '#5F9AE7'

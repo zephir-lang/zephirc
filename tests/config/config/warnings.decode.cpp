@@ -11,8 +11,8 @@
 #include <zephir/config/warnings.hpp>
 
 TEST(WarningsTest, DecodeString) {
-  auto node = YAML::Load(R"(
-warnings: {
+  auto yaml = YAML::Load(R"(
+{
   unused-variable: true,
   unused-variable-external: false,
   possible-wrong-parameter: true,
@@ -68,15 +68,14 @@ warnings: {
 
   auto actual = std::make_shared<zephir::config::Warnings>();
 
-  EXPECT_TRUE(YAML::convert<zephir::config::WarningsPtr>::decode(
-      node["warnings"], actual));
+  EXPECT_TRUE(YAML::convert<zephir::config::WarningsPtr>::decode(yaml, actual));
   EXPECT_EQ(*actual, expected);
 }
 
 TEST(WarningsTest, DecodeInvalid) {
-  auto node = YAML::Load("foo: bar");
+  auto yaml = YAML::Load("foo: bar");
   auto actual = std::make_shared<zephir::config::Warnings>();
 
   EXPECT_FALSE(
-      YAML::convert<zephir::config::WarningsPtr>::decode(node["foo"], actual));
+      YAML::convert<zephir::config::WarningsPtr>::decode(yaml["foo"], actual));
 }

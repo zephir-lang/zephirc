@@ -19,8 +19,22 @@ class Api {
   Api();
   explicit Api(std::string path, const api::Theme &theme);
 
+  /**
+   * @brief Encode Api object to the Yaml Node.
+   *
+   * @param aptr Api smart pointer
+   * @return Yaml Node
+   */
   friend YAML::Node
   YAML::convert<ApiPtr>::encode(const zephir::config::ApiPtr &aptr);
+
+  /**
+   * @brief Decode Yaml Node to the Api object.
+   *
+   * @param node Yaml Node
+   * @param aptr Api smart pointer
+   * @return true on success, false otherwise
+   */
   friend bool YAML::convert<ApiPtr>::decode(const YAML::Node &node,
                                             zephir::config::ApiPtr &aptr);
 

@@ -29,7 +29,7 @@ bool YAML::convert<ztheme::OptionsPtr>::decode(const YAML::Node &node,
   for (YAML::const_iterator n = node.begin(); n != node.end(); ++n) {
     auto it = wptr->container_.find(n->first.as<std::string>());
     if (it != wptr->container_.end()) {
-      if (n->second.IsScalar() || n->second.IsNull()) {
+      if (n->second.IsScalar()) {
         it->second = n->second.as<std::string>();
       }
     }

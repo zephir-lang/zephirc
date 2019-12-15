@@ -18,8 +18,22 @@ class Extra {
   Extra();
   explicit Extra(std::string indent, bool exportc);
 
+  /**
+   * @brief Encode Extra object to the Yaml Node.
+   *
+   * @param eptr Extra smart pointer
+   * @return Yaml Node
+   */
   friend YAML::Node
   YAML::convert<ExtraPtr>::encode(const zephir::config::ExtraPtr &eptr);
+
+  /**
+   * @brief Decode Yaml Node to the Extra object.
+   *
+   * @param node Yaml Node
+   * @param eptr Extra smart pointer
+   * @return true on success, false otherwise
+   */
   friend bool YAML::convert<ExtraPtr>::decode(const YAML::Node &node,
                                               zephir::config::ExtraPtr &eptr);
 

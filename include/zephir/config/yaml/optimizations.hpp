@@ -15,7 +15,21 @@
 namespace YAML {
 template <>
 struct convert<zephir::config::OptimizationsPtr> {
+  /**
+   * @brief Encode Optimizations object to the Yaml Node.
+   *
+   * @param optr Optimizations smart pointer
+   * @return Yaml Node
+   */
   static Node encode(const zephir::config::OptimizationsPtr &optr);
+
+  /**
+   * @brief Decode Yaml Node to the Optimizations object.
+   *
+   * @param node Yaml Node
+   * @param optr Optimizations smart pointer
+   * @return true on success, false otherwise
+   */
   static bool decode(const Node &node, zephir::config::OptimizationsPtr &optr);
 };
 }  // namespace YAML

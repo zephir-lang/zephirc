@@ -15,7 +15,21 @@
 namespace YAML {
 template <>
 struct convert<zephir::config::ApiPtr> {
+  /**
+   * @brief Encode Api object to the Yaml Node.
+   *
+   * @param aptr Api smart pointer
+   * @return Yaml Node
+   */
   static Node encode(const zephir::config::ApiPtr &aptr);
+
+  /**
+   * @brief Decode Yaml Node to the Api object.
+   *
+   * @param node Yaml Node
+   * @param aptr Api smart pointer
+   * @return true on success, false otherwise
+   */
   static bool decode(const Node &node, zephir::config::ApiPtr &aptr);
 };
 }  // namespace YAML

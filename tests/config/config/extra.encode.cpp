@@ -14,12 +14,10 @@
 
 TEST(ExtraTest, EncodeClass) {
   auto extra = std::make_shared<zephir::config::Extra>("spaces", false);
+  auto yaml = YAML::convert<zephir::config::ExtraPtr>::encode(extra);
 
-  YAML::Node node;
-  node["extra"] = YAML::convert<zephir::config::ExtraPtr>::encode(extra);
+  EXPECT_TRUE(yaml.IsMap());
 
-  EXPECT_TRUE(node.IsMap());
-
-  EXPECT_EQ("spaces", node["extra"]["indent"].as<std::string>());
-  EXPECT_FALSE(node["extra"]["export-classes"].as<bool>());
+  EXPECT_EQ("spaces", yaml["indent"].as<std::string>());
+  EXPECT_FALSE(yaml["export-classes"].as<bool>());
 }

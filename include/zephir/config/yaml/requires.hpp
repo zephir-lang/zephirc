@@ -15,7 +15,21 @@
 namespace YAML {
 template <>
 struct convert<zephir::config::RequiresPtr> {
+  /**
+   * @brief Encode Requires object to the Yaml Node.
+   *
+   * @param rptr Requires smart pointer
+   * @return Yaml Node
+   */
   static Node encode(const zephir::config::RequiresPtr &rptr);
+
+  /**
+   * @brief Decode Yaml Node to the Requires object.
+   *
+   * @param node Yaml Node
+   * @param rptr Requires smart pointer
+   * @return true on success, false otherwise
+   */
   static bool decode(const Node &node, zephir::config::RequiresPtr &rptr);
 };
 }  // namespace YAML

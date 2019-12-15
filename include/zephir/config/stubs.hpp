@@ -18,8 +18,22 @@ class Stubs {
   Stubs();
   explicit Stubs(std::string path, bool regenerate, std::string banner);
 
+  /**
+   * @brief Encode Stubs object to the Yaml Node.
+   *
+   * @param sptr Stubs smart pointer
+   * @return Yaml Node
+   */
   friend YAML::Node
   YAML::convert<StubsPtr>::encode(const zephir::config::StubsPtr &sptr);
+
+  /**
+   * @brief Decode Yaml Node to the Stubs object.
+   *
+   * @param node Yaml Node
+   * @param sptr Stubs smart pointer
+   * @return true on success, false otherwise
+   */
   friend bool YAML::convert<StubsPtr>::decode(const YAML::Node &node,
                                               zephir::config::StubsPtr &sptr);
 

@@ -1,9 +1,9 @@
 # [![Zephir][zephir logo]][web site]
 
-[![Actions Status][actions-badge]][actions link]
+[![Build Status][actions-badge]][actions link]
 [![Coverage Status][coverage badge]][coverage link]
-[![Codacy Badge][codacy badge]][codacy link]
 [![License: MIT][license badge]](./LICENSE)
+[![Code Analytics][codacy badge]][codacy link]
 
 [Zephir][web site] is a high level programming language that eases the creation and maintainability of extensions for
 PHP. Zephir extensions are exported to C code that can be compiled and optimized by major C compilers such as
@@ -23,8 +23,8 @@ Zephir licensed under the MIT License. See the [LICENSE](./LICENSE) file for mor
 [actions-badge]: https://github.com/zephir-lang/zephirc/workflows/build/badge.svg
 [coverage badge]: https://codecov.io/gh/zephir-lang/zephirc/branch/master/graph/badge.svg
 [coverage link]: https://codecov.io/gh/zephir-lang/zephirc
-[codacy badge]: https://api.codacy.com/project/badge/Grade/96eb715c8e1d4dfcb20514cfcdd876ba
-[codacy link]:  https://www.codacy.com/manual/klay/zephirc?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=zephir-lang/zephirc&amp;utm_campaign=Badge_Grade
+[codacy badge]: https://api.codacy.com/project/badge/Grade/46d180aa04be4362974116452c4a1705
+[codacy link]:  https://app.codacy.com/gh/zephir-lang/zephirc
 [web site]: https://zephir-lang.com
 [documentation]: https://docs.zephir-lang.com
 [zephir logo]: https://assets.phalconphp.com/zephir/zephir_logo-105x36.svg

@@ -13,18 +13,18 @@
 namespace ztheme = zephir::config::api::theme;
 
 TEST(ApiOptionsTest, DecodeString) {
-  auto node = YAML::Load(R"(
-options: {
-  github: "",
-  analytics: "",
+  auto yaml = YAML::Load(R"(
+{
+  github: https://github.com/phalcon,
+  analytics: AABBCCDDFF,
   main_color: "#3E6496",
   link_color: "#3E6496",
   link_hover_color: "#5F9AE7"
 })");
 
   ztheme::Options expected({
-      {"github", ""},
-      {"analytics", ""},
+      {"github", "https://github.com/phalcon"},
+      {"analytics", "AABBCCDDFF"},
       {"main_color", "#3E6496"},
       {"link_color", "#3E6496"},
       {"link_hover_color", "#5F9AE7"},
@@ -32,14 +32,13 @@ options: {
 
   auto actual = std::make_shared<ztheme::Options>();
 
-  EXPECT_TRUE(
-      YAML::convert<ztheme::OptionsPtr>::decode(node["options"], actual));
+  EXPECT_TRUE(YAML::convert<ztheme::OptionsPtr>::decode(yaml, actual));
   EXPECT_EQ(*actual, expected);
 }
 
 TEST(ApiOptionsTest, DecodeInvalid) {
-  auto node = YAML::Load("foo: bar");
+  auto yaml = YAML::Load("foo: bar");
   auto actual = std::make_shared<ztheme::Options>();
 
-  EXPECT_FALSE(YAML::convert<ztheme::OptionsPtr>::decode(node["foo"], actual));
+  EXPECT_FALSE(YAML::convert<ztheme::OptionsPtr>::decode(yaml["foo"], actual));
 }

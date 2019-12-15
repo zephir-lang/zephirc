@@ -15,7 +15,21 @@
 namespace YAML {
 template <>
 struct convert<zephir::config::StubsPtr> {
+  /**
+   * @brief Encode Stubs object to the Yaml Node.
+   *
+   * @param sptr Stubs smart pointer
+   * @return Yaml Node
+   */
   static Node encode(const zephir::config::StubsPtr &sptr);
+
+  /**
+   * @brief Decode Yaml Node to the Warnings object.
+   *
+   * @param node Yaml Node
+   * @param wptr Warnings smart pointer
+   * @return true on success, false otherwise
+   */
   static bool decode(const Node &node, zephir::config::StubsPtr &sptr);
 };
 }  // namespace YAML

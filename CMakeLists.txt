@@ -120,6 +120,7 @@ if(CODE_COVERAGE)
   # * thridparty-code
   set(COVERAGE_EXCLUDES
       "/usr/*"
+      "*/.conan/*"
       "build/*"
       "*/build/*"
       "tests/*"

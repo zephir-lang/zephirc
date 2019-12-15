@@ -13,12 +13,12 @@
 namespace ztheme = zephir::config::api::theme;
 
 TEST(ApiThemeTest, DecodeString) {
-  auto node = YAML::Load(R"(
-theme: {
+  auto yaml = YAML::Load(R"(
+{
   name: zephir,
   options: {
-    github: "",
-    analytics: "",
+    github: null,
+    analytics: '',
     main_color: "#3E6496",
     link_color: "#3E6496",
     link_hover_color: "#5F9AE7"
@@ -36,15 +36,15 @@ theme: {
   zephir::config::api::Theme expected("zephir", options);
   auto actual = std::make_shared<zephir::config::api::Theme>();
 
-  EXPECT_TRUE(YAML::convert<zephir::config::api::ThemePtr>::decode(
-      node["theme"], actual));
+  EXPECT_TRUE(
+      YAML::convert<zephir::config::api::ThemePtr>::decode(yaml, actual));
   EXPECT_EQ(*actual, expected);
 }
 
 TEST(ApiThemeTest, DecodeInvalid) {
-  auto node = YAML::Load("foo: bar");
+  auto yaml = YAML::Load("foo: bar");
   auto actual = std::make_shared<zephir::config::api::Theme>();
 
-  EXPECT_FALSE(YAML::convert<zephir::config::api::ThemePtr>::decode(node["foo"],
+  EXPECT_FALSE(YAML::convert<zephir::config::api::ThemePtr>::decode(yaml["foo"],
                                                                     actual));
 }
