@@ -23,8 +23,8 @@ TEST(ConfigTest, DecodeString) {
   auto yaml = YAML::Load(R"(
 {
   namespace: '',
-  name: '',
-  description: '',
+  name: "",
+  description: null,
   author: 'Zephir Team',
   version: '0.0.1',
   backend: ZendEngine3,
@@ -36,14 +36,14 @@ TEST(ConfigTest, DecodeString) {
   stubs: {
     path: ide/%version%/%namespace%,
     stubs-run-after-generate: false,
-    banner: ""
+    banner: null
   },
   api: {
     path: doc/%version%,
     theme: {
       name: zephir,
       options: {
-        github: "",
+        github: '',
         analytics: "",
         main_color: "#3E6496",
         link_color: "#3E6496",

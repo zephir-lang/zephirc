@@ -17,8 +17,8 @@ TEST(ApiThemeTest, DecodeString) {
 {
   name: zephir,
   options: {
-    github: "",
-    analytics: "",
+    github: null,
+    analytics: '',
     main_color: "#3E6496",
     link_color: "#3E6496",
     link_hover_color: "#5F9AE7"
