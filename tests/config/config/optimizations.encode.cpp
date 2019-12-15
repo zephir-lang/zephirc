@@ -23,24 +23,18 @@ TEST(OptimizationsTest, EncodeClass) {
       {"check-invalid-reads", false},
       {"internal-call-transformation", false},
   };
-  auto opt = std::make_shared<zephir::config::Optimizations>(container);
 
-  YAML::Node node;
-  node["optimizations"] =
-      YAML::convert<zephir::config::OptimizationsPtr>::encode(opt);
+  auto opt = std::make_shared<zephir::config::Optimizations>(container);
+  auto node = YAML::convert<zephir::config::OptimizationsPtr>::encode(opt);
 
   EXPECT_TRUE(node.IsMap());
 
-  EXPECT_TRUE(node["optimizations"]["static-type-inference"].as<bool>());
-  EXPECT_TRUE(
-      node["optimizations"]["static-type-inference-second-pass"].as<bool>());
-  EXPECT_TRUE(node["optimizations"]["local-context-pass"].as<bool>());
-  EXPECT_TRUE(node["optimizations"]["constant-folding"].as<bool>());
-  EXPECT_TRUE(
-      node["optimizations"]["static-constant-class-folding"].as<bool>());
-  EXPECT_TRUE(node["optimizations"]["call-gatherer-pass"].as<bool>());
-
-  EXPECT_FALSE(node["optimizations"]["check-invalid-reads"].as<bool>());
-  EXPECT_FALSE(
-      node["optimizations"]["internal-call-transformation"].as<bool>());
+  EXPECT_TRUE(node["static-type-inference"].as<bool>());
+  EXPECT_TRUE(node["static-type-inference-second-pass"].as<bool>());
+  EXPECT_TRUE(node["local-context-pass"].as<bool>());
+  EXPECT_TRUE(node["constant-folding"].as<bool>());
+  EXPECT_TRUE(node["static-constant-class-folding"].as<bool>());
+  EXPECT_TRUE(node["call-gatherer-pass"].as<bool>());
+  EXPECT_FALSE(node["check-invalid-reads"].as<bool>());
+  EXPECT_FALSE(node["internal-call-transformation"].as<bool>());
 }
