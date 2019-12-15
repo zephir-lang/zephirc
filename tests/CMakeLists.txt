@@ -59,13 +59,6 @@ gtest_discover_tests(
   TEST_PREFIX zephir:
   PROPERTIES LABELS ConfigTest)
 
-add_custom_target(
-  check
-  COMMAND ctest -j ${BUILD_JOBS} --output-on-failure
-  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
-  DEPENDS ${ZEPHIR_TESTS}
-  COMMENT "Run all tests...")
-
 # Logger tests
 file(GLOB TESTSF ${CMAKE_CURRENT_SOURCE_DIR}/logger/*.cpp)
 add_executable(logger_test main.cpp env/base.cpp ${TESTSF})
@@ -79,15 +72,20 @@ target_include_directories(
 
 target_code_coverage(logger_test AUTO ALL EXTERNAL)
 
-target_link_libraries(
-  logger_test
-  PRIVATE CONAN_PKG::GTest CONAN_PKG::spdlog
-  PUBLIC logger)
+target_link_libraries(logger_test PRIVATE logger CONAN_PKG::spdlog
+                                          CONAN_PKG::GTest)
 
 gtest_discover_tests(
   logger_test
-  TEST_PREFIX gtest:
+  TEST_PREFIX zephir:
   PROPERTIES LABELS LoggerTest)
+
+add_custom_target(
+  check
+  COMMAND ctest -j ${BUILD_JOBS} --output-on-failure
+  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+  DEPENDS ${ZEPHIR_TESTS}
+  COMMENT "Run all tests...")
 
 # cmake-format: off
 # TODO: sharness tests
