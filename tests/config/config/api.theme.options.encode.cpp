@@ -22,13 +22,13 @@ TEST(ApiOptionsTest, EncodeClass) {
   };
 
   auto warnings = std::make_shared<ztheme::Options>(container);
-  auto node = YAML::convert<ztheme::OptionsPtr>::encode(warnings);
+  auto yaml = YAML::convert<ztheme::OptionsPtr>::encode(warnings);
 
-  EXPECT_TRUE(node.IsMap());
+  EXPECT_TRUE(yaml.IsMap());
 
-  EXPECT_EQ("https://github.com/phalcon", node["github"].as<std::string>());
-  EXPECT_EQ("AABBCCDDFF", node["analytics"].as<std::string>());
-  EXPECT_EQ("#3E6496", node["main_color"].as<std::string>());
-  EXPECT_EQ("#3E6496", node["link_color"].as<std::string>());
-  EXPECT_EQ("#5F9AE7", node["link_hover_color"].as<std::string>());
+  EXPECT_EQ("https://github.com/phalcon", yaml["github"].as<std::string>());
+  EXPECT_EQ("AABBCCDDFF", yaml["analytics"].as<std::string>());
+  EXPECT_EQ("#3E6496", yaml["main_color"].as<std::string>());
+  EXPECT_EQ("#3E6496", yaml["link_color"].as<std::string>());
+  EXPECT_EQ("#5F9AE7", yaml["link_hover_color"].as<std::string>());
 }

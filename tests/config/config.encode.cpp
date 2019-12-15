@@ -58,9 +58,9 @@ TEST(ConfigTest, EncodeClass) {
 
   EXPECT_EQ("", options["github"].as<std::string>());
   EXPECT_EQ("", options["analytics"].as<std::string>());
-  EXPECT_EQ("#3E6496", options["main_color"].as<std::string>());
-  EXPECT_EQ("#3E6496", options["link_color"].as<std::string>());
-  EXPECT_EQ("#5F9AE7", options["link_hover_color"].as<std::string>());
+  EXPECT_EQ("#333975", options["main_color"].as<std::string>());
+  EXPECT_EQ("#5a4b5e", options["link_color"].as<std::string>());
+  EXPECT_EQ("#99182e", options["link_hover_color"].as<std::string>());
 
   EXPECT_TRUE(yaml["warnings"].IsMap());
   auto warn = yaml["warnings"];

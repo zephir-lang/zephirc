@@ -80,8 +80,22 @@ class Config {
   static ConfigPtr CreateFromArgv(std::vector<std::string> &options,
                                   const std::string &path);
 
+  /**
+   * @brief Encode Config object to the Yaml Node.
+   *
+   * @param cptr Config smart pointer
+   * @return Yaml Node
+   */
   friend YAML::Node
   YAML::convert<ConfigPtr>::encode(const zephir::ConfigPtr &cptr);
+
+  /**
+   * @brief Decode Yaml Node to the Config object.
+   *
+   * @param node Yaml Node
+   * @param cptr Config smart pointer
+   * @return true on success, false otherwise
+   */
   friend bool YAML::convert<ConfigPtr>::decode(const YAML::Node &node,
                                                zephir::ConfigPtr &cptr);
 
@@ -129,7 +143,7 @@ class Config {
   /**
    * @brief Suppresses most/all output from zephir commands
    * (same as -w, -q or --quiet).
-   * @TODO(klay) add support for "-w"
+   * @TODO(klay): add support for "-w"
    */
   bool silent_;
 

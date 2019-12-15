@@ -24,21 +24,19 @@ TEST(ApiTest, EncodeClass) {
   zephir::config::api::Theme theme("zephir", options);
 
   auto api = std::make_shared<zephir::config::Api>("doc/%version%", theme);
-  auto node = YAML::convert<zephir::config::ApiPtr>::encode(api);
+  auto yaml = YAML::convert<zephir::config::ApiPtr>::encode(api);
 
-  EXPECT_TRUE(node.IsMap());
-  EXPECT_EQ("doc/%version%", node["path"].as<std::string>());
-  EXPECT_EQ("zephir", node["theme"]["name"].as<std::string>());
+  EXPECT_TRUE(yaml.IsMap());
+  EXPECT_EQ("doc/%version%", yaml["path"].as<std::string>());
+  EXPECT_EQ("zephir", yaml["theme"]["name"].as<std::string>());
 
-  EXPECT_TRUE(node["theme"].IsMap());
-  EXPECT_TRUE(node["theme"]["options"].IsMap());
+  EXPECT_TRUE(yaml["theme"].IsMap());
+  EXPECT_TRUE(yaml["theme"]["options"].IsMap());
+  auto opts = yaml["theme"]["options"];
 
-  EXPECT_EQ("", node["theme"]["options"]["github"].as<std::string>());
-  EXPECT_EQ("", node["theme"]["options"]["analytics"].as<std::string>());
-  EXPECT_EQ("#3E6496",
-            node["theme"]["options"]["main_color"].as<std::string>());
-  EXPECT_EQ("#3E6496",
-            node["theme"]["options"]["link_color"].as<std::string>());
-  EXPECT_EQ("#5F9AE7",
-            node["theme"]["options"]["link_hover_color"].as<std::string>());
+  EXPECT_EQ("", opts["github"].as<std::string>());
+  EXPECT_EQ("", opts["analytics"].as<std::string>());
+  EXPECT_EQ("#3E6496", opts["main_color"].as<std::string>());
+  EXPECT_EQ("#3E6496", opts["link_color"].as<std::string>());
+  EXPECT_EQ("#5F9AE7", opts["link_hover_color"].as<std::string>());
 }
