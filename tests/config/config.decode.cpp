@@ -14,23 +14,6 @@
 
 using input_t = std::vector<std::string>;
 
-//  std::string ns_;
-//  std::string name_;
-//  std::string description_;
-//  std::string author_;
-//  std::string version_;
-//  std::string backend_;
-//  bool verbose_;
-//  bool silent_;
-//  std::string path_;
-//  bool changed_;
-//  config::Requires requires_;
-//  config::Stubs stubs_;
-//  config::Api api_;
-//  config::Warnings warnings_;
-//  config::Optimizations optimizations_;
-//  zephir::config::Extra extra_;
-
 TEST(ConfigTest, DecodeString) {
   auto tests_root = TestEnvironment::tests_root();
   if (tests_root.empty()) {
