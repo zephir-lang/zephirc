@@ -11,20 +11,19 @@
 #include <zephir/config/extra.hpp>
 
 TEST(ExtraTest, DecodeString) {
-  auto node = YAML::Load(R"(extra: {indent: spaces, export-classes: false})");
-
-  zephir::config::Extra expected("spaces", false);
+  auto yaml = YAML::Load(R"({indent: spaces, export-classes: false})");
   auto actual = std::make_shared<zephir::config::Extra>();
 
-  EXPECT_TRUE(
-      YAML::convert<zephir::config::ExtraPtr>::decode(node["extra"], actual));
+  zephir::config::Extra expected("spaces", false);
+
+  EXPECT_TRUE(YAML::convert<zephir::config::ExtraPtr>::decode(yaml, actual));
   EXPECT_EQ(*actual, expected);
 }
 
 TEST(ExtraTest, DecodeInvalid) {
-  auto node = YAML::Load("foo: bar");
+  auto yaml = YAML::Load("foo: bar");
   auto actual = std::make_shared<zephir::config::Extra>();
 
   EXPECT_FALSE(
-      YAML::convert<zephir::config::ExtraPtr>::decode(node["foo"], actual));
+      YAML::convert<zephir::config::ExtraPtr>::decode(yaml["foo"], actual));
 }
