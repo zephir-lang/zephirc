@@ -14,15 +14,13 @@
 
 TEST(StubsTest, EncodeClass) {
   auto stubs = std::make_shared<zephir::config::Stubs>(
-      "ide/%version%/%namespace%", false, "");
+      "ide/%version%/%namespace%", false, "/* header */");
 
-  YAML::Node node;
-  node["stubs"] = YAML::convert<zephir::config::StubsPtr>::encode(stubs);
+  auto yaml = YAML::convert<zephir::config::StubsPtr>::encode(stubs);
 
-  EXPECT_TRUE(node.IsMap());
+  EXPECT_TRUE(yaml.IsMap());
 
-  EXPECT_EQ("ide/%version%/%namespace%",
-            node["stubs"]["path"].as<std::string>());
-  EXPECT_FALSE(node["stubs"]["stubs-run-after-generate"].as<bool>());
-  EXPECT_EQ("", node["stubs"]["banner"].as<std::string>());
+  EXPECT_EQ("ide/%version%/%namespace%", yaml["path"].as<std::string>());
+  EXPECT_FALSE(yaml["stubs-run-after-generate"].as<bool>());
+  EXPECT_EQ("/* header */", yaml["banner"].as<std::string>());
 }

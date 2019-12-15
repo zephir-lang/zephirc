@@ -11,19 +11,19 @@
 #include <zephir/config/stubs.hpp>
 
 TEST(StubsTest, DecodeString) {
-  auto node = YAML::Load(
+  auto yaml = YAML::Load(
       R"(
-stubs: {
+{
   path: ide/%version%/%namespace%,
   stubs-run-after-generate: false,
-  banner: ""
+  banner: /* header */
 })");
 
-  zephir::config::Stubs expected("ide/%version%/%namespace%", false, "");
+  zephir::config::Stubs expected("ide/%version%/%namespace%", false,
+                                 "/* header */");
   auto actual = std::make_shared<zephir::config::Stubs>();
 
-  EXPECT_TRUE(
-      YAML::convert<zephir::config::StubsPtr>::decode(node["stubs"], actual));
+  EXPECT_TRUE(YAML::convert<zephir::config::StubsPtr>::decode(yaml, actual));
   EXPECT_EQ(*actual, expected);
 }
 
