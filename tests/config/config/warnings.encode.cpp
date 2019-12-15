@@ -37,10 +37,9 @@ TEST(WarningsTest, EncodeClass) {
       {"invalid-typeof-comparison", true},
       {"conditional-initialization", true},
   };
-  auto warnings = std::make_shared<zephir::config::Warnings>(container);
 
-  YAML::Node yaml;
-  yaml = YAML::convert<zephir::config::WarningsPtr>::encode(warnings);
+  auto warnings = std::make_shared<zephir::config::Warnings>(container);
+  auto yaml = YAML::convert<zephir::config::WarningsPtr>::encode(warnings);
 
   EXPECT_TRUE(yaml.IsMap());
 
