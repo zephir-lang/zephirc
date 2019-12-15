@@ -7,8 +7,7 @@
 
 #include <gtest/gtest.h>
 
-#include "logger/facade.hpp"
-
+#include "facade.hpp"
 class LoggerBaseTest : public ::testing::Test {
  protected:
   LoggerBaseTest() = default;
