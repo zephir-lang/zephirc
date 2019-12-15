@@ -13,13 +13,13 @@
 namespace ztheme = zephir::config::api::theme;
 
 TEST(ApiTest, DecodeString) {
-  auto node = YAML::Load(R"(
-api: {
+  auto yaml = YAML::Load(R"(
+{
   path: doc/%version%,
   theme: {
     name: zephir,
     options: {
-      github: '',
+      github: https://github.com/acme,
       analytics: '',
       main_color: '#3E6496',
       link_color: '#3E6496',
@@ -29,7 +29,7 @@ api: {
 })");
 
   ztheme::Options options({
-      {"github", ""},
+      {"github", "https://github.com/acme"},
       {"analytics", ""},
       {"main_color", "#3E6496"},
       {"link_color", "#3E6496"},
@@ -40,15 +40,14 @@ api: {
 
   auto actual = std::make_shared<zephir::config::Api>();
 
-  EXPECT_TRUE(
-      YAML::convert<zephir::config::ApiPtr>::decode(node["api"], actual));
+  EXPECT_TRUE(YAML::convert<zephir::config::ApiPtr>::decode(yaml, actual));
   EXPECT_EQ(*actual, expected);
 }
 
 TEST(ApiTest, DecodeInvalid) {
-  auto node = YAML::Load("foo: bar");
+  auto yaml = YAML::Load("foo: bar");
   auto actual = std::make_shared<zephir::config::Api>();
 
   EXPECT_FALSE(
-      YAML::convert<zephir::config::ApiPtr>::decode(node["foo"], actual));
+      YAML::convert<zephir::config::ApiPtr>::decode(yaml["foo"], actual));
 }
