@@ -16,7 +16,6 @@
 #include <zephir/main.hpp>
 #include <zephir/version.hpp>
 
-#include "cmd_clean.hpp"
 #include "cmd_compile.hpp"
 #include "cmd_fullclean.hpp"
 #include "cmd_generate.hpp"
@@ -63,7 +62,6 @@ int zephir::commands::CreateFromArgv(std::vector<std::string>& options) {
   // Commands
   const auto commands_group = "Available commands";
 
-  zephir::commands::SetupCleanCommand(app, commands_group);
   zephir::commands::SetupCompileCommand(app, commands_group);
   zephir::commands::SetupFullcleanCommand(app, commands_group);
   zephir::commands::SetupGenerateCommand(app, commands_group);
