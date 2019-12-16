@@ -11,7 +11,6 @@
 #include <string>
 
 #include <CLI/CLI.hpp>
-#include <zephir/cli/commands/ptr/command.hpp>
 
 namespace zephir::cli::commands {
 class Command {
@@ -27,6 +26,8 @@ class Command {
   const std::string name_;
   const std::string group_;
 };
+
+using CommandPtr = std::unique_ptr<Command>;
 }  // namespace zephir::cli::commands
 
 #endif  // ZEPHIR_CLI_COMMANDS_COMMAND_HPP_

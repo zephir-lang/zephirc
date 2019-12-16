@@ -19,6 +19,8 @@ struct ApiOptions {
   std::string url;
 };
 
+using ApiOptionsPtr = std::unique_ptr<ApiOptions>;
+
 class ApiCommand : public Command {
  public:
   explicit ApiCommand(std::string name);

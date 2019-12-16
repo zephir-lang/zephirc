@@ -16,6 +16,8 @@ struct BuildOptions {
   bool dev;
 };
 
+using BuildOptionsPtr = std::unique_ptr<BuildOptions>;
+
 class BuildCommand : public Command {
  public:
   explicit BuildCommand(std::string name);

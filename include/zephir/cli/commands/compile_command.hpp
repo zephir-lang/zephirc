@@ -16,6 +16,8 @@ struct CompileOptions {
   bool dev;
 };
 
+using CompileOptionsPtr = std::unique_ptr<CompileOptions>;
+
 class CompileCommand : public Command {
  public:
   explicit CompileCommand(std::string name);
