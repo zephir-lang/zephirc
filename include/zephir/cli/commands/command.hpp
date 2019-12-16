@@ -8,8 +8,16 @@
 #ifndef ZEPHIR_CLI_COMMANDS_COMMAND_HPP_
 #define ZEPHIR_CLI_COMMANDS_COMMAND_HPP_
 
+#include <string>
+
 namespace zephir::cli::commands {
-class Command {};
+class Command {
+ public:
+  Command();
+
+ protected:
+  const std::string group_;
+};
 }  // namespace zephir::cli::commands
 
 #endif  // ZEPHIR_CLI_COMMANDS_COMMAND_HPP_

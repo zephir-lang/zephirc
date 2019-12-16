@@ -19,7 +19,7 @@ target_include_directories(
   zephir PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
                 $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 
-target_link_libraries(zephir PUBLIC commands)
+target_link_libraries(zephir PUBLIC cli commands)
 
 # Adds the executable to the 'ccov' and 'ccov-all' targets and excludes the file
 # itself via regex
