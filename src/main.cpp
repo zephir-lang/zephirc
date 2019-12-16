@@ -5,10 +5,13 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
+#include <memory>
 #include <string>
 #include <vector>
 
+#include <zephir/cli/application.hpp>
 #include <zephir/commands.hpp>
+#include <zephir/filesystem.hpp>
 #include <zephir/main.hpp>
 
 static inline std::vector<std::string> prepare_args(int argc, char** argv) {
@@ -23,6 +26,9 @@ static inline std::vector<std::string> prepare_args(int argc, char** argv) {
 
 int main(int argc, char** argv) {
   auto args = prepare_args(argc, argv);
+  auto base_path = zephir::filesystem::GetCurrentWorkingPath();
+  auto app = std::make_unique<zephir::cli::Application>(args, base_path);
+
   auto retval = zephir::commands::CreateFromArgv(args);
 
   if (retval == EXIT_HELP) {

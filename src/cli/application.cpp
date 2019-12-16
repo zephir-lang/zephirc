@@ -5,10 +5,9 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#include "application.hpp"
-
 #include <utility>
 
+#include <zephir/cli/application.hpp>
 #include <zephir/filesystem.hpp>
 #include <zephir/version.hpp>
 
@@ -50,10 +49,17 @@ zephir::cli::Application::Application(std::vector<std::string> args,
                  "Print compiler version information and quit");
 };
 
-void zephir::cli::Application::AddCommand(zephir::cli::CommandPtr command) {
+void zephir::cli::Application::AddCommand(
+    zephir::cli::commands::CommandPtr command) {
   if (command) {
     commands_.push_back(std::move(command));
   }
 }
 
-int zephir::cli::Application::Run() { return 0; }
+int zephir::cli::Application::Run() {
+  for (const auto &cmd : commands_) {
+    cmd->Setup(app_);
+  }
+
+  return 0;
+}

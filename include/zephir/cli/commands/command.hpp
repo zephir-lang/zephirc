@@ -10,12 +10,20 @@
 
 #include <string>
 
+#include <CLI/CLI.hpp>
+#include <zephir/cli/commands/ptr/command.hpp>
+
 namespace zephir::cli::commands {
 class Command {
  public:
-  Command();
+  explicit Command(std::string name);
+  virtual ~Command() {}
+  virtual void Setup(std::shared_ptr<CLI::App> app) = 0;
 
  protected:
+  static std::string CommonCompilationFlagsHelp();
+
+  const std::string name_;
   const std::string group_;
 };
 }  // namespace zephir::cli::commands
