@@ -11,12 +11,12 @@
 
 using zephir::commands::ApiOptions;
 
-void zephir::commands::SetupApiCommand(CLI::App& app,
+void zephir::commands::SetupApiCommand(const std::shared_ptr<CLI::App>& app,
                                        const std::string& group) {
   auto options = std::make_shared<ApiOptions>();
-  auto cmd = app.add_subcommand("api",
-                                "Generates a HTML API based on the classes "
-                                "exposed in the extension")
+  auto cmd = app->add_subcommand("api",
+                                 "Generates a HTML API based on the classes "
+                                 "exposed in the extension")
                  ->group(group);
 
   options->backend = "ZendEngine3";

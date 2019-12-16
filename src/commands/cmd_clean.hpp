@@ -8,6 +8,7 @@
 #ifndef ZEPHIR_COMMANDS_CMD_CLEAN_HPP_
 #define ZEPHIR_COMMANDS_CMD_CLEAN_HPP_
 
+#include <memory>
 #include <string>
 
 #include <CLI/CLI.hpp>
@@ -16,10 +17,11 @@ namespace zephir::commands {
 /**
  * @brief Configures the current command.
  *
- * @param app CLI::App instance
+ * @param app The smart pointer to a CLI::App instance
  * @param group The command group membership
  */
-void SetupCleanCommand(CLI::App &app, const std::string &group);
+void SetupCleanCommand(const std::shared_ptr<CLI::App>& app,
+                       const std::string& group);
 
 /**
  * @brief Executes the current command.

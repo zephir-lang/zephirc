@@ -11,12 +11,12 @@
 
 using zephir::commands::InstallOptions;
 
-void zephir::commands::SetupInstallCommand(CLI::App& app,
+void zephir::commands::SetupInstallCommand(const std::shared_ptr<CLI::App>& app,
                                            const std::string& group) {
   auto options = std::make_shared<InstallOptions>();
   auto cmd =
-      app.add_subcommand("install",
-                         "Installs the extension in the extension directory")
+      app->add_subcommand("install",
+                          "Installs the extension in the extension directory")
           ->group(group);
 
   options->dev = true;

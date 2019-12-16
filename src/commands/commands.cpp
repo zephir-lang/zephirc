@@ -33,12 +33,12 @@ int zephir::commands::CreateFromArgv(std::vector<std::string>& options) {
   auto out = "Zephir " + std::string(ZEPHIR_VERSION_STRING);
   out += " by Serghei Iakovlev and Alexander Andriiako";
 
-  CLI::App app(out, "zephir");
+  auto app = std::make_shared<CLI::App>(out, "zephir");
 
-  out = "See \"" + app.get_name() + " <command> --help\"";
+  out = "See \"" + app->get_name() + " <command> --help\"";
   out += " to read about a specific command or concept.";
 
-  app.footer(out);
+  app->footer(out);
 
   auto fmt = std::make_shared<Formatter>();
 
@@ -48,19 +48,19 @@ int zephir::commands::CreateFromArgv(std::vector<std::string>& options) {
   fmt->label("COMMAND", "command");
   fmt->label("Positionals", "Arguments");
 
-  app.formatter(fmt);
+  app->formatter(fmt);
 
   // Global options
-  app.add_flag("--dumpversion",
-               "Print the version of the compiler and don't do anything else "
-               "(also works with a single hyphen)");
+  app->add_flag("--dumpversion",
+                "Print the version of the compiler and don't do anything else "
+                "(also works with a single hyphen)");
 
   auto help =
-      app.set_help_flag("-h, --help", "Print this help message and quit");
+      app->set_help_flag("-h, --help", "Print this help message and quit");
 
-  app.add_flag("--vernum",
-               "Print the version of the compiler as integer and quit");
-  app.add_flag("-V, --version", "Print compiler version information and quit");
+  app->add_flag("--vernum",
+                "Print the version of the compiler as integer and quit");
+  app->add_flag("-V, --version", "Print compiler version information and quit");
 
   // Commands
   const auto commands_group = "Available commands";
@@ -76,13 +76,13 @@ int zephir::commands::CreateFromArgv(std::vector<std::string>& options) {
   zephir::commands::SetupStubsCommand(app, commands_group);
 
   try {
-    app.parse(options);
+    app->parse(options);
 
     if (*help) {
       throw CLI::CallForHelp();
     }
   } catch (const CLI::ParseError& e) {
-    auto retval = app.exit(e);
+    auto retval = app->exit(e);
     if (e.get_name() == "CallForHelp") {
       retval = EXIT_HELP;
     }

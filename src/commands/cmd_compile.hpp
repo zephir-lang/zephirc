@@ -8,6 +8,7 @@
 #ifndef ZEPHIR_COMMANDS_CMD_COMPILE_HPP_
 #define ZEPHIR_COMMANDS_CMD_COMPILE_HPP_
 
+#include <memory>
 #include <string>
 
 #include <CLI/CLI.hpp>
@@ -24,13 +25,15 @@ struct CompileOptions {
 /**
  * @brief Configures the current command.
  *
- * @param app CLI::App instance
+ * @param app The smart pointer to a CLI::App instance
  * @param group The command group membership
  */
-void SetupCompileCommand(CLI::App &app, const std::string &group);
+void SetupCompileCommand(const std::shared_ptr<CLI::App> &app,
+                         const std::string &group);
 
 /**
  * @brief Executes the current command.
+ *
  * @param opt Collection of all options of compile command.
  */
 void ExecuteCompileCommand(CompileOptions const &opt);

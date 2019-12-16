@@ -11,10 +11,10 @@
 
 using zephir::commands::BuildOptions;
 
-void zephir::commands::SetupBuildCommand(CLI::App& app,
+void zephir::commands::SetupBuildCommand(const std::shared_ptr<CLI::App>& app,
                                          const std::string& group) {
   auto options = std::make_shared<BuildOptions>();
-  auto cmd = app.add_subcommand(
+  auto cmd = app->add_subcommand(
                     "build", "Generates/Compiles/Installs a Zephir extension")
                  ->group(group);
 
