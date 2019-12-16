@@ -11,6 +11,7 @@
 
 #include <zephir/cli/application.hpp>
 #include <zephir/cli/commands/api_command.hpp>
+#include <zephir/cli/commands/build_command.hpp>
 #include <zephir/filesystem.hpp>
 #include <zephir/main.hpp>
 
@@ -32,6 +33,7 @@ int main(int argc, char** argv) {
   auto app = std::make_unique<zephir::cli::Application>(args, base_path);
 
   app->AddCommand(std::make_unique<ApiCommand>("api"));
+  app->AddCommand(std::make_unique<BuildCommand>("build"));
 
   auto retval = app->Run();
   if (retval == EXIT_HELP) {

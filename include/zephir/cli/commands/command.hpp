@@ -19,6 +19,7 @@ class Command {
   explicit Command(std::string name);
   virtual ~Command() {}
   virtual void Setup(std::shared_ptr<CLI::App> app) = 0;
+  virtual void Execute() = 0;
 
  protected:
   static std::string CommonCompilationFlagsHelp();

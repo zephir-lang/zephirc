@@ -5,24 +5,22 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#include "cmd_build.hpp"
+#include <utility>
 
-#include <zephir/commands.hpp>
+#include <zephir/cli/commands/build_command.hpp>
 
-using zephir::commands::BuildOptions;
+zephir::cli::commands::BuildCommand::BuildCommand(std::string name)
+    : Command(std::move(name)), options_(std::make_unique<BuildOptions>()) {}
 
-void zephir::commands::SetupBuildCommand(const std::shared_ptr<CLI::App>& app,
-                                         const std::string& group) {
-  auto options = std::make_shared<BuildOptions>();
-  auto cmd = app->add_subcommand(
-                    "build", "Generates/Compiles/Installs a Zephir extension")
-                 ->group(group);
+void zephir::cli::commands::BuildCommand::Setup(std::shared_ptr<CLI::App> app) {
+  auto cmd = app->group(group_)->add_subcommand(
+      "build", "Generates/Compiles/Installs a Zephir extension");
 
-  options->backend = "ZendEngine3";
+  options_->backend = "ZendEngine3";
 
   // Add options to cmd, binding them to options.
   cmd->add_option(
-      "--backend", options->backend,
+      "--backend", options_->backend,
       "Used backend to generate extension [default: \"ZendEngine3\"]");
 
   auto dev = cmd->add_flag(
@@ -32,11 +30,11 @@ void zephir::commands::SetupBuildCommand(const std::shared_ptr<CLI::App>& app,
   cmd->set_help_flag("-h, --help", "Print this help message and quit");
 
   if (no_dev->count()) {
-    options->dev = false;
+    options_->dev = false;
   }
 
   if (dev->count()) {
-    options->dev = true;
+    options_->dev = true;
   }
 
   // TODO(klay): Check for PHP build mode
@@ -67,13 +65,13 @@ void zephir::commands::SetupBuildCommand(const std::shared_ptr<CLI::App>& app,
 
   // Set the run function as callback to be called when this subcommand is
   // issued.
-  cmd->callback([options]() { ExecuteBuildCommand(*options); });
+  cmd->callback([&]() { Execute(); });
 }
 
-void zephir::commands::ExecuteBuildCommand(BuildOptions const& options) {
+void zephir::cli::commands::BuildCommand::Execute() {
   // Do stuff...
   std::cout << "Build command" << std::endl;
   std::cout << "NOT IMPLEMENTED" << std::endl;
-  std::cout << "    options.dev = " << options.dev << std::endl;
-  std::cout << "    options.backend = " << options.backend << std::endl;
+  std::cout << "    options.dev = " << options_->dev << std::endl;
+  std::cout << "    options.backend = " << options_->backend << std::endl;
 }

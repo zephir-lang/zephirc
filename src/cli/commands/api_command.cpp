@@ -10,7 +10,7 @@
 #include <zephir/cli/commands/api_command.hpp>
 
 zephir::cli::commands::ApiCommand::ApiCommand(std::string name)
-    : Command(std::move(name)), options_(std::make_shared<ApiOptions>()) {}
+    : Command(std::move(name)), options_(std::make_unique<ApiOptions>()) {}
 
 void zephir::cli::commands::ApiCommand::Setup(std::shared_ptr<CLI::App> app) {
   auto cmd = app->group(group_)->add_subcommand(

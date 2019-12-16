@@ -13,6 +13,12 @@
 namespace zephir::cli::commands {
 class Command;
 using CommandPtr = std::unique_ptr<Command>;
+
+struct ApiOptions;
+using ApiOptionsPtr = std::unique_ptr<ApiOptions>;
+
+struct BuildOptions;
+using BuildOptionsPtr = std::unique_ptr<BuildOptions>;
 }  // namespace zephir::cli::commands
 
 #endif  // ZEPHIR_CLI_COMMANDS_PTR_COMMAND_HPP_

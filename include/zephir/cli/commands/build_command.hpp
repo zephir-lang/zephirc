@@ -5,29 +5,26 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#ifndef ZEPHIR_CLI_COMMANDS_API_COMMAND_HPP_
-#define ZEPHIR_CLI_COMMANDS_API_COMMAND_HPP_
+#ifndef ZEPHIR_CLI_COMMANDS_BUILD_COMMAND_HPP_
+#define ZEPHIR_CLI_COMMANDS_BUILD_COMMAND_HPP_
 
 #include <zephir/cli/commands/command.hpp>
 
 namespace zephir::cli::commands {
-struct ApiOptions {
+struct BuildOptions {
   std::string backend;
-  std::string template_path;
-  std::string output;
-  std::string theme_options;
-  std::string url;
+  bool dev;
 };
 
-class ApiCommand : public Command {
+class BuildCommand : public Command {
  public:
-  explicit ApiCommand(std::string name);
+  explicit BuildCommand(std::string name);
   void Setup(std::shared_ptr<CLI::App> app) override;
   void Execute() override;
 
  private:
-  ApiOptionsPtr options_;
+  BuildOptionsPtr options_;
 };
 }  // namespace zephir::cli::commands
 
-#endif  // ZEPHIR_CLI_COMMANDS_API_COMMAND_HPP_
+#endif  // ZEPHIR_CLI_COMMANDS_BUILD_COMMAND_HPP_
