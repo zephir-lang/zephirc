@@ -13,8 +13,9 @@
 
 zephir::commands::Formatter::Formatter() = default;
 
-std::string zephir::commands::Formatter::make_usage(
-    const CLI::App *app, __attribute__((unused)) const std::string name) const {
+std::string
+zephir::commands::Formatter::make_usage(const CLI::App *app,
+                                        const std::string /* name */) const {
   auto out = get_label("Usage") + ":\n";
 
   if (app->get_parent()) {
