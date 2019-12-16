@@ -10,9 +10,11 @@
 #include <vector>
 
 #include <zephir/cli/application.hpp>
-#include <zephir/commands.hpp>
+#include <zephir/cli/commands/api_command.hpp>
 #include <zephir/filesystem.hpp>
 #include <zephir/main.hpp>
+
+using namespace zephir::cli::commands;
 
 static inline std::vector<std::string> prepare_args(int argc, char** argv) {
   std::vector<std::string> args;
@@ -29,8 +31,9 @@ int main(int argc, char** argv) {
   auto base_path = zephir::filesystem::GetCurrentWorkingPath();
   auto app = std::make_unique<zephir::cli::Application>(args, base_path);
 
-  auto retval = zephir::commands::CreateFromArgv(args);
+  app->AddCommand(std::make_unique<ApiCommand>("api"));
 
+  auto retval = app->Run();
   if (retval == EXIT_HELP) {
     retval = EXIT_SUCCESS;
   }

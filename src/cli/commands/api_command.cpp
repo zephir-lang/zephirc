@@ -31,8 +31,7 @@ void zephir::cli::commands::ApiCommand::Setup(std::shared_ptr<CLI::App> app) {
                   "The API theme to be used");
   cmd->add_option("-o,--output", options_->output,
                   "Output directory to generate theme");
-  cmd->add_option("--options", options_->theme_options,
-                  "Output directory to generate theme");
+  cmd->add_option("--options", options_->theme_options, "Theme options");
   cmd->add_option("--url", options_->url,
                   "The base URL to be used when generating links");
   cmd->set_help_flag("-h, --help", "Print this help message and quit");

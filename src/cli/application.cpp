@@ -57,8 +57,24 @@ void zephir::cli::Application::AddCommand(
 }
 
 int zephir::cli::Application::Run() {
-  for (const auto &cmd : commands_) {
+  for (const auto& cmd : commands_) {
     cmd->Setup(app_);
+  }
+
+  try {
+    app_->parse(args_);
+
+    if (*help_) {
+      throw CLI::CallForHelp();
+    }
+  } catch (const CLI::ParseError& e) {
+    auto retval = app_->exit(e);
+    if (e.get_name() == "CallForHelp") {
+      retval = EXIT_HELP;
+    }
+
+    // TODO(klay): print error message
+    return retval;
   }
 
   return 0;
