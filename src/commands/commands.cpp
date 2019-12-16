@@ -16,7 +16,6 @@
 #include <zephir/main.hpp>
 #include <zephir/version.hpp>
 
-#include "cmd_install.hpp"
 #include "cmd_stubs.hpp"
 
 int zephir::commands::CreateFromArgv(std::vector<std::string>& options) {
@@ -58,7 +57,6 @@ int zephir::commands::CreateFromArgv(std::vector<std::string>& options) {
   // Commands
   const auto commands_group = "Available commands";
 
-  zephir::commands::SetupInstallCommand(app, commands_group);
   zephir::commands::SetupStubsCommand(app, commands_group);
 
   try {

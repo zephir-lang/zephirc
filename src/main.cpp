@@ -17,6 +17,7 @@
 #include <zephir/cli/commands/fullclean_command.hpp>
 #include <zephir/cli/commands/generate_command.hpp>
 #include <zephir/cli/commands/init_command.hpp>
+#include <zephir/cli/commands/install_command.hpp>
 #include <zephir/filesystem.hpp>
 #include <zephir/main.hpp>
 
@@ -44,6 +45,7 @@ int main(int argc, char** argv) {
   app->AddCommand(std::make_unique<FullCleanCommand>("fullclean"));
   app->AddCommand(std::make_unique<GenerateCommand>("generate"));
   app->AddCommand(std::make_unique<InitCommand>("init"));
+  app->AddCommand(std::make_unique<InstallCommand>("install"));
 
   auto retval = app->Run();
   if (retval == EXIT_HELP) {

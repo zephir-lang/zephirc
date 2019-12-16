@@ -29,4 +29,4 @@ class InitCommand : public Command {
 };
 }  // namespace zephir::cli::commands
 
-#endif  // ZEPHIR_CLI_COMMANDS_GENERATE_COMMAND_HPP_
+#endif  // ZEPHIR_CLI_COMMANDS_INIT_COMMAND_HPP_
