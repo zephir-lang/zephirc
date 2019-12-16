@@ -12,13 +12,15 @@
 #include <vector>
 
 #include <CLI/CLI.hpp>
+#include <zephir/cli/commands/command.hpp>
 #include <zephir/config.hpp>
 
-namespace zephir::commands {
+namespace zephir::cli {
 class Application {
  public:
   explicit Application(std::vector<std::string> args);
   void Run();
+  void AddCommand(zephir::cli::commands::Command);
 
  private:
   std::string base_path_;
@@ -26,6 +28,6 @@ class Application {
   std::vector<std::string> args_;
   std::shared_ptr<CLI::App> app_;
 };
-}  // namespace zephir::commands
+}  // namespace zephir::cli
 
 #endif  // ZEPHIR_SRC_CLI_APPLICATION_HPP_

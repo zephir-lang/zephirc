@@ -5,14 +5,14 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#ifndef ZEPHIR_COMMANDS_FORMATTER_HPP_
-#define ZEPHIR_COMMANDS_FORMATTER_HPP_
+#ifndef ZEPHIR_CLI_FORMATTER_HPP_
+#define ZEPHIR_CLI_FORMATTER_HPP_
 
 #include <string>
 
 #include <CLI/CLI.hpp>
 
-namespace zephir::commands {
+namespace zephir::cli {
 class Formatter : public CLI::Formatter {
  public:
   Formatter();
@@ -42,6 +42,6 @@ class Formatter : public CLI::Formatter {
    */
   std::string make_footer(const CLI::App *app) const override;
 };
-}  // namespace zephir::commands
+}  // namespace zephir::cli
 
-#endif  // ZEPHIR_COMMANDS_FORMATTER_HPP_
+#endif  // ZEPHIR_CLI_FORMATTER_HPP_

@@ -9,6 +9,7 @@
 #include <string>
 
 #include <CLI/CLI.hpp>
+#include <zephir/cli/formatter.hpp>
 #include <zephir/commands.hpp>
 #include <zephir/config.hpp>
 #include <zephir/filesystem.hpp>
@@ -24,7 +25,6 @@
 #include "cmd_init.hpp"
 #include "cmd_install.hpp"
 #include "cmd_stubs.hpp"
-#include "formatter.hpp"
 
 int zephir::commands::CreateFromArgv(std::vector<std::string>& options) {
   auto cwd = zephir::filesystem::GetCurrentWorkingPath();
@@ -40,7 +40,7 @@ int zephir::commands::CreateFromArgv(std::vector<std::string>& options) {
 
   app->footer(out);
 
-  auto fmt = std::make_shared<Formatter>();
+  auto fmt = std::make_shared<zephir::cli::Formatter>();
 
   fmt->column_width(17);
   fmt->label("OPTIONS", "options");

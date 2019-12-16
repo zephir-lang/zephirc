@@ -6,8 +6,8 @@
 # the LICENSE file that was distributed with this source code.
 
 # Zephir libraries
-add_subdirectory(commands)
 add_subdirectory(cli)
+add_subdirectory(commands)
 add_subdirectory(filesystem)
 add_subdirectory(config)
 add_subdirectory(logger)
