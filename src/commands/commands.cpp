@@ -16,8 +16,6 @@
 #include <zephir/main.hpp>
 #include <zephir/version.hpp>
 
-#include "cmd_stubs.hpp"
-
 int zephir::commands::CreateFromArgv(std::vector<std::string>& options) {
   auto cwd = zephir::filesystem::GetCurrentWorkingPath();
   auto config = zephir::Config::Factory(options, cwd + "/.zephir.yml");
@@ -54,11 +52,6 @@ int zephir::commands::CreateFromArgv(std::vector<std::string>& options) {
                 "Print the version of the compiler as integer and quit");
   app->add_flag("-V, --version", "Print compiler version information and quit");
 
-  // Commands
-  const auto commands_group = "Available commands";
-
-  zephir::commands::SetupStubsCommand(app, commands_group);
-
   try {
     app->parse(options);
 
@@ -76,15 +69,4 @@ int zephir::commands::CreateFromArgv(std::vector<std::string>& options) {
   }
 
   return 0;
-}
-
-std::string zephir::commands::CommonCompilationFlagsHelp() {
-  const auto FLAGS = R"FLAGS(
-  Common flags are:
-      -f([a-z0-9\-]+)    Enables compiler optimizations
-      -fno-([a-z0-9\-]+) Disables compiler optimizations
-      -w([a-z0-9\-]+)    Turns a warning on
-      -W([a-z0-9\-]+)    Turns a warning off)FLAGS";
-
-  return FLAGS;
 }
