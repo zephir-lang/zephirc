@@ -37,7 +37,7 @@ class Facade {
    *
    * @param logger - shared pointer to logger instance
    */
-  Facade(std::shared_ptr<spdlog::logger> logger);
+  explicit Facade(std::shared_ptr<spdlog::logger> logger);
 
   ~Facade();
 
