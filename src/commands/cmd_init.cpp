@@ -9,10 +9,10 @@
 
 using zephir::commands::InitOptions;
 
-void zephir::commands::SetupInitCommand(CLI::App& app,
+void zephir::commands::SetupInitCommand(const std::shared_ptr<CLI::App>& app,
                                         const std::string& group) {
   auto options = std::make_shared<InitOptions>();
-  auto cmd = app.add_subcommand("init", "Initializes a Zephir extension")
+  auto cmd = app->add_subcommand("init", "Initializes a Zephir extension")
                  ->group(group);
 
   options->backend = "ZendEngine3";

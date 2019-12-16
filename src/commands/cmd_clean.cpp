@@ -7,9 +7,9 @@
 
 #include "cmd_clean.hpp"
 
-void zephir::commands::SetupCleanCommand(CLI::App &app,
-                                         const std::string &group) {
-  auto cmd = app.add_subcommand(
+void zephir::commands::SetupCleanCommand(const std::shared_ptr<CLI::App>& app,
+                                         const std::string& group) {
+  auto cmd = app->add_subcommand(
                     "clean", "Cleans any object files created by the extension")
                  ->group(group);
 

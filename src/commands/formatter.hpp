@@ -20,7 +20,7 @@ class Formatter : public CLI::Formatter {
   /**
    * @brief Displays the description line.
    *
-   * @param app CLI::App instance
+   * @param app The pointer to a CLI::App instance
    * @return Program/command description string.
    */
   std::string make_description(const CLI::App *app) const override;
@@ -28,7 +28,7 @@ class Formatter : public CLI::Formatter {
   /**
    * @brief Gets the usage line.
    *
-   * @param app CLI::App instance
+   * @param app The pointer to a CLI::App instance
    * @param name Application name (e.g. "zephir"). Currently not unused
    * @return Program/command usage string.
    */
@@ -37,7 +37,7 @@ class Formatter : public CLI::Formatter {
   /**
    * @brief Prints the footer line.
    *
-   * @param app CLI::App instance
+   * @param app The pointer to a CLI::App instance
    * @return Program/command footer string.
    */
   std::string make_footer(const CLI::App *app) const override;

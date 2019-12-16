@@ -11,11 +11,11 @@
 
 using zephir::commands::StubsOptions;
 
-void zephir::commands::SetupStubsCommand(CLI::App &app,
+void zephir::commands::SetupStubsCommand(const std::shared_ptr<CLI::App> &app,
                                          const std::string &group) {
   auto options = std::make_shared<StubsOptions>();
-  auto cmd = app.add_subcommand("stubs",
-                                "Generates stubs that can be used in a PHP IDE")
+  auto cmd = app->add_subcommand(
+                    "stubs", "Generates stubs that can be used in a PHP IDE")
                  ->group(group);
 
   // Add options to cmd, binding them to options.

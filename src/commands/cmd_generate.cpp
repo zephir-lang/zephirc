@@ -13,11 +13,11 @@
 
 using zephir::commands::GenerateOptions;
 
-void zephir::commands::SetupGenerateCommand(CLI::App& app,
-                                            const std::string& group) {
+void zephir::commands::SetupGenerateCommand(
+    const std::shared_ptr<CLI::App>& app, const std::string& group) {
   auto options = std::make_shared<GenerateOptions>();
   auto cmd =
-      app.add_subcommand(
+      app->add_subcommand(
              "generate",
              "Generates C code from the Zephir code without compiling it")
           ->group(group);

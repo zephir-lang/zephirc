@@ -8,6 +8,7 @@
 #ifndef ZEPHIR_COMMANDS_CMD_INSTALL_HPP_
 #define ZEPHIR_COMMANDS_CMD_INSTALL_HPP_
 
+#include <memory>
 #include <string>
 
 #include <CLI/CLI.hpp>
@@ -24,13 +25,15 @@ struct InstallOptions {
 /**
  * @brief Configures the current command.
  *
- * @param app CLI::App instance
+ * @param app The smart pointer to a CLI::App instance
  * @param group The command group membership
  */
-void SetupInstallCommand(CLI::App &app, const std::string &group);
+void SetupInstallCommand(const std::shared_ptr<CLI::App> &app,
+                         const std::string &group);
 
 /**
  * @brief Executes the current command.
+ *
  * @param opt Collection of all options of install command.
  */
 void ExecuteInstallCommand(InstallOptions const &opt);

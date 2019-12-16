@@ -11,11 +11,11 @@
 
 using zephir::commands::CompileOptions;
 
-void zephir::commands::SetupCompileCommand(CLI::App& app,
+void zephir::commands::SetupCompileCommand(const std::shared_ptr<CLI::App>& app,
                                            const std::string& group) {
   auto options = std::make_shared<CompileOptions>();
-  auto cmd =
-      app.add_subcommand("compile", "Compile a Zephir extension")->group(group);
+  auto cmd = app->add_subcommand("compile", "Compile a Zephir extension")
+                 ->group(group);
 
   options->backend = "ZendEngine3";
 

@@ -8,6 +8,7 @@
 #ifndef ZEPHIR_COMMANDS_CMD_API_HPP_
 #define ZEPHIR_COMMANDS_CMD_API_HPP_
 
+#include <memory>
 #include <string>
 
 #include <CLI/CLI.hpp>
@@ -27,13 +28,15 @@ struct ApiOptions {
 /**
  * @brief Configures the current command.
  *
- * @param app CLI::App instance
+ * @param app The smart pointer to a CLI::App instance
  * @param group The command group membership
  */
-void SetupApiCommand(CLI::App &app, const std::string &group);
+void SetupApiCommand(const std::shared_ptr<CLI::App> &app,
+                     const std::string &group);
 
 /**
  * @brief Executes the current command.
+ *
  * @param opt Collection of all options of api command.
  */
 void ExecuteApiCommand(ApiOptions const &opt);
