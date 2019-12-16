@@ -19,6 +19,9 @@ using ApiOptionsPtr = std::unique_ptr<ApiOptions>;
 
 struct BuildOptions;
 using BuildOptionsPtr = std::unique_ptr<BuildOptions>;
+
+struct CompileOptions;
+using CompileOptionsPtr = std::unique_ptr<CompileOptions>;
 }  // namespace zephir::cli::commands
 
 #endif  // ZEPHIR_CLI_COMMANDS_PTR_COMMAND_HPP_

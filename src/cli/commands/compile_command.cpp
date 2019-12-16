@@ -5,23 +5,23 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#include "cmd_compile.hpp"
+#include <utility>
 
-#include <zephir/commands.hpp>
+#include <zephir/cli/commands/compile_command.hpp>
 
-using zephir::commands::CompileOptions;
+zephir::cli::commands::CompileCommand::CompileCommand(std::string name)
+    : Command(std::move(name)), options_(std::make_unique<CompileOptions>()) {}
 
-void zephir::commands::SetupCompileCommand(const std::shared_ptr<CLI::App>& app,
-                                           const std::string& group) {
-  auto options = std::make_shared<CompileOptions>();
-  auto cmd = app->add_subcommand("compile", "Compile a Zephir extension")
-                 ->group(group);
+void zephir::cli::commands::CompileCommand::Setup(
+    std::shared_ptr<CLI::App> app) {
+  auto cmd = app->group(group_)->add_subcommand("compile",
+                                                "Compile a Zephir extension");
 
-  options->backend = "ZendEngine3";
+  options_->backend = "ZendEngine3";
 
   // Add options to cmd, binding them to options.
   cmd->add_option(
-      "--backend", options->backend,
+      "--backend", options_->backend,
       "Used backend to generate extension [default: \"ZendEngine3\"]");
 
   auto dev = cmd->add_flag(
@@ -31,11 +31,11 @@ void zephir::commands::SetupCompileCommand(const std::shared_ptr<CLI::App>& app,
   cmd->set_help_flag("-h, --help", "Print this help message and quit");
 
   if (no_dev->count()) {
-    options->dev = false;
+    options_->dev = false;
   }
 
   if (dev->count()) {
-    options->dev = true;
+    options_->dev = true;
   }
 
   // TODO(klay): Check for PHP build mode
@@ -64,13 +64,13 @@ void zephir::commands::SetupCompileCommand(const std::shared_ptr<CLI::App>& app,
 
   // Set the run function as callback to be called when this subcommand is
   // issued.
-  cmd->callback([options]() { ExecuteCompileCommand(*options); });
+  cmd->callback([&]() { Execute(); });
 }
 
-void zephir::commands::ExecuteCompileCommand(CompileOptions const& options) {
+void zephir::cli::commands::CompileCommand::Execute() {
   // Do stuff...
   std::cout << "Compile command" << std::endl;
   std::cout << "NOT IMPLEMENTED" << std::endl;
-  std::cout << "    options.dev = " << options.dev << std::endl;
-  std::cout << "    options.backend = " << options.backend << std::endl;
+  std::cout << "    options.dev = " << options_->dev << std::endl;
+  std::cout << "    options.backend = " << options_->backend << std::endl;
 }

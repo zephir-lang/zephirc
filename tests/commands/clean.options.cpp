@@ -25,7 +25,7 @@ class CleanCmdTest : public ::testing::Test {
 TEST_F(CleanCmdTest, RunWithoutOptions) {
   argv.assign({"clean"});
   auto app = std::make_unique<zephir::cli::Application>(argv, "tests");
-  app->AddCommand(std::make_unique<CleanCommand>("build"));
+  app->AddCommand(std::make_unique<CleanCommand>("clean"));
 
   auto retval = app->Run();
   EXPECT_EQ(retval, 0);
