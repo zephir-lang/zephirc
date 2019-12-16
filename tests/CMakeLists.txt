@@ -25,14 +25,13 @@ add_executable(cli_test main.cpp env/base.cpp ${CLI_TESTS})
 target_include_directories(
   cli_test
   PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
-  PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-          $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src/commands>)
+  PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>)
 
 # Adds the executable to the 'ccov' and 'ccov-all' targets and excludes the file
 # itself via regex
 target_code_coverage(cli_test AUTO ALL EXTERNAL)
 
-target_link_libraries(cli_test PRIVATE cli commands CONAN_PKG::GTest)
+target_link_libraries(cli_test PRIVATE cli CONAN_PKG::GTest)
 
 gtest_discover_tests(
   cli_test

@@ -9,7 +9,6 @@
 
 #include <memory>
 
-#include <zephir/commands.hpp>
 #include <zephir/config.hpp>
 #include <zephir/filesystem.hpp>
 

@@ -9,7 +9,6 @@
 
 #include <CLI/CLI.hpp>
 #include <zephir/cli/formatter.hpp>
-#include <zephir/commands.hpp>
 
 class FormatterTest : public ::testing::Test {
  protected:
