@@ -12,8 +12,7 @@
 zephir::cli::commands::FullCleanCommand::FullCleanCommand(std::string name)
     : AbstractCommand(std::move(name)) {}
 
-void zephir::cli::commands::FullCleanCommand::Setup(
-    std::shared_ptr<CLI::App> app) {
+void zephir::cli::commands::FullCleanCommand::Setup(sCLI::App_p app) {
   auto cmd = app->group(group_)->add_subcommand(
       "fullclean",
       "Cleans any object files created by the extension "

@@ -13,8 +13,7 @@ zephir::cli::commands::InstallCommand::InstallCommand(std::string name)
     : AbstractCommand(std::move(name)),
       options_(std::make_unique<InstallOptions>()) {}
 
-void zephir::cli::commands::InstallCommand::Setup(
-    std::shared_ptr<CLI::App> app) {
+void zephir::cli::commands::InstallCommand::Setup(CLI::App_p app) {
   auto cmd = app->group(group_)->add_subcommand(
       "install", "Installs the extension in the extension directory");
 

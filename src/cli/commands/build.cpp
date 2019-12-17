@@ -13,7 +13,7 @@ zephir::cli::commands::BuildCommand::BuildCommand(std::string name)
     : AbstractCommand(std::move(name)),
       options_(std::make_unique<BuildOptions>()) {}
 
-void zephir::cli::commands::BuildCommand::Setup(std::shared_ptr<CLI::App> app) {
+void zephir::cli::commands::BuildCommand::Setup(CLI::App_p app) {
   auto cmd = app->group(group_)->add_subcommand(
       "build", "Generates/Compiles/Installs a Zephir extension");
 

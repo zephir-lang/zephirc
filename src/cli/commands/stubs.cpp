@@ -13,7 +13,7 @@ zephir::cli::commands::StubsCommand::StubsCommand(std::string name)
     : AbstractCommand(std::move(name)),
       options_(std::make_unique<StubsOptions>()) {}
 
-void zephir::cli::commands::StubsCommand::Setup(std::shared_ptr<CLI::App> app) {
+void zephir::cli::commands::StubsCommand::Setup(CLI::App_p app) {
   auto cmd = app->group(group_)->add_subcommand(
       "stubs", "Generates stubs that can be used in a PHP IDE");
 

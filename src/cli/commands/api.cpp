@@ -13,7 +13,7 @@ zephir::cli::commands::ApiCommand::ApiCommand(std::string name)
     : AbstractCommand(std::move(name)),
       options_(std::make_unique<ApiOptions>()) {}
 
-void zephir::cli::commands::ApiCommand::Setup(std::shared_ptr<CLI::App> app) {
+void zephir::cli::commands::ApiCommand::Setup(CLI::App_p app) {
   auto cmd = app->group(group_)->add_subcommand(
       "api",
       "Generates a HTML API based on the classes "

@@ -13,7 +13,7 @@ zephir::cli::commands::InitCommand::InitCommand(std::string name)
     : AbstractCommand(std::move(name)),
       options_(std::make_unique<InitOptions>()) {}
 
-void zephir::cli::commands::InitCommand::Setup(std::shared_ptr<CLI::App> app) {
+void zephir::cli::commands::InitCommand::Setup(CLI::App_p app) {
   auto cmd = app->group(group_)->add_subcommand(
       "init", "Initializes a Zephir extension");
 
