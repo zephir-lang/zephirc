@@ -5,13 +5,16 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#include "cmd_clean.hpp"
+#include <utility>
 
-void zephir::commands::SetupCleanCommand(const std::shared_ptr<CLI::App>& app,
-                                         const std::string& group) {
-  auto cmd = app->add_subcommand(
-                    "clean", "Cleans any object files created by the extension")
-                 ->group(group);
+#include <zephir/cli/commands/clean_command.hpp>
+
+zephir::cli::commands::CleanCommand::CleanCommand(std::string name)
+    : Command(std::move(name)) {}
+
+void zephir::cli::commands::CleanCommand::Setup(std::shared_ptr<CLI::App> app) {
+  auto cmd = app->group(group_)->add_subcommand(
+      "clean", "Cleans any object files created by the extension");
 
   // Add options to cmd, binding them to options.
   cmd->set_help_flag("-h, --help", "Print this help message and quit");
@@ -22,10 +25,10 @@ void zephir::commands::SetupCleanCommand(const std::shared_ptr<CLI::App>& app,
 
   // Set the run function as callback to be called when this subcommand is
   // issued.
-  cmd->callback([]() { ExecuteCleanCommand(); });
+  cmd->callback([&]() { Execute(); });
 }
 
-void zephir::commands::ExecuteCleanCommand() {
+void zephir::cli::commands::CleanCommand::Execute() {
   // Do stuff...
   std::cout << "Fullclean command" << std::endl;
   std::cout << "NOT IMPLEMENTED" << std::endl;

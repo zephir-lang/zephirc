@@ -8,9 +8,7 @@
 #include <gtest/gtest.h>
 
 #include <CLI/CLI.hpp>
-#include <zephir/commands.hpp>
-
-#include "formatter.hpp"
+#include <zephir/cli/formatter.hpp>
 
 class FormatterTest : public ::testing::Test {
  protected:
@@ -19,7 +17,7 @@ class FormatterTest : public ::testing::Test {
 
 TEST_F(FormatterTest, MakeUsage) {
   CLI::App app{"Zephir"};
-  zephir::commands::Formatter formatter;
+  zephir::cli::Formatter formatter;
 
   auto usage = formatter.make_usage(&app, "not used");
   EXPECT_EQ(usage, "Usage:\n  COMMAND [OPTIONS] [--] [ARGUMENTS]\n");

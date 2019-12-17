@@ -7,10 +7,14 @@
 
 #include <gtest/gtest.h>
 
+#include <memory>
 #include <string>
 #include <vector>
 
-#include <zephir/commands.hpp>
+#include <zephir/cli/application.hpp>
+#include <zephir/cli/commands/build_command.hpp>
+
+using namespace zephir::cli::commands;
 
 class BuildCmdTest : public ::testing::Test {
  protected:
@@ -20,6 +24,9 @@ class BuildCmdTest : public ::testing::Test {
 
 TEST_F(BuildCmdTest, RunWithoutOptions) {
   argv.assign({"build"});
-  auto retval = zephir::commands::CreateFromArgv(argv);
+  auto app = std::make_unique<zephir::cli::Application>(argv, "tests");
+  app->AddCommand(std::make_unique<BuildCommand>("build"));
+
+  auto retval = app->Run();
   EXPECT_EQ(retval, 0);
 }

@@ -5,11 +5,24 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
+#include <memory>
 #include <string>
 #include <vector>
 
-#include <zephir/commands.hpp>
+#include <zephir/cli/application.hpp>
+#include <zephir/cli/commands/api_command.hpp>
+#include <zephir/cli/commands/build_command.hpp>
+#include <zephir/cli/commands/clean_command.hpp>
+#include <zephir/cli/commands/compile_command.hpp>
+#include <zephir/cli/commands/fullclean_command.hpp>
+#include <zephir/cli/commands/generate_command.hpp>
+#include <zephir/cli/commands/init_command.hpp>
+#include <zephir/cli/commands/install_command.hpp>
+#include <zephir/cli/commands/stubs_command.hpp>
+#include <zephir/filesystem.hpp>
 #include <zephir/main.hpp>
+
+using namespace zephir::cli::commands;
 
 static inline std::vector<std::string> prepare_args(int argc, char** argv) {
   std::vector<std::string> args;
@@ -23,8 +36,20 @@ static inline std::vector<std::string> prepare_args(int argc, char** argv) {
 
 int main(int argc, char** argv) {
   auto args = prepare_args(argc, argv);
-  auto retval = zephir::commands::CreateFromArgv(args);
+  auto base_path = zephir::filesystem::GetCurrentWorkingPath();
+  auto app = std::make_unique<zephir::cli::Application>(args, base_path);
 
+  app->AddCommand(std::make_unique<ApiCommand>("api"));
+  app->AddCommand(std::make_unique<BuildCommand>("build"));
+  app->AddCommand(std::make_unique<CleanCommand>("clean"));
+  app->AddCommand(std::make_unique<CompileCommand>("compile"));
+  app->AddCommand(std::make_unique<FullCleanCommand>("fullclean"));
+  app->AddCommand(std::make_unique<GenerateCommand>("generate"));
+  app->AddCommand(std::make_unique<InitCommand>("init"));
+  app->AddCommand(std::make_unique<InstallCommand>("install"));
+  app->AddCommand(std::make_unique<StubsCommand>("stubs"));
+
+  auto retval = app->Run();
   if (retval == EXIT_HELP) {
     retval = EXIT_SUCCESS;
   }

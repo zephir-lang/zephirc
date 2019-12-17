@@ -5,28 +5,23 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#include "cmd_generate.hpp"
+#include <utility>
 
-#include <memory>
+#include <zephir/cli/commands/generate_command.hpp>
 
-#include <zephir/commands.hpp>
+zephir::cli::commands::GenerateCommand::GenerateCommand(std::string name)
+    : Command(std::move(name)), options_(std::make_unique<GenerateOptions>()) {}
 
-using zephir::commands::GenerateOptions;
+void zephir::cli::commands::GenerateCommand::Setup(
+    std::shared_ptr<CLI::App> app) {
+  auto cmd = app->group(group_)->add_subcommand(
+      "generate", "Generates C code from the Zephir code without compiling it");
 
-void zephir::commands::SetupGenerateCommand(
-    const std::shared_ptr<CLI::App>& app, const std::string& group) {
-  auto options = std::make_shared<GenerateOptions>();
-  auto cmd =
-      app->add_subcommand(
-             "generate",
-             "Generates C code from the Zephir code without compiling it")
-          ->group(group);
-
-  options->backend = "ZendEngine3";
+  options_->backend = "ZendEngine3";
 
   // Add options to cmd, binding them to options.
   cmd->add_option(
-      "--backend", options->backend,
+      "--backend", options_->backend,
       "Used backend to generate extension [default: \"ZendEngine3\"]");
   cmd->set_help_flag("-h, --help", "Print this help message and quit");
 
@@ -39,12 +34,12 @@ void zephir::commands::SetupGenerateCommand(
 
   // Set the run function as callback to be called when this subcommand is
   // issued.
-  cmd->callback([options]() { ExecuteGenerateCommand(*options); });
+  cmd->callback([&]() { Execute(); });
 }
 
-void zephir::commands::ExecuteGenerateCommand(GenerateOptions const& options) {
+void zephir::cli::commands::GenerateCommand::Execute() {
   // Do stuff...
   std::cout << "Generate command" << std::endl;
   std::cout << "NOT IMPLEMENTED" << std::endl;
-  std::cout << "    options.backend = " << options.backend << std::endl;
+  std::cout << "    options.backend = " << options_->backend << std::endl;
 }

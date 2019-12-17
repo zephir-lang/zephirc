@@ -5,16 +5,14 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#include "formatter.hpp"
-
-#include <vector>
-
 #include <CLI/CLI.hpp>
+#include <zephir/cli/formatter.hpp>
 
-zephir::commands::Formatter::Formatter() = default;
+zephir::cli::Formatter::Formatter() = default;
 
-std::string zephir::commands::Formatter::make_usage(
-    const CLI::App *app, __attribute__((unused)) const std::string name) const {
+std::string
+zephir::cli::Formatter::make_usage(const CLI::App *app,
+                                   const std::string /* name */) const {
   auto out = get_label("Usage") + ":\n";
 
   if (app->get_parent()) {
@@ -44,7 +42,7 @@ std::string zephir::commands::Formatter::make_usage(
 }
 
 std::string
-zephir::commands::Formatter::make_description(const CLI::App *app) const {
+zephir::cli::Formatter::make_description(const CLI::App *app) const {
   std::string out;
 
   // Show banner and version only for main app
@@ -70,8 +68,7 @@ zephir::commands::Formatter::make_description(const CLI::App *app) const {
   return out;
 }
 
-std::string
-zephir::commands::Formatter::make_footer(const CLI::App *app) const {
+std::string zephir::cli::Formatter::make_footer(const CLI::App *app) const {
   std::string out;
 
   // Show general help usage only for the main app.

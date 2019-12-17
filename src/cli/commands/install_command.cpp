@@ -5,26 +5,21 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#include "cmd_build.hpp"
+#include <utility>
 
-#include <zephir/commands.hpp>
+#include <zephir/cli/commands/install_command.hpp>
 
-using zephir::commands::BuildOptions;
+zephir::cli::commands::InstallCommand::InstallCommand(std::string name)
+    : Command(std::move(name)), options_(std::make_unique<InstallOptions>()) {}
 
-void zephir::commands::SetupBuildCommand(const std::shared_ptr<CLI::App>& app,
-                                         const std::string& group) {
-  auto options = std::make_shared<BuildOptions>();
-  auto cmd = app->add_subcommand(
-                    "build", "Generates/Compiles/Installs a Zephir extension")
-                 ->group(group);
+void zephir::cli::commands::InstallCommand::Setup(
+    std::shared_ptr<CLI::App> app) {
+  auto cmd = app->group(group_)->add_subcommand(
+      "install", "Installs the extension in the extension directory");
 
-  options->backend = "ZendEngine3";
+  options_->dev = true;
 
   // Add options to cmd, binding them to options.
-  cmd->add_option(
-      "--backend", options->backend,
-      "Used backend to generate extension [default: \"ZendEngine3\"]");
-
   auto dev = cmd->add_flag(
       "--dev", "Compile the extension in development mode [default]");
   auto no_dev =
@@ -32,11 +27,11 @@ void zephir::commands::SetupBuildCommand(const std::shared_ptr<CLI::App>& app,
   cmd->set_help_flag("-h, --help", "Print this help message and quit");
 
   if (no_dev->count()) {
-    options->dev = false;
+    options_->dev = false;
   }
 
   if (dev->count()) {
-    options->dev = true;
+    options_->dev = true;
   }
 
   // TODO(klay): Check for PHP build mode
@@ -45,8 +40,6 @@ void zephir::commands::SetupBuildCommand(const std::shared_ptr<CLI::App>& app,
   //}
 
   const char* HELP = R"HELP(
-  This is a meta command that just calls the generate, compile and install commands.
-
   Using --dev option will force compiling the extension in development mode
   (debug symbols and no optimizations). An extension compiled with debugging symbols means
   you can run a program or library through a debugger and the debugger's output will be user
@@ -67,13 +60,13 @@ void zephir::commands::SetupBuildCommand(const std::shared_ptr<CLI::App>& app,
 
   // Set the run function as callback to be called when this subcommand is
   // issued.
-  cmd->callback([options]() { ExecuteBuildCommand(*options); });
+  cmd->callback([&]() { Execute(); });
 }
 
-void zephir::commands::ExecuteBuildCommand(BuildOptions const& options) {
+void zephir::cli::commands::InstallCommand::Execute() {
   // Do stuff...
-  std::cout << "Build command" << std::endl;
+  std::cout << "Install command" << std::endl;
   std::cout << "NOT IMPLEMENTED" << std::endl;
-  std::cout << "    options.dev = " << options.dev << std::endl;
-  std::cout << "    options.backend = " << options.backend << std::endl;
+  std::cout << "    options.dev = " << options_->dev << std::endl;
+  ;
 }

@@ -16,27 +16,25 @@ conan_cmake_run(
 
 include(GoogleTest)
 
-set(ZEPHIR_TESTS options_test config_test)
+set(ZEPHIR_TESTS cli_test config_test)
 mark_as_advanced(ZEPHIR_TESTS)
 
-file(GLOB_RECURSE OPTIONS_TEST
-     ${CMAKE_CURRENT_SOURCE_DIR}/commands/*.options.cpp)
-add_executable(options_test main.cpp env/base.cpp ${OPTIONS_TEST})
+file(GLOB_RECURSE CLI_TESTS ${CMAKE_CURRENT_SOURCE_DIR}/commands/*.options.cpp)
+add_executable(cli_test main.cpp env/base.cpp ${CLI_TESTS})
 
 target_include_directories(
-  options_test
+  cli_test
   PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
-  PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-          $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src/commands>)
+  PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>)
 
 # Adds the executable to the 'ccov' and 'ccov-all' targets and excludes the file
 # itself via regex
-target_code_coverage(options_test AUTO ALL EXTERNAL)
+target_code_coverage(cli_test AUTO ALL EXTERNAL)
 
-target_link_libraries(options_test PRIVATE commands CONAN_PKG::GTest)
+target_link_libraries(cli_test PRIVATE cli CONAN_PKG::GTest)
 
 gtest_discover_tests(
-  options_test
+  cli_test
   TEST_PREFIX zephir:
   PROPERTIES LABELS OptionsTest)
 

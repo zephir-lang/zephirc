@@ -12,7 +12,7 @@
 #include <utility>
 #include <vector>
 
-#include <zephir/commands.hpp>
+#include <zephir/cli/application.hpp>
 #include <zephir/main.hpp>
 
 class NoneCmdTest
@@ -27,7 +27,10 @@ TEST_P(NoneCmdTest, RunUsingGlobalOptions) {
   const auto& option = std::get<0>(GetParam());
 
   argv.assign({option});
-  auto actual = zephir::commands::CreateFromArgv(argv);
+
+  auto app = std::make_unique<zephir::cli::Application>(argv, "tests");
+  auto actual = app->Run();
+
   EXPECT_EQ(expected, actual);
 }
 

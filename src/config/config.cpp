@@ -9,7 +9,6 @@
 
 #include <memory>
 
-#include <zephir/commands.hpp>
 #include <zephir/config.hpp>
 #include <zephir/filesystem.hpp>
 
@@ -75,11 +74,9 @@ zephir::ConfigPtr zephir::Config::Factory(std::vector<std::string> &options,
                                           const std::string &path) {
   auto config = PopulateConfig(path);
 
-  if (options.size() == 1) {
-    return config;
+  if (!options.empty()) {
+    // TODO(klay): Process config, use argv
   }
-
-  // TODO(klay): Process config, use argv
 
   return config;
 }
