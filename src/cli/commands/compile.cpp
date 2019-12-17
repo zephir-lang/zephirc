@@ -7,19 +7,23 @@
 
 #include <utility>
 
-#include <zephir/cli/commands/install_command.hpp>
+#include <zephir/cli/commands/compile.hpp>
 
-zephir::cli::commands::InstallCommand::InstallCommand(std::string name)
-    : Command(std::move(name)), options_(std::make_unique<InstallOptions>()) {}
+zephir::cli::commands::CompileCommand::CompileCommand(std::string name)
+    : AbstractCommand(std::move(name)),
+      options_(std::make_unique<CompileOptions>()) {}
 
-void zephir::cli::commands::InstallCommand::Setup(
-    std::shared_ptr<CLI::App> app) {
-  auto cmd = app->group(group_)->add_subcommand(
-      "install", "Installs the extension in the extension directory");
+void zephir::cli::commands::CompileCommand::Setup(CLI::App_p app) {
+  auto cmd = app->group(group_)->add_subcommand("compile",
+                                                "Compile a Zephir extension");
 
-  options_->dev = true;
+  options_->backend = "ZendEngine3";
 
   // Add options to cmd, binding them to options.
+  cmd->add_option(
+      "--backend", options_->backend,
+      "Used backend to generate extension [default: \"ZendEngine3\"]");
+
   auto dev = cmd->add_flag(
       "--dev", "Compile the extension in development mode [default]");
   auto no_dev =
@@ -53,10 +57,10 @@ void zephir::cli::commands::InstallCommand::Setup(
   cmd->callback([&]() { Execute(); });
 }
 
-void zephir::cli::commands::InstallCommand::Execute() {
+void zephir::cli::commands::CompileCommand::Execute() {
   // Do stuff...
-  std::cout << "Install command" << std::endl;
+  std::cout << "Compile command" << std::endl;
   std::cout << "NOT IMPLEMENTED" << std::endl;
   std::cout << "    options.dev = " << options_->dev << std::endl;
-  ;
+  std::cout << "    options.backend = " << options_->backend << std::endl;
 }

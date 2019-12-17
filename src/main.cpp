@@ -10,15 +10,15 @@
 #include <vector>
 
 #include <zephir/cli/application.hpp>
-#include <zephir/cli/commands/api_command.hpp>
-#include <zephir/cli/commands/build_command.hpp>
-#include <zephir/cli/commands/clean_command.hpp>
-#include <zephir/cli/commands/compile_command.hpp>
-#include <zephir/cli/commands/fullclean_command.hpp>
-#include <zephir/cli/commands/generate_command.hpp>
-#include <zephir/cli/commands/init_command.hpp>
-#include <zephir/cli/commands/install_command.hpp>
-#include <zephir/cli/commands/stubs_command.hpp>
+#include <zephir/cli/commands/api.hpp>
+#include <zephir/cli/commands/build.hpp>
+#include <zephir/cli/commands/clean.hpp>
+#include <zephir/cli/commands/compile.hpp>
+#include <zephir/cli/commands/fullclean.hpp>
+#include <zephir/cli/commands/generate.hpp>
+#include <zephir/cli/commands/init.hpp>
+#include <zephir/cli/commands/install.hpp>
+#include <zephir/cli/commands/stubs.hpp>
 #include <zephir/filesystem.hpp>
 #include <zephir/main.hpp>
 

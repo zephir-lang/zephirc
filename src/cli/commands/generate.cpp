@@ -7,13 +7,13 @@
 
 #include <utility>
 
-#include <zephir/cli/commands/generate_command.hpp>
+#include <zephir/cli/commands/generate.hpp>
 
 zephir::cli::commands::GenerateCommand::GenerateCommand(std::string name)
-    : Command(std::move(name)), options_(std::make_unique<GenerateOptions>()) {}
+    : AbstractCommand(std::move(name)),
+      options_(std::make_unique<GenerateOptions>()) {}
 
-void zephir::cli::commands::GenerateCommand::Setup(
-    std::shared_ptr<CLI::App> app) {
+void zephir::cli::commands::GenerateCommand::Setup(CLI::App_p app) {
   auto cmd = app->group(group_)->add_subcommand(
       "generate", "Generates C code from the Zephir code without compiling it");
 

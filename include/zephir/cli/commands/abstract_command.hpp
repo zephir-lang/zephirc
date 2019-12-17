@@ -5,18 +5,18 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#ifndef ZEPHIR_CLI_COMMANDS_COMMAND_HPP_
-#define ZEPHIR_CLI_COMMANDS_COMMAND_HPP_
+#ifndef ZEPHIR_CLI_COMMANDS_ABSTRACT_COMMAND_HPP_
+#define ZEPHIR_CLI_COMMANDS_ABSTRACT_COMMAND_HPP_
 
 #include <string>
 
 #include <CLI/CLI.hpp>
 
 namespace zephir::cli::commands {
-class Command {
+class AbstractCommand {
  public:
-  explicit Command(std::string name);
-  virtual ~Command() = default;
+  explicit AbstractCommand(std::string name);
+  virtual ~AbstractCommand() = default;
   virtual void Setup(std::shared_ptr<CLI::App> app) = 0;
   virtual void Execute() = 0;
 
@@ -24,10 +24,10 @@ class Command {
   static std::string CommonCompilationFlagsHelp();
 
   const std::string name_;
-  const std::string group_;
+  const std::string group_{"Available commands"};
 };
 
-using CommandPtr = std::unique_ptr<Command>;
+using CommandPtr = std::unique_ptr<AbstractCommand>;
 }  // namespace zephir::cli::commands
 
-#endif  // ZEPHIR_CLI_COMMANDS_COMMAND_HPP_
+#endif  // ZEPHIR_CLI_COMMANDS_ABSTRACT_COMMAND_HPP_

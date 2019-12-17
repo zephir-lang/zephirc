@@ -7,12 +7,13 @@
 
 #include <utility>
 
-#include <zephir/cli/commands/command.hpp>
+#include <zephir/cli/commands/abstract_command.hpp>
 
-zephir::cli::commands::Command::Command(std::string name)
-    : name_(std::move(name)), group_("Available commands") {}
+zephir::cli::commands::AbstractCommand::AbstractCommand(std::string name)
+    : name_(std::move(name)) {}
 
-std::string zephir::cli::commands::Command::CommonCompilationFlagsHelp() {
+std::string
+zephir::cli::commands::AbstractCommand::CommonCompilationFlagsHelp() {
   const auto FLAGS = R"FLAGS(
   Common flags are:
       -f([a-z0-9\-]+)    Enables compiler optimizations

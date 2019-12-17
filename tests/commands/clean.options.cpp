@@ -12,7 +12,7 @@
 #include <vector>
 
 #include <zephir/cli/application.hpp>
-#include <zephir/cli/commands/clean_command.hpp>
+#include <zephir/cli/commands/clean.hpp>
 
 using namespace zephir::cli::commands;
 

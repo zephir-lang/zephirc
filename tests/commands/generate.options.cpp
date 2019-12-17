@@ -12,7 +12,7 @@
 #include <vector>
 
 #include <zephir/cli/application.hpp>
-#include <zephir/cli/commands/generate_command.hpp>
+#include <zephir/cli/commands/generate.hpp>
 
 using namespace zephir::cli::commands;
 
