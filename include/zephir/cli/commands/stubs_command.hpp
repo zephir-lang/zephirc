@@ -12,7 +12,7 @@
 
 namespace zephir::cli::commands {
 struct StubsOptions {
-  std::string backend;
+  std::string backend = "";
 };
 
 using StubsOptionsPtr = std::unique_ptr<StubsOptions>;

@@ -12,8 +12,8 @@
 
 namespace zephir::cli::commands {
 struct InitOptions {
-  std::string backend;
-  std::string ns;
+  std::string backend = "";
+  std::string ns = "";
 };
 
 using InitOptionsPtr = std::unique_ptr<InitOptions>;

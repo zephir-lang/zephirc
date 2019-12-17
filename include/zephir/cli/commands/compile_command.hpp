@@ -12,8 +12,8 @@
 
 namespace zephir::cli::commands {
 struct CompileOptions {
-  std::string backend;
-  bool dev;
+  std::string backend = "";
+  bool dev = true;
 };
 
 using CompileOptionsPtr = std::unique_ptr<CompileOptions>;

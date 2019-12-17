@@ -11,9 +11,10 @@
 #include <zephir/cli/commands/command.hpp>
 
 namespace zephir::cli::commands {
+
 struct BuildOptions {
-  std::string backend;
-  bool dev;
+  std::string backend = "";
+  bool dev = true;
 };
 
 using BuildOptionsPtr = std::unique_ptr<BuildOptions>;
