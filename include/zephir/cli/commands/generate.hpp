@@ -12,8 +12,7 @@
 
 namespace zephir::cli::commands {
 struct GenerateOptions {
-  GenerateOptions() : backend("") {}
-  std::string backend;
+  std::string backend{""};
 };
 
 using GenerateOptionsPtr = std::unique_ptr<GenerateOptions>;

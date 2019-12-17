@@ -12,8 +12,8 @@
 
 namespace zephir::cli::commands {
 struct CompileOptions {
-  CompileOptions() : backend(""), dev(true) {}
-  std::string backend;
+  CompileOptions() : dev(true) {}
+  std::string backend{""};
   bool dev;
 };
 
