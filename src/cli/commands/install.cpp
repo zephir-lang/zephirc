@@ -7,10 +7,11 @@
 
 #include <utility>
 
-#include <zephir/cli/commands/install_command.hpp>
+#include <zephir/cli/commands/install.hpp>
 
 zephir::cli::commands::InstallCommand::InstallCommand(std::string name)
-    : Command(std::move(name)), options_(std::make_unique<InstallOptions>()) {}
+    : AbstractCommand(std::move(name)),
+      options_(std::make_unique<InstallOptions>()) {}
 
 void zephir::cli::commands::InstallCommand::Setup(
     std::shared_ptr<CLI::App> app) {

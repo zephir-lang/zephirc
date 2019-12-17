@@ -12,7 +12,7 @@
 #include <vector>
 
 #include <zephir/cli/application.hpp>
-#include <zephir/cli/commands/install_command.hpp>
+#include <zephir/cli/commands/install.hpp>
 
 using namespace zephir::cli::commands;
 

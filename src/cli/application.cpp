@@ -16,12 +16,16 @@ zephir::cli::Application::Application(std::vector<std::string> args,
     : args_(std::move(args)),
       base_path_(std::move(base_path)),
       config_(zephir::Config::Factory(args_, base_path_ + "/.zephir.yml")),
-      formatter_(std::make_shared<zephir::cli::Formatter>()) {
+      formatter_(std::make_shared<zephir::cli::Formatter>()),
+      app_(std::make_shared<CLI::App>()),
+      help_(nullptr),
+      commands_() {
   auto out = std::string(ZEPHIR_NAME) + " " +
              std::string(ZEPHIR_VERSION_STRING) + " by " +
              std::string(ZEPHIR_AUTHORS);
 
-  app_ = std::make_shared<CLI::App>(out, "zephir");
+  app_->description(out);
+  app_->name("zephir");
 
   out = "See \"" + app_->get_name() + " <command> --help\"";
   out += " to read about a specific command or concept.";

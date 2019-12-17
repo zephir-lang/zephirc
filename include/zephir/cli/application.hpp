@@ -12,7 +12,7 @@
 #include <vector>
 
 #include <CLI/CLI.hpp>
-#include <zephir/cli/commands/command.hpp>
+#include <zephir/cli/commands/abstract_command.hpp>
 #include <zephir/cli/formatter.hpp>
 #include <zephir/config.hpp>
 
@@ -32,7 +32,7 @@ class Application {
   std::string base_path_;
   zephir::ConfigPtr config_;
   std::shared_ptr<zephir::cli::Formatter> formatter_;
-  std::shared_ptr<CLI::App> app_;
+  CLI::App_p app_;
   CLI::Option* help_;
   std::vector<commands::CommandPtr> commands_;
 };

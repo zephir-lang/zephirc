@@ -7,14 +7,16 @@
 
 #include <utility>
 
-#include <zephir/cli/commands/build_command.hpp>
+#include <zephir/cli/commands/compile.hpp>
 
-zephir::cli::commands::BuildCommand::BuildCommand(std::string name)
-    : Command(std::move(name)), options_(std::make_unique<BuildOptions>()) {}
+zephir::cli::commands::CompileCommand::CompileCommand(std::string name)
+    : AbstractCommand(std::move(name)),
+      options_(std::make_unique<CompileOptions>()) {}
 
-void zephir::cli::commands::BuildCommand::Setup(std::shared_ptr<CLI::App> app) {
-  auto cmd = app->group(group_)->add_subcommand(
-      "build", "Generates/Compiles/Installs a Zephir extension");
+void zephir::cli::commands::CompileCommand::Setup(
+    std::shared_ptr<CLI::App> app) {
+  auto cmd = app->group(group_)->add_subcommand("compile",
+                                                "Compile a Zephir extension");
 
   options_->backend = "ZendEngine3";
 
@@ -33,8 +35,6 @@ void zephir::cli::commands::BuildCommand::Setup(std::shared_ptr<CLI::App> app) {
   options_->dev = no_dev->count() <= dev->count();
 
   const char* HELP = R"HELP(
-  This is a meta command that just calls the generate, compile and install commands.
-
   Using --dev option will force compiling the extension in development mode
   (debug symbols and no optimizations). An extension compiled with debugging symbols means
   you can run a program or library through a debugger and the debugger's output will be user
@@ -58,9 +58,9 @@ void zephir::cli::commands::BuildCommand::Setup(std::shared_ptr<CLI::App> app) {
   cmd->callback([&]() { Execute(); });
 }
 
-void zephir::cli::commands::BuildCommand::Execute() {
+void zephir::cli::commands::CompileCommand::Execute() {
   // Do stuff...
-  std::cout << "Build command" << std::endl;
+  std::cout << "Compile command" << std::endl;
   std::cout << "NOT IMPLEMENTED" << std::endl;
   std::cout << "    options.dev = " << options_->dev << std::endl;
   std::cout << "    options.backend = " << options_->backend << std::endl;

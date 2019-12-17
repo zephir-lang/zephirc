@@ -7,10 +7,10 @@
 
 #include <utility>
 
-#include <zephir/cli/commands/fullclean_command.hpp>
+#include <zephir/cli/commands/fullclean.hpp>
 
 zephir::cli::commands::FullCleanCommand::FullCleanCommand(std::string name)
-    : Command(std::move(name)) {}
+    : AbstractCommand(std::move(name)) {}
 
 void zephir::cli::commands::FullCleanCommand::Setup(
     std::shared_ptr<CLI::App> app) {

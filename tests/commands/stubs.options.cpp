@@ -12,7 +12,7 @@
 #include <vector>
 
 #include <zephir/cli/application.hpp>
-#include <zephir/cli/commands/stubs_command.hpp>
+#include <zephir/cli/commands/stubs.hpp>
 
 using namespace zephir::cli::commands;
 
