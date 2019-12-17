@@ -10,7 +10,7 @@
 #include <zephir/cli/commands/abstract_command.hpp>
 
 zephir::cli::commands::AbstractCommand::AbstractCommand(std::string name)
-    : name_(std::move(name)), group_("Available commands") {}
+    : name_(std::move(name)) {}
 
 std::string
 zephir::cli::commands::AbstractCommand::CommonCompilationFlagsHelp() {
