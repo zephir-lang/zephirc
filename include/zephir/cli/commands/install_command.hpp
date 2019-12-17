@@ -12,7 +12,8 @@
 
 namespace zephir::cli::commands {
 struct InstallOptions {
-  bool dev = true;
+  InstallOptions() : dev(true) {}
+  bool dev;
 };
 
 using InstallOptionsPtr = std::unique_ptr<InstallOptions>;

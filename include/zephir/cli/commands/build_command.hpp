@@ -13,8 +13,9 @@
 namespace zephir::cli::commands {
 
 struct BuildOptions {
-  std::string backend = "";
-  bool dev = true;
+  BuildOptions() : backend(""), dev(true) {}
+  std::string backend;
+  bool dev;
 };
 
 using BuildOptionsPtr = std::unique_ptr<BuildOptions>;
