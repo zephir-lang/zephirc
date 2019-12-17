@@ -12,6 +12,12 @@
 
 namespace zephir::cli::commands {
 struct ApiOptions {
+  ApiOptions()
+      : backend(""),
+        template_path(""),
+        output(""),
+        theme_options(""),
+        url("") {}
   std::string backend;
   std::string template_path;
   std::string output;

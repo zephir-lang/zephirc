@@ -12,6 +12,7 @@
 
 namespace zephir::cli::commands {
 struct InstallOptions {
+  InstallOptions() : dev(true) {}
   bool dev;
 };
 

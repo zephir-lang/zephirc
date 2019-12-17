@@ -16,7 +16,7 @@ namespace zephir::cli::commands {
 class Command {
  public:
   explicit Command(std::string name);
-  virtual ~Command() {}
+  virtual ~Command() = default;
   virtual void Setup(std::shared_ptr<CLI::App> app) = 0;
   virtual void Execute() = 0;
 

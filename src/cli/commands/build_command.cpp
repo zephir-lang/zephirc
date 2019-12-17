@@ -29,18 +29,8 @@ void zephir::cli::commands::BuildCommand::Setup(std::shared_ptr<CLI::App> app) {
       cmd->add_flag("--no-dev", "Compile the extension in production mode");
   cmd->set_help_flag("-h, --help", "Print this help message and quit");
 
-  if (no_dev->count()) {
-    options_->dev = false;
-  }
-
-  if (dev->count()) {
-    options_->dev = true;
-  }
-
-  // TODO(klay): Check for PHP build mode
-  // else {
-  //  options.dev = true;
-  //}
+  // TODO(klay): Check for PHP build mode if no_dev == false && dev == false
+  options_->dev = no_dev->count() <= dev->count();
 
   const char* HELP = R"HELP(
   This is a meta command that just calls the generate, compile and install commands.

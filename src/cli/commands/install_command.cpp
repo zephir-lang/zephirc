@@ -26,18 +26,8 @@ void zephir::cli::commands::InstallCommand::Setup(
       cmd->add_flag("--no-dev", "Compile the extension in production mode");
   cmd->set_help_flag("-h, --help", "Print this help message and quit");
 
-  if (no_dev->count()) {
-    options_->dev = false;
-  }
-
-  if (dev->count()) {
-    options_->dev = true;
-  }
-
-  // TODO(klay): Check for PHP build mode
-  // else {
-  //  options.dev = true;
-  //}
+  // TODO(klay): Check for PHP build mode if no_dev == false && dev == false
+  options_->dev = no_dev->count() <= dev->count();
 
   const char* HELP = R"HELP(
   Using --dev option will force compiling the extension in development mode

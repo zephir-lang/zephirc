@@ -11,7 +11,9 @@
 #include <zephir/cli/commands/command.hpp>
 
 namespace zephir::cli::commands {
+
 struct BuildOptions {
+  BuildOptions() : backend(""), dev(true) {}
   std::string backend;
   bool dev;
 };

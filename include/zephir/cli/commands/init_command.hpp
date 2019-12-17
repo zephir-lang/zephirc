@@ -12,6 +12,7 @@
 
 namespace zephir::cli::commands {
 struct InitOptions {
+  InitOptions() : backend(""), ns("") {}
   std::string backend;
   std::string ns;
 };

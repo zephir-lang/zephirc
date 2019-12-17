@@ -32,16 +32,19 @@ jobs:
             compiler: gcc
             version: '7'
             ccov: ON
+            weffcpp: ON
           - name: ubuntu-18.04-clang-5.0
             os: ubuntu-18.04
             compiler: clang
             version: '5.0'
             ccov: OFF
+            weffcpp: OFF
           - name: macOS-latest
             os: macOS-latest
             compiler: apple-clang
             version: 'NOT USED'
             ccov: OFF
+            weffcpp: OFF
 
     steps:
     - uses: actions/checkout@v2-beta
@@ -117,13 +120,14 @@ jobs:
         $CC --version
         cmake --version
 
-        cmake                         \
-            -S .                      \
-            -Bbuild                   \
-            -DCMAKE_BUILD_TYPE=Debug  \
-            -DZEPHIR_BUILD_TESTING=ON \
-            -DENABLE_ALL_WARNINGS=ON  \
-            -DCODE_COVERAGE=${{ matrix.ccov }}
+        cmake \
+          -S . \
+          -Bbuild \
+          -DCMAKE_BUILD_TYPE=Debug \
+          -DZEPHIR_BUILD_TESTING=ON \
+          -DENABLE_ALL_WARNINGS=ON \
+          -DCODE_COVERAGE=${{ matrix.ccov }} \
+          -DENABLE_EFFECTIVE_CXX=${{ matrix.weffcpp }}
 
         echo ::set-env name=ZEPHIR_TESTS_ROOT::${GITHUB_WORKSPACE}/tests
 
