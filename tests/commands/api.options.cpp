@@ -11,8 +11,8 @@
 #include <string>
 #include <vector>
 
-#include <zephir/cli/application.hpp>
-#include <zephir/cli/commands/api.hpp>
+#include "cli/application.hpp"
+#include "cli/commands/api.hpp"
 
 using namespace zephir::cli::commands;
 

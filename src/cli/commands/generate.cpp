@@ -5,9 +5,9 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#include <utility>
+#include "generate.hpp"
 
-#include <zephir/cli/commands/generate.hpp>
+#include <utility>
 
 zephir::cli::commands::GenerateCommand::GenerateCommand(std::string name)
     : AbstractCommand(std::move(name)),

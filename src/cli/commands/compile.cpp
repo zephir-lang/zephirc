@@ -5,9 +5,9 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#include <utility>
+#include "compile.hpp"
 
-#include <zephir/cli/commands/compile.hpp>
+#include <utility>
 
 zephir::cli::commands::CompileCommand::CompileCommand(std::string name)
     : AbstractCommand(std::move(name)),

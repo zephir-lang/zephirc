@@ -5,9 +5,9 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#include <utility>
+#include "clean.hpp"
 
-#include <zephir/cli/commands/clean.hpp>
+#include <utility>
 
 zephir::cli::commands::CleanCommand::CleanCommand(std::string name)
     : AbstractCommand(std::move(name)) {}

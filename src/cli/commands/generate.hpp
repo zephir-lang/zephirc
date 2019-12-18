@@ -8,7 +8,7 @@
 #ifndef ZEPHIR_CLI_COMMANDS_GENERATE_HPP_
 #define ZEPHIR_CLI_COMMANDS_GENERATE_HPP_
 
-#include <zephir/cli/commands/abstract_command.hpp>
+#include "abstract_command.hpp"
 
 namespace zephir::cli::commands {
 struct GenerateOptions {

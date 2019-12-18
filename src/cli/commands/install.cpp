@@ -5,9 +5,9 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#include <utility>
+#include "install.hpp"
 
-#include <zephir/cli/commands/install.hpp>
+#include <utility>
 
 zephir::cli::commands::InstallCommand::InstallCommand(std::string name)
     : AbstractCommand(std::move(name)),

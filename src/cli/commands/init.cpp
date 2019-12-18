@@ -5,9 +5,9 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#include <utility>
+#include "init.hpp"
 
-#include <zephir/cli/commands/init.hpp>
+#include <utility>
 
 zephir::cli::commands::InitCommand::InitCommand(std::string name)
     : AbstractCommand(std::move(name)),

@@ -9,18 +9,18 @@
 #include <string>
 #include <vector>
 
-#include <zephir/cli/application.hpp>
-#include <zephir/cli/commands/api.hpp>
-#include <zephir/cli/commands/build.hpp>
-#include <zephir/cli/commands/clean.hpp>
-#include <zephir/cli/commands/compile.hpp>
-#include <zephir/cli/commands/fullclean.hpp>
-#include <zephir/cli/commands/generate.hpp>
-#include <zephir/cli/commands/init.hpp>
-#include <zephir/cli/commands/install.hpp>
-#include <zephir/cli/commands/stubs.hpp>
 #include <zephir/main.hpp>
 
+#include "cli/application.hpp"
+#include "cli/commands/api.hpp"
+#include "cli/commands/build.hpp"
+#include "cli/commands/clean.hpp"
+#include "cli/commands/compile.hpp"
+#include "cli/commands/fullclean.hpp"
+#include "cli/commands/generate.hpp"
+#include "cli/commands/init.hpp"
+#include "cli/commands/install.hpp"
+#include "cli/commands/stubs.hpp"
 #include "filesystem/filesystem.hpp"
 
 using namespace zephir::cli::commands;

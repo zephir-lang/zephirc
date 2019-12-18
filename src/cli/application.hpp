@@ -12,9 +12,10 @@
 #include <vector>
 
 #include <CLI/CLI.hpp>
-#include <zephir/cli/commands/abstract_command.hpp>
-#include <zephir/cli/formatter.hpp>
-#include <zephir/config.hpp>
+
+#include "../config/config.hpp"
+#include "commands/abstract_command.hpp"
+#include "formatter.hpp"
 
 namespace zephir::cli {
 

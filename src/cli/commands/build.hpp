@@ -5,29 +5,30 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#ifndef ZEPHIR_CLI_COMMANDS_COMPILE_HPP_
-#define ZEPHIR_CLI_COMMANDS_COMPILE_HPP_
+#ifndef ZEPHIR_CLI_COMMANDS_BUILD_HPP_
+#define ZEPHIR_CLI_COMMANDS_BUILD_HPP_
 
-#include <zephir/cli/commands/abstract_command.hpp>
+#include "abstract_command.hpp"
 
 namespace zephir::cli::commands {
-struct CompileOptions {
-  CompileOptions() : dev(true) {}
+
+struct BuildOptions {
+  BuildOptions() : dev(true) {}
   std::string backend{""};
   bool dev;
 };
 
-using CompileOptionsPtr = std::unique_ptr<CompileOptions>;
+using BuildOptionsPtr = std::unique_ptr<BuildOptions>;
 
-class CompileCommand : public AbstractCommand {
+class BuildCommand : public AbstractCommand {
  public:
-  explicit CompileCommand(std::string name);
+  explicit BuildCommand(std::string name);
   void Setup(std::shared_ptr<CLI::App> app) override;
   void Execute() override;
 
  private:
-  CompileOptionsPtr options_;
+  BuildOptionsPtr options_;
 };
 }  // namespace zephir::cli::commands
 
-#endif  // ZEPHIR_CLI_COMMANDS_COMPILE_HPP_
+#endif  // ZEPHIR_CLI_COMMANDS_BUILD_HPP_

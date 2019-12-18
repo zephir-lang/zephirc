@@ -5,9 +5,10 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
+#include "application.hpp"
+
 #include <utility>
 
-#include <zephir/cli/application.hpp>
 #include <zephir/version.hpp>
 
 #include "../filesystem/filesystem.hpp"
