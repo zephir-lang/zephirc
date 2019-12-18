@@ -10,7 +10,7 @@
 
 #include "abstract_command.hpp"
 
-namespace zephir::cli::commands {
+namespace zephir::console::commands {
 struct StubsOptions {
   std::string backend{""};
 };
@@ -26,6 +26,6 @@ class StubsCommand : public AbstractCommand {
  private:
   StubsOptionsPtr options_;
 };
-}  // namespace zephir::cli::commands
+}  // namespace zephir::console::commands
 
 #endif  // ZEPHIR_CLI_COMMANDS_STUBS_HPP_

@@ -11,11 +11,11 @@
 #include <string>
 
 #include <CLI/CLI.hpp>
+#include <CLI/Formatter.hpp>
 
-namespace zephir::cli {
+namespace zephir::console {
 class Formatter : public CLI::Formatter {
  public:
-
   /**
    * @brief Displays the description line.
    *
@@ -41,6 +41,6 @@ class Formatter : public CLI::Formatter {
    */
   std::string make_footer(const CLI::App *app) const override;
 };
-}  // namespace zephir::cli
+}  // namespace zephir::console
 
 #endif  // ZEPHIR_CLI_FORMATTER_HPP_

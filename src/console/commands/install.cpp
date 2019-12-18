@@ -9,11 +9,11 @@
 
 #include <utility>
 
-zephir::cli::commands::InstallCommand::InstallCommand(std::string name)
+zephir::console::commands::InstallCommand::InstallCommand(std::string name)
     : AbstractCommand(std::move(name)),
       options_(std::make_unique<InstallOptions>()) {}
 
-void zephir::cli::commands::InstallCommand::Setup(CLI::App_p app) {
+void zephir::console::commands::InstallCommand::Setup(CLI::App_p app) {
   auto cmd = app->group(group_)->add_subcommand(
       "install", "Installs the extension in the extension directory");
 
@@ -53,7 +53,7 @@ void zephir::cli::commands::InstallCommand::Setup(CLI::App_p app) {
   cmd->callback([&]() { Execute(); });
 }
 
-void zephir::cli::commands::InstallCommand::Execute() {
+void zephir::console::commands::InstallCommand::Execute() {
   // Do stuff...
   std::cout << "Install command" << std::endl;
   std::cout << "NOT IMPLEMENTED" << std::endl;

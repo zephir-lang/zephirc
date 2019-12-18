@@ -10,7 +10,7 @@
 
 #include "abstract_command.hpp"
 
-namespace zephir::cli::commands {
+namespace zephir::console::commands {
 struct InstallOptions {
   InstallOptions() : dev(true) {}
   bool dev;
@@ -27,6 +27,6 @@ class InstallCommand : public AbstractCommand {
  private:
   InstallOptionsPtr options_;
 };
-}  // namespace zephir::cli::commands
+}  // namespace zephir::console::commands
 
 #endif  // ZEPHIR_CLI_COMMANDS_INSTALL_HPP_

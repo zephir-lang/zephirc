@@ -11,19 +11,19 @@
 
 #include <zephir/main.hpp>
 
-#include "cli/application.hpp"
-#include "cli/commands/api.hpp"
-#include "cli/commands/build.hpp"
-#include "cli/commands/clean.hpp"
-#include "cli/commands/compile.hpp"
-#include "cli/commands/fullclean.hpp"
-#include "cli/commands/generate.hpp"
-#include "cli/commands/init.hpp"
-#include "cli/commands/install.hpp"
-#include "cli/commands/stubs.hpp"
+#include "console/application.hpp"
+#include "console/commands/api.hpp"
+#include "console/commands/build.hpp"
+#include "console/commands/clean.hpp"
+#include "console/commands/compile.hpp"
+#include "console/commands/fullclean.hpp"
+#include "console/commands/generate.hpp"
+#include "console/commands/init.hpp"
+#include "console/commands/install.hpp"
+#include "console/commands/stubs.hpp"
 #include "filesystem/filesystem.hpp"
 
-using namespace zephir::cli::commands;
+using namespace zephir::console::commands;
 
 static inline std::vector<std::string> prepare_args(int argc, char** argv) {
   std::vector<std::string> args;
@@ -38,7 +38,7 @@ static inline std::vector<std::string> prepare_args(int argc, char** argv) {
 int main(int argc, char** argv) {
   auto args = prepare_args(argc, argv);
   auto base_path = zephir::filesystem::GetCurrentWorkingPath();
-  auto app = std::make_unique<zephir::cli::Application>(args, base_path);
+  auto app = std::make_unique<zephir::console::Application>(args, base_path);
 
   app->AddCommand(std::make_unique<ApiCommand>("api"));
   app->AddCommand(std::make_unique<BuildCommand>("build"));

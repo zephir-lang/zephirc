@@ -9,10 +9,10 @@
 
 #include <memory>
 
-#include "cli/application.hpp"
-#include "cli/commands/compile.hpp"
+#include "console/application.hpp"
+#include "console/commands/compile.hpp"
 
-using namespace zephir::cli::commands;
+using namespace zephir::console::commands;
 
 class CompileCmdTest : public ::testing::Test {
  protected:
@@ -22,7 +22,7 @@ class CompileCmdTest : public ::testing::Test {
 
 TEST_F(CompileCmdTest, RunWithoutOptions) {
   argv.assign({"compile"});
-  auto app = std::make_unique<zephir::cli::Application>(argv, "tests");
+  auto app = std::make_unique<zephir::console::Application>(argv, "tests");
   app->AddCommand(std::make_unique<CompileCommand>("compile"));
 
   auto retval = app->Run();

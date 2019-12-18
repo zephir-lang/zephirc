@@ -9,11 +9,11 @@
 
 #include <utility>
 
-zephir::cli::commands::AbstractCommand::AbstractCommand(std::string name)
+zephir::console::commands::AbstractCommand::AbstractCommand(std::string name)
     : name_(std::move(name)) {}
 
 std::string
-zephir::cli::commands::AbstractCommand::CommonCompilationFlagsHelp() {
+zephir::console::commands::AbstractCommand::CommonCompilationFlagsHelp() {
   const auto FLAGS = R"FLAGS(
   Common flags are:
       -f([a-z0-9\-]+)    Enables compiler optimizations

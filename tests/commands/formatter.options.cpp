@@ -7,7 +7,7 @@
 
 #include <gtest/gtest.h>
 
-#include "cli/formatter.hpp"
+#include "console/formatter.hpp"
 
 class FormatterTest : public ::testing::Test {
  protected:
@@ -16,7 +16,7 @@ class FormatterTest : public ::testing::Test {
 
 TEST_F(FormatterTest, MakeUsage) {
   auto app(std::make_shared<CLI::App>());
-  auto formatter(std::make_shared<zephir::cli::Formatter>());
+  auto formatter(std::make_shared<zephir::console::Formatter>());
   auto usage = formatter->make_usage(app.get(), "not used");
 
   EXPECT_EQ(usage, "Usage:\n  COMMAND [OPTIONS] [--] [ARGUMENTS]\n");

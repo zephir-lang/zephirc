@@ -5,17 +5,17 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#include "generate.hpp"
+#include "init.hpp"
 
 #include <utility>
 
-zephir::cli::commands::GenerateCommand::GenerateCommand(std::string name)
+zephir::console::commands::InitCommand::InitCommand(std::string name)
     : AbstractCommand(std::move(name)),
-      options_(std::make_unique<GenerateOptions>()) {}
+      options_(std::make_unique<InitOptions>()) {}
 
-void zephir::cli::commands::GenerateCommand::Setup(CLI::App_p app) {
+void zephir::console::commands::InitCommand::Setup(CLI::App_p app) {
   auto cmd = app->group(group_)->add_subcommand(
-      "generate", "Generates C code from the Zephir code without compiling it");
+      "init", "Initializes a Zephir extension");
 
   options_->backend = "ZendEngine3";
 
@@ -23,23 +23,22 @@ void zephir::cli::commands::GenerateCommand::Setup(CLI::App_p app) {
   cmd->add_option(
       "--backend", options_->backend,
       "Used backend to generate extension [default: \"ZendEngine3\"]");
+  cmd->add_option("namespace", options_->ns, "The extension namespace");
   cmd->set_help_flag("-h, --help", "Print this help message and quit");
 
-  // TODO(klay): These flags should be parsed before CLI11 initialization.
-  // Current plan is:
-  // 1. read these flags
-  // 2. set the appropriate configuration
-  // 3. remove these flags (if any) from argv
-  cmd->footer(CommonCompilationFlagsHelp());
+  // TODO(klay): Make it better.
+  // Right now I've set empty string to override parent footer
+  cmd->footer("");
 
   // Set the run function as callback to be called when this subcommand is
   // issued.
   cmd->callback([&]() { Execute(); });
 }
 
-void zephir::cli::commands::GenerateCommand::Execute() {
+void zephir::console::commands::InitCommand::Execute() {
   // Do stuff...
-  std::cout << "Generate command" << std::endl;
+  std::cout << "Init command" << std::endl;
   std::cout << "NOT IMPLEMENTED" << std::endl;
   std::cout << "    options.backend = " << options_->backend << std::endl;
+  std::cout << "    options.ns = " << options_->ns << std::endl;
 }

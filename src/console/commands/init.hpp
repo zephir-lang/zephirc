@@ -10,7 +10,7 @@
 
 #include "abstract_command.hpp"
 
-namespace zephir::cli::commands {
+namespace zephir::console::commands {
 struct InitOptions {
   std::string backend{""};
   std::string ns{""};
@@ -27,6 +27,6 @@ class InitCommand : public AbstractCommand {
  private:
   InitOptionsPtr options_;
 };
-}  // namespace zephir::cli::commands
+}  // namespace zephir::console::commands
 
 #endif  // ZEPHIR_CLI_COMMANDS_INIT_HPP_

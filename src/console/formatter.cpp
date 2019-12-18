@@ -8,8 +8,8 @@
 #include "formatter.hpp"
 
 std::string
-zephir::cli::Formatter::make_usage(const CLI::App *app,
-                                   const std::string /* name */) const {
+zephir::console::Formatter::make_usage(const CLI::App *app,
+                                       const std::string /* name */) const {
   auto out = get_label("Usage") + ":\n";
 
   if (app->get_parent()) {
@@ -39,7 +39,7 @@ zephir::cli::Formatter::make_usage(const CLI::App *app,
 }
 
 std::string
-zephir::cli::Formatter::make_description(const CLI::App *app) const {
+zephir::console::Formatter::make_description(const CLI::App *app) const {
   std::string out;
 
   // Show banner and version only for main app
@@ -65,7 +65,7 @@ zephir::cli::Formatter::make_description(const CLI::App *app) const {
   return out;
 }
 
-std::string zephir::cli::Formatter::make_footer(const CLI::App *app) const {
+std::string zephir::console::Formatter::make_footer(const CLI::App *app) const {
   std::string out;
 
   // Show general help usage only for the main app.

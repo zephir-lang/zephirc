@@ -12,7 +12,7 @@
 
 #include <CLI/CLI.hpp>
 
-namespace zephir::cli::commands {
+namespace zephir::console::commands {
 class AbstractCommand {
  public:
   explicit AbstractCommand(std::string name);
@@ -28,6 +28,6 @@ class AbstractCommand {
 };
 
 using CommandPtr = std::unique_ptr<AbstractCommand>;
-}  // namespace zephir::cli::commands
+}  // namespace zephir::console::commands
 
 #endif  // ZEPHIR_CLI_COMMANDS_ABSTRACT_COMMAND_HPP_

@@ -10,7 +10,7 @@
 
 #include "abstract_command.hpp"
 
-namespace zephir::cli::commands {
+namespace zephir::console::commands {
 
 struct BuildOptions {
   BuildOptions() : dev(true) {}
@@ -29,6 +29,6 @@ class BuildCommand : public AbstractCommand {
  private:
   BuildOptionsPtr options_;
 };
-}  // namespace zephir::cli::commands
+}  // namespace zephir::console::commands
 
 #endif  // ZEPHIR_CLI_COMMANDS_BUILD_HPP_

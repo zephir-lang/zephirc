@@ -12,7 +12,7 @@
 
 #include <zephir/main.hpp>
 
-#include "cli/application.hpp"
+#include "console/application.hpp"
 
 class NoneCmdTest
     : public testing::TestWithParam<std::tuple<std::string, int>> {
@@ -27,7 +27,7 @@ TEST_P(NoneCmdTest, RunUsingGlobalOptions) {
 
   argv.assign({option});
 
-  auto app = std::make_unique<zephir::cli::Application>(argv, "tests");
+  auto app = std::make_unique<zephir::console::Application>(argv, "tests");
   auto actual = app->Run();
 
   EXPECT_EQ(expected, actual);

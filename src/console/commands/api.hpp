@@ -10,7 +10,7 @@
 
 #include "abstract_command.hpp"
 
-namespace zephir::cli::commands {
+namespace zephir::console::commands {
 struct ApiOptions {
   std::string backend{""};
   std::string template_path{""};
@@ -30,6 +30,6 @@ class ApiCommand : public AbstractCommand {
  private:
   ApiOptionsPtr options_;
 };
-}  // namespace zephir::cli::commands
+}  // namespace zephir::console::commands
 
 #endif  // ZEPHIR_CLI_COMMANDS_API_HPP_

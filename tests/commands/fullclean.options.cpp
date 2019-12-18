@@ -9,10 +9,10 @@
 
 #include <memory>
 
-#include "cli/application.hpp"
-#include "cli/commands/fullclean.hpp"
+#include "console/application.hpp"
+#include "console/commands/fullclean.hpp"
 
-using namespace zephir::cli::commands;
+using namespace zephir::console::commands;
 
 class FullcleanCmdTest : public ::testing::Test {
  protected:
@@ -22,7 +22,7 @@ class FullcleanCmdTest : public ::testing::Test {
 
 TEST_F(FullcleanCmdTest, RunWithoutOptions) {
   argv.assign({"fullclean"});
-  auto app = std::make_unique<zephir::cli::Application>(argv, "tests");
+  auto app = std::make_unique<zephir::console::Application>(argv, "tests");
   app->AddCommand(std::make_unique<FullCleanCommand>("fullclean"));
 
   auto retval = app->Run();

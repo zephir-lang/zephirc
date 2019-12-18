@@ -11,13 +11,11 @@
 #include <string>
 #include <vector>
 
-#include <CLI/CLI.hpp>
-
 #include "../config/config.hpp"
 #include "commands/abstract_command.hpp"
 #include "formatter.hpp"
 
-namespace zephir::cli {
+namespace zephir::console {
 
 class Application {
  public:
@@ -32,11 +30,11 @@ class Application {
   std::vector<std::string> args_;
   std::string base_path_;
   zephir::ConfigPtr config_;
-  std::shared_ptr<zephir::cli::Formatter> formatter_;
+  std::shared_ptr<zephir::console::Formatter> formatter_;
   CLI::App_p app_;
   CLI::Option* help_;
   std::vector<commands::CommandPtr> commands_;
 };
-}  // namespace zephir::cli
+}  // namespace zephir::console
 
 #endif  // ZEPHIR_SRC_CLI_APPLICATION_HPP_

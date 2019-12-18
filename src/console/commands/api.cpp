@@ -9,11 +9,11 @@
 
 #include <utility>
 
-zephir::cli::commands::ApiCommand::ApiCommand(std::string name)
+zephir::console::commands::ApiCommand::ApiCommand(std::string name)
     : AbstractCommand(std::move(name)),
       options_(std::make_unique<ApiOptions>()) {}
 
-void zephir::cli::commands::ApiCommand::Setup(CLI::App_p app) {
+void zephir::console::commands::ApiCommand::Setup(CLI::App_p app) {
   auto cmd = app->group(group_)->add_subcommand(
       "api",
       "Generates a HTML API based on the classes "
@@ -49,7 +49,7 @@ void zephir::cli::commands::ApiCommand::Setup(CLI::App_p app) {
   cmd->callback([&]() { Execute(); });
 }
 
-void zephir::cli::commands::ApiCommand::Execute() {
+void zephir::console::commands::ApiCommand::Execute() {
   // Do stuff...
   std::cout << "Api command" << std::endl;
   std::cout << "NOT IMPLEMENTED" << std::endl;

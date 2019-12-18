@@ -10,7 +10,7 @@
 
 #include "abstract_command.hpp"
 
-namespace zephir::cli::commands {
+namespace zephir::console::commands {
 struct CompileOptions {
   CompileOptions() : dev(true) {}
   std::string backend{""};
@@ -28,6 +28,6 @@ class CompileCommand : public AbstractCommand {
  private:
   CompileOptionsPtr options_;
 };
-}  // namespace zephir::cli::commands
+}  // namespace zephir::console::commands
 
 #endif  // ZEPHIR_CLI_COMMANDS_COMPILE_HPP_

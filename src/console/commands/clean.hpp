@@ -10,13 +10,13 @@
 
 #include "abstract_command.hpp"
 
-namespace zephir::cli::commands {
+namespace zephir::console::commands {
 class CleanCommand : public AbstractCommand {
  public:
   explicit CleanCommand(std::string name);
   void Setup(std::shared_ptr<CLI::App> app) override;
   void Execute() override;
 };
-}  // namespace zephir::cli::commands
+}  // namespace zephir::console::commands
 
 #endif  // ZEPHIR_CLI_COMMANDS_CLEAN_HPP_

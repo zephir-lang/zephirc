@@ -9,11 +9,11 @@
 
 #include <utility>
 
-zephir::cli::commands::CompileCommand::CompileCommand(std::string name)
+zephir::console::commands::CompileCommand::CompileCommand(std::string name)
     : AbstractCommand(std::move(name)),
       options_(std::make_unique<CompileOptions>()) {}
 
-void zephir::cli::commands::CompileCommand::Setup(CLI::App_p app) {
+void zephir::console::commands::CompileCommand::Setup(CLI::App_p app) {
   auto cmd = app->group(group_)->add_subcommand("compile",
                                                 "Compile a Zephir extension");
 
@@ -57,7 +57,7 @@ void zephir::cli::commands::CompileCommand::Setup(CLI::App_p app) {
   cmd->callback([&]() { Execute(); });
 }
 
-void zephir::cli::commands::CompileCommand::Execute() {
+void zephir::console::commands::CompileCommand::Execute() {
   // Do stuff...
   std::cout << "Compile command" << std::endl;
   std::cout << "NOT IMPLEMENTED" << std::endl;

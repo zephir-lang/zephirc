@@ -13,12 +13,12 @@
 
 #include "../filesystem/filesystem.hpp"
 
-zephir::cli::Application::Application(std::vector<std::string> args,
-                                      std::string base_path)
+zephir::console::Application::Application(std::vector<std::string> args,
+                                          std::string base_path)
     : args_(std::move(args)),
       base_path_(std::move(base_path)),
       config_(zephir::Config::Factory(args_, base_path_ + "/.zephir.yml")),
-      formatter_(std::make_shared<zephir::cli::Formatter>()),
+      formatter_(std::make_shared<zephir::console::Formatter>()),
       app_(std::make_shared<CLI::App>()),
       help_(nullptr),
       commands_() {
@@ -55,14 +55,14 @@ zephir::cli::Application::Application(std::vector<std::string> args,
                  "Print compiler version information and quit");
 };
 
-void zephir::cli::Application::AddCommand(
-    zephir::cli::commands::CommandPtr command) {
+void zephir::console::Application::AddCommand(
+    zephir::console::commands::CommandPtr command) {
   if (command) {
     commands_.push_back(std::move(command));
   }
 }
 
-int zephir::cli::Application::Run() {
+int zephir::console::Application::Run() {
   for (const auto& cmd : commands_) {
     cmd->Setup(app_);
   }

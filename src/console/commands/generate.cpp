@@ -5,17 +5,19 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#include "stubs.hpp"
+#include "generate.hpp"
 
 #include <utility>
 
-zephir::cli::commands::StubsCommand::StubsCommand(std::string name)
+zephir::console::commands::GenerateCommand::GenerateCommand(std::string name)
     : AbstractCommand(std::move(name)),
-      options_(std::make_unique<StubsOptions>()) {}
+      options_(std::make_unique<GenerateOptions>()) {}
 
-void zephir::cli::commands::StubsCommand::Setup(CLI::App_p app) {
+void zephir::console::commands::GenerateCommand::Setup(CLI::App_p app) {
   auto cmd = app->group(group_)->add_subcommand(
-      "stubs", "Generates stubs that can be used in a PHP IDE");
+      "generate", "Generates C code from the Zephir code without compiling it");
+
+  options_->backend = "ZendEngine3";
 
   // Add options to cmd, binding them to options.
   cmd->add_option(
@@ -35,9 +37,9 @@ void zephir::cli::commands::StubsCommand::Setup(CLI::App_p app) {
   cmd->callback([&]() { Execute(); });
 }
 
-void zephir::cli::commands::StubsCommand::Execute() {
+void zephir::console::commands::GenerateCommand::Execute() {
   // Do stuff...
-  std::cout << "Stubs command" << std::endl;
+  std::cout << "Generate command" << std::endl;
   std::cout << "NOT IMPLEMENTED" << std::endl;
   std::cout << "    options.backend = " << options_->backend << std::endl;
 }
