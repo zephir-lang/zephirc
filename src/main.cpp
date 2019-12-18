@@ -19,8 +19,9 @@
 #include <zephir/cli/commands/init.hpp>
 #include <zephir/cli/commands/install.hpp>
 #include <zephir/cli/commands/stubs.hpp>
-#include <zephir/filesystem.hpp>
 #include <zephir/main.hpp>
+
+#include "filesystem/filesystem.hpp"
 
 using namespace zephir::cli::commands;
 

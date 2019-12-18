@@ -8,8 +8,9 @@
 #include <utility>
 
 #include <zephir/cli/application.hpp>
-#include <zephir/filesystem.hpp>
 #include <zephir/version.hpp>
+
+#include "../filesystem/filesystem.hpp"
 
 zephir::cli::Application::Application(std::vector<std::string> args,
                                       std::string base_path)

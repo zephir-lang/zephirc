@@ -11,7 +11,7 @@
 
 #include <memory>
 
-#include <zephir/filesystem.hpp>
+#include "../filesystem/filesystem.hpp"
 
 namespace {
 /**
