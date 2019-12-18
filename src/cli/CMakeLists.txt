@@ -7,7 +7,7 @@
 
 # Add definition for cli library.
 file(GLOB CLI_FILES ${CMAKE_CURRENT_SOURCE_DIR}/commands/*.cpp)
-add_library(cli SHARED application.cpp formatter.cpp ${CLI_FILES})
+add_library(cli STATIC application.cpp formatter.cpp ${CLI_FILES})
 
 target_include_directories(
   cli PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
