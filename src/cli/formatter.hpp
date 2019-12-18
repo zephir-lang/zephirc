@@ -15,7 +15,6 @@
 namespace zephir::cli {
 class Formatter : public CLI::Formatter {
  public:
-  Formatter();
 
   /**
    * @brief Displays the description line.

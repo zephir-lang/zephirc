@@ -7,8 +7,6 @@
 
 #include "formatter.hpp"
 
-zephir::cli::Formatter::Formatter() = default;
-
 std::string
 zephir::cli::Formatter::make_usage(const CLI::App *app,
                                    const std::string /* name */) const {
