@@ -8,7 +8,7 @@
 #include <gtest/gtest.h>
 #include <yaml-cpp/yaml.h>
 
-#include <zephir/config/warnings.hpp>
+#include "config/config/warnings.hpp"
 
 TEST(WarningsTest, DecodeString) {
   auto yaml = YAML::Load(R"(

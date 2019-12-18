@@ -10,7 +10,7 @@
 
 #include <yaml-cpp/yaml.h>
 
-#include <zephir/ptr/config.hpp>
+#include "../ptr/config.hpp"
 
 namespace YAML {
 template <>

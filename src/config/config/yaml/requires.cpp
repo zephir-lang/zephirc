@@ -5,7 +5,7 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#include <zephir/config/requires.hpp>
+#include "../requires.hpp"
 
 YAML::Node YAML::convert<zephir::config::RequiresPtr>::encode(
     const zephir::config::RequiresPtr &rptr) {

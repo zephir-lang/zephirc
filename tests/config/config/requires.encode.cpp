@@ -10,7 +10,7 @@
 
 #include <string>
 
-#include <zephir/config/requires.hpp>
+#include "config/config/requires.hpp"
 
 TEST(RequiresTest, EncodeClass) {
   std::vector<std::string> expected = {"PDO", "SPL", "standard", "hash"};

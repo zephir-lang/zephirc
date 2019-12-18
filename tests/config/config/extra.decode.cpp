@@ -8,7 +8,7 @@
 #include <gtest/gtest.h>
 #include <yaml-cpp/yaml.h>
 
-#include <zephir/config/extra.hpp>
+#include "config/config/extra.hpp"
 
 TEST(ExtraTest, DecodeString) {
   auto yaml = YAML::Load(R"({indent: spaces, export-classes: false})");

@@ -10,8 +10,8 @@
 
 #include <string>
 
-#include <zephir/config/api/theme.hpp>
-#include <zephir/config/yaml/api.hpp>
+#include "api/theme.hpp"
+#include "yaml/api.hpp"
 
 namespace zephir::config {
 class Api {

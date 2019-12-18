@@ -10,7 +10,7 @@
 
 #include <string>
 
-#include <zephir/config/optimizations.hpp>
+#include "config/config/optimizations.hpp"
 
 TEST(OptimizationsTest, EncodeClass) {
   std::map<std::string, bool> container = {

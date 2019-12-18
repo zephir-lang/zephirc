@@ -5,11 +5,11 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
+#include "api.hpp"
+
 #include <string>
 #include <tuple>
 #include <utility>
-
-#include <zephir/config/api.hpp>
 
 zephir::config::Api::Api() : path_("doc/%version%"), theme_() {}
 

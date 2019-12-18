@@ -12,13 +12,13 @@
 #include <string>
 #include <vector>
 
-#include <zephir/config/api.hpp>
-#include <zephir/config/extra.hpp>
-#include <zephir/config/optimizations.hpp>
-#include <zephir/config/requires.hpp>
-#include <zephir/config/stubs.hpp>
-#include <zephir/config/warnings.hpp>
-#include <zephir/yaml/config.hpp>
+#include "config/api.hpp"
+#include "config/extra.hpp"
+#include "config/optimizations.hpp"
+#include "config/requires.hpp"
+#include "config/stubs.hpp"
+#include "config/warnings.hpp"
+#include "yaml/config.hpp"
 
 // TODO(klay): Add config sections:
 // - constants-sources

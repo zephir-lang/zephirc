@@ -5,11 +5,12 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
+#include "config.hpp"
+
 #include <yaml-cpp/yaml.h>
 
 #include <memory>
 
-#include <zephir/config.hpp>
 #include <zephir/filesystem.hpp>
 
 namespace {

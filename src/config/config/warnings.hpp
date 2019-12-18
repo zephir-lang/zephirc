@@ -11,7 +11,7 @@
 #include <map>
 #include <string>
 
-#include <zephir/config/yaml/warnings.hpp>
+#include "yaml/warnings.hpp"
 
 namespace zephir::config {
 class Warnings {

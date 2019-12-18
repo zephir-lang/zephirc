@@ -8,7 +8,7 @@
 #include <gtest/gtest.h>
 #include <yaml-cpp/yaml.h>
 
-#include <zephir/config/api.hpp>
+#include "config/config/api.hpp"
 
 namespace ztheme = zephir::config::api::theme;
 

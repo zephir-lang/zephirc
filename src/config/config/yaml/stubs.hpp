@@ -5,23 +5,23 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#ifndef ZEPHIR_CONFIG_YAML_WARNINGS_HPP_
-#define ZEPHIR_CONFIG_YAML_WARNINGS_HPP_
+#ifndef ZEPHIR_CONFIG_YAML_STUBS_HPP_
+#define ZEPHIR_CONFIG_YAML_STUBS_HPP_
 
 #include <yaml-cpp/yaml.h>
 
-#include <zephir/config/ptr/warnings.hpp>
+#include "../ptr/stubs.hpp"
 
 namespace YAML {
 template <>
-struct convert<zephir::config::WarningsPtr> {
+struct convert<zephir::config::StubsPtr> {
   /**
-   * @brief Encode Warnings object to a Yaml Node.
+   * @brief Encode Stubs object to a Yaml Node.
    *
-   * @param wptr The smart pointer to a Warnings instance
+   * @param sptr The smart pointer to a Stubs instance
    * @return Yaml Node
    */
-  static Node encode(const zephir::config::WarningsPtr &wptr);
+  static Node encode(const zephir::config::StubsPtr &sptr);
 
   /**
    * @brief Decode Yaml Node to a Warnings object.
@@ -30,8 +30,8 @@ struct convert<zephir::config::WarningsPtr> {
    * @param wptr The smart pointer to a Warnings instance
    * @return true on success, false otherwise
    */
-  static bool decode(const Node &node, zephir::config::WarningsPtr &wptr);
+  static bool decode(const Node &node, zephir::config::StubsPtr &sptr);
 };
 }  // namespace YAML
 
-#endif  // ZEPHIR_CONFIG_YAML_WARNINGS_HPP_
+#endif  // ZEPHIR_CONFIG_YAML_STUBS_HPP_
