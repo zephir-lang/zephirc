@@ -7,9 +7,6 @@
 
 #include <gtest/gtest.h>
 
-#include <string>
-#include <vector>
-
 #include "asserts.hpp"
 #include "config/config.hpp"
 #include "env/base.hpp"

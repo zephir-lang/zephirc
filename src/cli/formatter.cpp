@@ -7,8 +7,6 @@
 
 #include "formatter.hpp"
 
-#include <CLI/CLI.hpp>
-
 zephir::cli::Formatter::Formatter() = default;
 
 std::string

@@ -7,10 +7,8 @@
 
 #include <gtest/gtest.h>
 
-#include <string>
 #include <tuple>
 #include <utility>
-#include <vector>
 
 #include <zephir/main.hpp>
 
