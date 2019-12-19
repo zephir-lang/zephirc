@@ -2,3 +2,7 @@
 	path = external/cmake-scripts
 	url = https://github.com/StableCoder/cmake-scripts.git
 	branch = master
+[submodule "tests/sharness"]
+	path = tests/sharness
+	url = https://github.com/chriscool/sharness.git
+	branch = master
