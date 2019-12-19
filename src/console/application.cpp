@@ -17,7 +17,7 @@ zephir::console::Application::Application(std::vector<std::string> args,
                                           std::string base_path)
     : args_(std::move(args)),
       base_path_(std::move(base_path)),
-      config_(zephir::Config::Factory(args_, base_path_ + "/.zephir.yml")),
+      config_(zephir::Config::Factory(args_, base_path_ + "/.zephir")),
       formatter_(std::make_shared<zephir::console::Formatter>()),
       app_(std::make_shared<CLI::App>()),
       help_(nullptr),
