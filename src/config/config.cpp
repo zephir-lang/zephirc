@@ -7,39 +7,7 @@
 
 #include "config.hpp"
 
-#include <yaml-cpp/yaml.h>
-
-#include <memory>
-
 #include "../filesystem/filesystem.hpp"
-
-namespace {
-/**
- * @brief Populate project configuration.
- *
- * @param path Configuration file.
- * @return Shared pointer to the zephir::Config
- */
-zephir::ConfigPtr PopulateConfig(const std::string &path) {
-  auto config = std::make_shared<zephir::Config>();
-
-  if (!zephir::filesystem::Exists(path)) {
-    // Nothing to do if we unable to find config file at the disk.
-    return config;
-  }
-
-  // YAML::BadFile should normally never thrown here
-  // because we did check for file existence before.
-  try {
-    YAML::Node node = YAML::LoadFile(path);
-    YAML::convert<zephir::ConfigPtr>::decode(node, config);
-
-    return config;
-  } catch (YAML::ParserException &e) {
-    throw std::runtime_error("Config file is broken");
-  }
-}
-}  // namespace
 
 zephir::Config::Config()
     : ns_(),
@@ -50,7 +18,7 @@ zephir::Config::Config()
       backend_("ZendEngine3"),
       verbose_(false),
       silent_(false),
-      path_(".zephir"),
+      path_(""),
       changed_(false),
       requires_(),
       stubs_(),
@@ -60,6 +28,27 @@ zephir::Config::Config()
       extra_() {}
 
 zephir::Config::~Config() { DumpToFile(); }
+
+zephir::ConfigPtr zephir::Config::Load(const std::string &path) {
+  auto config = std::make_shared<zephir::Config>();
+  config->path_ = path;
+
+  if (!zephir::filesystem::Exists(config->path_)) {
+    // Nothing to do if we unable to find config file at the disk.
+    return config;
+  }
+
+  // YAML::BadFile should normally never thrown here
+  // because we did check for file existence before.
+  try {
+    YAML::Node node = YAML::LoadFile(config->path_);
+    YAML::convert<zephir::ConfigPtr>::decode(node, config);
+
+    return config;
+  } catch (YAML::ParserException &e) {
+    throw std::runtime_error("Config file is broken");
+  }
+}
 
 void zephir::Config::DumpToFile() {
   if (changed_ && !path_.empty() && !zephir::filesystem::Exists(path_)) {
@@ -73,7 +62,7 @@ bool zephir::Config::IsChanged() { return changed_; }
 
 zephir::ConfigPtr zephir::Config::Factory(std::vector<std::string> &options,
                                           const std::string &path) {
-  auto config = PopulateConfig(path);
+  auto config = zephir::Config::Load(path);
 
   if (!options.empty()) {
     // TODO(klay): Process config, use argv

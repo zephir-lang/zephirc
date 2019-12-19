@@ -39,7 +39,7 @@ namespace zephir {
 /**
  * @brief Manages compiler global configuration.
  */
-class Config {
+class Config : public std::enable_shared_from_this<Config> {
  public:
   /**
    * @brief Config constructor.
@@ -50,6 +50,14 @@ class Config {
    * @brief Config destructor.
    */
   ~Config();
+
+  /**
+   * @brief Load configuration from a file path.
+   *
+   * @param path The path to the configuration file.
+   * @return A shared pointer to the zephir::Config
+   */
+  static zephir::ConfigPtr Load(const std::string &path);
 
   /**
    * @brief Writes the configuration if it has been changed.
