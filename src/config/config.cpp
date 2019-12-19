@@ -7,8 +7,6 @@
 
 #include "config.hpp"
 
-#include <fstream>
-
 #include "../filesystem/filesystem.hpp"
 
 zephir::Config::Config()
@@ -29,8 +27,6 @@ zephir::Config::Config()
       optimizations_(),
       extra_() {}
 
-zephir::Config::~Config() { DumpToFile(); }
-
 zephir::ConfigPtr zephir::Config::Load(const std::string &path) {
   auto config = std::make_shared<zephir::Config>();
   config->path_ = path;
@@ -49,16 +45,6 @@ zephir::ConfigPtr zephir::Config::Load(const std::string &path) {
     return config;
   } catch (YAML::ParserException &e) {
     throw std::runtime_error("Config file is broken");
-  }
-}
-
-void zephir::Config::DumpToFile() {
-  if (changed_ && !path_.empty() && !zephir::filesystem::Exists(path_)) {
-    auto yaml = YAML::convert<zephir::ConfigPtr>::encode(shared_from_this());
-
-    std::ofstream file(path_);
-    file << yaml;
-    file.close();
   }
 }
 
