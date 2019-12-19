@@ -107,5 +107,6 @@ bool YAML::convert<zephir::ConfigPtr>::decode(const YAML::Node &node,
     cptr->extra_ = *e;
   }
 
+  cptr->changed_ = true;
   return true;
 }

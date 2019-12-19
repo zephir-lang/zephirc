@@ -17,7 +17,7 @@ zephir::console::Application::Application(std::vector<std::string> args,
                                           std::string base_path)
     : args_(std::move(args)),
       base_path_(std::move(base_path)),
-      config_(zephir::Config::Factory(args_, base_path_ + "/.zephir.yml")),
+      config_(zephir::Config::Factory(args_, base_path_ + "/.zephir")),
       formatter_(std::make_shared<zephir::console::Formatter>()),
       app_(std::make_shared<CLI::App>()),
       help_(nullptr),
@@ -84,4 +84,19 @@ int zephir::console::Application::Run() {
   }
 
   return 0;
+}
+
+zephir::console::Application::~Application() { DumpConfig(); }
+
+void zephir::console::Application::DumpConfig() {
+  if (config_ && config_->IsChanged() && !base_path_.empty()) {
+    auto config_file = base_path_ + "/.zephir";
+
+    if (!zephir::filesystem::Exists(config_file)) {
+      auto yaml = YAML::convert<zephir::ConfigPtr>::encode(config_);
+      std::ofstream file(config_file);
+      file << yaml;
+      file.close();
+    }
+  }
 }

@@ -47,14 +47,12 @@ class Config {
   Config();
 
   /**
-   * @brief Config destructor.
+   * @brief Load configuration from a file path.
+   *
+   * @param path The path to the configuration file.
+   * @return A shared pointer to the zephir::Config
    */
-  ~Config();
-
-  /**
-   * @brief Writes the configuration if it has been changed.
-   */
-  void DumpToFile();
+  static zephir::ConfigPtr Load(const std::string &path);
 
   /**
    * @brief Is config changed?
