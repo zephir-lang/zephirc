@@ -59,19 +59,16 @@ gtest_discover_tests(
   TEST_PREFIX zephir:
   PROPERTIES LABELS ConfigTest)
 
+if(NOT WIN32)
+  add_test(
+    NAME BlackboxTest
+    COMMAND make
+    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
+endif()
+
 add_custom_target(
   check
   COMMAND ctest -j ${BUILD_JOBS} --output-on-failure
   WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
   DEPENDS ${ZEPHIR_TESTS}
   COMMENT "Run all tests...")
-
-# cmake-format: off
-# TODO: sharness tests
-# if(NOT WIN32)
-#     add_test(
-#     NAME              BlackboxTest
-#     COMMAND           make
-#     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/sharness")
-# endif()
-# cmake-format: on
