@@ -8,13 +8,11 @@
 #include <gtest/gtest.h>
 
 #include <memory>
-#include <string>
-#include <vector>
 
-#include <zephir/cli/application.hpp>
-#include <zephir/cli/commands/install.hpp>
+#include "console/application.hpp"
+#include "console/commands/install.hpp"
 
-using namespace zephir::cli::commands;
+using namespace zephir::console::commands;
 
 class InstallCmdTest : public ::testing::Test {
  protected:
@@ -24,7 +22,7 @@ class InstallCmdTest : public ::testing::Test {
 
 TEST_F(InstallCmdTest, RunWithoutOptions) {
   argv.assign({"install"});
-  auto app = std::make_unique<zephir::cli::Application>(argv, "tests");
+  auto app = std::make_unique<zephir::console::Application>(argv, "tests");
   app->AddCommand(std::make_unique<InstallCommand>("install"));
 
   auto retval = app->Run();

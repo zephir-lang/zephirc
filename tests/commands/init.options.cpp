@@ -8,13 +8,11 @@
 #include <gtest/gtest.h>
 
 #include <memory>
-#include <string>
-#include <vector>
 
-#include <zephir/cli/application.hpp>
-#include <zephir/cli/commands/init.hpp>
+#include "console/application.hpp"
+#include "console/commands/init.hpp"
 
-using namespace zephir::cli::commands;
+using namespace zephir::console::commands;
 
 class InitCmdTest : public ::testing::Test {
  protected:
@@ -24,7 +22,7 @@ class InitCmdTest : public ::testing::Test {
 
 TEST_F(InitCmdTest, RunWithoutOptions) {
   argv.assign({"init"});
-  auto app = std::make_unique<zephir::cli::Application>(argv, "tests");
+  auto app = std::make_unique<zephir::console::Application>(argv, "tests");
   app->AddCommand(std::make_unique<InitCommand>("init"));
 
   auto retval = app->Run();

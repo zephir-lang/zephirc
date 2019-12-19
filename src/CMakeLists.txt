@@ -6,7 +6,7 @@
 # the LICENSE file that was distributed with this source code.
 
 # Zephir libraries
-add_subdirectory(cli)
+add_subdirectory(console)
 add_subdirectory(filesystem)
 add_subdirectory(config)
 add_subdirectory(logger)
@@ -15,10 +15,12 @@ add_subdirectory(logger)
 add_executable(zephir main.cpp)
 
 target_include_directories(
-  zephir PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
-                $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
+  zephir
+  PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+  PRIVATE $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>)
 
-target_link_libraries(zephir PUBLIC cli)
+target_link_libraries(zephir PUBLIC console)
 
 # Adds the executable to the 'ccov' and 'ccov-all' targets and excludes the file
 # itself via regex

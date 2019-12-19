@@ -6,9 +6,8 @@
 // the LICENSE file that was distributed with this source code.
 
 #include <gtest/gtest.h>
-#include <yaml-cpp/yaml.h>
 
-#include <zephir/config/stubs.hpp>
+#include "config/config/stubs.hpp"
 
 TEST(StubsTest, DecodeString) {
   auto yaml = YAML::Load(

@@ -5,11 +5,11 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
+#include "stubs.hpp"
+
 #include <string>
 #include <tuple>
 #include <utility>
-
-#include <zephir/config/stubs.hpp>
 
 zephir::config::Stubs::Stubs()
     : path_("ide/%version%/%namespace%"), regenerate_(false), banner_("") {}

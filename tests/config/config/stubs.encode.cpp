@@ -6,11 +6,8 @@
 // the LICENSE file that was distributed with this source code.
 
 #include <gtest/gtest.h>
-#include <yaml-cpp/yaml.h>
 
-#include <string>
-
-#include <zephir/config/stubs.hpp>
+#include "config/config/stubs.hpp"
 
 TEST(StubsTest, EncodeClass) {
   auto stubs = std::make_shared<zephir::config::Stubs>(

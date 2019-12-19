@@ -8,13 +8,11 @@
 #include <gtest/gtest.h>
 
 #include <memory>
-#include <string>
-#include <vector>
 
-#include <zephir/cli/application.hpp>
-#include <zephir/cli/commands/stubs.hpp>
+#include "console/application.hpp"
+#include "console/commands/stubs.hpp"
 
-using namespace zephir::cli::commands;
+using namespace zephir::console::commands;
 
 class StubsCmdTest : public ::testing::Test {
  protected:
@@ -24,7 +22,7 @@ class StubsCmdTest : public ::testing::Test {
 
 TEST_F(StubsCmdTest, RunWithoutOptions) {
   argv.assign({"stubs"});
-  auto app = std::make_unique<zephir::cli::Application>(argv, "tests");
+  auto app = std::make_unique<zephir::console::Application>(argv, "tests");
   app->AddCommand(std::make_unique<StubsCommand>("stubs"));
 
   auto retval = app->Run();

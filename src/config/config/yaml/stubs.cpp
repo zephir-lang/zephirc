@@ -5,7 +5,7 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#include <zephir/config/stubs.hpp>
+#include "../stubs.hpp"
 
 YAML::Node YAML::convert<zephir::config::StubsPtr>::encode(
     const zephir::config::StubsPtr &sptr) {

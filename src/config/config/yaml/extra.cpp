@@ -5,7 +5,7 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#include <zephir/config/extra.hpp>
+#include "../extra.hpp"
 
 YAML::Node YAML::convert<zephir::config::ExtraPtr>::encode(
     const zephir::config::ExtraPtr &eptr) {

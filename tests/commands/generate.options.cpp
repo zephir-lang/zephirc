@@ -8,13 +8,11 @@
 #include <gtest/gtest.h>
 
 #include <memory>
-#include <string>
-#include <vector>
 
-#include <zephir/cli/application.hpp>
-#include <zephir/cli/commands/generate.hpp>
+#include "console/application.hpp"
+#include "console/commands/generate.hpp"
 
-using namespace zephir::cli::commands;
+using namespace zephir::console::commands;
 
 class GenerateCmdTest : public ::testing::Test {
  protected:
@@ -24,7 +22,7 @@ class GenerateCmdTest : public ::testing::Test {
 
 TEST_F(GenerateCmdTest, RunWithoutOptions) {
   argv.assign({"generate"});
-  auto app = std::make_unique<zephir::cli::Application>(argv, "tests");
+  auto app = std::make_unique<zephir::console::Application>(argv, "tests");
   app->AddCommand(std::make_unique<GenerateCommand>("generate"));
 
   auto retval = app->Run();

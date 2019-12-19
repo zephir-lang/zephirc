@@ -9,20 +9,21 @@
 #include <string>
 #include <vector>
 
-#include <zephir/cli/application.hpp>
-#include <zephir/cli/commands/api.hpp>
-#include <zephir/cli/commands/build.hpp>
-#include <zephir/cli/commands/clean.hpp>
-#include <zephir/cli/commands/compile.hpp>
-#include <zephir/cli/commands/fullclean.hpp>
-#include <zephir/cli/commands/generate.hpp>
-#include <zephir/cli/commands/init.hpp>
-#include <zephir/cli/commands/install.hpp>
-#include <zephir/cli/commands/stubs.hpp>
-#include <zephir/filesystem.hpp>
 #include <zephir/main.hpp>
 
-using namespace zephir::cli::commands;
+#include "console/application.hpp"
+#include "console/commands/api.hpp"
+#include "console/commands/build.hpp"
+#include "console/commands/clean.hpp"
+#include "console/commands/compile.hpp"
+#include "console/commands/fullclean.hpp"
+#include "console/commands/generate.hpp"
+#include "console/commands/init.hpp"
+#include "console/commands/install.hpp"
+#include "console/commands/stubs.hpp"
+#include "filesystem/filesystem.hpp"
+
+using namespace zephir::console::commands;
 
 static inline std::vector<std::string> prepare_args(int argc, char** argv) {
   std::vector<std::string> args;
@@ -37,7 +38,7 @@ static inline std::vector<std::string> prepare_args(int argc, char** argv) {
 int main(int argc, char** argv) {
   auto args = prepare_args(argc, argv);
   auto base_path = zephir::filesystem::GetCurrentWorkingPath();
-  auto app = std::make_unique<zephir::cli::Application>(args, base_path);
+  auto app = std::make_unique<zephir::console::Application>(args, base_path);
 
   app->AddCommand(std::make_unique<ApiCommand>("api"));
   app->AddCommand(std::make_unique<BuildCommand>("build"));

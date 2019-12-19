@@ -6,9 +6,8 @@
 // the LICENSE file that was distributed with this source code.
 
 #include <gtest/gtest.h>
-#include <yaml-cpp/yaml.h>
 
-#include <zephir/config/warnings.hpp>
+#include "config/config/warnings.hpp"
 
 TEST(WarningsTest, EncodeClass) {
   std::map<std::string, bool> container = {

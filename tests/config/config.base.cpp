@@ -7,12 +7,8 @@
 
 #include <gtest/gtest.h>
 
-#include <string>
-#include <vector>
-
-#include <zephir/config.hpp>
-
 #include "asserts.hpp"
+#include "config/config.hpp"
 #include "env/base.hpp"
 
 using input_t = std::vector<std::string>;

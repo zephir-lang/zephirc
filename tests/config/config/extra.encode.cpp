@@ -6,11 +6,10 @@
 // the LICENSE file that was distributed with this source code.
 
 #include <gtest/gtest.h>
-#include <yaml-cpp/yaml.h>
 
 #include <string>
 
-#include <zephir/config/extra.hpp>
+#include "config/config/extra.hpp"
 
 TEST(ExtraTest, EncodeClass) {
   auto extra = std::make_shared<zephir::config::Extra>("spaces", false);
