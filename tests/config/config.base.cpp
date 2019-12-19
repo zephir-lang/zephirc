@@ -58,5 +58,5 @@ TEST_F(ConfigBaseTest, CorrectConfigFile) {
   auto file = tests_root + "/fixtures/phalcon-4x.yml";
   auto config = zephir::Config::Factory(argv, file).get();
 
-  EXPECT_FALSE(config->IsChanged());
+  EXPECT_TRUE(config->IsChanged());
 }

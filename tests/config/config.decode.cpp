@@ -108,3 +108,10 @@ TEST(ConfigTest, DecodeInvalid) {
 
   EXPECT_FALSE(YAML::convert<zephir::ConfigPtr>::decode(yaml["foo"], actual));
 }
+
+TEST(ConfigTest, DecodeEmptyMap) {
+  auto yaml = YAML::Node(YAML::NodeType::Map);
+  auto actual = std::make_shared<zephir::Config>();
+
+  EXPECT_TRUE(YAML::convert<zephir::ConfigPtr>::decode(yaml, actual));
+}
