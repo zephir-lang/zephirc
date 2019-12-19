@@ -17,7 +17,7 @@ namespace zephir::filesystem {
  * @param name The location of the file
  * @return true on success, false otherwise
  */
-bool Exists(const std::string& name);
+bool Exists(const std::string& name) noexcept;
 
 /**
  * @brief Gets current working compiler path.

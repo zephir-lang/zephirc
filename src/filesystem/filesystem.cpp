@@ -11,7 +11,7 @@
 
 #include <climits>
 
-bool zephir::filesystem::Exists(const std::string &name) {
+bool zephir::filesystem::Exists(const std::string &name) noexcept {
   return (access(name.c_str(), F_OK) != -1);
 }
 

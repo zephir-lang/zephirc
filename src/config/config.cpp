@@ -7,7 +7,12 @@
 
 #include "config.hpp"
 
+#include <filesystem>
+#include <fstream>
+
 #include "../filesystem/filesystem.hpp"
+
+namespace fs = std::filesystem;
 
 zephir::Config::Config()
     : ns_(),
@@ -52,9 +57,13 @@ zephir::ConfigPtr zephir::Config::Load(const std::string &path) {
 
 void zephir::Config::DumpToFile() {
   if (changed_ && !path_.empty() && !zephir::filesystem::Exists(path_)) {
-    // TODO(klay):
-    // 1. Convert container_ to yaml
-    // 2. Write yaml to path_
+    auto yaml = YAML::convert<zephir::ConfigPtr>::encode(shared_from_this());
+
+    fs::path path(path_);
+    std::ofstream ofs(path);
+
+    ofs << yaml;
+    ofs.close();
   }
 }
 
