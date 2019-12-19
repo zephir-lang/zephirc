@@ -17,4 +17,4 @@ target_include_directories(
 # Instruments the library
 target_code_coverage(config AUTO ALL)
 
-target_link_libraries(config PUBLIC CONAN_PKG::yaml-cpp stdc++fs filesystem)
+target_link_libraries(config PUBLIC CONAN_PKG::yaml-cpp filesystem)
