@@ -42,6 +42,15 @@ class Warnings {
   bool operator==(const Warnings &rhs) const;
   Warnings &operator=(const Warnings &rhs);
 
+  /**
+   * @brief Sets a warning flag value.
+   *
+   * @param key The flag.
+   * @param value The value.
+   * @return Return boolean true if flag is exists, boolean false otherwise.
+   */
+  bool SetValue(const std::string &key, const bool &value);
+
  private:
   std::map<std::string, bool> container_;
 };

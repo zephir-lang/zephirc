@@ -60,3 +60,14 @@ TEST_F(ConfigBaseTest, CorrectConfigFile) {
 
   EXPECT_TRUE(config->IsChanged());
 }
+
+TEST_F(ConfigBaseTest, UpdateWarning) {
+  auto config = std::make_shared<zephir::Config>();
+  EXPECT_FALSE(config->IsChanged());
+
+  config->SetWarning("non-existent-key", true);
+  EXPECT_FALSE(config->IsChanged());
+
+  config->SetWarning("unused-variable", true);
+  EXPECT_TRUE(config->IsChanged());
+}

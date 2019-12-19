@@ -74,3 +74,9 @@ bool zephir::Config::operator==(const zephir::Config &rhs) const {
 }
 
 zephir::Config &zephir::Config::operator=(const zephir::Config &rhs) = default;
+
+void zephir::Config::SetWarning(const std::string &key, const bool &value) {
+  if (warnings_.SetValue(key, value)) {
+    changed_ = true;
+  }
+}
