@@ -7,7 +7,6 @@
 
 #include "config.hpp"
 
-#include <filesystem>
 #include <fstream>
 
 #include "../filesystem/filesystem.hpp"
