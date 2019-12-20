@@ -100,6 +100,8 @@ class Config {
   bool operator==(const Config &rhs) const;
   Config &operator=(const Config &rhs);
 
+  void SetWarning(const std::string &key, const bool &value);
+
  private:
   /**
    * @brief The namespace of the extension.

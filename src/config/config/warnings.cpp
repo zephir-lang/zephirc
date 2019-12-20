@@ -7,6 +7,7 @@
 
 #include "warnings.hpp"
 
+#include <algorithm>
 #include <tuple>
 
 zephir::config::Warnings::Warnings()
@@ -50,3 +51,14 @@ bool zephir::config::Warnings::operator==(
 
 zephir::config::Warnings &zephir::config::Warnings::operator=(
     const zephir::config::Warnings &rhs) = default;
+
+bool zephir::config::Warnings::SetValue(const std::string &key,
+                                        const bool &value) {
+  auto it = container_.find(key);
+  if (it != container_.end()) {
+    it->second = value;
+    return true;
+  }
+
+  return false;
+}
