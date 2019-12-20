@@ -37,7 +37,8 @@ endif()
 include(Bootstrap)
 include(Cppcheck)
 
-if(NOT EXISTS "${zephir_SOURCE_DIR}/external/cmake-scripts/c++-standards.cmake")
+if(NOT EXISTS "${zephir_SOURCE_DIR}/external/cmake-scripts/c++-standards.cmake"
+   OR NOT EXISTS "${zephir_SOURCE_DIR}/tests/sharness/sharness.sh")
   # Here, it provides the GIT_EXECUTABLE variable after searching for the git
   # binary in some standard/well-known locations for the current platform.
   find_package(Git REQUIRED)
