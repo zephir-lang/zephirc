@@ -50,7 +50,7 @@ deps: $(TESTSDIR)/$(SHARNESS)
 
 $(TESTSDIR)/$(SHARNESS): git
 	@echo "*** checking $@ ***"
-	@cd "$(PROJECTDIR)" git submodule update --remote --merge
+	@cd "$(PROJECTDIR)" git submodule update --init
 
 git:
 	@echo "*** checking $@ ***"
