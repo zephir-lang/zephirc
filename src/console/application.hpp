@@ -25,16 +25,6 @@ class Application {
   explicit Application(std::vector<std::string> args, std::string base_path);
   Application(const Application&) = delete;
 
-  /**
-   * @brief Application destructor.
-   */
-  ~Application();
-
-  /**
-   * @brief Dumps the project configuration to the disk if it has been changed.
-   */
-  void DumpConfig();
-
   void AddCommand(commands::CommandPtr command);
   int Run();
   Application& operator=(const Application&) = delete;

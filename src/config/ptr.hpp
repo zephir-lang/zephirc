@@ -5,14 +5,14 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#ifndef ZEPHIR_CONFIG_PTR_API_HPP_
-#define ZEPHIR_CONFIG_PTR_API_HPP_
+#ifndef ZEPHIR_CONFIG_PTR_HPP
+#define ZEPHIR_CONFIG_PTR_HPP
 
 #include <memory>
 
-namespace zephir::config {
-class Api;
-using ApiPtr = std::shared_ptr<Api>;
-}  // namespace zephir::config
+namespace zephir {
+class Config;
+using ConfigPtr = std::shared_ptr<Config>;
+}  // namespace zephir
 
-#endif  // ZEPHIR_CONFIG_PTR_API_HPP_
+#endif  // ZEPHIR_SRC_CONFIG_PTR_HPP

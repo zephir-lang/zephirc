@@ -39,7 +39,7 @@ gtest_discover_tests(
   TEST_PREFIX zephir:
   PROPERTIES LABELS OptionsTest)
 
-file(GLOB_RECURSE CONFIG_TESTS ${CMAKE_CURRENT_SOURCE_DIR}/config/*.cpp)
+file(GLOB CONFIG_TESTS ${CMAKE_CURRENT_SOURCE_DIR}/config/*.cpp)
 add_executable(config_test main.cpp env/base.cpp ${CONFIG_TESTS})
 
 target_include_directories(
