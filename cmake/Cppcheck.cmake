@@ -58,7 +58,7 @@ if(CPPCHECK_BIN)
   if(CPPCHECK)
     set(CMAKE_CXX_CPPCHECK
         "${CPPCHECK_BIN}"
-        "--enable=warning,performance,portability,missingInclude"
+        "--enable=warning,portability,missingInclude"
         "--language=c++"
         "--std=c++17"
         "--template={file}:{line}:{column}:\ {severity}:\ {message}\ [--suppress={id}]\\n{code}"

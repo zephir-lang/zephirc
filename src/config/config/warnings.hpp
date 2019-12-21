@@ -49,10 +49,9 @@ class Warnings {
    * @param value The value.
    * @return Return boolean true if flag is exists, boolean false otherwise.
    */
-  bool SetValue(const std::string &key, const bool &value);
+  bool update(const std::string &key, const bool &value);
 
- private:
-  std::map<std::string, bool> container_;
+  std::map<std::string, bool> container;
 };
 }  // namespace zephir::config
 #endif  // ZEPHIR_CONFIG_WARNINGS_HPP_

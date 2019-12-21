@@ -11,7 +11,7 @@
 #include <tuple>
 
 zephir::config::Warnings::Warnings()
-    : container_({
+    : container({
           {"unused-variable", true},
           {"unused-variable-external", false},
           {"possible-wrong-parameter", true},
@@ -38,24 +38,21 @@ zephir::config::Warnings::Warnings()
           {"conditional-initialization", true},
       }) {}
 
-zephir::config::Warnings::Warnings(std::map<std::string, bool> container)
-    : container_(std::move(container)) {}
+zephir::config::Warnings::Warnings(std::map<std::string, bool> new_container)
+    : container(std::move(new_container)) {}
 
 bool zephir::config::Warnings::operator==(
     const zephir::config::Warnings &rhs) const {
-  auto lhs_key = std::tie(container_);
-  auto rhs_key = std::tie(rhs.container_);
-
-  return lhs_key == rhs_key;
+  return std::tie(container) == std::tie(rhs.container);
 }
 
 zephir::config::Warnings &zephir::config::Warnings::operator=(
     const zephir::config::Warnings &rhs) = default;
 
-bool zephir::config::Warnings::SetValue(const std::string &key,
-                                        const bool &value) {
-  auto it = container_.find(key);
-  if (it != container_.end()) {
+bool zephir::config::Warnings::update(const std::string &key,
+                                      const bool &value) {
+  auto it = container.find(key);
+  if (it != container.end()) {
     it->second = value;
     return true;
   }

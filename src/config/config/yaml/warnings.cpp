@@ -11,7 +11,7 @@ YAML::Node YAML::convert<zephir::config::WarningsPtr>::encode(
     const zephir::config::WarningsPtr &wptr) {
   Node node;
 
-  for (auto const &[key, val] : wptr->container_) {
+  for (auto const &[key, val] : wptr->container) {
     node[key] = val;
   }
 
@@ -25,8 +25,8 @@ bool YAML::convert<zephir::config::WarningsPtr>::decode(
   }
 
   for (YAML::const_iterator n = node.begin(); n != node.end(); ++n) {
-    auto it = wptr->container_.find(n->first.as<std::string>());
-    if (it != wptr->container_.end() && n->second.IsScalar()) {
+    auto it = wptr->container.find(n->first.as<std::string>());
+    if (it != wptr->container.end() && n->second.IsScalar()) {
       it->second = n->second.as<bool>();
     }
   }
