@@ -7,22 +7,29 @@
 
 #include <gtest/gtest.h>
 
+#include <cstdio>
 #include <string>
 
 #include "asserts.hpp"
 #include "config/config.hpp"
 #include "env/base.hpp"
+#include "filesystem/filesystem.hpp"
 
 using input_t = std::vector<std::string>;
 
 class ConfigBaseTest : public ::testing::Test {
  protected:
   ConfigBaseTest() : argv() {}
+  void TearDown() override {
+    if (zephir::filesystem::exists("foo")) {
+      remove("foo");
+    }
+  }
   input_t argv;
 };
 
 TEST_F(ConfigBaseTest, SimpleConstructor) {
-  zephir::Config expected("foo");
+  zephir::Config expected("fake");
 
   EXPECT_FALSE(expected.changed());
   EXPECT_FALSE(expected.loaded());
@@ -93,7 +100,7 @@ TEST_F(ConfigBaseTest, GetValue) {
 }
 
 TEST_F(ConfigBaseTest, SetValue) {
-  auto config = std::make_shared<zephir::Config>("");
+  auto config = std::make_shared<zephir::Config>("foo");
   EXPECT_FALSE(config->changed());
 
   auto silent = config->get<bool>("silent", true);
