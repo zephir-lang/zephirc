@@ -28,7 +28,7 @@ zephir::Config::Config::~Config() {
 }
 
 void zephir::Config::dump() {
-  if (path_.empty() && !zephir::filesystem::exists(path_)) {
+  if (!path_.empty() && !zephir::filesystem::exists(path_)) {
     std::ofstream file(path_);
     file << container_;
     file.close();

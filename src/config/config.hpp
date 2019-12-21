@@ -15,21 +15,6 @@
 
 #include "ptr.hpp"
 
-// TODO(klay): Add config sections:
-// - constants-sources
-// - destructors
-// - extension-name
-// - external-dependencies
-// - extra-cflags
-// - extra-classes
-// - extra-libs
-// - extra-sources
-// - globals
-// - info
-// - initializers
-// - optimizer-dirs
-// - package-dependencies
-// - prototype-dir
 namespace zephir {
 /**
  * @brief Manages compiler global configuration.

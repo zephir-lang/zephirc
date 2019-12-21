@@ -93,7 +93,7 @@ TEST_F(ConfigBaseTest, GetValue) {
 }
 
 TEST_F(ConfigBaseTest, SetValue) {
-  auto config = std::make_shared<zephir::Config>("foo");
+  auto config = std::make_shared<zephir::Config>("");
   EXPECT_FALSE(config->changed());
 
   auto silent = config->get<bool>("silent", true);
