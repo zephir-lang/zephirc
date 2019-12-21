@@ -7,6 +7,8 @@
 
 #include <gtest/gtest.h>
 
+#include <string>
+
 #include "asserts.hpp"
 #include "config/config.hpp"
 #include "env/base.hpp"
@@ -33,6 +35,7 @@ TEST_F(ConfigBaseTest, DoNothingOnHelp) {
   std::cout.rdbuf(oldCoutStreamBuf);
 
   EXPECT_FALSE(config->changed());
+  EXPECT_FALSE(config->loaded());
 }
 
 TEST_F(ConfigBaseTest, BrokenConfigFile) {
@@ -58,10 +61,28 @@ TEST_F(ConfigBaseTest, CorrectConfigFile) {
   auto file = tests_root + "/fixtures/phalcon-4x.yml";
   auto config = zephir::Config::factory(argv, file).get();
 
-  EXPECT_TRUE(config->changed());
+  EXPECT_FALSE(config->changed());
+  EXPECT_TRUE(config->loaded());
 }
 
-//TEST_F(ConfigBaseTest, UpdateWarning) {
+TEST_F(ConfigBaseTest, GetSimpleValue) {
+  auto tests_root = TestEnvironment::tests_root();
+  if (tests_root.empty()) {
+    GTEST_SKIP();
+  }
+
+  argv.assign({});
+  auto file = tests_root + "/fixtures/legacy.yml";
+  auto config = zephir::Config::factory(argv, file);
+
+  auto actual = config->get<std::string>("author", "undefined");
+  EXPECT_EQ("Zephir Team", actual);
+
+  actual = config->get<std::string>("foo", "bar");
+  EXPECT_EQ("bar", actual);
+}
+
+// TEST_F(ConfigBaseTest, UpdateWarning) {
 //  auto config = std::make_shared<zephir::Config>();
 //  EXPECT_FALSE(config->changed());
 //

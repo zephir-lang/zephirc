@@ -13,7 +13,7 @@
 #include "../filesystem/filesystem.hpp"
 
 zephir::Config::Config(std::string path)
-    : container_(), path_(std::move(path)), changed_(false) {
+    : container_(), path_(std::move(path)), changed_(false), loaded_(false) {
   container_ = YAML::Load(R"(
   {
     namespace: null,
@@ -107,6 +107,7 @@ void zephir::Config::populate() {
   // because we did check for file existence before.
   try {
     auto yaml = YAML::LoadFile(path_);
+    loaded_ = true;
 
     for (YAML::const_iterator it = yaml.begin(); it != yaml.end(); ++it) {
       const auto &key = it->first.as<std::string>();
@@ -120,6 +121,7 @@ void zephir::Config::populate() {
 }
 
 bool zephir::Config::changed() { return changed_; }
+bool zephir::Config::loaded() { return loaded_; }
 
 zephir::ConfigPtr zephir::Config::factory(std::vector<std::string> &options,
                                           const std::string &path) {
@@ -137,14 +139,3 @@ bool zephir::Config::operator==(const zephir::Config &rhs) const {
 }
 
 zephir::Config &zephir::Config::operator=(const zephir::Config &rhs) = default;
-
-template <class T, class S>
-T zephir::Config::get(const std::string &key, const S &fallback) const {
-  return container_[key].as<T, S>(fallback);
-}
-
-template <class T, class S>
-T zephir::Config::get(const std::string &key, const std::string &ns,
-                      const S &fallback) const {
-  return container_[ns][key].as<T, S>(fallback);
-}

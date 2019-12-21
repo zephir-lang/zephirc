@@ -10,9 +10,10 @@
 
 #include <yaml-cpp/yaml.h>
 
-#include <memory>
 #include <string>
 #include <vector>
+
+#include "ptr.hpp"
 
 // TODO(klay): Add config sections:
 // - constants-sources
@@ -30,10 +31,6 @@
 // - package-dependencies
 // - prototype-dir
 namespace zephir {
-
-class Config;
-using ConfigPtr = std::shared_ptr<Config>;
-
 /**
  * @brief Manages compiler global configuration.
  */
@@ -51,8 +48,10 @@ class Config {
    */
   bool changed();
 
+  bool loaded();
+
   /**
-   * @brief factory method to create a Config instance from argv and config
+   * \brief factory method to create a Config instance from argv and config
    * file. Initialize configuration from both the CLI and a possible config
    * file.
    *
@@ -72,12 +71,13 @@ class Config {
   Config &operator=(const Config &rhs);
 
   /// Getting a value by its key
-  template <class T, class S>
-  T get(const std::string &key, const S &fallback) const;
+  template <typename T>
+  inline T get(const std::string &key, const T &fallback) const;
 
   /// Getting a value by its key and namespace
-  template <class T, class S>
-  T get(const std::string &key, const std::string &ns, const S &fallback) const;
+  template <class T>
+  inline T get(const std::string &key, const std::string &ns,
+               const T &fallback) const;
 
  private:
   YAML::Node container_;
@@ -96,7 +96,11 @@ class Config {
    * @brief Is project configuration was changed?
    */
   bool changed_;
+
+  bool loaded_;
 };
 }  // namespace zephir
+
+#include "impl.hpp"
 
 #endif  // ZEPHIR_CONFIG_HPP_
