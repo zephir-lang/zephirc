@@ -92,13 +92,22 @@ TEST_F(ConfigBaseTest, GetValue) {
   EXPECT_FALSE(stubs);
 }
 
-// TEST_F(ConfigBaseTest, UpdateWarning) {
-//  auto config = std::make_shared<zephir::Config>();
-//  EXPECT_FALSE(config->changed());
-//
-//  config->SetWarning("non-existent-key", true);
-//  EXPECT_FALSE(config->changed());
-//
-//  config->SetWarning("unused-variable", true);
-//  EXPECT_TRUE(config->changed());
-//}
+TEST_F(ConfigBaseTest, SetValue) {
+  auto config = std::make_shared<zephir::Config>("foo");
+  EXPECT_FALSE(config->changed());
+
+  auto silent = config->get<bool>("silent", true);
+  EXPECT_FALSE(silent);
+
+  config->set("silent", true);
+  silent = config->get<bool>("silent", true);
+  EXPECT_TRUE(silent);
+  EXPECT_TRUE(config->changed());
+
+  auto warn = config->get("unused-variable", "warnings", false);
+  EXPECT_TRUE(warn);
+
+  config->set("unused-variable", "warnings", false);
+  warn = config->get("unused-variable", "warnings", false);
+  EXPECT_FALSE(warn);
+}

@@ -21,5 +21,24 @@ inline T zephir::Config::get(const std::string &key, const std::string &ns,
                              const T &fallback) const {
   return container_[ns][key].as<T, T>(fallback);
 }
+
+template <typename T>
+inline zephir::Config &zephir::Config::set(const std::string &key,
+                                           const T &rhs) {
+  changed_ = true;
+  container_[key] = rhs;
+
+  return *this;
+}
+
+template <typename T>
+inline zephir::Config &zephir::Config::set(const std::string &key,
+                                           const std::string &ns,
+                                           const T &rhs) {
+  changed_ = true;
+  container_[ns][key] = rhs;
+
+  return *this;
+}
 }  // namespace zephir
 #endif  // ZEPHIR_CONFIG_IMPL_HPP_

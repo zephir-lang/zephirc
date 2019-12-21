@@ -7,6 +7,7 @@
 
 #include "config.hpp"
 
+#include <fstream>
 #include <sstream>
 #include <utility>
 
@@ -20,8 +21,22 @@ zephir::Config::Config(std::string path)
   populate();
 }
 
+zephir::Config::Config::~Config() {
+  if (changed_) {
+    dump();
+  }
+}
+
+void zephir::Config::dump() {
+  if (path_.empty() && !zephir::filesystem::exists(path_)) {
+    std::ofstream file(path_);
+    file << container_;
+    file.close();
+  }
+}
+
 void zephir::Config::populate() {
-  if (path_.empty() || !zephir::filesystem::Exists(path_)) {
+  if (path_.empty() || !zephir::filesystem::exists(path_)) {
     // Nothing to do if we unable to find config file at the disk.
     return;
   }
@@ -57,13 +72,7 @@ zephir::ConfigPtr zephir::Config::factory(std::vector<std::string> &options,
   return config;
 }
 
-bool zephir::Config::operator==(const zephir::Config &rhs) const {
-  return std::tie(container_) == std::tie(rhs.container_);
-}
-
-zephir::Config &zephir::Config::operator=(const zephir::Config &rhs) = default;
-
-inline std::string zephir::Config::getInitData() noexcept {
+std::string zephir::Config::getInitData() noexcept {
   return R"(
   {
     namespace: null,

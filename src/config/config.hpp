@@ -42,6 +42,16 @@ class Config {
   explicit Config(std::string path);
 
   /**
+   * @brief Config destructor.
+   */
+  ~Config();
+
+  /**
+   * @brief Dumps the project configuration to the disk.
+   */
+  void dump();
+
+  /**
    * @brief Is config changed?
    *
    * @return true if default config is changed, false otherwise.
@@ -67,20 +77,24 @@ class Config {
   static ConfigPtr factory(std::vector<std::string> &options,
                            const std::string &path);
 
-  bool operator==(const Config &rhs) const;
-  Config &operator=(const Config &rhs);
-
   /// Getting a value by its key
   template <typename T>
   inline T get(const std::string &key, const T &fallback) const;
 
   /// Getting a value by its key and namespace
-  template <class T>
+  template <typename T>
   inline T get(const std::string &key, const std::string &ns,
                const T &fallback) const;
 
+  template <typename T>
+  inline Config &set(const std::string &key, const T &rhs);
+
+  template <typename T>
+  inline Config &set(const std::string &key, const std::string &ns,
+                     const T &rhs);
+
  private:
-  static inline std::string getInitData() noexcept;
+  static std::string getInitData() noexcept;
 
   YAML::Node container_;
 

@@ -37,7 +37,7 @@ static inline std::vector<std::string> prepare_args(int argc, char** argv) {
 
 int main(int argc, char** argv) {
   auto args = prepare_args(argc, argv);
-  auto base_path = zephir::filesystem::GetCurrentWorkingPath();
+  auto base_path = zephir::filesystem::cwd();
   auto app = std::make_unique<zephir::console::Application>(args, base_path);
 
   app->AddCommand(std::make_unique<ApiCommand>("api"));

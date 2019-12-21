@@ -85,18 +85,3 @@ int zephir::console::Application::Run() {
 
   return 0;
 }
-
-zephir::console::Application::~Application() { DumpConfig(); }
-
-void zephir::console::Application::DumpConfig() {
-  //  if (config_ && config_->changed() && !base_path_.empty()) {
-  //    auto config_file = base_path_ + "/.zephir";
-  //
-  //    if (!zephir::filesystem::Exists(config_file)) {
-  //      auto yaml = YAML::convert<zephir::ConfigPtr>::encode(config_);
-  //      std::ofstream file(config_file);
-  //      file << yaml;
-  //      file.close();
-  //    }
-  //  }
-}
