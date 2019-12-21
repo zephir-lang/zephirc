@@ -80,6 +80,8 @@ class Config {
                const T &fallback) const;
 
  private:
+  static inline std::string getInitData() noexcept;
+
   YAML::Node container_;
 
   /**

@@ -13,8 +13,58 @@
 #include "../filesystem/filesystem.hpp"
 
 zephir::Config::Config(std::string path)
-    : container_(), path_(std::move(path)), changed_(false), loaded_(false) {
-  container_ = YAML::Load(R"(
+    : container_(YAML::Load(getInitData())),
+      path_(std::move(path)),
+      changed_(false),
+      loaded_(false) {
+  populate();
+}
+
+void zephir::Config::populate() {
+  if (path_.empty() || !zephir::filesystem::Exists(path_)) {
+    // Nothing to do if we unable to find config file at the disk.
+    return;
+  }
+
+  // YAML::BadFile should normally never thrown here
+  // because we did check for file existence before.
+  try {
+    auto yaml = YAML::LoadFile(path_);
+    loaded_ = true;
+
+    for (YAML::const_iterator it = yaml.begin(); it != yaml.end(); ++it) {
+      const auto &key = it->first.as<std::string>();
+      if (it->second.IsDefined()) {
+        container_[key] = it->second;
+      }
+    }
+  } catch (YAML::ParserException &e) {
+    throw std::runtime_error("Config file is broken");
+  }
+}
+
+bool zephir::Config::changed() { return changed_; }
+bool zephir::Config::loaded() { return loaded_; }
+
+zephir::ConfigPtr zephir::Config::factory(std::vector<std::string> &options,
+                                          const std::string &path) {
+  auto config = std::make_shared<zephir::Config>(path);
+
+  if (!options.empty()) {
+    // TODO(klay): Process config, use argv
+  }
+
+  return config;
+}
+
+bool zephir::Config::operator==(const zephir::Config &rhs) const {
+  return std::tie(container_) == std::tie(rhs.container_);
+}
+
+zephir::Config &zephir::Config::operator=(const zephir::Config &rhs) = default;
+
+inline std::string zephir::Config::getInitData() noexcept {
+  return R"(
   {
     namespace: null,
     name: null,
@@ -92,50 +142,5 @@ zephir::Config::Config(std::string path)
       indent: spaces,
       export-classes: false
     }
-  })");
-
-  populate();
+  })";
 }
-
-void zephir::Config::populate() {
-  if (path_.empty() || !zephir::filesystem::Exists(path_)) {
-    // Nothing to do if we unable to find config file at the disk.
-    return;
-  }
-
-  // YAML::BadFile should normally never thrown here
-  // because we did check for file existence before.
-  try {
-    auto yaml = YAML::LoadFile(path_);
-    loaded_ = true;
-
-    for (YAML::const_iterator it = yaml.begin(); it != yaml.end(); ++it) {
-      const auto &key = it->first.as<std::string>();
-      if (it->second.IsDefined()) {
-        container_[key] = it->second;
-      }
-    }
-  } catch (YAML::ParserException &e) {
-    throw std::runtime_error("Config file is broken");
-  }
-}
-
-bool zephir::Config::changed() { return changed_; }
-bool zephir::Config::loaded() { return loaded_; }
-
-zephir::ConfigPtr zephir::Config::factory(std::vector<std::string> &options,
-                                          const std::string &path) {
-  auto config = std::make_shared<zephir::Config>(path);
-
-  if (!options.empty()) {
-    // TODO(klay): Process config, use argv
-  }
-
-  return config;
-}
-
-bool zephir::Config::operator==(const zephir::Config &rhs) const {
-  return std::tie(container_) == std::tie(rhs.container_);
-}
-
-zephir::Config &zephir::Config::operator=(const zephir::Config &rhs) = default;

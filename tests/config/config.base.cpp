@@ -21,6 +21,13 @@ class ConfigBaseTest : public ::testing::Test {
   input_t argv;
 };
 
+TEST_F(ConfigBaseTest, SimpleConstructor) {
+  zephir::Config expected("foo");
+
+  EXPECT_FALSE(expected.changed());
+  EXPECT_FALSE(expected.loaded());
+}
+
 TEST_F(ConfigBaseTest, DoNothingOnHelp) {
   argv.assign({"--help"});
 
@@ -65,7 +72,7 @@ TEST_F(ConfigBaseTest, CorrectConfigFile) {
   EXPECT_TRUE(config->loaded());
 }
 
-TEST_F(ConfigBaseTest, GetSimpleValue) {
+TEST_F(ConfigBaseTest, GetValue) {
   auto tests_root = TestEnvironment::tests_root();
   if (tests_root.empty()) {
     GTEST_SKIP();
@@ -80,6 +87,9 @@ TEST_F(ConfigBaseTest, GetSimpleValue) {
 
   actual = config->get<std::string>("foo", "bar");
   EXPECT_EQ("bar", actual);
+
+  auto stubs = config->get<bool>("stubs-run-after-generate", "stubs", true);
+  EXPECT_FALSE(stubs);
 }
 
 // TEST_F(ConfigBaseTest, UpdateWarning) {
