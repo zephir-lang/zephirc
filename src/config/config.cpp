@@ -63,24 +63,21 @@ bool zephir::Config::loaded() { return loaded_; }
 zephir::ConfigPtr zephir::Config::factory(std::vector<std::string> &options,
                                           const std::string &path) {
   auto config = std::make_shared<zephir::Config>(path);
-  std::vector<std::string> new_opts({});
 
-  if (!options.empty()) {
-    for (const auto &op : options) {
-      std::smatch match;
+  const std::regex no_optimizations("^-fno-([a-z0-9-]+)$");
 
-      std::regex no_optimizations("^-fno-([a-z0-9-]+)$");
-      if (std::regex_search(op, match, no_optimizations)) {
-        auto matched = match.str(1);
-        config->set(match.str(1), "optimizations", false);
-        continue;
-      }
-
-      new_opts.push_back(op);
+  const auto check = [&](const std::string &op) {
+    std::smatch match;
+    if (std::regex_search(op, match, no_optimizations)) {
+      config->set(match.str(1), "optimizations", false);
+      return true;
     }
 
-    options = new_opts;
-  }
+    return false;
+  };
+
+  options.erase(std::remove_if(std::begin(options), std::end(options), check),
+                std::end(options));
 
   return config;
 }
