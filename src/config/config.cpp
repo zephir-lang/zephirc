@@ -66,7 +66,7 @@ bool zephir::Config::has(const std::string &key) const {
 }
 
 bool zephir::Config::has(const std::string &key, const std::string &ns) const {
-  return container_[ns][key].IsDefined();
+  return container_[ns].IsDefined() && container_[ns][key].IsDefined();
 }
 
 zephir::ConfigPtr zephir::Config::factory(std::vector<std::string> &options,
