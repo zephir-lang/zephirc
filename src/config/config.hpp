@@ -24,7 +24,7 @@ class Config {
   /**
    * @brief Config constructor.
    */
-  explicit Config(std::string path);
+  explicit Config(const std::string &path);
 
   /**
    * @brief Config destructor.
@@ -91,7 +91,7 @@ class Config {
   /**
    * @brief Used path to load project configuration.
    */
-  std::string path_;
+  const std::string &path_;
 
   /**
    * @brief Is project configuration was changed?

@@ -8,14 +8,14 @@
 #include "config.hpp"
 
 #include <fstream>
+#include <regex>
 #include <sstream>
-#include <utility>
 
 #include "../filesystem/filesystem.hpp"
 
-zephir::Config::Config(std::string path)
+zephir::Config::Config(const std::string &path)
     : container_(YAML::Load(getInitData())),
-      path_(std::move(path)),
+      path_(path),
       changed_(false),
       loaded_(false) {
   populate();
@@ -66,7 +66,17 @@ zephir::ConfigPtr zephir::Config::factory(std::vector<std::string> &options,
   auto config = std::make_shared<zephir::Config>(path);
 
   if (!options.empty()) {
-    // TODO(klay): Process config, use argv
+    for (const auto &op : options) {
+      std::smatch match;
+
+      std::regex no_optimizations("^-fno-([a-z0-9-]+)$");
+      if (std::regex_search(op, match, no_optimizations)) {
+        auto matched = match.str(1);
+        auto drop = find(options.begin(), options.end(), matched);
+        config->set(match.str(1), "optimizations", false);
+        options.erase(drop);
+      }
+    }
   }
 
   return config;

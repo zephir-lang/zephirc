@@ -22,7 +22,9 @@ class CleanCmdTest : public ::testing::Test {
 
 TEST_F(CleanCmdTest, RunWithoutOptions) {
   argv.assign({"clean"});
-  auto app = std::make_unique<zephir::console::Application>(argv, "tests");
+  auto config = std::make_shared<zephir::Config>("foo");
+  auto app =
+      std::make_unique<zephir::console::Application>(config, argv, "tests");
   app->AddCommand(std::make_unique<CleanCommand>("clean"));
 
   auto retval = app->Run();

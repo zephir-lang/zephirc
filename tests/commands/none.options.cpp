@@ -27,7 +27,9 @@ TEST_P(NoneCmdTest, RunUsingGlobalOptions) {
 
   argv.assign({option});
 
-  auto app = std::make_unique<zephir::console::Application>(argv, "tests");
+  auto config = std::make_shared<zephir::Config>("foo");
+  auto app =
+      std::make_unique<zephir::console::Application>(config, argv, "tests");
   auto actual = app->Run();
 
   EXPECT_EQ(expected, actual);

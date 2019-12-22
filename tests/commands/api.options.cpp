@@ -22,7 +22,9 @@ class ApiCmdTest : public ::testing::Test {
 
 TEST_F(ApiCmdTest, RunWithoutOptions) {
   argv.assign({"api"});
-  auto app = std::make_unique<zephir::console::Application>(argv, "tests");
+  auto config = std::make_shared<zephir::Config>("foo");
+  auto app =
+      std::make_unique<zephir::console::Application>(config, argv, "tests");
   app->AddCommand(std::make_unique<ApiCommand>("api"));
 
   auto retval = app->Run();

@@ -111,10 +111,17 @@ TEST_F(ConfigBaseTest, SetValue) {
   EXPECT_TRUE(silent);
   EXPECT_TRUE(config->changed());
 
-  auto warn = config->get("unused-variable", "warnings", false);
-  EXPECT_TRUE(warn);
+  EXPECT_TRUE(config->get("unused-variable", "warnings", false));
 
   config->set("unused-variable", "warnings", false);
-  warn = config->get("unused-variable", "warnings", false);
-  EXPECT_FALSE(warn);
+  EXPECT_FALSE(config->get("unused-variable", "warnings", false));
+}
+
+TEST_F(ConfigBaseTest, SetValueFromCli) {
+  argv.assign({"-fno-constant-folding"});
+  auto config = zephir::Config::factory(argv, "foo");
+
+  EXPECT_TRUE(config->changed());
+  EXPECT_FALSE(config->get("constant-folding", "optimizations", true));
+  EXPECT_TRUE(argv.empty());
 }
