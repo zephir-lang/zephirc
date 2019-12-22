@@ -9,7 +9,6 @@
 
 #include <fstream>
 #include <regex>
-#include <sstream>
 
 #include "../filesystem/filesystem.hpp"
 
@@ -64,6 +63,7 @@ bool zephir::Config::loaded() { return loaded_; }
 zephir::ConfigPtr zephir::Config::factory(std::vector<std::string> &options,
                                           const std::string &path) {
   auto config = std::make_shared<zephir::Config>(path);
+  std::vector<std::string> new_opts({});
 
   if (!options.empty()) {
     for (const auto &op : options) {
@@ -72,11 +72,14 @@ zephir::ConfigPtr zephir::Config::factory(std::vector<std::string> &options,
       std::regex no_optimizations("^-fno-([a-z0-9-]+)$");
       if (std::regex_search(op, match, no_optimizations)) {
         auto matched = match.str(1);
-        auto drop = find(options.begin(), options.end(), matched);
         config->set(match.str(1), "optimizations", false);
-        options.erase(drop);
+        continue;
       }
+
+      new_opts.push_back(op);
     }
+
+    options = new_opts;
   }
 
   return config;
