@@ -62,6 +62,12 @@ class Config {
   static ConfigPtr factory(std::vector<std::string> &options,
                            const std::string &path);
 
+  /// Check for a key existence
+  bool has(const std::string &key) const;
+
+  /// Check for a key existence in the given namespace
+  bool has(const std::string &key, const std::string &ns) const;
+
   /// Getting a value by its key
   template <typename T>
   inline T get(const std::string &key, const T &fallback) const;

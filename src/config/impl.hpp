@@ -19,7 +19,11 @@ inline T Config::get(const std::string &key, const T &fallback) const {
 template <typename T>
 inline T zephir::Config::get(const std::string &key, const std::string &ns,
                              const T &fallback) const {
-  return container_[ns][key].as<T, T>(fallback);
+  if (container_[ns].IsDefined()) {
+    return container_[ns][key].as<T, T>(fallback);
+  }
+
+  return fallback;
 }
 
 template <typename T>

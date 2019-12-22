@@ -117,11 +117,20 @@ TEST_F(ConfigBaseTest, SetValue) {
   EXPECT_FALSE(config->get("unused-variable", "warnings", false));
 }
 
-TEST_F(ConfigBaseTest, SetValueFromCli) {
+TEST_F(ConfigBaseTest, SetOptimizationFromCli) {
   argv.assign({"-fno-constant-folding"});
   auto config = zephir::Config::factory(argv, "foo");
 
   EXPECT_TRUE(config->changed());
   EXPECT_FALSE(config->get("constant-folding", "optimizations", true));
+  EXPECT_TRUE(argv.empty());
+}
+
+TEST_F(ConfigBaseTest, SetExtraFromCli) {
+  argv.assign({"--export-classes"});
+  auto config = zephir::Config::factory(argv, "foo");
+
+  EXPECT_TRUE(config->changed());
+  EXPECT_TRUE(config->get("export-classes", "extra", false));
   EXPECT_TRUE(argv.empty());
 }

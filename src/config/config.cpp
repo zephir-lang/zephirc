@@ -58,7 +58,16 @@ void zephir::Config::populate() {
 }
 
 bool zephir::Config::changed() { return changed_; }
+
 bool zephir::Config::loaded() { return loaded_; }
+
+bool zephir::Config::has(const std::string &key) const {
+  return container_[key].IsDefined();
+}
+
+bool zephir::Config::has(const std::string &key, const std::string &ns) const {
+  return container_[ns][key].IsDefined();
+}
 
 zephir::ConfigPtr zephir::Config::factory(std::vector<std::string> &options,
                                           const std::string &path) {
@@ -66,8 +75,9 @@ zephir::ConfigPtr zephir::Config::factory(std::vector<std::string> &options,
 
   const std::regex optimizations("^-f([a-z0-9-]+)$");
   const std::regex no_optimizations("^-fno-([a-z0-9-]+)$");
-  const std::regex warning("-w([a-z0-9-]+)$");
-  const std::regex no_warning("-W([a-z0-9-]+)$");
+  const std::regex warning("^-w([a-z0-9-]+)$");
+  const std::regex no_warning("^-W([a-z0-9-]+)$");
+  const std::regex extra("^--([a-z0-9-]+)$");
 
   const auto check = [&](const std::string &op) {
     std::smatch match;
@@ -89,6 +99,14 @@ zephir::ConfigPtr zephir::Config::factory(std::vector<std::string> &options,
     if (std::regex_search(op, match, no_warning)) {
       config->set(match.str(1), "warnings", false);
       return true;
+    }
+
+    if (std::regex_search(op, match, extra)) {
+      // Only known options
+      if (config->has(match.str(1), "extra")) {
+        config->set(match.str(1), "extra", true);
+        return true;
+      }
     }
 
     return false;
