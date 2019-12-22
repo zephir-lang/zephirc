@@ -64,12 +64,30 @@ zephir::ConfigPtr zephir::Config::factory(std::vector<std::string> &options,
                                           const std::string &path) {
   auto config = std::make_shared<zephir::Config>(path);
 
+  const std::regex optimizations("^-f([a-z0-9-]+)$");
   const std::regex no_optimizations("^-fno-([a-z0-9-]+)$");
+  const std::regex warning("-w([a-z0-9-]+)$");
+  const std::regex no_warning("-W([a-z0-9-]+)$");
 
   const auto check = [&](const std::string &op) {
     std::smatch match;
     if (std::regex_search(op, match, no_optimizations)) {
       config->set(match.str(1), "optimizations", false);
+      return true;
+    }
+
+    if (std::regex_search(op, match, optimizations)) {
+      config->set(match.str(1), "optimizations", true);
+      return true;
+    }
+
+    if (std::regex_search(op, match, warning)) {
+      config->set(match.str(1), "warnings", true);
+      return true;
+    }
+
+    if (std::regex_search(op, match, no_warning)) {
+      config->set(match.str(1), "warnings", false);
       return true;
     }
 
