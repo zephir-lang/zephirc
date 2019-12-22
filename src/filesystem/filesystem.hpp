@@ -17,14 +17,14 @@ namespace zephir::filesystem {
  * @param name The location of the file
  * @return true on success, false otherwise
  */
-bool Exists(const std::string& name) noexcept;
+bool exists(const std::string& name) noexcept;
 
 /**
  * @brief Gets current working compiler path.
  *
  * @return current working path
  */
-std::string GetCurrentWorkingPath();
+std::string cwd();
 }  // namespace zephir::filesystem
 
 #endif  // ZEPHIR_FILESYSTEM_HPP_
