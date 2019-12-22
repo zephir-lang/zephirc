@@ -46,11 +46,11 @@ aggregate: clean-test-results $(T)
 	ls test-results/t*-*.sh.*.counts | $(AGGREGATE)
 
 .PHONY: deps
-deps: $(TESTSDIR)/$(SHARNESSDIR)
+deps: $(TESTSDIR)/$(SHARNESS)
 
-$(TESTSDIR)/$(SHARNESSDIR): git
+$(TESTSDIR)/$(SHARNESS): git
 	@echo "*** checking $@ ***"
-	@cd "$(PROJECTDIR)" git submodule update --remote --merge
+	@cd "$(PROJECTDIR)" git submodule update --init
 
 git:
 	@echo "*** checking $@ ***"
