@@ -8,7 +8,7 @@
 #include <gtest/gtest.h>
 
 #include "config/config.hpp"
-#include "config_tester.hpp"
+#include "tester.hpp"
 
 TEST_F(ConfigBaseTest, DisableOptimizationFromCli) {
   argv.assign({"-fno-constant-folding"});
@@ -51,10 +51,11 @@ TEST_F(ConfigBaseTest, EnableExtraFromCli) {
 }
 
 TEST_F(ConfigBaseTest, SettingUnknownParameterHasNoEffect) {
-  argv.assign({"-undefined"});
+  argv.assign({"--undefined"});
   auto config = zephir::Config::factory(argv, "fake");
 
   auto actual = config->get<std::string>("undefined", "");
   EXPECT_EQ("", actual);
+  EXPECT_FALSE(config->get("undefined", "extra", false));
   EXPECT_FALSE(argv.empty());
 }

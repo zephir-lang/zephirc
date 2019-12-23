@@ -8,7 +8,7 @@
 #include <gtest/gtest.h>
 
 #include "config/config.hpp"
-#include "config_tester.hpp"
+#include "tester.hpp"
 
 TEST_F(ConfigBaseTest, GetValue) {
   auto tests_root = TestEnvironment::tests_root();
