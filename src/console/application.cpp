@@ -13,11 +13,12 @@
 
 #include "../filesystem/filesystem.hpp"
 
-zephir::console::Application::Application(std::vector<std::string> args,
-                                          std::string base_path)
+zephir::console::Application::Application(zephir::ConfigPtr config,
+                                          std::vector<std::string> args,
+                                          const std::string& base_path)
     : args_(std::move(args)),
-      base_path_(std::move(base_path)),
-      config_(zephir::Config::factory(args_, base_path_ + "/.zephir")),
+      base_path_(base_path),
+      config_(std::move(config)),
       formatter_(std::make_shared<zephir::console::Formatter>()),
       app_(std::make_shared<CLI::App>()),
       help_(nullptr),

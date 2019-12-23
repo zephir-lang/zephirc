@@ -24,26 +24,13 @@ class Config {
   /**
    * @brief Config constructor.
    */
-  explicit Config(std::string path);
-
-  /**
-   * @brief Config destructor.
-   */
-  ~Config();
+  explicit Config(const std::string &path);
 
   /**
    * @brief Dumps the project configuration to the disk.
+   * @param path Used path to dump project configuration.
    */
-  void dump();
-
-  /**
-   * @brief Is config changed?
-   *
-   * @return true if default config is changed, false otherwise.
-   */
-  bool changed();
-
-  bool loaded();
+  void dump(const std::string &path);
 
   /**
    * \brief factory method to create a Config instance from argv and config
@@ -61,6 +48,12 @@ class Config {
    */
   static ConfigPtr factory(std::vector<std::string> &options,
                            const std::string &path);
+
+  /// Check for a key existence
+  bool has(const std::string &key) const;
+
+  /// Check for a key existence in the given namespace
+  bool has(const std::string &key, const std::string &ns) const;
 
   /// Getting a value by its key
   template <typename T>
@@ -81,24 +74,13 @@ class Config {
  private:
   static std::string getInitData() noexcept;
 
-  YAML::Node container_;
-
   /**
    * \brief Populate config container_ from a file path_.
+   * @param path Used path to load project configuration.
    */
-  void populate();
+  void populate(const std::string &path);
 
-  /**
-   * @brief Used path to load project configuration.
-   */
-  std::string path_;
-
-  /**
-   * @brief Is project configuration was changed?
-   */
-  bool changed_;
-
-  bool loaded_;
+  YAML::Node container_;
 };
 }  // namespace zephir
 

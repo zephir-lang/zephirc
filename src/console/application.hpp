@@ -22,7 +22,8 @@ class Application {
   /**
    * @brief Application constructor.
    */
-  explicit Application(std::vector<std::string> args, std::string base_path);
+  explicit Application(zephir::ConfigPtr config, std::vector<std::string> args,
+                       const std::string& base_path);
   Application(const Application&) = delete;
 
   void AddCommand(commands::CommandPtr command);
@@ -31,7 +32,7 @@ class Application {
 
  private:
   std::vector<std::string> args_;
-  std::string base_path_;
+  const std::string& base_path_;
   zephir::ConfigPtr config_;
   std::shared_ptr<zephir::console::Formatter> formatter_;
   CLI::App_p app_;

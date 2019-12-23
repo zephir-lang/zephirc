@@ -19,14 +19,19 @@ inline T Config::get(const std::string &key, const T &fallback) const {
 template <typename T>
 inline T zephir::Config::get(const std::string &key, const std::string &ns,
                              const T &fallback) const {
-  return container_[ns][key].as<T, T>(fallback);
+  if (container_[ns].IsDefined()) {
+    return container_[ns][key].as<T, T>(fallback);
+  }
+
+  return fallback;
 }
 
 template <typename T>
 inline zephir::Config &zephir::Config::set(const std::string &key,
                                            const T &rhs) {
-  changed_ = true;
-  container_[key] = rhs;
+  if (!key.empty()) {
+    container_[key] = rhs;
+  }
 
   return *this;
 }
@@ -35,8 +40,9 @@ template <typename T>
 inline zephir::Config &zephir::Config::set(const std::string &key,
                                            const std::string &ns,
                                            const T &rhs) {
-  changed_ = true;
-  container_[ns][key] = rhs;
+  if (!ns.empty() && !key.empty()) {
+    container_[ns][key] = rhs;
+  }
 
   return *this;
 }
