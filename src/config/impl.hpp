@@ -30,7 +30,6 @@ template <typename T>
 inline zephir::Config &zephir::Config::set(const std::string &key,
                                            const T &rhs) {
   if (!key.empty()) {
-    changed_ = true;
     container_[key] = rhs;
   }
 
@@ -42,7 +41,6 @@ inline zephir::Config &zephir::Config::set(const std::string &key,
                                            const std::string &ns,
                                            const T &rhs) {
   if (!ns.empty() && !key.empty()) {
-    changed_ = true;
     container_[ns][key] = rhs;
   }
 

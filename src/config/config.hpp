@@ -27,23 +27,10 @@ class Config {
   explicit Config(const std::string &path);
 
   /**
-   * @brief Config destructor.
-   */
-  ~Config();
-
-  /**
    * @brief Dumps the project configuration to the disk.
+   * @param path Used path to dump project configuration.
    */
-  void dump();
-
-  /**
-   * @brief Is config changed?
-   *
-   * @return true if default config is changed, false otherwise.
-   */
-  bool changed();
-
-  bool loaded();
+  void dump(const std::string &path);
 
   /**
    * \brief factory method to create a Config instance from argv and config
@@ -87,24 +74,13 @@ class Config {
  private:
   static std::string getInitData() noexcept;
 
-  YAML::Node container_;
-
   /**
    * \brief Populate config container_ from a file path_.
+   * @param path Used path to load project configuration.
    */
-  void populate();
+  void populate(const std::string &path);
 
-  /**
-   * @brief Used path to load project configuration.
-   */
-  const std::string &path_;
-
-  /**
-   * @brief Is project configuration was changed?
-   */
-  bool changed_;
-
-  bool loaded_;
+  YAML::Node container_;
 };
 }  // namespace zephir
 

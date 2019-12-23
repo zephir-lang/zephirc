@@ -13,29 +13,20 @@
 #include "../filesystem/filesystem.hpp"
 
 zephir::Config::Config(const std::string &path)
-    : container_(YAML::Load(getInitData())),
-      path_(path),
-      changed_(false),
-      loaded_(false) {
-  populate();
+    : container_(YAML::Load(getInitData())) {
+  populate(path);
 }
 
-zephir::Config::Config::~Config() {
-  if (changed_) {
-    dump();
-  }
-}
-
-void zephir::Config::dump() {
-  if (!path_.empty() && !zephir::filesystem::exists(path_)) {
-    std::ofstream file(path_);
+void zephir::Config::dump(const std::string &path) {
+  if (!path.empty()) {
+    std::ofstream file(path);
     file << container_;
     file.close();
   }
 }
 
-void zephir::Config::populate() {
-  if (path_.empty() || !zephir::filesystem::exists(path_)) {
+void zephir::Config::populate(const std::string &path) {
+  if (path.empty() || !zephir::filesystem::exists(path)) {
     // Nothing to do if we unable to find config file at the disk.
     return;
   }
@@ -43,8 +34,7 @@ void zephir::Config::populate() {
   // YAML::BadFile should normally never thrown here
   // because we did check for file existence before.
   try {
-    auto yaml = YAML::LoadFile(path_);
-    loaded_ = true;
+    auto yaml = YAML::LoadFile(path);
 
     for (YAML::const_iterator it = yaml.begin(); it != yaml.end(); ++it) {
       const auto &key = it->first.as<std::string>();
@@ -56,10 +46,6 @@ void zephir::Config::populate() {
     throw std::runtime_error("Config file is broken");
   }
 }
-
-bool zephir::Config::changed() { return changed_; }
-
-bool zephir::Config::loaded() { return loaded_; }
 
 bool zephir::Config::has(const std::string &key) const {
   return container_[key].IsDefined();

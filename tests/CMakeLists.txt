@@ -46,7 +46,8 @@ target_include_directories(
   config_test
   PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
   PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-          $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>)
+          $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>
+          $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/config>)
 
 # Adds the executable to the 'ccov' and 'ccov-all' targets and excludes the file
 # itself via regex
