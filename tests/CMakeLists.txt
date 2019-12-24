@@ -19,8 +19,11 @@ include(GoogleTest)
 set(ZEPHIR_TESTS console_test config_test)
 mark_as_advanced(ZEPHIR_TESTS)
 
+# Global tests properties
+configure_file(properties.hpp.in "${CMAKE_CURRENT_SOURCE_DIR}/properties.hpp")
+
 file(GLOB_RECURSE CLI_TESTS ${CMAKE_CURRENT_SOURCE_DIR}/commands/*.options.cpp)
-add_executable(console_test main.cpp env/base.cpp ${CLI_TESTS})
+add_executable(console_test main.cpp ${CLI_TESTS})
 
 target_include_directories(
   console_test
@@ -40,7 +43,7 @@ gtest_discover_tests(
   PROPERTIES LABELS OptionsTest)
 
 file(GLOB CONFIG_TESTS ${CMAKE_CURRENT_SOURCE_DIR}/config/*.cpp)
-add_executable(config_test main.cpp env/base.cpp ${CONFIG_TESTS})
+add_executable(config_test main.cpp ${CONFIG_TESTS})
 
 target_include_directories(
   config_test
