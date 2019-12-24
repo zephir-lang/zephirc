@@ -1,6 +1,11 @@
 # Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+The purpose of this document is to explain how Zephir is built internally.
+If you're interested in helping to improve Zephir, this is the information
+you need.
+
+These instructions will get you a copy of the project up and running on your
+local machine for development and testing purposes.
 
 ## Prerequisites
 

@@ -1,6 +1,6 @@
 // This file is part of the Zephir.
 //
-// (c) Zephir Team <team@zephir-lang.com>
+// (c) Phalcon Team <team@zephir-lang.com>
 //
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
@@ -21,7 +21,7 @@ TEST_F(ConfigBaseTest, GetValue) {
   auto config = zephir::Config::factory(argv, file);
 
   auto actual = config->get<std::string>("author", "undefined");
-  EXPECT_EQ("Zephir Team", actual);
+  EXPECT_EQ("Phalcon Team", actual);
 
   actual = config->get<std::string>("foo", "bar");
   EXPECT_EQ("bar", actual);
