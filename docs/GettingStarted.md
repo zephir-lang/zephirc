@@ -89,12 +89,9 @@ cmake -H. \
 cmake --build build
 ```
 
-Tests expect `ZEPHIR_TESTS_ROOT` environment variable to use fixtures.
-This variable should point to the tests directory root. Set this variable and
-run the tests as follows:
+Run Zephir tests from the project root as follows:
 
 ```shell script
-export ZEPHIR_TESTS_ROOT=$(pwd)/tests
 cmake --build build --target check
 ```
 

@@ -10,16 +10,12 @@
 #include "asserts.hpp"
 #include "config/config.hpp"
 #include "filesystem/filesystem.hpp"
+#include "properties.hpp"
 #include "tester.hpp"
 
 TEST_F(ConfigBaseTest, LoadConfigFile) {
-  auto tests_root = TestEnvironment::tests_root();
-  if (tests_root.empty()) {
-    GTEST_SKIP();
-  }
-
   argv.assign({});
-  auto file = tests_root + "/fixtures/config/phalcon-4x.yml";
+  auto file = std::string(TESTS_ROOT) + "/fixtures/config/phalcon-4x.yml";
   auto config = zephir::Config::factory(argv, file);
 
   auto actual = config->get<std::string>("namespace", "undefined");
@@ -27,13 +23,8 @@ TEST_F(ConfigBaseTest, LoadConfigFile) {
 }
 
 TEST_F(ConfigBaseTest, BrokenConfigFile) {
-  auto tests_root = TestEnvironment::tests_root();
-  if (tests_root.empty()) {
-    GTEST_SKIP();
-  }
-
   argv.assign({});
-  auto file = tests_root + "/fixtures/config/bad-config.yml";
+  auto file = std::string(TESTS_ROOT) + "/fixtures/config/bad-config.yml";
   EXPECT_THROW_EXCEPTION(std::runtime_error,
                          zephir::Config::factory(argv, file),
                          "Config file is broken");

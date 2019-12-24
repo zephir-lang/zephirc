@@ -8,16 +8,12 @@
 #include <gtest/gtest.h>
 
 #include "config/config.hpp"
+#include "properties.hpp"
 #include "tester.hpp"
 
 TEST_F(ConfigBaseTest, GetValue) {
-  auto tests_root = TestEnvironment::tests_root();
-  if (tests_root.empty()) {
-    GTEST_SKIP();
-  }
-
   argv.assign({});
-  auto file = tests_root + "/fixtures/legacy.yml";
+  auto file = std::string(TESTS_ROOT) + "/fixtures/legacy.yml";
   auto config = zephir::Config::factory(argv, file);
 
   auto actual = config->get<std::string>("author", "undefined");
