@@ -33,6 +33,13 @@ this format, even those from core contributors.
 
 This project uses C++17 language standard.
 
+## License
+
+We do not require any formal copyright assignment or contributor license
+agreement. Any contributions intentionally sent upstream are presumed
+to be offered under terms of the OSI-approved Apache License 2.0.
+See [LICENSE](./LICENSE) for details.
+
 [team]: https://phalcon.io/en-us/team
 [issues]: https://github.com/zephir-lang/zephirc/issues
 [docs]: https://docs.zephir-lang.com
