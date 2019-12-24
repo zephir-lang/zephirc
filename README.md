@@ -2,7 +2,7 @@
 
 [![Build Status][actions-badge]][actions link]
 [![Coverage Status][coverage badge]][coverage link]
-[![License: MIT][license badge]](./LICENSE)
+[![License: Apache 2.0][license badge]](./LICENSE)
 [![Code Analytics][codacy badge]][codacy link]
 
 [Zephir][web site] is a high level programming language that eases the creation and maintainability of extensions for
@@ -17,7 +17,7 @@ Zephir is an Open Source, community-driven project.
 See [CONTRIBUTING.md](./CONTRIBUTING.md) for details about contributions to this repository.
 
 ## License
-Zephir licensed under the MIT License. See the [LICENSE](./LICENSE) file for more information.
+Zephir licensed under the Apache License 2.0. See the [LICENSE](./LICENSE) file for more information.
 
 [actions link]: https://github.com/zephir-lang/zephirc/actions
 [actions-badge]: https://github.com/zephir-lang/zephirc/workflows/build/badge.svg
@@ -28,4 +28,4 @@ Zephir licensed under the MIT License. See the [LICENSE](./LICENSE) file for mor
 [web site]: https://zephir-lang.com
 [documentation]: https://docs.zephir-lang.com
 [zephir logo]: https://assets.phalconphp.com/zephir/zephir_logo-105x36.svg
-[license badge]: https://img.shields.io/badge/License-MIT-blue.svg
+[license badge]: https://img.shields.io/github/license/zephir-lang/zephirc.svg

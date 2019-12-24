@@ -1,6 +1,6 @@
 // This file is part of the Zephir.
 //
-// (c) Zephir Team <team@zephir-lang.com>
+// (c) Phalcon Team <team@zephir-lang.com>
 //
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
@@ -110,7 +110,7 @@ std::string zephir::Config::getInitData() noexcept {
     namespace: null,
     name: null,
     description: null,
-    author: 'Zephir Team',
+    author: 'Phalcon Team',
     version: 0.0.1,
     backend: ZendEngine3,
     verbose: false,

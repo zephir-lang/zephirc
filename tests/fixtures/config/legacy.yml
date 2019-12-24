@@ -1,7 +1,7 @@
 namespace:
 name:
 description:
-author: 'Zephir Team'
+author: 'Phalcon Team'
 version: 0.0.1
 backend: ZendEngine3
 verbose: false
