@@ -12,21 +12,15 @@ add_custom_target(
   COMMENT "Copy files into build directory"
   VERBATIM)
 
-if(APPLE)
-  set(destinationPath "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${ZEPHIR_DATA_DIR}")
-else()
-  set(destinationPath "${PROJECT_BINARY_DIR}/${ZEPHIR_DATA_DIR}")
-endif()
-
 foreach(dir IN ITEMS ${shareDirectories})
   add_custom_command(
     TARGET copy_share_to_builddir
     POST_BUILD
     COMMAND "${CMAKE_COMMAND}" -E copy_directory "${dir}"
-            "${destinationPath}/${dir}"
+            "${ZEPHIR_OUTPUT_DIR}/${ZEPHIR_DATA_DIR}/${dir}"
     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
     COMMENT "Copy files into build directory: ${dir}"
     VERBATIM)
 endforeach()
 
-# install(DIRECTORY ${shareDirectories} DESTINATION "${DATA_PATH}")
+install(DIRECTORY ${shareDirectories} DESTINATION "${destinationPath}")
