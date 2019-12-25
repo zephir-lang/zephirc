@@ -30,18 +30,21 @@ jobs:
           - name: ubuntu-18.04-gcc-7
             os: ubuntu-18.04
             compiler: gcc
+            libcxx: libstdc++11
             version: '7'
             ccov: ON
             weffcpp: ON
           - name: ubuntu-18.04-clang-5.0
             os: ubuntu-18.04
             compiler: clang
+            libcxx: libstdc++11
             version: '5.0'
             ccov: OFF
             weffcpp: OFF
           - name: macOS-latest
             os: macOS-latest
             compiler: apple-clang
+            libcxx: libc++
             version: 'NOT USED'
             ccov: OFF
             weffcpp: OFF
@@ -115,10 +118,14 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-        conan install $(pwd) \
+        conan install \
+          $(pwd)/conanfile.txt \
           -if=$(pwd)/build \
           -pr=default \
-          -s compiler=${{ matrix.compiler }}
+          -s build_type=Debug \
+          -s compiler=${{ matrix.compiler }} \
+          -s compiler.libcxx=${{ matrix.libcxx }} \
+          --build=missing
 
     - name: Configure x64 Debug
       run: |
