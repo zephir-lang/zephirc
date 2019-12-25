@@ -129,6 +129,10 @@ else()
   set(ZEPHIR_DATA_DIR "share/${ZEPHIR_APP_ID}")
 endif()
 
+string(TIMESTAMP CURRENT_YEAR %Y)
+set(ZEPHIR_TEAM "Phalcon Team")
+set(ZEPHIR_COPYRIGHT "© 2013-${CURRENT_YEAR} ${ZEPHIR_TEAM}")
+
 # Handle codecoverage
 if(CODE_COVERAGE)
   # Now we can exclude the stuff that we aren't interested in from the
