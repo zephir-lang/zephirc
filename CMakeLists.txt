@@ -134,24 +134,17 @@ if(CODE_COVERAGE)
 endif()
 
 # Conan bootstrap
-if(NOT EXISTS "${zephir_BINARY_DIR}/conan.cmake")
-  message(
-    STATUS
-      "Downloading conan.cmake from https://github.com/conan-io/cmake-conan")
-  file(DOWNLOAD "https://github.com/conan-io/cmake-conan/raw/v0.14/conan.cmake"
-       "${zephir_BINARY_DIR}/conan.cmake")
+message(STATUS "Searching conanbuildinfo.cmake in ${zephir_BINARY_DIR}")
+find_file(CONANBUILDINFO "conanbuildinfo.cmake" PATHS ${zephir_BINARY_DIR})
+
+if(NOT CONANBUILDINFO)
+  message(FATAL_ERROR "conanbuildinfo.cmake is missing!\n"
+                      "You must run conan install first")
 endif()
 
-include(${CMAKE_BINARY_DIR}/conan.cmake)
-conan_check(REQUIRED)
-
-conan_cmake_run(
-  CONANFILE conanfile.txt
-  BASIC_SETUP CMAKE_TARGETS KEEP_RPATHS
-  BUILD missing)
-
-# Adjusts the standard library flags (libc++`, libstdc++, libstdc++11)
-conan_set_libcxx()
+message(STATUS "CONANBUILDINFO: ${CONANBUILDINFO}")
+include(${CONANBUILDINFO})
+conan_basic_setup(TARGETS KEEP_RPATHS)
 
 add_subdirectory(external)
 add_subdirectory(src)
