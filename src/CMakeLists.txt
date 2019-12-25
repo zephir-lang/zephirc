@@ -12,16 +12,25 @@ add_subdirectory(config)
 add_subdirectory(logger)
 
 # Main
-add_executable(zephir main.cpp)
+add_executable(${ZEPHIR_APP_TARGET} MACOSX_BUNDLE main.cpp)
 
 target_include_directories(
-  zephir
+  ${ZEPHIR_APP_TARGET}
   PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
          $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
   PRIVATE $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>)
 
-target_link_libraries(zephir PUBLIC console)
+set_target_properties(
+  ${ZEPHIR_APP_TARGET}
+  PROPERTIES MACOSX_BUNDLE_BUNDLE_NAME ${ZEPHIR_DISPLAY_NAME}
+             MACOSX_BUNDLE_BUNDLE_VERSION "${PROJECT_VERSION}${BUILD_SUFFIX}"
+             MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION}
+             MACOSX_BUNDLE_COPYRIGHT "${ZEPHIR_COPYRIGHT}"
+             MACOSX_BUNDLE_INFO_STRING "${ZEPHIR_COPYRIGHT}"
+             MACOSX_BUNDLE_GUI_IDENTIFIER com.zephir-lang.zephir)
+
+target_link_libraries(${ZEPHIR_APP_TARGET} PUBLIC console)
 
 # Adds the executable to the 'ccov' and 'ccov-all' targets and excludes the file
 # itself via regex
-target_code_coverage(zephir AUTO ALL EXTERNAL)
+target_code_coverage(${ZEPHIR_APP_TARGET} AUTO ALL EXTERNAL)

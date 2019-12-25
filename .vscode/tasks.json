@@ -33,6 +33,7 @@
                 "-DCODE_COVERAGE=ON",
                 "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
                 "-DCPPCHECK=ON",
+                "-DENABLE_EFFECTIVE_CXX=ON",
                 "-G",
                 "CodeBlocks - Unix Makefiles",
                 "${workspaceFolder}"
@@ -113,10 +114,7 @@
                 "check"
             ],
             "options": {
-                "cwd": "${workspaceFolder}/build/${input:build_types}",
-                "env": {
-                    "ZEPHIR_TESTS_ROOT": "${workspaceFolder}/tests"
-                }
+                "cwd": "${workspaceFolder}/build/${input:build_types}"
             },
             "dependsOn": [
                 "Coverage | Clean coverage data",

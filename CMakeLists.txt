@@ -86,7 +86,6 @@ file(
   ${zephir_SOURCE_DIR}/src/*.[hc]pp
   ${zephir_SOURCE_DIR}/tests/*.[hc]
   ${zephir_SOURCE_DIR}/tests/*.[hc]pp)
-
 clang_format(cpp-format ${glob_files})
 
 file(GLOB_RECURSE glob_files "${zephir_SOURCE_DIR}/cmake/*.cmake"
@@ -95,20 +94,45 @@ list(
   APPEND glob_files
          ${zephir_SOURCE_DIR}/CMakeLists.txt
          ${zephir_SOURCE_DIR}/src/CMakeLists.txt
+         ${zephir_SOURCE_DIR}/share/CMakeLists.txt
          ${zephir_SOURCE_DIR}/tests/CMakeLists.txt
          ${zephir_SOURCE_DIR}/external/CMakeLists.txt)
-
 cmake_format(cmake-format "${glob_files}")
 
-if(NOT CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX
-      "${CMAKE_BINARY_DIR}"
-      CACHE STRING "Directory to install zephir to" FORCE)
+include(GNUInstallDirs)
+if(NOT CMAKE_RUNTIME_OUTPUT_DIRECTORY)
+  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY
+      "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}")
+endif()
+if(NOT CMAKE_ARCHIVE_OUTPUT_DIRECTORY)
+  set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY
+      "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}")
+endif()
+if(NOT CMAKE_LIBRARY_OUTPUT_DIRECTORY)
+  set(CMAKE_LIBRARY_OUTPUT_DIRECTORY
+      "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}")
 endif()
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
+if(APPLE)
+  set(ZEPHIR_OUTPUT_DIR "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${ZEPHIR_DATA_DIR}")
+else()
+  set(ZEPHIR_OUTPUT_DIR "${PROJECT_BINARY_DIR}/${ZEPHIR_DATA_DIR}")
+endif()
+
+set(ZEPHIR_DISPLAY_NAME Zephir)
+set(ZEPHIR_APP_ID zephir)
+
+if(APPLE)
+  set(ZEPHIR_APP_TARGET ${ZEPHIR_DISPLAY_NAME})
+  set(ZEPHIR_DATA_DIR "${ZEPHIR_APP_TARGET}.app/Contents/Resources")
+else()
+  set(ZEPHIR_APP_TARGET ${ZEPHIR_APP_ID})
+  set(ZEPHIR_DATA_DIR "${CMAKE_INSTALL_DATAROOTDIR}/${ZEPHIR_APP_ID}")
+endif()
+
+string(TIMESTAMP CURRENT_YEAR %Y)
+set(ZEPHIR_TEAM "Phalcon Team")
+set(ZEPHIR_COPYRIGHT "© 2013-${CURRENT_YEAR} ${ZEPHIR_TEAM}")
 
 # Handle codecoverage
 if(CODE_COVERAGE)
@@ -148,6 +172,7 @@ conan_basic_setup(TARGETS KEEP_RPATHS)
 
 add_subdirectory(external)
 add_subdirectory(src)
+add_subdirectory(share)
 
 if(MASTER_PROJECT)
   include(CTest)
