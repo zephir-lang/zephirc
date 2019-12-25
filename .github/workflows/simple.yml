@@ -121,7 +121,6 @@ jobs:
         conan install \
           $(pwd)/conanfile.txt \
           -if=$(pwd)/build \
-          -pr=default \
           -s build_type=Debug \
           -s compiler=${{ matrix.compiler }} \
           -s compiler.libcxx=${{ matrix.libcxx }} \
