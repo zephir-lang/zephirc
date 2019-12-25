@@ -86,7 +86,6 @@ file(
   ${zephir_SOURCE_DIR}/src/*.[hc]pp
   ${zephir_SOURCE_DIR}/tests/*.[hc]
   ${zephir_SOURCE_DIR}/tests/*.[hc]pp)
-
 clang_format(cpp-format ${glob_files})
 
 file(GLOB_RECURSE glob_files "${zephir_SOURCE_DIR}/cmake/*.cmake"
@@ -98,18 +97,20 @@ list(
          ${zephir_SOURCE_DIR}/share/CMakeLists.txt
          ${zephir_SOURCE_DIR}/tests/CMakeLists.txt
          ${zephir_SOURCE_DIR}/external/CMakeLists.txt)
-
 cmake_format(cmake-format "${glob_files}")
 
 include(GNUInstallDirs)
 if(NOT CMAKE_RUNTIME_OUTPUT_DIRECTORY)
-  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/bin")
+  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY
+      "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}")
 endif()
 if(NOT CMAKE_ARCHIVE_OUTPUT_DIRECTORY)
-  set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/lib")
+  set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY
+      "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}")
 endif()
 if(NOT CMAKE_LIBRARY_OUTPUT_DIRECTORY)
-  set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/lib")
+  set(CMAKE_LIBRARY_OUTPUT_DIRECTORY
+      "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}")
 endif()
 
 if(APPLE)
@@ -126,7 +127,7 @@ if(APPLE)
   set(ZEPHIR_DATA_DIR "${ZEPHIR_APP_TARGET}.app/Contents/Resources")
 else()
   set(ZEPHIR_APP_TARGET ${ZEPHIR_APP_ID})
-  set(ZEPHIR_DATA_DIR "share/${ZEPHIR_APP_ID}")
+  set(ZEPHIR_DATA_DIR "${CMAKE_INSTALL_DATAROOTDIR}/${ZEPHIR_APP_ID}")
 endif()
 
 string(TIMESTAMP CURRENT_YEAR %Y)
