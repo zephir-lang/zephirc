@@ -2,6 +2,7 @@
 spdlog/1.4.2
 yaml-cpp/0.6.3
 CLI11/1.8.0@cliutils/stable
+gtest/1.10.0
 
 [generators]
 cmake
@@ -21,6 +22,16 @@ spdlog:shared=True
 #   - shared
 #   - fPIC
 yaml-cpp:shared=False
+
+# Possible gtest options are:
+#   - shared
+#   - build_gmock
+#   - fPIC
+#   - no_main
+#   - debug_postfix
+#   - hide_symbols
+gtest:shared=False
+gtest:no_main=True
 
 [imports]
 bin, *.dll -> ./bin

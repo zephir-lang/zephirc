@@ -119,7 +119,7 @@ jobs:
         pip install -r requirements.txt
 
         conan install \
-          $(pwd)/conanfile.txt \
+          $(pwd) \
           -if=$(pwd)/build \
           -s build_type=Debug \
           -s compiler=${{ matrix.compiler }} \

@@ -142,7 +142,7 @@ if(NOT CONANBUILDINFO)
                       "You must run conan install first")
 endif()
 
-message(STATUS "CONANBUILDINFO: ${CONANBUILDINFO}")
+message(STATUS "Conan: Found conanbuildinfo.cmake at ${CONANBUILDINFO}")
 include(${CONANBUILDINFO})
 conan_basic_setup(TARGETS KEEP_RPATHS)
 
