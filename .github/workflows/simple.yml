@@ -30,18 +30,21 @@ jobs:
           - name: ubuntu-18.04-gcc-7
             os: ubuntu-18.04
             compiler: gcc
+            libcxx: libstdc++11
             version: '7'
             ccov: ON
             weffcpp: ON
           - name: ubuntu-18.04-clang-5.0
             os: ubuntu-18.04
             compiler: clang
+            libcxx: libstdc++11
             version: '5.0'
             ccov: OFF
             weffcpp: OFF
           - name: macOS-latest
             os: macOS-latest
             compiler: apple-clang
+            libcxx: libc++
             version: 'NOT USED'
             ccov: OFF
             weffcpp: OFF
@@ -114,6 +117,13 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+
+        conan profile new zephir --detect
+
+        conan profile update settings.build_type=Debug zephir
+        conan profile update settings.compiler.libcxx=${{ matrix.libcxx }} zephir
+
+        conan install $(pwd) -if=$(pwd)/build -pr=zephir --build=missing
 
     - name: Configure x64 Debug
       run: |

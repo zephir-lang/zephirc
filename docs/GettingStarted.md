@@ -37,24 +37,29 @@ brew install cmake
 
 Please note that specific versions of libraries and programs at the time of reading this guide may vary.
 The following dependencies is recommended install using [`pip`](https://pip.pypa.io):
-
 * `conan`
 * `cppcheck`
 * `cmake-format`
 * `clang-format`
 
 They can be installed using pip as follows:
-
 ```shell script
 pip install -r requirements.txt
 ```
 
-Note: On macOS to install `clang-format` you'll need use `brew`.
+**Note:** On macOS to install `clang-format` you'll need use `brew`.
+
+And then install project dependencies using `conan` as follows:
+```shell script
+conan install . -if=$(pwd)/build --build=missing
+```
+
+For a detailed instruction on how to use and customize `conan` please refer
+[here](https://docs.conan.io/en/latest/getting_started.html).
 
 ## Building
 
 First you'll need clone the project and fetch its modules:
-
 ```shell script
 git clone https://github.com/zephir-lang/zephirc
 cd cpp-zephir
@@ -64,13 +69,11 @@ git submodule update
 
 And wait for load any required dependencies. For git 1.6.1 or above you can use something similar to command bellow
 to pull latest of all submodules:
-
 ```shell script
 git submodule update --remote --merge
 ```
 
 Finally build project as follows:
-
 ```shell script
 cmake -H. -Bbuild -DCMAKE_BUILD_TYPE=Release
 cmake --build build
@@ -79,7 +82,6 @@ cmake --build build
 ## Running the tests
 
 To build with testing support, you have to configure Zephir with special flags:
-
 ```shell script
 cmake -H. \
   -Bbuild \
@@ -90,7 +92,6 @@ cmake --build build
 ```
 
 Run Zephir tests from the project root as follows:
-
 ```shell script
 cmake --build build --target check
 ```
@@ -110,7 +111,6 @@ Additional cmake flags are (e.g. to enable `FEATURE` use `-DFEATURE=ON`):
 ## Generate HTML code coverage report
 
 Follow these steps:
-
 1. Configure with code coverage instrumentation enabled `-DCODE_COVERAGE=ON`
 2. Build project
 3. Execute the tests to generate the coverage data
