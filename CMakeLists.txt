@@ -1,6 +1,6 @@
 # This file is part of the Zephir.
 #
-# (c) Zephir Team <team@zephir-lang.com>
+# (c) Phalcon Team <team@zephir-lang.com>
 #
 # For the full copyright and license information, please view the LICENSE file
 # that was distributed with this source code.
@@ -37,7 +37,8 @@ endif()
 include(Bootstrap)
 include(Cppcheck)
 
-if(NOT EXISTS "${zephir_SOURCE_DIR}/external/cmake-scripts/c++-standards.cmake")
+if(NOT EXISTS "${zephir_SOURCE_DIR}/external/cmake-scripts/c++-standards.cmake"
+   OR NOT EXISTS "${zephir_SOURCE_DIR}/tests/sharness/sharness.sh")
   # Here, it provides the GIT_EXECUTABLE variable after searching for the git
   # binary in some standard/well-known locations for the current platform.
   find_package(Git REQUIRED)
@@ -70,7 +71,9 @@ include(code-coverage)
 include(dependency-graph)
 
 # Require C++17
-cxx_17()
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Builds a dependency graph
 gen_dep_graph(png)
@@ -85,7 +88,6 @@ file(
   ${zephir_SOURCE_DIR}/src/*.[hc]pp
   ${zephir_SOURCE_DIR}/tests/*.[hc]
   ${zephir_SOURCE_DIR}/tests/*.[hc]pp)
-
 clang_format(cpp-format ${glob_files})
 
 file(GLOB_RECURSE glob_files "${zephir_SOURCE_DIR}/cmake/*.cmake"
@@ -94,20 +96,45 @@ list(
   APPEND glob_files
          ${zephir_SOURCE_DIR}/CMakeLists.txt
          ${zephir_SOURCE_DIR}/src/CMakeLists.txt
+         ${zephir_SOURCE_DIR}/share/CMakeLists.txt
          ${zephir_SOURCE_DIR}/tests/CMakeLists.txt
          ${zephir_SOURCE_DIR}/external/CMakeLists.txt)
-
 cmake_format(cmake-format "${glob_files}")
 
-if(NOT CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX
-      "${CMAKE_BINARY_DIR}"
-      CACHE STRING "Directory to install zephir to" FORCE)
+include(GNUInstallDirs)
+if(NOT CMAKE_RUNTIME_OUTPUT_DIRECTORY)
+  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY
+      "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}")
+endif()
+if(NOT CMAKE_ARCHIVE_OUTPUT_DIRECTORY)
+  set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY
+      "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}")
+endif()
+if(NOT CMAKE_LIBRARY_OUTPUT_DIRECTORY)
+  set(CMAKE_LIBRARY_OUTPUT_DIRECTORY
+      "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}")
 endif()
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
+set(ZEPHIR_DISPLAY_NAME Zephir)
+set(ZEPHIR_APP_ID zephir)
+
+if(APPLE)
+  set(ZEPHIR_APP_TARGET ${ZEPHIR_DISPLAY_NAME})
+  set(ZEPHIR_DATA_DIR "${ZEPHIR_APP_TARGET}.app/Contents/Resources")
+else()
+  set(ZEPHIR_APP_TARGET ${ZEPHIR_APP_ID})
+  set(ZEPHIR_DATA_DIR "${CMAKE_INSTALL_DATAROOTDIR}/${ZEPHIR_APP_ID}")
+endif()
+
+if(APPLE)
+  set(ZEPHIR_OUTPUT_DIR "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${ZEPHIR_DATA_DIR}")
+else()
+  set(ZEPHIR_OUTPUT_DIR "${PROJECT_BINARY_DIR}/${ZEPHIR_DATA_DIR}")
+endif()
+
+string(TIMESTAMP CURRENT_YEAR %Y)
+set(ZEPHIR_TEAM "Phalcon Team")
+set(ZEPHIR_COPYRIGHT "© 2013-${CURRENT_YEAR} ${ZEPHIR_TEAM}")
 
 # Handle codecoverage
 if(CODE_COVERAGE)
@@ -133,27 +160,24 @@ if(CODE_COVERAGE)
 endif()
 
 # Conan bootstrap
-if(NOT EXISTS "${zephir_BINARY_DIR}/conan.cmake")
-  message(
-    STATUS
-      "Downloading conan.cmake from https://github.com/conan-io/cmake-conan")
-  file(DOWNLOAD "https://github.com/conan-io/cmake-conan/raw/v0.14/conan.cmake"
-       "${zephir_BINARY_DIR}/conan.cmake")
+message(STATUS "Searching conanbuildinfo.cmake in ${zephir_BINARY_DIR}")
+find_file(CONANBUILDINFO "conanbuildinfo.cmake" PATHS ${zephir_BINARY_DIR})
+
+if(NOT CONANBUILDINFO)
+  message(FATAL_ERROR "conanbuildinfo.cmake is missing!\n"
+                      "You must run conan install first")
 endif()
 
-include(${CMAKE_BINARY_DIR}/conan.cmake)
-conan_check(REQUIRED)
+message(STATUS "Conan: Found conanbuildinfo.cmake at ${CONANBUILDINFO}")
 
-conan_cmake_run(
-  CONANFILE conanfile.txt
-  BASIC_SETUP CMAKE_TARGETS KEEP_RPATHS
-  BUILD missing)
+include(ConanHelper)
+include(${CONANBUILDINFO})
 
-# Adjusts the standard library flags (libc++`, libstdc++, libstdc++11)
-conan_set_libcxx()
+conan_basic_setup(TARGETS KEEP_RPATHS)
 
 add_subdirectory(external)
 add_subdirectory(src)
+add_subdirectory(share)
 
 if(MASTER_PROJECT)
   include(CTest)

@@ -1,14 +1,12 @@
 # This file is part of the Zephir.
 #
-# (c) Zephir Team <team@zephir-lang.com>
+# (c) Phalcon Team <team@zephir-lang.com>
 #
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
 
 # Add definition for config library.
-file(GLOB_RECURSE CONFIG_PARTS ${CMAKE_CURRENT_SOURCE_DIR}/config/*.cpp)
-file(GLOB YAML_PARTS ${CMAKE_CURRENT_SOURCE_DIR}/yaml/*.cpp)
-add_library(config SHARED ${CONFIG_PARTS} ${YAML_PARTS} config.cpp)
+add_library(config SHARED config.cpp)
 
 target_include_directories(
   config PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>

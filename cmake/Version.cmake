@@ -1,6 +1,6 @@
 # This file is part of the Zephir.
 #
-# (c) Zephir Team <team@zephir-lang.com>
+# (c) Phalcon Team <team@zephir-lang.com>
 #
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
@@ -24,4 +24,7 @@ unset(zephirVersion)
 set(ZEPHIR_VERSION
     ${ZEPHIR_VERSION_MAJOR}.${ZEPHIR_VERSION_MINOR}.${ZEPHIR_VERSION_PATCH})
 
-mark_as_advanced(ZEPHIR_VERSION_MAJOR ZEPHIR_VERSION_MINOR ZEPHIR_VERSION_PATCH)
+set(BUILD_SUFFIX)
+
+mark_as_advanced(ZEPHIR_VERSION_MAJOR ZEPHIR_VERSION_MINOR ZEPHIR_VERSION_PATCH
+                 BUILD_SUFFIX)

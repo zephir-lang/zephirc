@@ -1,66 +1,53 @@
 // This file is part of the Zephir.
 //
-// (c) Zephir Team <team@zephir-lang.com>
+// (c) Phalcon Team <team@zephir-lang.com>
 //
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
 #include <gtest/gtest.h>
 
-#include <string>
-#include <vector>
+#include "config/config.hpp"
+#include "properties.hpp"
+#include "tester.hpp"
 
-#include <zephir/config.hpp>
+TEST_F(ConfigBaseTest, GetValue) {
+  argv.assign({});
+  auto file = std::string(TESTS_ROOT) + "/fixtures/legacy.yml";
+  auto config = zephir::Config::factory(argv, file);
 
-#include "asserts.hpp"
-#include "env/base.hpp"
+  auto actual = config->get<std::string>("author", "undefined");
+  EXPECT_EQ("Phalcon Team", actual);
 
-using input_t = std::vector<std::string>;
+  actual = config->get<std::string>("foo", "bar");
+  EXPECT_EQ("bar", actual);
 
-class ConfigBaseTest : public ::testing::Test {
- protected:
-  ConfigBaseTest() : argv() {}
-  input_t argv;
-};
-
-TEST_F(ConfigBaseTest, DoNothingOnHelp) {
-  argv.assign({"--help"});
-
-  // Redirect std::cout
-  auto oldCoutStreamBuf = std::cout.rdbuf();
-  std::ostringstream strCout;
-  std::cout.rdbuf(strCout.rdbuf());
-
-  auto config = zephir::Config::Factory(argv, "foo").get();
-
-  // Restore old std::cout
-  std::cout.rdbuf(oldCoutStreamBuf);
-
-  EXPECT_FALSE(config->IsChanged());
+  auto stubs = config->get<bool>("stubs-run-after-generate", "stubs", true);
+  EXPECT_FALSE(stubs);
 }
 
-TEST_F(ConfigBaseTest, BrokenConfigFile) {
-  auto tests_root = TestEnvironment::tests_root();
-  if (tests_root.empty()) {
-    GTEST_SKIP();
-  }
+TEST_F(ConfigBaseTest, SetValue) {
+  auto config = std::make_shared<zephir::Config>("fake");
 
-  argv.assign({});
-  auto file = tests_root + "/fixtures/bad-config.yml";
-  EXPECT_THROW_EXCEPTION(std::runtime_error,
-                         zephir::Config::Factory(argv, file),
-                         "Config file is broken");
+  auto silent = config->get<bool>("silent", true);
+  EXPECT_FALSE(silent);
+
+  config->set("silent", true);
+  silent = config->get<bool>("silent", true);
+  EXPECT_TRUE(silent);
+
+  EXPECT_TRUE(config->get("unused-variable", "warnings", false));
+
+  config->set("unused-variable", "warnings", false);
+  EXPECT_FALSE(config->get("unused-variable", "warnings", false));
 }
 
-TEST_F(ConfigBaseTest, CorrectConfigFile) {
-  auto tests_root = TestEnvironment::tests_root();
-  if (tests_root.empty()) {
-    GTEST_SKIP();
-  }
+TEST_F(ConfigBaseTest, FindValue) {
+  zephir::Config expected("fake");
 
-  argv.assign({});
-  auto file = tests_root + "/fixtures/phalcon-4x.yml";
-  auto config = zephir::Config::Factory(argv, file).get();
+  EXPECT_FALSE(expected.has("foo"));
+  EXPECT_FALSE(expected.has("foo", "bar"));
 
-  EXPECT_FALSE(config->IsChanged());
+  EXPECT_TRUE(expected.has("name"));
+  EXPECT_TRUE(expected.has("unused-variable", "warnings"));
 }

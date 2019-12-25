@@ -1,19 +1,18 @@
 // This file is part of the Zephir.
 //
-// (c) Zephir Team <team@zephir-lang.com>
+// (c) Phalcon Team <team@zephir-lang.com>
 //
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
 #include <gtest/gtest.h>
 
-#include <string>
 #include <tuple>
 #include <utility>
-#include <vector>
 
-#include <zephir/commands.hpp>
 #include <zephir/main.hpp>
+
+#include "console/application.hpp"
 
 class NoneCmdTest
     : public testing::TestWithParam<std::tuple<std::string, int>> {
@@ -27,7 +26,12 @@ TEST_P(NoneCmdTest, RunUsingGlobalOptions) {
   const auto& option = std::get<0>(GetParam());
 
   argv.assign({option});
-  auto actual = zephir::commands::CreateFromArgv(argv);
+
+  auto config = std::make_shared<zephir::Config>("foo");
+  auto app =
+      std::make_unique<zephir::console::Application>(config, argv, "tests");
+  auto actual = app->Run();
+
   EXPECT_EQ(expected, actual);
 }
 
