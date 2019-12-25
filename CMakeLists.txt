@@ -16,16 +16,6 @@ project(
   VERSION ${ZEPHIR_VERSION}
   DESCRIPTION "A Zephir compiler")
 
-set(APP_DISPLAY_NAME Zephir)
-set(APP_ID zephir)
-set(APP_BUNDLE_ID com.zephir-lang.zephir)
-
-if(APPLE)
-  set(APP_TARGET ${APP_DISPLAY_NAME})
-else()
-  set(APP_TARGET ${APP_ID})
-endif()
-
 # See: https://github.com/conan-io/cmake-conan/issues/159
 cmake_policy(SET CMP0025 NEW)
 
@@ -120,6 +110,17 @@ endif()
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
+
+set(ZEPHIR_DISPLAY_NAME Zephir)
+set(ZEPHIR_APP_ID zephir)
+
+if(APPLE)
+  set(ZEPHIR_APP_TARGET ${ZEPHIR_DISPLAY_NAME})
+  set(ZEPHIR_DATA_DIR "${ZEPHIR_APP_TARGET}.app/Contents/Resources")
+else()
+  set(ZEPHIR_APP_TARGET ${ZEPHIR_APP_ID})
+  set(ZEPHIR_DATA_DIR "share/zephir")
+endif()
 
 # Handle codecoverage
 if(CODE_COVERAGE)
