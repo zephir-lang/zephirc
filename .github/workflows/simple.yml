@@ -45,7 +45,7 @@ jobs:
             os: macOS-latest
             compiler: apple-clang
             libcxx: libc++
-            version: 'NOT USED'
+            version: '11.0'
             ccov: OFF
             weffcpp: OFF
 
@@ -124,6 +124,7 @@ jobs:
           -s build_type=Debug \
           -s compiler=${{ matrix.compiler }} \
           -s compiler.libcxx=${{ matrix.libcxx }} \
+          -s compiler.version=${{ matrix.version }} \
           --build=missing
 
     - name: Configure x64 Debug
