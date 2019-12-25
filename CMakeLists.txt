@@ -16,6 +16,16 @@ project(
   VERSION ${ZEPHIR_VERSION}
   DESCRIPTION "A Zephir compiler")
 
+set(APP_DISPLAY_NAME Zephir)
+set(APP_ID zephir)
+set(APP_BUNDLE_ID com.zephir-lang.zephir)
+
+if(APPLE)
+  set(APP_TARGET ${APP_DISPLAY_NAME})
+else()
+  set(APP_TARGET ${APP_ID})
+endif()
+
 # See: https://github.com/conan-io/cmake-conan/issues/159
 cmake_policy(SET CMP0025 NEW)
 
@@ -95,6 +105,7 @@ list(
   APPEND glob_files
          ${zephir_SOURCE_DIR}/CMakeLists.txt
          ${zephir_SOURCE_DIR}/src/CMakeLists.txt
+         ${zephir_SOURCE_DIR}/share/CMakeLists.txt
          ${zephir_SOURCE_DIR}/tests/CMakeLists.txt
          ${zephir_SOURCE_DIR}/external/CMakeLists.txt)
 
@@ -148,6 +159,7 @@ conan_basic_setup(TARGETS KEEP_RPATHS)
 
 add_subdirectory(external)
 add_subdirectory(src)
+add_subdirectory(share)
 
 if(MASTER_PROJECT)
   include(CTest)
