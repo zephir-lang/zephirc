@@ -23,4 +23,4 @@ foreach(dir IN ITEMS ${shareDirectories})
     VERBATIM)
 endforeach()
 
-install(DIRECTORY ${shareDirectories} DESTINATION "${destinationPath}")
+install(DIRECTORY ${shareDirectories} DESTINATION "${ZEPHIR_DATA_DIR}")

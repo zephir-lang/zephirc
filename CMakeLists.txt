@@ -71,7 +71,9 @@ include(code-coverage)
 include(dependency-graph)
 
 # Require C++17
-cxx_17()
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Builds a dependency graph
 gen_dep_graph(png)
@@ -167,7 +169,10 @@ if(NOT CONANBUILDINFO)
 endif()
 
 message(STATUS "Conan: Found conanbuildinfo.cmake at ${CONANBUILDINFO}")
+
+include(ConanHelper)
 include(${CONANBUILDINFO})
+
 conan_basic_setup(TARGETS KEEP_RPATHS)
 
 add_subdirectory(external)
