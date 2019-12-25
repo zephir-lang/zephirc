@@ -45,7 +45,7 @@ jobs:
             os: macOS-latest
             compiler: apple-clang
             libcxx: libc++
-            version: 'NOT USED'
+            version: '11.0'
             ccov: OFF
             weffcpp: OFF
 
@@ -123,6 +123,8 @@ jobs:
         fi
 
         conan profile update settings.build_type=Debug zephir
+        conan profile update settings.compiler.compiler=${{ matrix.compiler }} zephir
+        conan profile update settings.compiler.version=${{ matrix.version }} zephir
         conan profile update settings.compiler.libcxx=${{ matrix.libcxx }} zephir
 
         conan install $(pwd) -if=$(pwd)/build -pr=zephir --build=missing
