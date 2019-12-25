@@ -118,14 +118,17 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-        conan install \
-          $(pwd) \
-          -if=$(pwd)/build \
-          -s build_type=Debug \
-          -s compiler=${{ matrix.compiler }} \
-          -s compiler.libcxx=${{ matrix.libcxx }} \
-          -s compiler.version=${{ matrix.version }} \
-          --build=missing
+        conan profile new zephir --detect
+        conan install $(pwd) -if=$(pwd)/build -pr=zephir --build=missing
+
+#        conan install \
+#          $(pwd) \
+#          -if=$(pwd)/build \
+#          -s build_type=Debug \
+#          -s compiler=${{ matrix.compiler }} \
+#          -s compiler.libcxx=${{ matrix.libcxx }} \
+#          -s compiler.version=${{ matrix.version }} \
+#          --build=missing
 
     - name: Configure x64 Debug
       run: |
