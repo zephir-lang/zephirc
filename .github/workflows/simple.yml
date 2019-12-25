@@ -45,7 +45,7 @@ jobs:
             os: macOS-latest
             compiler: apple-clang
             libcxx: libc++
-            version: '11.0'
+            version: 'NOT USED'
             ccov: OFF
             weffcpp: OFF
 
@@ -119,16 +119,11 @@ jobs:
         pip install -r requirements.txt
 
         conan profile new zephir --detect
-        conan install $(pwd) -if=$(pwd)/build -pr=zephir --build=missing
 
-#        conan install \
-#          $(pwd) \
-#          -if=$(pwd)/build \
-#          -s build_type=Debug \
-#          -s compiler=${{ matrix.compiler }} \
-#          -s compiler.libcxx=${{ matrix.libcxx }} \
-#          -s compiler.version=${{ matrix.version }} \
-#          --build=missing
+        conan profile update settings.build_type=Debug zephir
+        conan profile update settings.compiler.libcxx=${{ matrix.libcxx }} zephir
+
+        conan install $(pwd) -if=$(pwd)/build -pr=zephir --build=missing
 
     - name: Configure x64 Debug
       run: |
