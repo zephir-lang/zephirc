@@ -101,12 +101,6 @@ list(
 
 cmake_format(cmake-format "${glob_files}")
 
-if(NOT CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX
-      "${PROJECT_BINARY_DIR}"
-      CACHE STRING "Directory to install zephir to" FORCE)
-endif()
-
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
@@ -125,7 +119,7 @@ if(APPLE)
   set(ZEPHIR_DATA_DIR "${ZEPHIR_APP_TARGET}.app/Contents/Resources")
 else()
   set(ZEPHIR_APP_TARGET ${ZEPHIR_APP_ID})
-  set(ZEPHIR_DATA_DIR "share/zephir")
+  set(ZEPHIR_DATA_DIR "share/${ZEPHIR_APP_ID}")
 endif()
 
 # Handle codecoverage
