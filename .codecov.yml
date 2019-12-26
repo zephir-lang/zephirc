@@ -35,3 +35,18 @@ comment:
   layout: diff
   behavior: default
   require_changes: false
+
+ignore:
+  - ".git"
+  - "*.yml"
+  - "*.json"
+  - "*.md"
+  - "*.mk"
+  - "*.txt"
+  # ignore folders and all its contents
+  - ".github/.*"
+  - ".vscode/.*"
+  - ".zephir/.*"
+  - "cmake/.*"
+  - "docs/.*"
+  - "tests/.*"
