@@ -31,16 +31,19 @@ TEST_F(ConfigBaseTest, BrokenConfigFile) {
 }
 
 TEST_F(ConfigBaseTest, DumpConfigFile) {
-  if (zephir::filesystem::exists("empty")) {
-    remove("empty");
+  if (zephir::filesystem::exists("awesome.yml")) {
+    remove("awesome.yml");
   }
 
   argv.assign({});
 
-  auto config1 = zephir::Config::factory(argv, "empty");
-  auto name = config1->get<std::string>("name", "");
-  EXPECT_EQ("", name);
+  auto config = zephir::Config::factory(argv, "awesome.yml");
+  config->set("name", "awesome");
 
-  config1->dump("empty");
-  EXPECT_TRUE(zephir::filesystem::exists("empty"));
+  config->dump("awesome.yml");
+  EXPECT_TRUE(zephir::filesystem::exists("awesome.yml"));
+
+  config = zephir::Config::factory(argv, "awesome.yml");
+  auto name = config->get<std::string>("name", "");
+  EXPECT_EQ("awesome", name);
 }
