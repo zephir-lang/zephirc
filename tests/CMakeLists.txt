@@ -54,6 +54,30 @@ gtest_discover_tests(
   TEST_PREFIX zephir:
   PROPERTIES LABELS ConfigTest)
 
+# LOGGER_TESTS
+file(GLOB LOGGER_TESTS ${CMAKE_CURRENT_SOURCE_DIR}/logger/*.cpp)
+add_executable(logger_test main.cpp ${LOGGER_TESTS})
+
+target_include_directories(
+  logger_test
+  PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+  PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+          $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>)
+
+# Adds the executable to the 'ccov' and 'ccov-all' targets and excludes the file
+# itself via regex
+target_code_coverage(logger_test AUTO ALL EXTERNAL)
+
+target_link_libraries(logger_test PRIVATE logger CONAN_PKG::spdlog
+                                          CONAN_PKG::GTest)
+
+gtest_discover_tests(
+  logger_test
+  TEST_PREFIX zephir:
+  PROPERTIES LABELS LoggerTest)
+
+# End of LOGGER_TESTS
+
 add_custom_target(
   check
   COMMAND ctest -j ${BUILD_JOBS} --output-on-failure

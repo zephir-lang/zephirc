@@ -16,6 +16,7 @@ cmake
 #   - wchar_support
 #   - wchar_filenames
 #   - no_exceptions
+spdlog:shared=False
 
 # Possible yaml-cpp options are:
 #   - shared
