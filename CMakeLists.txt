@@ -14,7 +14,7 @@ project(
   zephir
   LANGUAGES CXX
   VERSION ${ZEPHIR_VERSION}
-  DESCRIPTION "A Zephir compiler")
+  DESCRIPTION "Yet another implementation of the Zephir compiler")
 
 # See: https://github.com/conan-io/cmake-conan/issues/159
 cmake_policy(SET CMP0025 NEW)
@@ -95,6 +95,7 @@ file(GLOB_RECURSE glob_files "${zephir_SOURCE_DIR}/cmake/*.cmake"
 list(
   APPEND glob_files
          ${zephir_SOURCE_DIR}/CMakeLists.txt
+         ${zephir_SOURCE_DIR}/docs/CMakeLists.txt
          ${zephir_SOURCE_DIR}/src/CMakeLists.txt
          ${zephir_SOURCE_DIR}/share/CMakeLists.txt
          ${zephir_SOURCE_DIR}/tests/CMakeLists.txt
@@ -178,6 +179,11 @@ conan_basic_setup(TARGETS KEEP_RPATHS)
 add_subdirectory(external)
 add_subdirectory(src)
 add_subdirectory(share)
+
+option(API_DOC "Build API Documentation." OFF)
+if(MASTER_PROJECT AND API_DOC)
+  add_subdirectory(docs)
+endif()
 
 if(MASTER_PROJECT)
   include(CTest)
