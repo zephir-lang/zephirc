@@ -47,14 +47,14 @@ class Config {
   static ConfigPtr factory(std::vector<std::string> &options,
                            const std::string &path);
 
-  /// \brief Determine if a configuration value exist, using simple key.
+
+  /// \brief Allows to check whether a \a key is defined.
   ///
   /// \param key The requested configuration key.
   /// \return true on success, false otherwise
   bool has(const std::string &key) const;
 
-  /// \brief Determine if a configuration value exist, using simple key and
-  /// given namespace.
+  /// \brief Allows to check whether a \a key in the given namespace (\a ns).
   ///
   /// \param key The requested configuration key.
   /// \param ns The requested configuration namespace.
