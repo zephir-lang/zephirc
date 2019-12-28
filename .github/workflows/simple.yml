@@ -94,9 +94,9 @@ jobs:
       id: conan-cache
       with:
         path: ~/.conan
-        key: ${{ runner.os }}-conan-${{ hashFiles('**/conanfile.txt') }}
+        key: ${{ runner.os }}-conan-${{ matrix.compiler }}-${{ hashFiles('**/conanfile.txt') }}
         restore-keys: |
-          ${{ runner.os }}-conan-
+          ${{ runner.os }}-conan-${{ matrix.compiler }}-
 
     - uses: actions/cache@v1
       name: Setup pip cache
