@@ -11,18 +11,31 @@
 #include "abstract_command.hpp"
 
 namespace zephir::console::commands {
+/// \brief Collection of all options of CompileCommand subcommand.
 struct CompileOptions {
   CompileOptions() : dev(true) {}
+  /// Used backend to generate extension.
   std::string backend{""};
+  /// Compile the extension in development mode
   bool dev;
 };
 
 using CompileOptionsPtr = std::unique_ptr<CompileOptions>;
 
+/// \brief Compile a Zephir extension.
 class CompileCommand : public AbstractCommand {
  public:
+  /// \brief Construct CompileCommand object with a given name.
+  ///
+  /// \param name The name of the command
   explicit CompileCommand(std::string name);
+
+  /// \brief Configures the CompileCommand command.
+  ///
+  /// \param app A `CLI::App` instance
   void Setup(std::shared_ptr<CLI::App> app) override;
+
+  /// \brief Executes CompileCommand command.
   void Execute() override;
 
  private:

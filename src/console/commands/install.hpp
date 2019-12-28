@@ -11,17 +11,29 @@
 #include "abstract_command.hpp"
 
 namespace zephir::console::commands {
+/// \brief Collection of all options of InstallCommand subcommand.
 struct InstallOptions {
   InstallOptions() : dev(true) {}
+  /// Compile the extension in development mode
   bool dev;
 };
 
 using InstallOptionsPtr = std::unique_ptr<InstallOptions>;
 
+/// \brief Installs the extension in the extension directory.
 class InstallCommand : public AbstractCommand {
  public:
+  /// \brief Construct InstallCommand object with a given name.
+  ///
+  /// \param name The name of the command
   explicit InstallCommand(std::string name);
+
+  /// \brief Configures the InstallCommand command.
+  ///
+  /// \param app A `CLI::App` instance
   void Setup(std::shared_ptr<CLI::App> app) override;
+
+  /// \brief Executes InstallCommand command.
   void Execute() override;
 
  private:

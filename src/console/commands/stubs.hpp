@@ -11,16 +11,28 @@
 #include "abstract_command.hpp"
 
 namespace zephir::console::commands {
+/// \brief Collection of all options of StubsCommand subcommand.
 struct StubsOptions {
+  /// Used backend to generate extension.
   std::string backend{""};
 };
 
 using StubsOptionsPtr = std::unique_ptr<StubsOptions>;
 
+/// \brief Generates stubs that can be used in a PHP IDE.
 class StubsCommand : public AbstractCommand {
  public:
+  /// \brief Construct StubsCommand object with a given name.
+  ///
+  /// \param name The name of the command
   explicit StubsCommand(std::string name);
+
+  /// \brief Configures the StubsCommand command.
+  ///
+  /// \param app A `CLI::App` instance
   void Setup(std::shared_ptr<CLI::App> app) override;
+
+  /// \brief Executes StubsCommand command.
   void Execute() override;
 
  private:
