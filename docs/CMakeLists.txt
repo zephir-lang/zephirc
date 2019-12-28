@@ -21,8 +21,7 @@ configure_file(${DOXYGEN_INPUT_DIR}/docs/header.html.in
 # copy the files needed by the documentation
 configure_file(${DOXYGEN_INPUT_DIR}/docs/doxygen.css
                ${DOXYGEN_OUTPUT_DIR}/html/doxygen.css COPYONLY)
-configure_file(${DOXYGEN_INPUT_DIR}/docs/jquery-3.2.1.min.js
-               ${DOXYGEN_OUTPUT_DIR}/html/jquery-3.2.1.min.js COPYONLY)
+
 
 # target setup
 add_custom_target(
