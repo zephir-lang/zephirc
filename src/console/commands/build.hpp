@@ -27,6 +27,7 @@ struct BuildOptions {
 using BuildOptionsPtr = std::unique_ptr<BuildOptions>;
 
 /// \brief Generates/Compiles/Installs a Zephir extension.
+/// \sa AbstractCommand
 class BuildCommand : public AbstractCommand {
  public:
   /// \brief Construct BuildCommand object with a given name.

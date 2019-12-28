@@ -25,6 +25,7 @@ struct InstallOptions {
 using InstallOptionsPtr = std::unique_ptr<InstallOptions>;
 
 /// \brief Installs the extension in the extension directory.
+/// \sa AbstractCommand
 class InstallCommand : public AbstractCommand {
  public:
   /// \brief Construct InstallCommand object with a given name.

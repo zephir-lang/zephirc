@@ -24,6 +24,7 @@ struct StubsOptions {
 using StubsOptionsPtr = std::unique_ptr<StubsOptions>;
 
 /// \brief Generates stubs that can be used in a PHP IDE.
+/// \sa AbstractCommand
 class StubsCommand : public AbstractCommand {
  public:
   /// \brief Construct StubsCommand object with a given name.

@@ -32,6 +32,7 @@ struct ApiOptions {
 using ApiOptionsPtr = std::unique_ptr<ApiOptions>;
 
 /// \brief Generates a HTML API based on the classes exposed in the extension.
+/// \sa AbstractCommand
 class ApiCommand : public AbstractCommand {
  public:
   /// \brief Construct ApiCommand object with a given name.

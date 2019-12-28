@@ -24,6 +24,7 @@ struct GenerateOptions {
 using GenerateOptionsPtr = std::unique_ptr<GenerateOptions>;
 
 /// \brief Generates C code from the Zephir code without compiling it.
+/// \sa AbstractCommand
 class GenerateCommand : public AbstractCommand {
  public:
   /// \brief Construct GenerateCommand object with a given name.

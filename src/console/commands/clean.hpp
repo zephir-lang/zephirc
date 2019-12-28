@@ -15,6 +15,7 @@
 
 namespace zephir::console::commands {
 /// \brief Cleans any object files created by the extension.
+/// \sa AbstractCommand
 class CleanCommand : public AbstractCommand {
  public:
   /// \brief Construct CleanCommand object with a given name.

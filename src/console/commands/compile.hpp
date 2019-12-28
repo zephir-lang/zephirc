@@ -27,6 +27,7 @@ struct CompileOptions {
 using CompileOptionsPtr = std::unique_ptr<CompileOptions>;
 
 /// \brief Compile a Zephir extension.
+/// \sa AbstractCommand
 class CompileCommand : public AbstractCommand {
  public:
   /// \brief Construct CompileCommand object with a given name.

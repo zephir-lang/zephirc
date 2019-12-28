@@ -26,6 +26,7 @@ struct InitOptions {
 using InitOptionsPtr = std::unique_ptr<InitOptions>;
 
 /// \brief Initializes a Zephir extension.
+/// \sa AbstractCommand
 class InitCommand : public AbstractCommand {
  public:
   /// \brief Construct InitCommand object with a given name.
