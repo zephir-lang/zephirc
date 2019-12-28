@@ -20,7 +20,6 @@ configure_file(${DOXYGEN_INPUT_DIR}/docs/Doxyfile.in
 configure_file(${DOXYGEN_INPUT_DIR}/docs/doxygen.css
                ${DOXYGEN_OUTPUT_DIR}/html/doxygen.css COPYONLY)
 
-
 # target setup
 add_custom_target(
   doc ALL

@@ -1041,35 +1041,50 @@ tr.heading h2 {
     font-size: 9pt;
 }
 
-#navrow1 .tablist, #navrow2 .tablist, #navrow3 .tablist, #navrow4 .tablist {
+#main-nav ul {
     margin: 0;
     padding: 0;
-    display: table;
 }
 
-.tablist li {
-    float: left;
-    display: table-cell;
-    list-style: none;
+#main-nav .sm-dox {
+    background-image: none;
+    background-color: aliceblue;
 }
 
-#navrow1 {
+#main-nav {
     border-top: 1px solid #999;
+    border-bottom: 1px solid #999;
+    border-right: 1px solid #999;
     margin-top: 2em;
 }
 
-#navrow1 .tablist a, #navrow2 .tablist a, #navrow3 .tablist a, #navrow4 .tablist a {
+#main-nav ul a {
     display: block;
-    margin: 8px 0;
     padding: 0 8px;
-    border-right: 1px solid #bbb;
+    border-left: 1px solid #bbb;
+    color: #2A3D61;
 }
 
-.tablist li {
+#main-nav ul a.has-submenu {
+    padding-right: 24px;
+}
+
+#main-nav ul a,
+#main-nav ul a:link,
+#main-nav ul a:focus,
+#main-nav ul a:hover,
+#main-nav ul a:active,
+#main-nav ul a.highlighted {
+    text-shadow: unset;
+    background-image: unset;
+}
+
+#main-menu li {
+    list-style: none;
     margin-bottom: 0 !important;
 }
 
-.tablist li.current a {
+#main-menu li.current a {
     font-weight: bold;
 }
 
@@ -1099,18 +1114,36 @@ body {
 #banner {
     width: 950px;
     height: 60px;
-    line-height: 54px;
+    line-height: 60px;
     margin: 0 auto;
-    text-align: center;
 }
 
-#banner #zephir {
-    display: inline;
-    vertical-align: top;
-    margin-left: 15px;
+#banner a {
+    text-decoration: none;
     color: #fff;
-    font-size: 18pt;
-    text-shadow: rgba(0, 0, 0, 0.5) 1px 1px 5px;
+}
+
+.navbar-brand {
+    padding-top: .3125rem;
+    padding-bottom: .3125rem;
+    font-size: 1.25rem;
+    line-height: inherit;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    margin-right: 0;
+    color: #fff;
+}
+
+.bd-brand-logos {
+    display: table;
+    overflow: hidden;
+    color: #6f5499;
+    background-color: #f9f9f9;
+    border-radius: .25rem;
+    width: 40px;
+    padding: .2rem;
+    margin-right: 10px;
 }
 
 #footer-container {
@@ -1144,7 +1177,7 @@ div.contents, #content {
     padding: 0;
 }
 
-div.contents h1 {
+#content h1, div.contents h1 {
     color: #333;
     padding: 0.5em 0;
     margin-top: 30px;
