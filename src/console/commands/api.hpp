@@ -11,6 +11,7 @@
 #include "abstract_command.hpp"
 
 namespace zephir::console::commands {
+/// \brief Collection of all options of ApiCommand subcommand.
 struct ApiOptions {
   std::string backend{""};
   std::string template_path{""};
@@ -21,10 +22,17 @@ struct ApiOptions {
 
 using ApiOptionsPtr = std::unique_ptr<ApiOptions>;
 
+/// \brief Generates a HTML API based on the classes exposed in the extension.
 class ApiCommand : public AbstractCommand {
  public:
+  /// \rief Construct ApiCommand object with a given name.
+  ///
+  /// \param name The name of the command
   explicit ApiCommand(std::string name);
+
   void Setup(std::shared_ptr<CLI::App> app) override;
+
+  /// \brief Executes ApiCommand command.
   void Execute() override;
 
  private:

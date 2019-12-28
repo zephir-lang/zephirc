@@ -11,11 +11,13 @@
 #include <string>
 
 namespace zephir {
+/// \brief Gets a value by its key
 template <typename T>
 inline T Config::get(const std::string &key, const T &fallback) const {
   return container_[key].as<T, T>(fallback);
 }
 
+/// \brief Gets a value by its key and namespace
 template <typename T>
 inline T zephir::Config::get(const std::string &key, const std::string &ns,
                              const T &fallback) const {
@@ -26,6 +28,7 @@ inline T zephir::Config::get(const std::string &key, const std::string &ns,
   return fallback;
 }
 
+/// \brief Sets a value for a provided key
 template <typename T>
 inline zephir::Config &zephir::Config::set(const std::string &key,
                                            const T &rhs) {
@@ -36,6 +39,7 @@ inline zephir::Config &zephir::Config::set(const std::string &key,
   return *this;
 }
 
+/// \brief Sets a value for a provided key for the the given namespace
 template <typename T>
 inline zephir::Config &zephir::Config::set(const std::string &key,
                                            const std::string &ns,

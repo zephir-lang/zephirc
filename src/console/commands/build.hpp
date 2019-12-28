@@ -11,7 +11,7 @@
 #include "abstract_command.hpp"
 
 namespace zephir::console::commands {
-
+/// \brief Collection of all options of BuildCommand subcommand.
 struct BuildOptions {
   BuildOptions() : dev(true) {}
   std::string backend{""};
@@ -20,10 +20,17 @@ struct BuildOptions {
 
 using BuildOptionsPtr = std::unique_ptr<BuildOptions>;
 
+/// \brief Generates/Compiles/Installs a Zephir extension.
 class BuildCommand : public AbstractCommand {
  public:
+  /// \brief Construct BuildCommand object with a given name.
+  ///
+  /// \param name The name of the command
   explicit BuildCommand(std::string name);
+
   void Setup(std::shared_ptr<CLI::App> app) override;
+
+  /// \brief Executes BuildCommand command.
   void Execute() override;
 
  private:

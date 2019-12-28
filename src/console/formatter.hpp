@@ -14,10 +14,13 @@
 #include <CLI/Formatter.hpp>
 
 namespace zephir::console {
+/// \brief This is the default Formatter for Application. It pretty prints help
+/// output, and is broken into quite a few overridable methods, to be highly
+/// customizable with minimal effort.
 class Formatter : public CLI::Formatter {
  public:
   /**
-   * @brief Displays the description line.
+   * \brief Displays the description line.
    *
    * @param app The pointer to a CLI::App instance
    * @return Program/command description string.

@@ -16,68 +16,66 @@
 #include "ptr.hpp"
 
 namespace zephir {
-/**
- * @brief Manages compiler global configuration.
- */
+/// \brief Manages compiler global configuration.
 class Config {
  public:
-  /**
-   * @brief Config constructor.
-   */
+  /// \brief Construct Config object using the given path to the configuration
+  /// file.
+  ///
+  /// \param path The used path to load the project configuration.
   explicit Config(const std::string &path);
 
-  /**
-   * @brief Dumps the project configuration to the disk.
-   * @param path Used path to dump project configuration.
-   */
+  /// \brief Dumps the project configuration to the disk.
+  ///
+  /// \param path The used path to dump the project configuration.
   void dump(const std::string &path);
 
-  /**
-   * \brief factory method to create a Config instance from argv and config
-   * file. Initialize configuration from both the CLI and a possible config
-   * file.
-   *
-   * @param options Provided command line arguments
-   * @param path The default name/location of the config file
-   * @return A fresh Config instance with loaded configurations
-   *
-   * Items specified in the CLI take priority over any settings loaded from
-   * config file. Configuration file, if not found from the provided parameter
-   * or set specifically in the CLI, will also search through any search paths
-   * provided from the CLI for the provided filename.
-   */
+  /// \brief The factory method to create a Config instance from argv and config
+  /// file.
+  ///
+  /// \details Initialize configuration from both the CLI and a possible config
+  /// file. Items specified in the CLI take priority over any settings loaded
+  /// from config file. The Config object, if file not found in the given path,
+  /// will load sane defaults.
+  ///
+  /// \param options Provided command line arguments
+  /// \param path The path to the project configuration file
+  /// \return A fresh Config instance with loaded configurations
   static ConfigPtr factory(std::vector<std::string> &options,
                            const std::string &path);
 
-  /// Check for a key existence
+  /// \brief Check for a key existence
   bool has(const std::string &key) const;
 
-  /// Check for a key existence in the given namespace
+  /// \brief Check for a key existence in the given namespace
   bool has(const std::string &key, const std::string &ns) const;
 
-  /// Getting a value by its key
+  /// \brief Gets a value by its key
   template <typename T>
   inline T get(const std::string &key, const T &fallback) const;
 
-  /// Getting a value by its key and namespace
+  /// \brief Gets a value by its key and namespace
   template <typename T>
   inline T get(const std::string &key, const std::string &ns,
                const T &fallback) const;
 
+  /// \brief Sets a value for a provided key
   template <typename T>
   inline Config &set(const std::string &key, const T &rhs);
 
+  /// \brief Sets a value for a provided key for the the given namespace
   template <typename T>
   inline Config &set(const std::string &key, const std::string &ns,
                      const T &rhs);
 
  private:
+  /// \brief Gets the initial project configuration data
   static std::string getInitData() noexcept;
 
-  /**
-   * \brief Populate config container_ from a file path_.
-   * @param path Used path to load project configuration.
-   */
+  /// \brief Populate config container using the given path to the configuration
+  /// file.
+  ///
+  /// \param path The used path to load project configuration.
   void populate(const std::string &path);
 
   YAML::Node container_;

@@ -13,18 +13,34 @@
 #include <CLI/CLI.hpp>
 
 namespace zephir::console::commands {
+/// \brief Base class for all commands.
 class AbstractCommand {
  public:
+  /// \brief Construct command object with a given name.
+  ///
+  /// \param name The name of the command
   explicit AbstractCommand(std::string name);
+
+  /// Command destructor
   virtual ~AbstractCommand() = default;
+
+  /// \brief Configures the current command.
+  ///
+  /// \param app A `CLI::App` instance
   virtual void Setup(std::shared_ptr<CLI::App> app) = 0;
+
+  /// \brief Executes the current command.
   virtual void Execute() = 0;
 
  protected:
+  /// Gets the common compilation flags help.
   static std::string CommonCompilationFlagsHelp();
 
+  /// The default command name
   const std::string name_;
-  const std::string group_{"Available commands"};
+
+  /// The group membership
+  const std::string group_ = std::string("Available commands");
 };
 
 using CommandPtr = std::unique_ptr<AbstractCommand>;
