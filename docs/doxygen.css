@@ -48,7 +48,7 @@ p.startli, p.startdd, p.starttd {
 }
 
 p.endli {
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
 p.enddd {
@@ -124,16 +124,6 @@ a.el:hover {
 }
 
 pre.fragment {
-    /*border: 1px solid #C4CFE5;
-    background-color: #FBFCFD;
-    padding: 4px 6px;
-    margin: 4px 8px 4px 2px;
-    overflow: auto;
-    word-wrap: break-word;
-    font-size:  9pt;
-    line-height: 125%;
-    font-family: monospace, fixed;
-    font-size: 105%;*/
     font-family: Consolas, "Liberation Mono", Courier, monospace;
     font-size: 10pt;
     padding: 0.5em 1em;
@@ -143,15 +133,6 @@ border-radius(5px);
 }
 
 div.fragment {
-    /*margin: 0 0 0 5px;
-    padding: 0.5em 1em;
-    font-family: Consolas, "Liberation Mono", Courier, monospace;
-    font-size: 10pt;
-    background-color: #eef7e3;
-    border-left: 3px solid #8DC841;
-    border-right: 0;
-    border-bottom: 0;*/
-
     font-family: Consolas, "Liberation Mono", Courier, monospace;
     font-size: 10pt;
     padding: 0.5em 1em;
@@ -170,8 +151,8 @@ div.line {
     word-wrap: break-word;      /* IE 5.5+ */
     text-indent: -53px;
     padding-left: 53px;
-    padding-bottom: 0px;
-    margin: 0px;
+    padding-bottom: 0;
+    margin: 0;
     line-height: normal;
 }
 
@@ -218,7 +199,7 @@ td.indexkey {
     background-color: #EBEFF6;
     font-weight: bold;
     border: 1px solid #C4CFE5;
-    margin: 2px 0px 2px 0;
+    margin: 2px 0 2px 0;
     padding: 2px 10px;
     white-space: nowrap;
     vertical-align: top;
@@ -228,7 +209,7 @@ td.indexvalue {
     background-color: #EBEFF6;
     border: 1px solid #C4CFE5;
     padding: 2px 10px;
-    margin: 2px 0px;
+    margin: 2px 0;
 }
 
 tr.memlist {
@@ -249,13 +230,13 @@ img.formulaInl {
 
 div.center {
     text-align: center;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    padding: 0px;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0;
 }
 
 div.center img {
-    border: 0px;
+    border: 0;
 }
 
 address.footer {
@@ -264,7 +245,7 @@ address.footer {
 }
 
 img.footer {
-    border: 0px;
+    border: 0;
     vertical-align: middle;
 }
 
@@ -340,7 +321,7 @@ th.dirtab {
 
 hr {
     display: none;
-    height: 0px;
+    height: 0;
     border: none;
     border-top: 1px solid #4A6AAA;
 }
@@ -352,8 +333,8 @@ hr.footer {
 /* @group Member Descriptions */
 
 table.memberdecls {
-    border-spacing: 0px;
-    padding: 0px;
+    border-spacing: 0;
+    padding: 0;
 }
 
 .memberdecls td, .fieldtable tr {
@@ -384,15 +365,15 @@ table.memberdecls {
 }
 
 .mdescLeft, .mdescRight {
-    padding: 0px 8px 4px 8px;
+    padding: 0 8px 4px 8px;
     color: #555;
 }
 
 .memSeparator {
     border-bottom: 1px solid #DEE4F0;
     line-height: 1px;
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
 }
 
 .memItemLeft, .memTemplItemLeft {
@@ -460,10 +441,10 @@ table.memberdecls {
     border-top: 1px solid #A8B8D9;
     border-left: 1px solid #A8B8D9;
     border-right: 1px solid #A8B8D9;
-    padding: 6px 0px 6px 0px;
+    padding: 6px 0 6px 0;
     color: #000;
     font-weight: bold;
-    text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.9);
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9);
     background-color: #eee;
     border-top-right-radius: 4px;
     border-top-left-radius: 4px;
@@ -492,7 +473,7 @@ dl.reflist dt {
 }
 
 dl.reflist dd {
-    margin: 0px 0px 10px 0px;
+    margin: 0 0 10px 0;
     padding: 5px;
 }
 
@@ -516,8 +497,8 @@ dl.reflist dd {
 }
 
 .params, .retval, .exception, .tparams {
-    margin-left: 0px;
-    padding-left: 0px;
+    margin-left: 0;
+    padding-left: 0;
 }
 
 .params .paramname, .retval .paramname {
@@ -536,17 +517,17 @@ dl.reflist dd {
 }
 
 table.mlabels {
-    border-spacing: 0px;
+    border-spacing: 0;
 }
 
 td.mlabels-left {
     width: 100%;
-    padding: 0px;
+    padding: 0;
 }
 
 td.mlabels-right {
     vertical-align: bottom;
-    padding: 0px;
+    padding: 0;
     white-space: nowrap;
 }
 
@@ -570,14 +551,12 @@ span.mlabel {
     vertical-align: middle;
 }
 
-
-
 /* @end */
 
 /* these are for tree view when not used as main index */
 
 div.directory {
-    margin: 10px 0px;
+    margin: 10px 0;
     border-top: 1px solid #bbb;
     width: 100%;
 }
@@ -587,8 +566,8 @@ div.directory {
 }
 
 .directory td {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     vertical-align: top;
 }
 
@@ -682,7 +661,7 @@ table.fieldtable {
     width: 100%;
     margin-bottom: 10px;
     border: 1px solid #A8B8D9;
-    border-spacing: 0px;
+    border-spacing: 0;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
     border-radius: 4px;
@@ -726,7 +705,7 @@ table.fieldtable {
 
 
 .tabsearch {
-    top: 0px;
+    top: 0;
     left: 10px;
     height: 36px;
     z-index: 101;
@@ -764,7 +743,7 @@ table.fieldtable {
     outline: none;
     color: #283A5D;
     font-family: 'Lucida Grande',Geneva,Helvetica,Arial,sans-serif;
-    text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.9);
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9);
     text-decoration: none;
 }
 
@@ -821,10 +800,9 @@ dl {
     padding: 0 0 0 10px;
 }
 
-/* dl.note, dl.warning, dl.attention, dl.pre, dl.post, dl.invariant, dl.deprecated, dl.todo, dl.test, dl.bug */
 dl.section {
-    margin-left: 0px;
-    padding-left: 0px;
+    margin-left: 0;
+    padding-left: 0;
 }
 
 dl.note {
@@ -888,30 +866,30 @@ dl.section dd {
 }
 
 #projectlogo img {
-    border: 0px none;
+    border: 0 none;
 }
 
 #projectname {
     font: 300% Tahoma, Arial,sans-serif;
-    margin: 0px;
-    padding: 2px 0px;
+    margin: 0;
+    padding: 2px 0;
 }
 
 #projectbrief {
     font: 120% Tahoma, Arial,sans-serif;
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
 }
 
 #projectnumber {
     font: 50% Tahoma, Arial,sans-serif;
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
 }
 
 #titlearea {
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
     width: 100%;
     border-bottom: 1px solid #5373B4;
 }
@@ -981,11 +959,11 @@ div.toc h3 {
 div.toc ul {
     list-style: none outside none;
     border: medium none;
-    padding: 0px;
+    padding: 0;
 }
 
 div.toc li.level1 {
-    margin-left: 0px;
+    margin-left: 0;
 }
 
 div.toc li.level2 {
@@ -1013,7 +991,7 @@ div.toc li.level4 {
 }
 
 .inherit_header td {
-    padding: 6px 0px 2px 5px;
+    padding: 6px 0 2px 5px;
 }
 
 .inherit {
@@ -1063,43 +1041,54 @@ tr.heading h2 {
     font-size: 9pt;
 }
 
-#navrow1 .tablist, #navrow2 .tablist, #navrow3 .tablist, #navrow4 .tablist {
+#main-nav ul {
     margin: 0;
     padding: 0;
-    display: table;
 }
 
-.tablist li {
-    float: left;
-    display: table-cell;
-    list-style: none;
+#main-nav .sm-dox {
+    background-image: none;
+    background-color: aliceblue;
 }
 
-#navrow1 {
+#main-nav {
     border-top: 1px solid #999;
+    border-bottom: 1px solid #999;
+    border-right: 1px solid #999;
     margin-top: 2em;
 }
 
-#navrow1 .tablist a, #navrow2 .tablist a, #navrow3 .tablist a, #navrow4 .tablist a {
+#main-nav ul a {
     display: block;
-    margin: 8px 0;
     padding: 0 8px;
-    border-right: 1px solid #bbb;
+    border-left: 1px solid #bbb;
+    color: #2A3D61;
 }
 
-.tablist li {
+#main-nav ul a.has-submenu {
+    padding-right: 24px;
+}
+
+#main-nav ul a,
+#main-nav ul a:link,
+#main-nav ul a:focus,
+#main-nav ul a:hover,
+#main-nav ul a:active,
+#main-nav ul a.highlighted {
+    text-shadow: unset;
+    background-image: unset;
+}
+
+#main-menu li {
+    list-style: none;
     margin-bottom: 0 !important;
 }
 
-.tablist li.current a {
+#main-menu li.current a {
     font-weight: bold;
 }
 
-
-
-
-
-/* SFML css */
+/* Zephir css */
 body {
     font-family: 'Ubuntu', 'Arial', sans-serif;
     line-height: 140%;
@@ -1125,18 +1114,36 @@ body {
 #banner {
     width: 950px;
     height: 60px;
-    line-height: 54px;
+    line-height: 60px;
     margin: 0 auto;
-    text-align: center;
 }
 
-#banner #zephir {
-    display: inline;
-    vertical-align: top;
-    margin-left: 15px;
+#banner a {
+    text-decoration: none;
     color: #fff;
-    font-size: 18pt;
-    text-shadow: rgba(0, 0, 0, 0.5) 1px 1px 5px;
+}
+
+.navbar-brand {
+    padding-top: .3125rem;
+    padding-bottom: .3125rem;
+    font-size: 1.25rem;
+    line-height: inherit;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    margin-right: 0;
+    color: #fff;
+}
+
+.bd-brand-logos {
+    display: table;
+    overflow: hidden;
+    color: #6f5499;
+    background-color: #f9f9f9;
+    border-radius: .25rem;
+    width: 40px;
+    padding: .2rem;
+    margin-right: 10px;
 }
 
 #footer-container {
@@ -1170,7 +1177,7 @@ div.contents, #content {
     padding: 0;
 }
 
-div.contents h1 {
+#content h1, div.contents h1 {
     color: #333;
     padding: 0.5em 0;
     margin-top: 30px;
@@ -1261,7 +1268,7 @@ div.contents ul li {
     height: 18px;
     margin-bottom: 4px;
     background-image:url('ftv2folderopen.png');
-    background-position: 0px -4px;
+    background-position: 0 -4px;
     background-repeat: repeat-y;
     vertical-align:top;
     display: inline-block;
@@ -1272,7 +1279,7 @@ div.contents ul li {
     height: 18px;
     margin-bottom: 4px;
     background-image:url('ftv2folderclosed.png');
-    background-position: 0px -4px;
+    background-position: 0 -4px;
     background-repeat: repeat-y;
     vertical-align:top;
     display: inline-block;
@@ -1283,7 +1290,7 @@ div.contents ul li {
     height: 18px;
     margin-bottom: 4px;
     background-image:url('ftv2doc.png');
-    background-position: 0px -4px;
+    background-position: 0 -4px;
     background-repeat: repeat-y;
     vertical-align:top;
     display: inline-block;
@@ -1330,15 +1337,15 @@ div.contents ul li {
 }
 
 #powerTip div {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     font: 12px/16px Roboto,sans-serif;
 }
 
 #powerTip:before, #powerTip:after {
     content: "";
     position: absolute;
-    margin: 0px;
+    margin: 0;
 }
 
 #powerTip.n:after,  #powerTip.n:before,
@@ -1379,12 +1386,12 @@ div.contents ul li {
 #powerTip.n:after, #powerTip.ne:after, #powerTip.nw:after {
     border-top-color: #ffffff;
     border-width: 10px;
-    margin: 0px -10px;
+    margin: 0 -10px;
 }
 #powerTip.n:before {
     border-top-color: #808080;
     border-width: 11px;
-    margin: 0px -11px;
+    margin: 0 -11px;
 }
 #powerTip.n:after, #powerTip.n:before {
     left: 50%;
@@ -1407,13 +1414,13 @@ div.contents ul li {
 #powerTip.s:after, #powerTip.se:after, #powerTip.sw:after {
     border-bottom-color: #ffffff;
     border-width: 10px;
-    margin: 0px -10px;
+    margin: 0 -10px;
 }
 
 #powerTip.s:before, #powerTip.se:before, #powerTip.sw:before {
     border-bottom-color: #808080;
     border-width: 11px;
-    margin: 0px -11px;
+    margin: 0 -11px;
 }
 
 #powerTip.s:after, #powerTip.s:before {

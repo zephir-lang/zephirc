@@ -180,8 +180,9 @@ add_subdirectory(external)
 add_subdirectory(src)
 add_subdirectory(share)
 
-option(API_DOC "Build API Documentation." OFF)
-if(MASTER_PROJECT AND API_DOC)
+option(ZEPHIR_BUILD_DOC
+       "ON to generate the API documentation, OFF to ignore it" OFF)
+if(MASTER_PROJECT AND ZEPHIR_BUILD_DOC)
   add_subdirectory(docs)
 endif()
 
