@@ -1,3 +1,7 @@
+/// \file filesystem.hpp
+/// \brief Represents filesystem helpers to use internally in the Zephir
+/// compiler.
+
 // This file is part of the Zephir.
 //
 // (c) Phalcon Team <team@zephir-lang.com>

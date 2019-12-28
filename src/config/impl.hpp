@@ -5,6 +5,9 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
+/// \file impl.hpp
+/// \brief Provides implementation of Config's template functions.
+
 #ifndef ZEPHIR_CONFIG_IMPL_HPP_
 #define ZEPHIR_CONFIG_IMPL_HPP_
 

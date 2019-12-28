@@ -5,6 +5,9 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
+/// \file fullclean.hpp
+/// \brief Provides FullCleanCommand.
+
 #ifndef ZEPHIR_CLI_COMMANDS_FULLCLEAN_HPP_
 #define ZEPHIR_CLI_COMMANDS_FULLCLEAN_HPP_
 

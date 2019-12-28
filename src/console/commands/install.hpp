@@ -5,6 +5,9 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
+/// \file install.hpp
+/// \brief Provides InstallOptions, InstallOptionsPtr and InstallCommand.
+
 #ifndef ZEPHIR_CLI_COMMANDS_INSTALL_HPP_
 #define ZEPHIR_CLI_COMMANDS_INSTALL_HPP_
 
@@ -18,6 +21,7 @@ struct InstallOptions {
   bool dev;
 };
 
+/// \brief A type definition for a unique pointer to a InstallOptions instance.
 using InstallOptionsPtr = std::unique_ptr<InstallOptions>;
 
 /// \brief Installs the extension in the extension directory.

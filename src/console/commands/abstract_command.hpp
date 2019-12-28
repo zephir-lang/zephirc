@@ -5,6 +5,9 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
+/// \file abstract_command.hpp
+/// \brief Represents abstract class for all Zephir commands.
+
 #ifndef ZEPHIR_CLI_COMMANDS_ABSTRACT_COMMAND_HPP_
 #define ZEPHIR_CLI_COMMANDS_ABSTRACT_COMMAND_HPP_
 
@@ -27,12 +30,9 @@ class AbstractCommand {
   /// \brief Configures the current command.
   ///
   /// \param app A `CLI::App` instance
-  /// \return void
   virtual void Setup(std::shared_ptr<CLI::App> app) = 0;
 
   /// \brief Executes the current command
-  ///
-  /// \return void
   virtual void Execute() = 0;
 
  protected:
@@ -48,6 +48,7 @@ class AbstractCommand {
   const std::string group_ = std::string("Available commands");
 };
 
+/// \brief A type definition for a unique pointer to a AbstractCommand instance.
 using CommandPtr = std::unique_ptr<AbstractCommand>;
 }  // namespace zephir::console::commands
 

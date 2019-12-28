@@ -5,6 +5,9 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
+/// \file compile.hpp
+/// \brief Provides CompileOptions, CompileOptionsPtr and CompileCommand.
+
 #ifndef ZEPHIR_CLI_COMMANDS_COMPILE_HPP_
 #define ZEPHIR_CLI_COMMANDS_COMPILE_HPP_
 
@@ -20,6 +23,7 @@ struct CompileOptions {
   bool dev;
 };
 
+/// \brief A type definition for a unique pointer to a CompileOptions instance.
 using CompileOptionsPtr = std::unique_ptr<CompileOptions>;
 
 /// \brief Compile a Zephir extension.

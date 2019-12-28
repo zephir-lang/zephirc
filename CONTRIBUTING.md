@@ -29,9 +29,12 @@ permission to merge patches). Feedback can be provided and potentially changes
 requested or the pull request will be merged. All contributions should follow
 this format, even those from core contributors.
 
-## C++ language standard
+## Codding style
 
-This project uses C++17 language standard.
+This project follows the Google style guide for member names ending in underscores.
+Please follow the same convention by propose patches.
+
+Zephir compiler mainly uses C++17 language standard.
 
 ## License
 

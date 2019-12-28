@@ -5,6 +5,9 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
+/// \file formatter.hpp
+/// \brief Provides custom CLI::Formatter implementation.
+
 #ifndef ZEPHIR_CLI_FORMATTER_HPP_
 #define ZEPHIR_CLI_FORMATTER_HPP_
 

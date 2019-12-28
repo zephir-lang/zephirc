@@ -1,3 +1,6 @@
+/// \file config.hpp
+/// \brief The main Config class. Manages compiler global configuration.
+
 // This file is part of the Zephir.
 //
 // (c) Phalcon Team <team@zephir-lang.com>

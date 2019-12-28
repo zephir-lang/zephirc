@@ -5,6 +5,9 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
+/// \file generate.hpp
+/// \brief Provides GenerateOptions, GenerateOptionsPtr and GenerateCommand.
+
 #ifndef ZEPHIR_CLI_COMMANDS_GENERATE_HPP_
 #define ZEPHIR_CLI_COMMANDS_GENERATE_HPP_
 
@@ -17,6 +20,7 @@ struct GenerateOptions {
   std::string backend{""};
 };
 
+/// \brief A type definition for a unique pointer to a GenerateOptions instance.
 using GenerateOptionsPtr = std::unique_ptr<GenerateOptions>;
 
 /// \brief Generates C code from the Zephir code without compiling it.
