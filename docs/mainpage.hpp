@@ -1,3 +1,6 @@
+/// \file mainpage.hpp
+/// \brief Provides front page for the Zephir API documentation.
+
 ////////////////////////////////////////////////////////////
 /// \mainpage
 ///

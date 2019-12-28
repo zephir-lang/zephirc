@@ -1041,6 +1041,10 @@ tr.heading h2 {
     font-size: 9pt;
 }
 
+.sm {
+    z-index: unset;
+}
+
 #main-nav ul {
     margin: 0;
     padding: 0;
