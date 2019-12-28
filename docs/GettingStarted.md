@@ -1,9 +1,3 @@
-# Zephir Documentation {#mainpage}
-
-This is the Doxygen API documentation for Zephir compiler. The purpose of this
-documentation is to explain how Zephir is built internally. If you're interested
-in helping to improve Zephir, this is the information you need.
-
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your
@@ -102,14 +96,14 @@ cmake --build build --target check
 
 Additional cmake flags are (e.g. to enable `FEATURE` use `-DFEATURE=ON`):
 
-| Description                                         | Flag                   |
-| --------------------------------------------------- |------------------------|
-| Add `cppcheck` step to the compilation.             | `CPPCHECK`             |
-| Generate code coverage report.                      | `CODE_COVERAGE`        |
-| Compile with all warnings for the major compilers.  | `ENABLE_ALL_WARNINGS`  |
-| Enable Effective C++ warnings.                      | `ENABLE_EFFECTIVE_CXX` |
-| Builds a visual representation of the project.      | `BUILD_DEP_GRAPH`      |
-| Build API Documentation.                            | `API_DOC`              |
+| Description                                             | Flag                   |
+| ------------------------------------------------------- |------------------------|
+| Add `cppcheck` step to the compilation.                 | `CPPCHECK`             |
+| Generate code coverage report.                          | `CODE_COVERAGE`        |
+| Compile with all warnings for the major compilers.      | `ENABLE_ALL_WARNINGS`  |
+| Enable Effective C++ warnings.                          | `ENABLE_EFFECTIVE_CXX` |
+| Builds a visual representation of the project.          | `BUILD_DEP_GRAPH`      |
+| ON to generate the API documentation, OFF to ignore it. | `ZEPHIR_BUILD_DOC`     |
 
 ## Generate HTML code coverage report
 

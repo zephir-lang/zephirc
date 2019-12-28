@@ -15,8 +15,6 @@ set(DOXYGEN_OUTPUT_DIR ${PROJECT_BINARY_DIR}/docs)
 set(DOXYGEN_CONFIGURED_INPUT ${DOXYGEN_OUTPUT_DIR}/Doxyfile)
 configure_file(${DOXYGEN_INPUT_DIR}/docs/Doxyfile.in
                ${DOXYGEN_CONFIGURED_INPUT} @ONLY)
-configure_file(${DOXYGEN_INPUT_DIR}/docs/header.html.in
-               ${DOXYGEN_OUTPUT_DIR}/header.html @ONLY)
 
 # copy the files needed by the documentation
 configure_file(${DOXYGEN_INPUT_DIR}/docs/doxygen.css
