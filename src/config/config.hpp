@@ -44,40 +44,39 @@ class Config {
   static ConfigPtr factory(std::vector<std::string> &options,
                            const std::string &path);
 
-  /// \brief  Function for checking if configuration values exist, using simple
-  /// key.
+  /// \brief Determine if a configuration value exist, using simple key.
   ///
   /// \param key The requested configuration key.
   /// \return true on success, false otherwise
   bool has(const std::string &key) const;
 
-  /// \brief  Function for checking if configuration values exist, using simple
-  /// key and given namespace.
+  /// \brief Determine if a configuration value exist, using simple key and
+  /// given namespace.
   ///
   /// \param key The requested configuration key.
   /// \param ns The requested configuration namespace.
   /// \return true on success, false otherwise
   bool has(const std::string &key, const std::string &ns) const;
 
-  /// \brief Gets a configuration setting using a simple key.
+  /// \brief Fetch a configuration value using a simple key.
   ///
   /// \tparam T Requested return type.
-  /// \param key The key to retrieve.
-  /// \param fallback  This will used as a default value in case of absence
+  /// \param key Which config item to look up.
+  /// \param fallback  Fallback default value to use when configuration object
+  /// has no value.
   ///
   /// \return Requested configuration setting if any,
   /// fallback otherwise
   template <typename T>
   inline T get(const std::string &key, const T &fallback) const;
 
-  /// \brief Gets a configuration setting using a simple key and given
-  /// namespace.
+  /// \brief Fetch a configuration value using a simple key.
   ///
   /// \tparam T Requested return type.
-  /// \param key The key to retrieve.
-  /// \param ns The namespace to retrieve.
-  /// \param fallback This will used as a default value in case of absence
-  /// configuration setting
+  /// \param key Which config item to look up.
+  /// \param ns Used configuration namespace to retrieve value.
+  /// \param fallback  Fallback default value to use when configuration object
+  /// has no value.
   ///
   /// \return Requested configuration setting if any,
   /// fallback otherwise
@@ -85,7 +84,7 @@ class Config {
   inline T get(const std::string &key, const std::string &ns,
                const T &fallback) const;
 
-  /// \brief Function for setting configuration values, using simple key.
+  /// \brief Set a configuration value, using simple key.
   ///
   /// \tparam T Used type for new value.
   /// \param key This configuration key will be set.
@@ -94,8 +93,8 @@ class Config {
   template <typename T>
   inline Config &set(const std::string &key, const T &rhs);
 
-  /// \brief Function for setting configuration values, using simple key and the
-  /// given namespace.
+  /// \brief Set a configuration value, using simple key and the given
+  /// namespace.
   ///
   /// \tparam T Used type for new value.
   /// \param key This configuration key will be set.

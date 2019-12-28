@@ -23,6 +23,5 @@
    (ZEPHIR_VERSION_PATCH))
 
 #define ZEPHIR_NAME "Zephir"
-#define ZEPHIR_AUTHORS "Serghei Iakovlev and Alexander Andriiako"
 
 #endif  // ZEPHIR_VERSION_HPP_
