@@ -11,11 +11,12 @@
 #include <string>
 
 namespace zephir {
-/// \brief Gets a configuration setting using a simple key.
+/// \brief Fetch a configuration value using a simple key.
 ///
 /// \tparam T Requested return type.
-/// \param key  The key to retrieve.
-/// \param fallback  This will used as a default value in case of absence
+/// \param key Which config item to look up.
+/// \param fallback  Fallback default value to use when configuration object
+/// has no value.
 ///
 /// \return Requested configuration setting if any,
 /// fallback otherwise
@@ -24,13 +25,13 @@ inline T Config::get(const std::string &key, const T &fallback) const {
   return container_[key].as<T, T>(fallback);
 }
 
-/// \brief Gets a configuration setting using a simple key and given namespace.
+/// \brief Fetch a configuration value using a simple key.
 ///
 /// \tparam T Requested return type.
-/// \param key The key to retrieve.
-/// \param ns The namespace to retrieve.
-/// \param fallback This will used as a default value in case of absence
-/// configuration setting
+/// \param key Which config item to look up.
+/// \param ns Used configuration namespace to retrieve value.
+/// \param fallback  Fallback default value to use when configuration object
+/// has no value.
 ///
 /// \return Requested configuration setting if any,
 /// fallback otherwise
@@ -44,7 +45,7 @@ inline T zephir::Config::get(const std::string &key, const std::string &ns,
   return fallback;
 }
 
-/// \brief Function for setting configuration values, using simple key.
+/// \brief Set a configuration value, using simple key.
 ///
 /// \tparam T Used type for new value.
 /// \param key This configuration key will be set.
@@ -60,8 +61,7 @@ inline zephir::Config &zephir::Config::set(const std::string &key,
   return *this;
 }
 
-/// \brief Function for setting configuration values, using simple key and the
-/// given namespace.
+/// \brief Set a configuration value, using simple key and the given namespace.
 ///
 /// \tparam T Used type for new value.
 /// \param key This configuration key will be set.

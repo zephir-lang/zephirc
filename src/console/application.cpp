@@ -23,9 +23,8 @@ zephir::console::Application::Application(zephir::ConfigPtr config,
       app_(std::make_shared<CLI::App>()),
       help_(nullptr),
       commands_() {
-  auto out = std::string(ZEPHIR_NAME) + " " +
-             std::string(ZEPHIR_VERSION_STRING) + " by " +
-             std::string(ZEPHIR_AUTHORS);
+  auto out =
+      std::string(ZEPHIR_NAME) + " " + std::string(ZEPHIR_VERSION_STRING);
 
   app_->description(out);
   app_->name("zephir");
