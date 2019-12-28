@@ -1,13 +1,15 @@
-# Getting Started
+# Zephir Documentation {#mainpage}
 
-The purpose of this document is to explain how Zephir is built internally.
-If you're interested in helping to improve Zephir, this is the information
-you need.
+This is the Doxygen API documentation for Zephir compiler. The purpose of this
+documentation is to explain how Zephir is built internally. If you're interested
+in helping to improve Zephir, this is the information you need.
+
+## Getting Started
 
 These instructions will get you a copy of the project up and running on your
 local machine for development and testing purposes.
 
-## Prerequisites
+### Prerequisites
 
 To build Zephir compiler you need the following requirements:
 * A C++ compiler such as [Gcc](https://gcc.gnu.org) >= 7.0.0, [Clang](https://clang.llvm.org) >= 5.0.0 or [Apple Clang](https://apps.apple.com/us/app/xcode/id497799835) >= 10.0.0
@@ -57,7 +59,7 @@ conan install . -if=$(pwd)/build --build=missing
 For a detailed instruction on how to use and customize `conan` please refer
 [here](https://docs.conan.io/en/latest/getting_started.html).
 
-## Building
+### Building
 
 First you'll need clone the project and fetch its modules:
 ```shell script
@@ -107,6 +109,7 @@ Additional cmake flags are (e.g. to enable `FEATURE` use `-DFEATURE=ON`):
 | Compile with all warnings for the major compilers.  | `ENABLE_ALL_WARNINGS`  |
 | Enable Effective C++ warnings.                      | `ENABLE_EFFECTIVE_CXX` |
 | Builds a visual representation of the project.      | `BUILD_DEP_GRAPH`      |
+| Build API Documentation.                            | `API_DOC`              |
 
 ## Generate HTML code coverage report
 
