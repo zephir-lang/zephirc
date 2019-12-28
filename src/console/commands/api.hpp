@@ -13,10 +13,15 @@
 namespace zephir::console::commands {
 /// \brief Collection of all options of ApiCommand subcommand.
 struct ApiOptions {
+  /// Used backend to generate extension.
   std::string backend{""};
+  /// The API theme to be used
   std::string template_path{""};
+  /// The output directory to generate theme
   std::string output{""};
+  /// The current theme options
   std::string theme_options{""};
+  /// The base URL to be used when generating links
   std::string url{""};
 };
 
@@ -25,11 +30,14 @@ using ApiOptionsPtr = std::unique_ptr<ApiOptions>;
 /// \brief Generates a HTML API based on the classes exposed in the extension.
 class ApiCommand : public AbstractCommand {
  public:
-  /// \rief Construct ApiCommand object with a given name.
+  /// \brief Construct ApiCommand object with a given name.
   ///
   /// \param name The name of the command
   explicit ApiCommand(std::string name);
 
+  /// \brief Configures the ApiCommand command.
+  ///
+  /// \param app A `CLI::App` instance
   void Setup(std::shared_ptr<CLI::App> app) override;
 
   /// \brief Executes ApiCommand command.

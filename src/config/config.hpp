@@ -44,26 +44,64 @@ class Config {
   static ConfigPtr factory(std::vector<std::string> &options,
                            const std::string &path);
 
-  /// \brief Check for a key existence
+  /// \brief  Function for checking if configuration values exist, using simple
+  /// key.
+  ///
+  /// \param key The requested configuration key.
+  /// \return true on success, false otherwise
   bool has(const std::string &key) const;
 
-  /// \brief Check for a key existence in the given namespace
+  /// \brief  Function for checking if configuration values exist, using simple
+  /// key and given namespace.
+  ///
+  /// \param key The requested configuration key.
+  /// \param ns The requested configuration namespace.
+  /// \return true on success, false otherwise
   bool has(const std::string &key, const std::string &ns) const;
 
-  /// \brief Gets a value by its key
+  /// \brief Gets a configuration setting using a simple key.
+  ///
+  /// \tparam T Requested return type.
+  /// \param key The key to retrieve.
+  /// \param fallback  This will used as a default value in case of absence
+  ///
+  /// \return Requested configuration setting if any,
+  /// fallback otherwise
   template <typename T>
   inline T get(const std::string &key, const T &fallback) const;
 
-  /// \brief Gets a value by its key and namespace
+  /// \brief Gets a configuration setting using a simple key and given
+  /// namespace.
+  ///
+  /// \tparam T Requested return type.
+  /// \param key The key to retrieve.
+  /// \param ns The namespace to retrieve.
+  /// \param fallback This will used as a default value in case of absence
+  /// configuration setting
+  ///
+  /// \return Requested configuration setting if any,
+  /// fallback otherwise
   template <typename T>
   inline T get(const std::string &key, const std::string &ns,
                const T &fallback) const;
 
-  /// \brief Sets a value for a provided key
+  /// \brief Function for setting configuration values, using simple key.
+  ///
+  /// \tparam T Used type for new value.
+  /// \param key This configuration key will be set.
+  /// \param rhs This value will be set for the given configuration key.
+  /// \return Returns Config instance
   template <typename T>
   inline Config &set(const std::string &key, const T &rhs);
 
-  /// \brief Sets a value for a provided key for the the given namespace
+  /// \brief Function for setting configuration values, using simple key and the
+  /// given namespace.
+  ///
+  /// \tparam T Used type for new value.
+  /// \param key This configuration key will be set.
+  /// \param ns This configuration namespace will be used.
+  /// \param rhs This value will be set for the given configuration key.
+  /// \return Returns Config instance
   template <typename T>
   inline Config &set(const std::string &key, const std::string &ns,
                      const T &rhs);

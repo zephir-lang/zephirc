@@ -14,7 +14,9 @@ namespace zephir::console::commands {
 /// \brief Collection of all options of CompileCommand subcommand.
 struct CompileOptions {
   CompileOptions() : dev(true) {}
+  /// Used backend to generate extension.
   std::string backend{""};
+  /// Compile the extension in development mode
   bool dev;
 };
 
@@ -28,6 +30,9 @@ class CompileCommand : public AbstractCommand {
   /// \param name The name of the command
   explicit CompileCommand(std::string name);
 
+  /// \brief Configures the CompileCommand command.
+  ///
+  /// \param app A `CLI::App` instance
   void Setup(std::shared_ptr<CLI::App> app) override;
 
   /// \brief Executes CompileCommand command.

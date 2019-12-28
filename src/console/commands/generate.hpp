@@ -13,6 +13,7 @@
 namespace zephir::console::commands {
 /// \brief Collection of all options of GenerateCommand subcommand.
 struct GenerateOptions {
+  /// Used backend to generate extension.
   std::string backend{""};
 };
 
@@ -26,6 +27,9 @@ class GenerateCommand : public AbstractCommand {
   /// \param name The name of the command
   explicit GenerateCommand(std::string name);
 
+  /// \brief Configures the GenerateCommand command.
+  ///
+  /// \param app A `CLI::App` instance
   void Setup(std::shared_ptr<CLI::App> app) override;
 
   /// \brief Executes GenerateCommand command.

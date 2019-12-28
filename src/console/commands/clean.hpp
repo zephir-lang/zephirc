@@ -19,6 +19,9 @@ class CleanCommand : public AbstractCommand {
   /// \param name The name of the command
   explicit CleanCommand(std::string name);
 
+  /// \brief Configures the CleanCommand command.
+  ///
+  /// \param app A `CLI::App` instance
   void Setup(std::shared_ptr<CLI::App> app) override;
 
   /// \brief Executes CleanCommand command.

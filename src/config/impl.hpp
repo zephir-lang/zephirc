@@ -11,13 +11,29 @@
 #include <string>
 
 namespace zephir {
-/// \brief Gets a value by its key
+/// \brief Gets a configuration setting using a simple key.
+///
+/// \tparam T Requested return type.
+/// \param key  The key to retrieve.
+/// \param fallback  This will used as a default value in case of absence
+///
+/// \return Requested configuration setting if any,
+/// fallback otherwise
 template <typename T>
 inline T Config::get(const std::string &key, const T &fallback) const {
   return container_[key].as<T, T>(fallback);
 }
 
-/// \brief Gets a value by its key and namespace
+/// \brief Gets a configuration setting using a simple key and given namespace.
+///
+/// \tparam T Requested return type.
+/// \param key The key to retrieve.
+/// \param ns The namespace to retrieve.
+/// \param fallback This will used as a default value in case of absence
+/// configuration setting
+///
+/// \return Requested configuration setting if any,
+/// fallback otherwise
 template <typename T>
 inline T zephir::Config::get(const std::string &key, const std::string &ns,
                              const T &fallback) const {
@@ -28,7 +44,12 @@ inline T zephir::Config::get(const std::string &key, const std::string &ns,
   return fallback;
 }
 
-/// \brief Sets a value for a provided key
+/// \brief Function for setting configuration values, using simple key.
+///
+/// \tparam T Used type for new value.
+/// \param key This configuration key will be set.
+/// \param rhs This value will be set for the given configuration key.
+/// \return Returns Config instance
 template <typename T>
 inline zephir::Config &zephir::Config::set(const std::string &key,
                                            const T &rhs) {
@@ -39,7 +60,14 @@ inline zephir::Config &zephir::Config::set(const std::string &key,
   return *this;
 }
 
-/// \brief Sets a value for a provided key for the the given namespace
+/// \brief Function for setting configuration values, using simple key and the
+/// given namespace.
+///
+/// \tparam T Used type for new value.
+/// \param key This configuration key will be set.
+/// \param ns This configuration namespace will be used.
+/// \param rhs This value will be set for the given configuration key.
+/// \return Returns Config instance
 template <typename T>
 inline zephir::Config &zephir::Config::set(const std::string &key,
                                            const std::string &ns,

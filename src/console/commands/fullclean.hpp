@@ -20,6 +20,9 @@ class FullCleanCommand : public AbstractCommand {
   /// \param name The name of the command
   explicit FullCleanCommand(std::string name);
 
+  /// \brief Configures the FullCleanCommand command.
+  ///
+  /// \param app A `CLI::App` instance
   void Setup(std::shared_ptr<CLI::App> app) override;
 
   /// \brief Executes FullCleanCommand command.
