@@ -47,7 +47,6 @@ class Config {
   static ConfigPtr factory(std::vector<std::string> &options,
                            const std::string &path);
 
-
   /// \brief Allows to check whether a \a key is defined.
   ///
   /// \param key The requested configuration key.
