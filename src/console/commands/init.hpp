@@ -5,6 +5,9 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
+/// \file init.hpp
+/// \brief Provides GenerateOptions, GenerateOptionsPtr and GenerateCommand.
+
 #ifndef ZEPHIR_CLI_COMMANDS_INIT_HPP_
 #define ZEPHIR_CLI_COMMANDS_INIT_HPP_
 
@@ -19,9 +22,11 @@ struct InitOptions {
   std::string ns{""};
 };
 
+/// \brief A type definition for a unique pointer to a InitOptions instance.
 using InitOptionsPtr = std::unique_ptr<InitOptions>;
 
 /// \brief Initializes a Zephir extension.
+/// \sa AbstractCommand
 class InitCommand : public AbstractCommand {
  public:
   /// \brief Construct InitCommand object with a given name.

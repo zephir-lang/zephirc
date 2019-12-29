@@ -5,6 +5,9 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
+/// \file build.hpp
+/// \brief Provides BuildOptions, BuildOptionsPtr and BuildCommand.
+
 #ifndef ZEPHIR_CLI_COMMANDS_BUILD_HPP_
 #define ZEPHIR_CLI_COMMANDS_BUILD_HPP_
 
@@ -20,9 +23,11 @@ struct BuildOptions {
   bool dev;
 };
 
+/// \brief A type definition for a unique pointer to a BuildOptions instance.
 using BuildOptionsPtr = std::unique_ptr<BuildOptions>;
 
 /// \brief Generates/Compiles/Installs a Zephir extension.
+/// \sa AbstractCommand
 class BuildCommand : public AbstractCommand {
  public:
   /// \brief Construct BuildCommand object with a given name.

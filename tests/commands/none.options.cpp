@@ -10,8 +10,6 @@
 #include <tuple>
 #include <utility>
 
-#include <zephir/main.hpp>
-
 #include "console/application.hpp"
 
 class NoneCmdTest
@@ -37,7 +35,7 @@ TEST_P(NoneCmdTest, RunUsingGlobalOptions) {
 
 INSTANTIATE_TEST_SUITE_P(
     BulkTest, NoneCmdTest,
-    testing::Values(std::make_tuple("--help", EXIT_HELP),
+    testing::Values(std::make_tuple("--help", EXIT_SUCCESS),
                     std::make_tuple("--version", EXIT_SUCCESS),
                     std::make_tuple("--vernum", EXIT_SUCCESS),
                     std::make_tuple("--dumpversion", EXIT_SUCCESS)));

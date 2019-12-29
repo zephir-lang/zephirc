@@ -8,10 +8,15 @@
 #ifndef ZEPHIR_CONFIG_PTR_HPP
 #define ZEPHIR_CONFIG_PTR_HPP
 
+/// \file ptr.hpp
+/// \brief Represents type definition for a shared pointer to a Config instance.
+
 #include <memory>
 
 namespace zephir {
 class Config;
+
+/// \brief A type definition for a shared pointer to a Config instance.
 using ConfigPtr = std::shared_ptr<Config>;
 }  // namespace zephir
 

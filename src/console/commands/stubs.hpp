@@ -5,6 +5,9 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
+/// \file stubs.hpp
+/// \brief Provides StubsOptions, StubsOptionsPtr and StubsCommand.
+
 #ifndef ZEPHIR_CLI_COMMANDS_STUBS_HPP_
 #define ZEPHIR_CLI_COMMANDS_STUBS_HPP_
 
@@ -17,9 +20,11 @@ struct StubsOptions {
   std::string backend{""};
 };
 
+/// \brief A type definition for a unique pointer to a StubsOptions instance.
 using StubsOptionsPtr = std::unique_ptr<StubsOptions>;
 
 /// \brief Generates stubs that can be used in a PHP IDE.
+/// \sa AbstractCommand
 class StubsCommand : public AbstractCommand {
  public:
   /// \brief Construct StubsCommand object with a given name.

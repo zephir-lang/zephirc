@@ -5,6 +5,9 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
+/// \file api.hpp
+/// \brief Provides ApiOptions, ApiOptionsPtr and ApiCommand
+
 #ifndef ZEPHIR_CLI_COMMANDS_API_HPP_
 #define ZEPHIR_CLI_COMMANDS_API_HPP_
 
@@ -25,9 +28,11 @@ struct ApiOptions {
   std::string url{""};
 };
 
+/// \brief A type definition for a unique pointer to a ApiOptions instance.
 using ApiOptionsPtr = std::unique_ptr<ApiOptions>;
 
 /// \brief Generates a HTML API based on the classes exposed in the extension.
+/// \sa AbstractCommand
 class ApiCommand : public AbstractCommand {
  public:
   /// \brief Construct ApiCommand object with a given name.

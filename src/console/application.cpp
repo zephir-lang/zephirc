@@ -76,12 +76,12 @@ int zephir::console::Application::Run() {
   } catch (const CLI::ParseError& e) {
     auto retval = app_->exit(e);
     if (e.get_name() == "CallForHelp") {
-      retval = EXIT_HELP;
+      return EXIT_SUCCESS;
     }
 
     // TODO(klay): print error message
     return retval;
   }
 
-  return 0;
+  return EXIT_SUCCESS;
 }
