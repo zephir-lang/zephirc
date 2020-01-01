@@ -43,16 +43,33 @@ zephir::console::Application::Application(zephir::ConfigPtr config,
   app_->formatter(formatter_);
 
   // Global options
-  app_->add_flag("--dumpversion",
-                 "Print the version of the compiler and don't do anything else "
-                 "(also works with a single hyphen)");
+
+  app_->add_flag(
+      "--dumpversion",
+      [](std::size_t /* not used */) {
+        std::cout << ZEPHIR_VERSION_STRING << std::endl;
+        std::exit(EXIT_SUCCESS);
+      },
+      "Print the version of the compiler and don't do anything else "
+      "(also works with a single hyphen)");
+
+  app_->add_flag(
+      "--vernum",
+      [](std::size_t /* not used */) {
+        std::cout << ZEPHIR_VERSION_ID << std::endl;
+        std::exit(EXIT_SUCCESS);
+      },
+      "Print the version of the compiler as integer and quit");
+
+  app_->add_flag(
+      "-V, --version",
+      [&](std::size_t /* not used */) {
+        std::cout << app_->get_description() << std::endl;
+        std::exit(EXIT_SUCCESS);
+      },
+      "Print compiler version information and quit");
 
   help_ = app_->set_help_flag("-h, --help", "Print this help message and quit");
-
-  app_->add_flag("--vernum",
-                 "Print the version of the compiler as integer and quit");
-  app_->add_flag("-V, --version",
-                 "Print compiler version information and quit");
 };
 
 void zephir::console::Application::AddCommand(

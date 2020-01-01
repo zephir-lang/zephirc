@@ -65,7 +65,8 @@ class Application {
   /// An instance of the CLI::App
   CLI::App_p app_;
 
-  /// An instance of the CLI::Option (may be nullptr)
+  /// An instance of the CLI::Option used to indicate that help was requested
+  /// (may be nullptr)
   CLI::Option* help_;
 
   /// A vector of application commands
