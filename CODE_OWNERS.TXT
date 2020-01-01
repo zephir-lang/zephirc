@@ -1,0 +1,18 @@
+This file is a list of the people responsible for ensuring that patches for a
+particular part of Zephir are reviewed, either by themselves or by someone
+else. They are also the gatekeepers for their part of Zephir, with the final
+word on what goes in or not.
+
+The list is sorted by last name and formatted to allow easy grepping and
+beautification by scripts.  The fields are: name (N), email (E), web-address
+(W), PGP key ID and fingerprint (P), description (D), and snail-mail address
+(S).
+
+Sample of querying command:
+  cat CODE_OWNERS.TXT | awk -v RS='' -v ORS='\n\n' '/KEYWORD/'
+
+N: Serghei Iakovlev
+E: egrep@protonmail.ch
+W: https://serghei.blog
+P: 0x1E0B5331219BEA88
+D: All parts of Zephir not covered by someone else
