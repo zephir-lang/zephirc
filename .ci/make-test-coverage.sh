@@ -7,27 +7,29 @@
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
 
-# -e  Exit immediately if a command exits with a non-zero status.
-# -u  Treat unset variables as an error when substituting.
-set -eu
-
 [[ "${BASH_SOURCE[0]}" != "${0}" ]] && {
-  >&2 echo "This script isn't designed to be sourced. Abort."
+  >&2 echo "This script isn't designed to be sourced. Aborting."
   exit 1
 }
 
-if [ $# -lt 1 ]
-then
-  GCOV_TOOL=gcov
-else
-  GCOV_TOOL="$1"
-fi
+# Trace ERR through pipes
+set -o pipefail
+
+# trace ERR through 'time command' and other functions
+set -o errtrace
+
+# set -e : exit the script if any statement returns a non-true return value
+set -o errexit
+
+# set -u : exit the script if you try to use an uninitialised variable
+set -o nounset
+
+# Prepare value for lcov's --gcov-tool option
+test $# -lt 1 && GCOV_TOOL=gcov || GCOV_TOOL="$1"
 
 PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../" >/dev/null 2>&1 && pwd )"
-
 pushd "$PROJECT_DIR"
 
-[ -d build ] || mkdir build
 cd build || exit 1
 
 [ -f Makefile ] && {
