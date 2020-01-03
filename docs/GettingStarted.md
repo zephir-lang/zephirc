@@ -112,7 +112,7 @@ and to disable `FEATURE` use `-DFEATURE=OFF`. Supported CMake flags are:
 Follow these steps:
 1. Configure with code coverage instrumentation enabled `-DCODE_COVERAGE=ON`
 2. Run `./ci/make-test-coverage.sh` from the project root
-3. Open `./build/ccov/html/index.html` to inspect coverage report
+3. Open `./build/ccov/html/index.html` in your browser to view the coverage report
 
 ### Generate the API documentation
 
