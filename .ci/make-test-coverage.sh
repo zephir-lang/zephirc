@@ -82,8 +82,7 @@ lcov \
   --output-file ./ccov/coverage.cleaned
 
 # Ensure that this is being run not inside a CI container
-if [ "${CI}" != "true" ]
-then
+[ -z "${GITHUB_ACTIONS}" ] && {
   genhtml \
     --quiet \
     --output-directory ./ccov/html \
@@ -91,6 +90,6 @@ then
 
   printf "\n\tOpen file://%s/build/ccov/html/index.html" "$PROJECT_DIR"
   printf "\n\tin your browser to view the coverage report.\n\n"
-fi
+}
 
 popd

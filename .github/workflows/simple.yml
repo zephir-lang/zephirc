@@ -36,14 +36,14 @@ jobs:
             compiler: clang
             libcxx: libstdc++11
             version: '5.0'
-            ccov: OFF
+            ccov: ON
             weffcpp: OFF
           - name: macOS-latest
             os: macOS-latest
             compiler: apple-clang
             libcxx: libc++
             version: '11.0'
-            ccov: OFF
+            ccov: ON
             weffcpp: OFF
 
     steps:
