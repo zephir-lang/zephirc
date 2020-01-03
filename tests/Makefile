@@ -23,7 +23,6 @@ all: aggregate
 
 .PHONY: clean
 clean: clean-test-results
-	@echo "*** $@ ***"
 	@find $(TESTSDIR)/fixtures -name compile-errors.log -o -name compile.log -delete
 	@find $(TESTSDIR)/fixtures -name .zephir -type d -exec rm -rf {} +
 	@find $(TESTSDIR)/fixtures -name ext -type d -exec rm -rf {} +

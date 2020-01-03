@@ -70,7 +70,7 @@ lcov \
   --output-file ./ccov/coverage.base
 
 # Run tests
-ZEPHIR_TESTS_ROOT="$PROJECT_DIR/tests" make check
+make check
 
 # Debug
 find . -type f \( -name '*.gcno' -o -name '*.gcda' \) -print
