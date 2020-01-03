@@ -27,13 +27,14 @@ set -o nounset
 # Prepare value for lcov's --gcov-tool option
 test $# -lt 1 && GCOV_TOOL=gcov || GCOV_TOOL="$1"
 
-if [[ "$(command -v "$GCOV_TOOL" 2>/dev/null || true)" = ""  && ! -f "$GCOV_TOOL" ]]
+GCOV_TOOL_PATH="$(command -v "$GCOV_TOOL" 2>/dev/null || true)"
+if [[ "$GCOV_TOOL_PATH" = ""  && ! -f "$GCOV_TOOL" ]]
 then
   >&2 printf "The gcov tool \"%s\" were not found. Aborting." "$GCOV_TOOL"
   exit 1
 fi
 
-PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../" >/dev/null 2>&1 && pwd )"
+PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." >/dev/null 2>&1 && pwd)"
 pushd "$PROJECT_DIR"
 
 cd build || exit 1
@@ -101,13 +102,14 @@ lcov \
   --output-file ./ccov/coverage.cleaned
 
 # Ensure that this is being run not inside a CI container
-[ -z "${GITHUB_ACTIONS}" ] && {
+
+[ -z "${GITHUB_ACTIONS:-}" ] && {
   genhtml \
     --quiet \
     --output-directory ./ccov/html \
     ./ccov/coverage.cleaned
 
-  printf "       Open file://%s/build/ccov/html/index.html" "$PROJECT_DIR"
+  printf "       Open file://%s/build/ccov/html/index.html\n" "$PROJECT_DIR"
   printf "       in your browser to view the coverage report.\n\n"
 }
 
