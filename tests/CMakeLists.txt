@@ -22,10 +22,6 @@ target_include_directories(
   PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
           $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>)
 
-# Adds the executable to the 'ccov' and 'ccov-all' targets and excludes the file
-# itself via regex
-target_code_coverage(console_test AUTO ALL EXTERNAL)
-
 target_link_libraries(console_test PRIVATE console CONAN_PKG::GTest)
 
 gtest_discover_tests(
@@ -42,10 +38,6 @@ target_include_directories(
   PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
           $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>
           $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/config>)
-
-# Adds the executable to the 'ccov' and 'ccov-all' targets and excludes the file
-# itself via regex
-target_code_coverage(config_test AUTO ALL EXTERNAL)
 
 target_link_libraries(config_test PRIVATE config filesystem CONAN_PKG::GTest)
 

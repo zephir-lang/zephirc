@@ -36,6 +36,7 @@ endif()
 # CMake Script Includes
 include(Bootstrap)
 include(Cppcheck)
+include(CodeCoverage)
 
 if(NOT EXISTS "${zephir_SOURCE_DIR}/external/cmake-scripts/c++-standards.cmake"
    OR NOT EXISTS "${zephir_SOURCE_DIR}/tests/sharness/sharness.sh")
@@ -67,7 +68,6 @@ list(APPEND CMAKE_MODULE_PATH ${zephir_SOURCE_DIR}/external/cmake-scripts)
 include(formatting)
 include(c++-standards)
 include(compiler-options)
-include(code-coverage)
 include(dependency-graph)
 
 # Require C++17
@@ -130,35 +130,12 @@ endif()
 if(APPLE)
   set(ZEPHIR_OUTPUT_DIR "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${ZEPHIR_DATA_DIR}")
 else()
-  set(ZEPHIR_OUTPUT_DIR "${PROJECT_BINARY_DIR}/${ZEPHIR_DATA_DIR}")
+  set(ZEPHIR_OUTPUT_DIR "${zephir_BINARY_DIR}/${ZEPHIR_DATA_DIR}")
 endif()
 
 string(TIMESTAMP CURRENT_YEAR %Y)
 set(ZEPHIR_TEAM "Phalcon Team")
 set(ZEPHIR_COPYRIGHT "© 2013-${CURRENT_YEAR} ${ZEPHIR_TEAM}")
-
-# Handle codecoverage
-if(CODE_COVERAGE)
-  # Now we can exclude the stuff that we aren't interested in from the
-  # tracefile:
-  #
-  # * system deps
-  # * tests
-  # * build
-  # * thridparty-code
-  set(COVERAGE_EXCLUDES
-      "/usr/*"
-      "*/.conan/*"
-      "build/*"
-      "*/build/*"
-      "tests/*"
-      "*/tests/*"
-      "external/*"
-      "*/external/*")
-
-  # This introduces the 'ccov-all' targets
-  add_code_coverage_all_targets(EXCLUDE ${COVERAGE_EXCLUDES})
-endif()
 
 # Conan bootstrap
 include(ConanHelper)

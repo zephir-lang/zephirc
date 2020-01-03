@@ -29,8 +29,4 @@ set_target_properties(
              MACOSX_BUNDLE_INFO_STRING "${ZEPHIR_COPYRIGHT}"
              MACOSX_BUNDLE_GUI_IDENTIFIER com.zephir-lang.zephir)
 
-target_link_libraries(${ZEPHIR_APP_TARGET} PUBLIC console)
-
-# Adds the executable to the 'ccov' and 'ccov-all' targets and excludes the file
-# itself via regex
-target_code_coverage(${ZEPHIR_APP_TARGET} AUTO ALL EXTERNAL)
+target_link_libraries(${ZEPHIR_APP_TARGET} PUBLIC console ccov)
