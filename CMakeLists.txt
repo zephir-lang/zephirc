@@ -180,19 +180,11 @@ add_subdirectory(external)
 add_subdirectory(src)
 add_subdirectory(share)
 
-option(ZEPHIR_BUILD_DOC
-       "ON to generate the API documentation, OFF to ignore it" OFF)
-if(MASTER_PROJECT AND ZEPHIR_BUILD_DOC)
-  add_subdirectory(docs)
-endif()
-
 if(MASTER_PROJECT)
+  add_subdirectory(docs)
   include(CTest)
-endif()
 
-if(MASTER_PROJECT
-   AND BUILD_TESTING
-   AND ZEPHIR_BUILD_TESTING)
-  message(STATUS "Include test sources")
-  add_subdirectory(tests)
+  if(BUILD_TESTING AND ZEPHIR_BUILD_TESTING)
+    add_subdirectory(tests)
+  endif()
 endif()
