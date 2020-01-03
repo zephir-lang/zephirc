@@ -67,7 +67,6 @@ lcov \
   --output-file ./ccov/coverage.total
 
 lcov \
-  --gcov-tool gcov \
   --remove ./ccov/coverage.total \
     '/Applications/*' \
     '/usr/*' \
