@@ -53,6 +53,12 @@ lcov \
 ZEPHIR_TESTS_ROOT="$PROJECT_DIR/tests" make check
 
 # Debug
+command -v gcov
+
+gcov --version
+lcov --version
+c++ --version
+
 find . -type f \( -name '*.gcno' -o -name '*.gcda' \) -print
 
 # Capturing lcov counters and generating report
