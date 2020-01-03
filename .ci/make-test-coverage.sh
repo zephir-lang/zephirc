@@ -35,13 +35,11 @@ MAKEFLAGS="-j$(getconf _NPROCESSORS_ONLN)" make
 
 # Cleanup lcov
 lcov \
-  --gcov-tool gcov \
   --directory . \
   --zerocounters
 
 # Create baseline to make sure untouched files show up in the report
 lcov \
-  --gcov-tool gcov \
   --capture \
   --directory . \
   --initial \
@@ -53,17 +51,10 @@ lcov \
 ZEPHIR_TESTS_ROOT="$PROJECT_DIR/tests" make check
 
 # Debug
-command -v gcov
-
-gcov --version
-lcov --version
-c++ --version
-
 find . -type f \( -name '*.gcno' -o -name '*.gcda' \) -print
 
 # Capturing lcov counters and generating report
 lcov \
-  --gcov-tool gcov \
   --capture \
   --directory . \
   --no-checksum \
@@ -71,7 +62,6 @@ lcov \
   --output-file ./ccov/coverage.info
 
 lcov \
-  --gcov-tool gcov \
   --add-tracefile ./ccov/coverage.base \
   --add-tracefile ./ccov/coverage.info \
   --output-file ./ccov/coverage.total
