@@ -161,20 +161,7 @@ if(CODE_COVERAGE)
 endif()
 
 # Conan bootstrap
-message(STATUS "Searching conanbuildinfo.cmake in ${zephir_BINARY_DIR}")
-find_file(CONANBUILDINFO "conanbuildinfo.cmake" PATHS ${zephir_BINARY_DIR})
-
-if(NOT CONANBUILDINFO)
-  message(FATAL_ERROR "conanbuildinfo.cmake is missing!\n"
-                      "You must run conan install first")
-endif()
-
-message(STATUS "Conan: Found conanbuildinfo.cmake at ${CONANBUILDINFO}")
-
 include(ConanHelper)
-include(${CONANBUILDINFO})
-
-conan_basic_setup(TARGETS KEEP_RPATHS)
 
 add_subdirectory(external)
 add_subdirectory(src)
