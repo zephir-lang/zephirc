@@ -32,8 +32,9 @@ On macOS you most likely have a compiler so you'll need only CMake:
 brew install cmake
 ```
 
-Please note that specific versions of libraries and programs at the time of reading this guide may vary.
-The following dependencies is recommended install using [`pip`](https://pip.pypa.io):
+Please note that specific versions of libraries and programs at the time of
+reading this guide may vary. The following dependencies is recommended install
+using [`pip`](https://pip.pypa.io):
 * `conan`
 * `cppcheck`
 * `cmake-format`
@@ -64,13 +65,13 @@ git submodule init
 git submodule update
 ```
 
-And wait for load any required dependencies. For git 1.6.1 or above you can use something similar to command bellow
-to pull latest of all submodules:
+And wait for load any required dependencies. For git 1.6.1 or above you can
+use something similar to command bellow to pull latest of all submodules:
 ```shell script
 git submodule update --remote --merge
 ```
 
-Finally build project as follows:
+Finally configure and build project as follows:
 ```shell script
 cmake -H. -Bbuild -DCMAKE_BUILD_TYPE=Release
 cmake --build build
@@ -78,7 +79,8 @@ cmake --build build
 
 ## Running the tests
 
-To build with testing support, you have to configure Zephir with special flags:
+To build with testing support, you have to configure Zephir with special
+flags:
 ```shell script
 cmake -H. \
   -Bbuild \
@@ -95,24 +97,32 @@ cmake --build build --target check
 
 ## Configure flags
 
-To enable any feature use CMake flags at configure time. To enable `FEATURE` use `-DFEATURE=ON`
-and to disable `FEATURE` use `-DFEATURE=OFF`. Supported CMake flags are:
+To enable any feature use CMake flags at configure time. To enable `FEATURE`
+use `-DFEATURE=ON` and to disable `FEATURE` use `-DFEATURE=OFF`. Supported
+CMake flags are:
 
-| Flag                   | Description                                             |
-| ---------------------- |---------------------------------------------------------|
-| `CPPCHECK`             | Add `cppcheck` step to the compilation.                 |
-| `CODE_COVERAGE`        | Generate code coverage report.                          |
-| `ENABLE_ALL_WARNINGS`  | Compile with all warnings for the major compilers.      |
-| `ENABLE_EFFECTIVE_CXX` | Enable Effective C++ warnings.                          |
-| `BUILD_DEP_GRAPH`      | Builds a visual representation of the project.          |
-| `ZEPHIR_BUILD_DOC`     | ON to generate the API documentation, OFF to ignore it. |
+| Flag                   | Description                                       |
+| ---------------------- |---------------------------------------------------|
+| `CPPCHECK`             | Add `cppcheck` step to the compilation            |
+| `CODE_COVERAGE`        | Generate code coverage report                     |
+| `ENABLE_ALL_WARNINGS`  | Compile with all warnings for the major compilers |
+| `ENABLE_EFFECTIVE_CXX` | Enable Effective C++ warnings                     |
+| `BUILD_DEP_GRAPH`      | Builds a visual representation of the project     |
+| `ZEPHIR_BUILD_DOC`     | Generate the API documentation                    |
 
 ### Generate HTML code coverage report
 
 Follow these steps:
 1. Configure with code coverage instrumentation enabled `-DCODE_COVERAGE=ON`
 2. Run `./ci/make-test-coverage.sh` from the project root
-3. Open `./build/ccov/html/index.html` in your browser to view the coverage report
+3. Open `./build/ccov/html/index.html` in your browser to view the report
+
+Note: Most likely Clang users (_NOT Apple Clang, or Xcode_) will need a gcov
+wrapper as well as installed `llvm-cov`. If it is your case then call
+`make-test-coverage.sh` as follows:
+```shell script
+./ci/make-test-coverage.sh ./ci/llvm-gcov.sh
+```
 
 ### Generate the API documentation
 
