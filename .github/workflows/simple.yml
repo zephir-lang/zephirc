@@ -75,7 +75,7 @@ jobs:
           echo "::set-env name=CXX::g++-${{ matrix.version }}"
         else
           sudo apt-get install --no-install-recommends -q -y clang-${{ matrix.version }} llvm-${{ matrix.version }}
-          sudo ln -s /usr/bin/llvm-cov-5.0 /usr/bin/llvm-cov
+          sudo update-alternatives --install /usr/bin/llvm-cov llvm-cov /usr/bin/llvm-cov-${{ matrix.version }} 90
 
           echo "::set-env name=CC::clang-${{ matrix.version }}"
           echo "::set-env name=CXX::clang++-${{ matrix.version }}"

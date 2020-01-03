@@ -27,6 +27,12 @@ set -o nounset
 # Prepare value for lcov's --gcov-tool option
 test $# -lt 1 && GCOV_TOOL=gcov || GCOV_TOOL="$1"
 
+if [[ "$(command -v "$GCOV_TOOL" 2>/dev/null || true)" = ""  && ! -f "$GCOV_TOOL" ]]
+then
+  >&2 printf "The gcov tool \"%s\" were not found. Aborting." "$GCOV_TOOL"
+  exit 1
+fi
+
 PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../" >/dev/null 2>&1 && pwd )"
 pushd "$PROJECT_DIR"
 
