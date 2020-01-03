@@ -19,8 +19,8 @@ Optional prerequisites are:
 * Documentation generation tool: [Doxygen](http://www.doxygen.org)
 
 To enable test coverage reports you need the following requirements:
-* Gcc: `lcov`, `genhtml`
-* Clang, Apple Clang: `llvm-profdata`, `llvm-cov`
+* `lcov`
+* `genhtml`
 
 If you're using Ubuntu, you can install the required packages this way:
 ```shell script
@@ -111,9 +111,7 @@ and to disable `FEATURE` use `-DFEATURE=OFF`. Supported CMake flags are:
 
 Follow these steps:
 1. Configure with code coverage instrumentation enabled `-DCODE_COVERAGE=ON`
-2. Build project
-3. Execute the tests to generate the coverage data
-4. Call `make ccov-all` inside the `build` directory
+2. Run `./ci/ccov.sh` from the project root
 
 ### Generate the API documentation
 
