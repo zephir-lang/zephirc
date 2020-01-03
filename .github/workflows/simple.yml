@@ -4,9 +4,6 @@ on:
   push:
     branches-ignore:
       - 'wip-*'
-    paths-ignore:
-      - 'README.md'
-
   pull_request:
     branches:
       - 'master'
@@ -84,6 +81,10 @@ jobs:
       run: |
         sudo xcode-select -switch /Applications/Xcode.app
 
+        if [ "${{ matrix.ccov }}" = "ON" ]; then
+          brew install lcov
+        fi
+
         echo "::set-env name=CC::$(xcrun -f clang)"
         echo "::set-env name=CXX::$(xcrun -f clang++)"
         echo "::set-env name=SDKROOT::$(xcodebuild -version -sdk macosx Path)"
@@ -151,16 +152,11 @@ jobs:
       run: cmake --build build -j "$(getconf _NPROCESSORS_ONLN)"
 
     - name: Run Tests
-      run: cmake --build build --target check
-
-    - name: Generate code coverage report
-      if: matrix.ccov == 'ON'
-      # TODO(klay): ccov-all-capture works only on gcc, fix it
       run: |
-        if [ "${{ runner.os }}" = "macOS" ]; then
-          cmake --build build --target ccov-all
+        if [ "${{ matrix.ccov }}" = "ON" ]; then
+          .ci/make-test-coverage.sh
         else
-          cmake --build build --target ccov-all-capture
+          cmake --build build --target check
         fi
 
     - name: Upload code coverage report
@@ -168,7 +164,7 @@ jobs:
       uses: codecov/codecov-action@v1
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
-        file: ./build/ccov/all-merged.info
+        file: ./build/ccov/coverage.cleaned
         yml: ./.codecov.yml
         name: codecov-umbrella
         flags: unittests
