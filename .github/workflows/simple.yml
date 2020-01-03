@@ -30,6 +30,7 @@ jobs:
             libcxx: libstdc++11
             version: '7'
             ccov: ON
+            gcov: gcov
             weffcpp: ON
           - name: ubuntu-18.04-clang-5.0
             os: ubuntu-18.04
@@ -37,6 +38,7 @@ jobs:
             libcxx: libstdc++11
             version: '5.0'
             ccov: ON
+            gcov: "$GITHUB_WORKSPACE/.ci/llvm-gcov.sh"
             weffcpp: OFF
           - name: macOS-latest
             os: macOS-latest
@@ -44,6 +46,7 @@ jobs:
             libcxx: libc++
             version: '11.0'
             ccov: ON
+            gcov: gcov
             weffcpp: OFF
 
     steps:
@@ -71,7 +74,7 @@ jobs:
           echo "::set-env name=CC::gcc-${{ matrix.version }}"
           echo "::set-env name=CXX::g++-${{ matrix.version }}"
         else
-          sudo apt-get install --no-install-recommends -q -y clang-${{ matrix.version }}
+          sudo apt-get install --no-install-recommends -q -y clang-${{ matrix.version }} llvm-${{ matrix.version }}
           echo "::set-env name=CC::clang-${{ matrix.version }}"
           echo "::set-env name=CXX::clang++-${{ matrix.version }}"
         fi
@@ -149,15 +152,16 @@ jobs:
           -DENABLE_EFFECTIVE_CXX=${{ matrix.weffcpp }}
 
     - name: Build with ${{ matrix.compiler }}
+      if: matrix.ccov == 'OFF'
       run: cmake --build build -j "$(getconf _NPROCESSORS_ONLN)"
 
-    - name: Run Tests
-      run: |
-        if [ "${{ matrix.ccov }}" = "ON" ]; then
-          .ci/make-test-coverage.sh
-        else
-          cmake --build build --target check
-        fi
+    - name: Run tests with ${{ matrix.compiler }}
+      if: matrix.ccov == 'OFF'
+      run: cmake --build build --target check
+
+    - name: Build and tests with ${{ matrix.compiler }}
+      if: matrix.ccov == 'ON'
+      run: .ci/make-test-coverage.sh "${{ matrix.gcov }}"
 
     - name: Upload code coverage report
       if: matrix.ccov == 'ON'

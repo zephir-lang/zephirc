@@ -16,7 +16,15 @@ set -eu
   exit 1
 }
 
+if [ $# -lt 1 ]
+then
+  GCOV_TOOL=gcov
+else
+  GCOV_TOOL="$1"
+fi
+
 PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../" >/dev/null 2>&1 && pwd )"
+
 pushd "$PROJECT_DIR"
 
 [ -d build ] || mkdir build
@@ -33,13 +41,18 @@ find . -type f \( -name '*.gcno' -o -name '*.gcda' \) -delete
 [ -d ccov ] || mkdir ccov
 MAKEFLAGS="-j$(getconf _NPROCESSORS_ONLN)" make
 
+# Debug
+printf "       Using \"%s\" as a gcov tool...\n" "$GCOV_TOOL"
+
 # Cleanup lcov
 lcov \
+  --gcov-tool "$GCOV_TOOL" \
   --directory . \
   --zerocounters
 
 # Create baseline to make sure untouched files show up in the report
 lcov \
+  --gcov-tool "$GCOV_TOOL" \
   --capture \
   --directory . \
   --initial \
@@ -55,6 +68,7 @@ find . -type f \( -name '*.gcno' -o -name '*.gcda' \) -print
 
 # Capturing lcov counters and generating report
 lcov \
+  --gcov-tool "$GCOV_TOOL" \
   --capture \
   --directory . \
   --no-checksum \
@@ -62,11 +76,13 @@ lcov \
   --output-file ./ccov/coverage.info
 
 lcov \
+  --gcov-tool "$GCOV_TOOL" \
   --add-tracefile ./ccov/coverage.base \
   --add-tracefile ./ccov/coverage.info \
   --output-file ./ccov/coverage.total
 
 lcov \
+  --gcov-tool "$GCOV_TOOL" \
   --remove ./ccov/coverage.total \
     '/Applications/*' \
     '/usr/*' \
@@ -83,8 +99,8 @@ lcov \
     --output-directory ./ccov/html \
     ./ccov/coverage.cleaned
 
-  printf "\n\tOpen file://%s/build/ccov/html/index.html" "$PROJECT_DIR"
-  printf "\n\tin your browser to view the coverage report.\n\n"
+  printf "       Open file://%s/build/ccov/html/index.html" "$PROJECT_DIR"
+  printf "       in your browser to view the coverage report.\n\n"
 }
 
 popd
