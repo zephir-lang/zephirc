@@ -13,6 +13,9 @@ mark_as_advanced(ZEPHIR_TESTS)
 # Global tests properties
 configure_file(properties.hpp.in "${CMAKE_CURRENT_SOURCE_DIR}/properties.hpp")
 
+# sharness setup script
+configure_file(setup.sh.in "${CMAKE_CURRENT_SOURCE_DIR}/setup.sh")
+
 file(GLOB_RECURSE CLI_TESTS ${CMAKE_CURRENT_SOURCE_DIR}/commands/*.options.cpp)
 add_executable(console_test main.cpp ${CLI_TESTS})
 
@@ -21,10 +24,6 @@ target_include_directories(
   PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
   PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
           $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>)
-
-# Adds the executable to the 'ccov' and 'ccov-all' targets and excludes the file
-# itself via regex
-target_code_coverage(console_test AUTO ALL EXTERNAL)
 
 target_link_libraries(console_test PRIVATE console CONAN_PKG::GTest)
 
@@ -42,10 +41,6 @@ target_include_directories(
   PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
           $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>
           $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/config>)
-
-# Adds the executable to the 'ccov' and 'ccov-all' targets and excludes the file
-# itself via regex
-target_code_coverage(config_test AUTO ALL EXTERNAL)
 
 target_link_libraries(config_test PRIVATE config filesystem CONAN_PKG::GTest)
 

@@ -35,14 +35,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Cmake Check
+      - name: Run CMake Coding Style Check
         run: |
           cmake-format --version
           cmake-format -i $(find ./cmake -name '*.cmake')
           cmake-format -i $(find . -name 'CMakeLists.txt')
           git diff --exit-code
 
-      - name: C++ Check
+      - name: Run C++ Coding Style Check
+        if: always()
         run: |
           clang-format --version
           clang-format -i $(find ./src -name '*.cpp')
@@ -50,3 +51,7 @@ jobs:
           clang-format -i $(find ./include -name '*.cpp')
           clang-format -i $(find ./include -name '*.hpp')
           git diff --exit-code
+
+      - name: Run Shell Check
+        if: always()
+        run: shellcheck .ci/*.sh

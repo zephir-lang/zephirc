@@ -12,7 +12,4 @@ target_include_directories(
   logger PUBLIC $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
                 $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 
-# Instruments the library
-target_code_coverage(logger AUTO ALL)
-
 target_link_libraries(logger PRIVATE CONAN_PKG::spdlog)

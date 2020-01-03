@@ -12,5 +12,4 @@ target_include_directories(
   filesystem PUBLIC $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
                     $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 
-# Instruments the library
-target_code_coverage(filesystem AUTO ALL)
+target_link_libraries(filesystem PUBLIC ccov)
