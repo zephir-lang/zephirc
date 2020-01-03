@@ -69,7 +69,11 @@ zephir::console::Application::Application(zephir::ConfigPtr config,
       },
       "Print compiler version information and quit");
 
-  help_ = app_->set_help_flag("-h, --help", "Print this help message and quit");
+  // Remove help flag because it shortcuts all processing
+  app_->set_help_flag();
+
+  // Add custom flag that activates help
+  help_ = app_->add_flag("-h, --help", "Print this help message and quit");
 };
 
 void zephir::console::Application::AddCommand(
@@ -90,11 +94,8 @@ int zephir::console::Application::Run() {
     if (*help_) {
       throw CLI::CallForHelp();
     }
-  } catch (const CLI::ParseError& e) {
+  } catch (const CLI::Error& e) {
     auto retval = app_->exit(e);
-    if (e.get_name() == "CallForHelp") {
-      return EXIT_SUCCESS;
-    }
 
     // TODO(klay): print error message
     return retval;
