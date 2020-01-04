@@ -40,6 +40,10 @@ TEST_F(ConfigBaseTest, SetValue) {
 
   config->set("unused-variable", "warnings", false);
   EXPECT_FALSE(config->get("unused-variable", "warnings", false));
+
+  config->set("test", "", true);
+  EXPECT_FALSE(config->get("test", false));
+  EXPECT_FALSE(config->get("test", "", false));
 }
 
 TEST_F(ConfigBaseTest, FindValue) {
