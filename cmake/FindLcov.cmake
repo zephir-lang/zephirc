@@ -112,11 +112,10 @@ function(lcov_merge_files OUTFILE ...)
   add_custom_command(
     OUTPUT "${OUTFILE}"
     COMMAND
-      ${LCOV_EXE} --quiet -a ${OUTFILE}.raw --output-file ${OUTFILE}
-      --base-directory ${PROJECT_SOURCE_DIR} ${LCOV_EXTRA_FLAGS}
+      ${LCOV_EXE} -q -a ${OUTFILE}.raw -o ${OUTFILE} ${LCOV_EXTRA_FLAGS}
     COMMAND
-      ${LCOV_EXE} --quiet -r ${OUTFILE} ${LCOV_REMOVE_PATTERNS} --output-file
-      ${OUTFILE} ${LCOV_EXTRA_FLAGS}
+      ${LCOV_EXE} -q -r ${OUTFILE} ${LCOV_REMOVE_PATTERNS} -o ${OUTFILE}
+      ${LCOV_EXTRA_FLAGS}
     DEPENDS ${OUTFILE}.raw
     COMMENT "Post-processing ${FILE_REL}")
 endfunction()
