@@ -11,6 +11,8 @@
 !.vscode/extensions.json
 
 /build/
+/build-*/
+
 *.profraw
 
 # I use this as my wish list
