@@ -97,9 +97,9 @@ jobs:
 
         for pkg in $packages; do
           if brew list -1 | grep -q "^${pkg}\$"; then
-            brew outdated $pkg || brew upgrade $pkg
+            brew outdated $pkg || brew upgrade $pkg;
           else
-            brew install $pkg
+            brew install $pkg;
           fi
         done
 
@@ -167,23 +167,23 @@ jobs:
           -DENABLE_EFFECTIVE_CXX=${{ matrix.weffcpp }}
 
     - name: Build with ${{ matrix.compiler }}
-      if: matrix.ccov == 'OFF'
       run: cmake --build build -j "$(getconf _NPROCESSORS_ONLN)"
 
-    - name: Run tests with ${{ matrix.compiler }}
-      if: matrix.ccov == 'OFF'
+    - name: Run tests
       run: cmake --build build --target check
 
-    - name: Build and tests with ${{ matrix.compiler }}
+    - name: Capture coverage data
       if: matrix.ccov == 'ON'
-      run: .ci/make-test-coverage.sh "${{ matrix.gcov }}"
+      run: |
+        cmake --build build --target gcov
+        cmake --build build --target lcov
 
     - name: Upload code coverage report
       if: matrix.ccov == 'ON'
       uses: codecov/codecov-action@v1
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
-        file: ./build/ccov/coverage.cleaned
+        file: ./build/ccov/data/capture/all-targets.info
         yml: ./.codecov.yml
         name: codecov-umbrella
         flags: unittests
