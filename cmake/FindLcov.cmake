@@ -215,6 +215,8 @@ function(lcov_capture_initial)
   # Skip this function (and do not create the following targets), if there are
   # no input files.
   if("${LCOV_CAPTURE_INIT_FILES}" STREQUAL "")
+    message(STATUS "There are no input files. "
+                   "Skip initial capture the global info file for all targets.")
     return()
   endif()
 
@@ -322,6 +324,8 @@ function(lcov_capture)
   # Skip this function (and do not create the following targets), if there are
   # no input files.
   if("${LCOV_CAPTURE_FILES}" STREQUAL "")
+    message(STATUS "There are no input files. "
+                   "Skip generate the global info file for all targets.")
     return()
   endif()
 

@@ -53,12 +53,14 @@ function(coverage_evaluate)
   if(LCOV_FOUND)
     lcov_capture_initial()
     lcov_capture()
+  else()
+    message(STATUS "No lcov found. Skip add lcov evaluation")
   endif()
 endfunction()
 
-# Exit this module, if coverage is disabled. add_coverage is defined before this
-# return, so this module can be exited now safely without breaking any build-
-# scripts.
+# Exit this module, if coverage is disabled. code_coverage is defined before
+# this return, so this module can be exited now safely without breaking any
+# build- scripts.
 if(NOT CODE_COVERAGE)
   return()
 endif()
