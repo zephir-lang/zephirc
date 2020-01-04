@@ -126,11 +126,11 @@ function(lcov_merge_files OUTFILE ...)
     DEPENDS ${OUTFILE}.base
     COMMENT "Remove ignored data from tracefile...")
 
-  # TODO(klay): remove me
-  # add_custom_command( OUTPUT "${OUTFILE}" COMMAND ${LCOV_EXE} -q -a
-  # ${OUTFILE}.raw -o ${OUTFILE} ${LCOV_EXTRA_FLAGS} COMMAND ${LCOV_EXE} -q -r
-  # ${OUTFILE} ${LCOV_REMOVE_PATTERNS} -o ${OUTFILE} ${LCOV_EXTRA_FLAGS} DEPENDS
-  # ${OUTFILE}.raw COMMENT "Post-processing ${FILE_REL}")
+  # TODO(klay): remove me # add_custom_command( OUTPUT "${OUTFILE}" COMMAND
+  # ${LCOV_EXE} -q -a ${OUTFILE}.raw -o ${OUTFILE} ${LCOV_EXTRA_FLAGS} COMMAND
+  # ${LCOV_EXE} -q -r ${OUTFILE} ${LCOV_REMOVE_PATTERNS} -o ${OUTFILE}
+  # ${LCOV_EXTRA_FLAGS} DEPENDS ${OUTFILE}.raw COMMENT "Post-processing
+  # ${FILE_REL}")
 endfunction()
 
 # Add a new global target to generate initial coverage reports for all targets.
@@ -182,7 +182,11 @@ function(lcov_capture_initial_tgt TARGET_NAME)
   set(GCOV_EXE "${GCOV_${TARGET_COMPILER}_EXE}")
   set(GCOV_ENV "${GCOV_${TARGET_COMPILER}_ENV}")
 
-  set(TARGET_DIR ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${TARGET_NAME}.dir)
+  get_target_property(TARGET_BIN_DIR ${TARGET_NAME} BINARY_DIR)
+  set(TARGET_DIR ${TARGET_BIN_DIR}/CMakeFiles/${TARGET_NAME}.dir)
+
+  # TODO(klay): Remove me # set(TARGET_DIR
+  # ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${TARGET_NAME}.dir)
   set(GENINFO_FILES "")
 
   foreach(FILE ${SOURCES})
@@ -281,7 +285,11 @@ function(lcov_capture_tgt TARGET_NAME)
   set(GCOV_EXE "${GCOV_${TARGET_COMPILER}_EXE}")
   set(GCOV_ENV "${GCOV_${TARGET_COMPILER}_ENV}")
 
-  set(TARGET_DIR ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${TARGET_NAME}.dir)
+  get_target_property(TARGET_BIN_DIR ${TARGET_NAME} BINARY_DIR)
+  set(TARGET_DIR ${TARGET_BIN_DIR}/CMakeFiles/${TARGET_NAME}.dir)
+
+  # TODO(klay): remove me # set(TARGET_DIR
+  # ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${TARGET_NAME}.dir)
   set(GENINFO_FILES "")
 
   foreach(FILE ${SOURCES})

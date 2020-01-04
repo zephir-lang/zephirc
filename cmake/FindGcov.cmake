@@ -40,10 +40,11 @@ foreach(LANG ${ENABLED_LANGUAGES})
         NAMES gcov llvm-cov
         HINTS ${COMPILER_PATH})
       mark_as_advanced(GCOV_EXE)
-    elseif("${CMAKE_${LANG}_COMPILER_ID}" STREQUAL "Clang")
-      # Some distributions like Debian ship llvm-cov with the compiler version
-      # appended as llvm-cov-x.y. To find this binary we'll build the suggested
-      # binary name with the compiler version.
+    elseif("${CMAKE_${LANG}_COMPILER_ID}" MATCHES "[Cc]lang")
+      # TODO(klay): MATCHES "(Apple)?[Cc]lang" Some distributions like Debian
+      # ship llvm-cov with the compiler version appended as llvm-cov-x.y. To
+      # find this binary we'll build the suggested binary name with the compiler
+      # version.
       string(REGEX MATCH "^[0-9]+.[0-9]+" LLVM_VERSION
                    "${CMAKE_${LANG}_COMPILER_VERSION}")
 
@@ -116,7 +117,11 @@ endif()
 # TARGET_NAME - Name of the target to generate code coverage for.
 # ~~~
 function(add_gcov_target TARGET_NAME)
-  set(TARGET_DIR ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${TARGET_NAME}.dir)
+  get_target_property(TARGET_BIN_DIR ${TARGET_NAME} BINARY_DIR)
+  set(TARGET_DIR ${TARGET_BIN_DIR}/CMakeFiles/${TARGET_NAME}.dir)
+
+  # TODO(klay): remove me # set(TARGET_DIR
+  # ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${TARGET_NAME}.dir)
 
   # We don't have to check, if the target has support for coverage, thus this
   # will be checked by target_code_coverage in CodeCoverage.cmake. Instead we
