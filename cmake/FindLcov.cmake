@@ -46,16 +46,15 @@ endfunction()
 include(FindPackageHandleStandardArgs)
 
 # Search for required lcov binaries.
-find_program(LCOV_EXE lcov)
-find_program(GENINFO_EXE geninfo)
-find_program(GENHTML_EXE genhtml)
+find_program(LCOV_EXE lcov lcov.bat lcov.exe lcov.perl)
+find_program(GENINFO_EXE geninfo geninfo.exe)
+find_program(GENHTML_EXE genhtml genhtml.perl genhtml.bat)
 
-mark_as_advanced(LCOV_EXE)
-mark_as_advanced(GENINFO_EXE)
-mark_as_advanced(GENHTML_EXE)
+mark_as_advanced(LCOV_EXE GENINFO_EXE GENHTML_EXE)
 
-find_package_handle_standard_args(lcov REQUIRED_VARS LCOV_EXE GENINFO_EXE
-                                                     GENHTML_EXE)
+find_package_handle_standard_args(
+  lcov #
+  REQUIRED_VARS LCOV_EXE GENINFO_EXE GENHTML_EXE)
 
 # Enable demangle C++ function names, if c++filt is found.
 set(GENHTML_CPPFILT_FLAG "")
