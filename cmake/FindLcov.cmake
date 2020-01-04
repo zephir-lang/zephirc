@@ -251,10 +251,15 @@ if(NOT TARGET lcov-capture)
       CACHE INTERNAL "")
 endif()
 
-# This function will add capture of coverage data for target <TARGET_NAME>,
-# which is needed to get also data for objects, which were not loaded at
-# execution time. It will call geninfo for every source file of <TARGET_NAME>
-# once and store the info file in the same directory.
+# Add capture of coverage data for target <TARGET_NAME>, which is needed to get
+# also data for objects, which were not loaded at execution time. It will call
+# geninfo for every source file of <TARGET_NAME> once and store the info file in
+# the same directory.
+#
+# ~~~
+# Required:
+# TARGET_NAME - The target name to add capture of coverage data for.
+# ~~~
 function(lcov_capture_tgt TARGET_NAME)
   # We don't have to check, if the target has support for coverage, thus this
   # will be checked by target_code_coverage in CodeCoverage.cmake. Instead we
@@ -303,9 +308,9 @@ function(lcov_capture_tgt TARGET_NAME)
     add_custom_command(
       OUTPUT ${OUTFILE}
       COMMAND
-        test -f "${INFILE}" && ${GENINFO_EXE} -q -b ${PROJECT_SOURCE_DIR}
-        --gcov-tool ${GCOV_EXE} -o ${OUTFILE} ${GENINFO_EXTERN_FLAG} ${INFILE}
-        || cp ${OUTFILE}.init ${OUTFILE}
+        test -f "${INFILE}" && ${GCOV_ENV} ${GENINFO_EXE} -q -b
+        ${PROJECT_SOURCE_DIR} --gcov-tool ${GCOV_EXE} -o ${OUTFILE}
+        ${GENINFO_EXTERN_FLAG} ${INFILE} || cp ${OUTFILE}.init ${OUTFILE}
       DEPENDS ${TARGET_NAME} ${TARGET_NAME}-capture-init
       COMMENT "Capturing coverage data for ${FILE}")
   endforeach()
