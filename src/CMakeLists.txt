@@ -31,4 +31,5 @@ set_target_properties(
 
 target_link_libraries(${ZEPHIR_APP_TARGET} PUBLIC console)
 
+# Adds the executable to the 'gcov' and 'lcov' targets
 code_coverage(${ZEPHIR_APP_TARGET})

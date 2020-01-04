@@ -12,4 +12,7 @@ target_include_directories(
   config PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
                 $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 
-target_link_libraries(config PUBLIC CONAN_PKG::yaml-cpp filesystem ccov)
+target_link_libraries(config PUBLIC CONAN_PKG::yaml-cpp filesystem)
+
+# Adds the library to the 'gcov' and 'lcov' targets
+code_coverage(config)

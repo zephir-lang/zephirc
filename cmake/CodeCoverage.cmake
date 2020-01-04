@@ -190,12 +190,9 @@ function(target_code_coverage TARGET_NAME)
 
   add_gcov_target(${TARGET_NAME})
   add_lcov_target(${TARGET_NAME})
-endfunction(add_coverage_target)
+endfunction()
 
 # Include modules for parsing the collected data and output it in a readable
 # format (like gcov and lcov).
 find_package(Gcov)
 find_package(Lcov)
-
-# Code Coverage Configuration
-add_library(ccov INTERFACE)
