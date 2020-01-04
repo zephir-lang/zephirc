@@ -28,7 +28,6 @@ set(PROJECT_VERSION_TWEAK 0) # Not used for now
 set(BUILD_SUFFIX)
 
 set(ZEPHIR_DISPLAY_NAME Zephir)
-set(ZEPHIR_APP_ID zephir)
 
 string(TIMESTAMP CURRENT_YEAR %Y)
 set(ZEPHIR_TEAM "Phalcon Team")
