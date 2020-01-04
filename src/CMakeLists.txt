@@ -30,3 +30,5 @@ set_target_properties(
              MACOSX_BUNDLE_GUI_IDENTIFIER com.zephir-lang.zephir)
 
 target_link_libraries(${ZEPHIR_APP_TARGET} PUBLIC console ccov)
+
+add_gcov_target(${ZEPHIR_APP_TARGET})

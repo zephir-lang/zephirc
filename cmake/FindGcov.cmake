@@ -16,15 +16,9 @@ foreach(LANG ${ENABLED_LANGUAGES})
   # Gcov evaluation is dependent on the used compiler. Check gcov support for
   # each compiler that is used. If gcov binary was already found for this
   # compiler, do not try to find it again.
-  message("   > LANG: ${LANG}")
-  message("   > CMAKE_${LANG}_COMPILER_ID: ${CMAKE_${LANG}_COMPILER_ID}")
-  message("   > CMAKE_${LANG}_COMPILER: ${CMAKE_${LANG}_COMPILER}")
-  message(
-    "   > CMAKE_${LANG}_COMPILER_VERSION: ${CMAKE_${LANG}_COMPILER_VERSION}")
 
   if(NOT GCOV_${CMAKE_${LANG}_COMPILER_ID}_EXE)
     get_filename_component(COMPILER_PATH "${CMAKE_${LANG}_COMPILER}" PATH)
-    message("   > COMPILER_PATH: ${COMPILER_PATH}")
 
     if("${CMAKE_${LANG}_COMPILER_ID}" STREQUAL "GNU")
       # Some distributions like OSX (homebrew) ship gcov with the compiler
@@ -38,7 +32,6 @@ foreach(LANG ${ENABLED_LANGUAGES})
         NAMES gcov-${GCC_VERSION} gcov
         HINTS ${COMPILER_PATH})
       mark_as_advanced(GCOV_EXE)
-      message("   > GCOV_EXE: ${GCOV_EXE}")
     elseif("${CMAKE_${LANG}_COMPILER_ID}" STREQUAL "AppleClang")
       # There is nothing special for Apple Clang. Usually "gcov" is a symlink to
       # llvm-cov
@@ -47,7 +40,6 @@ foreach(LANG ${ENABLED_LANGUAGES})
         NAMES gcov llvm-cov
         HINTS ${COMPILER_PATH})
       mark_as_advanced(GCOV_EXE)
-      message("   > GCOV_EXE: ${GCOV_EXE}")
     elseif("${CMAKE_${LANG}_COMPILER_ID}" STREQUAL "Clang")
       # Some distributions like Debian ship llvm-cov with the compiler version
       # appended as llvm-cov-x.y. To find this binary we'll build the suggested
@@ -64,7 +56,6 @@ foreach(LANG ${ENABLED_LANGUAGES})
           NAMES llvm-cov-${LLVM_VERSION} llvm-cov
           HINTS ${COMPILER_PATH})
         mark_as_advanced(LLVM_COV_EXE)
-        message("   > LLVM_COV_EXE: ${LLVM_COV_EXE}")
 
         if(LLVM_COV_EXE)
           # TODO(klay): Provide ability to pass wrapper path
@@ -81,9 +72,6 @@ foreach(LANG ${ENABLED_LANGUAGES})
                 "LLVM_COV_EXE=${LLVM_COV_EXE}"
                 CACHE STRING "Environment variables for llvm-cov-wrapper.")
             mark_as_advanced(GCOV_${CMAKE_${LANG}_COMPILER_ID}_ENV)
-            message(
-              "   > GCOV_${CMAKE_${LANG}_COMPILER_ID}_ENV: ${GCOV_${CMAKE_${LANG}_COMPILER_ID}_ENV}"
-            )
           endif()
         endif()
       endif()
@@ -100,9 +88,6 @@ foreach(LANG ${ENABLED_LANGUAGES})
       set(GCOV_${CMAKE_${LANG}_COMPILER_ID}_EXE
           "${GCOV_EXE}"
           CACHE STRING "${LANG} gcov binary.")
-      message(
-        "   > GCOV_${CMAKE_${LANG}_COMPILER_ID}_EXE: ${GCOV_${CMAKE_${LANG}_COMPILER_ID}_EXE}"
-      )
 
       if(NOT CMAKE_REQUIRED_QUIET)
         message(STATUS "Found gcov evaluation for "
@@ -115,8 +100,71 @@ foreach(LANG ${ENABLED_LANGUAGES})
 endforeach()
 
 # Add a new global target for all gcov targets. This target could be used to
-# generate the gcov files for the whole project instead of calling <TARGET>-gcov
+# generate the gcov files for the whole project instead of calling gcov-<TARGET>
 # for each target.
 if(NOT TARGET gcov)
   add_custom_target(gcov)
 endif()
+
+# Add gcov evaluation for target <TARGET_NAME>.
+#
+# ~~~
+# Only sources of this target will be evaluated and no dependencies will be
+# added. It will call gcov on any source file of <TARGET_NAME> once and store
+# the gcov file in the same directory.
+#
+# Required:
+# TARGET_NAME - Name of the target to generate code coverage for.
+# ~~~
+function(add_gcov_target TARGET_NAME)
+  set(TARGET_DIR ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${TARGET_NAME}.dir)
+
+  # We don't have to check, if the target has support for coverage, thus this
+  # will be checked by target_code_coverage in CodeCoverage.cmake. Instead we
+  # have to determine which gcov binary to use.
+  get_target_property(TARGET_SOURCES ${TARGET_NAME} SOURCES)
+
+  set(SOURCES "")
+  set(TARGET_COMPILER "")
+
+  foreach(FILE ${TARGET_SOURCES})
+    relative_path(${FILE} FILE)
+    if(NOT "${FILE}" STREQUAL "")
+      detect_language(${FILE} LANG)
+      if(NOT "${LANG}" STREQUAL "")
+        list(APPEND SOURCES "${FILE}")
+        set(TARGET_COMPILER ${CMAKE_${LANG}_COMPILER_ID})
+      endif()
+    endif()
+  endforeach()
+
+  # If no gcov binary was found, coverage data can't be evaluated.
+  if(NOT GCOV_${TARGET_COMPILER}_EXE)
+    message(
+      WARNING "No coverage evaluation binary found for ${TARGET_COMPILER}.")
+    return()
+  endif()
+
+  set(GCOV_EXE "${GCOV_${TARGET_COMPILER}_EXE}")
+  set(GCOV_ENV "${GCOV_${TARGET_COMPILER}_ENV}")
+  set(BUFFER "")
+
+  foreach(FILE ${SOURCES})
+    get_filename_component(FILE_PATH "${TARGET_DIR}/${FILE}" PATH)
+
+    # call gcov
+    add_custom_command(
+      OUTPUT ${TARGET_DIR}/${FILE}.gcov
+      COMMAND ${GCOV_ENV} ${GCOV_EXE} ${TARGET_DIR}/${FILE}.gcno > /dev/null
+      DEPENDS ${TARGET_NAME} ${TARGET_DIR}/${FILE}.gcno
+      WORKING_DIRECTORY ${FILE_PATH})
+
+    list(APPEND BUFFER ${TARGET_DIR}/${FILE}.gcov)
+  endforeach()
+
+  # add target for gcov evaluation of <TARGET_NAME>
+  add_custom_target(gcov-${TARGET_NAME} DEPENDS ${BUFFER})
+
+  # add evaluation target to the global gcov target.
+  add_dependencies(gcov gcov-${TARGET_NAME})
+endfunction()
