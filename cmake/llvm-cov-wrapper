@@ -42,24 +42,16 @@ then
 			extension="${filename##*.}"
 
 			case "$extension" in
-				"gcno")
-				  printf "[DEBUG] llvm-cov-wrapper:46 %s %s\\n" "$LLVM_COV_EXE" "--gcno=\"$1\""
-				  exec "$LLVM_COV_EXE" --gcno="$1"
-				  ;;
-				"gcda")
-				  printf "[DEBUG] llvm-cov-wrapper:50 %s %s\\n" "$LLVM_COV_EXE" "--gcda=\"$1\""
-				  exec "$LLVM_COV_EXE" --gcda="$1"
-				  ;;
+				"gcno") exec "$LLVM_COV_EXE" --gcno="$1" ;;
+				"gcda") exec "$LLVM_COV_EXE" --gcda="$1" ;;
 			esac
 		fi
 	fi
 
 	if [ "$MAJOR" -eq 3 ] && [ "$MINOR" -le 5 ]
 	then
-	  printf "[DEBUG] llvm-cov-wrapper:53 %s %s\\n" "$LLVM_COV_EXE" "$@"
 		exec "$LLVM_COV_EXE" "$@"
 	fi
 fi
 
-printf "[DEBUG] llvm-cov-wrapper:58 %s %s\\n" "$LLVM_COV_EXE" "$@"
-exec "$LLVM_COV_EXE" "$@"
+exec "$LLVM_COV_EXE" gcov "$@"
