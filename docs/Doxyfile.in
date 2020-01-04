@@ -39,7 +39,7 @@ DOXYFILE_ENCODING      = UTF-8
 # title of most generated pages and in a few other places.
 # The default value is: My Project.
 
-PROJECT_NAME           = @ZEPHIR_DISPLAY_NAME@
+PROJECT_NAME           = @PROJECT_DISPLAY_NAME@
 
 # The PROJECT_NUMBER tag can be used to enter a project or revision number. This
 # could be handy for archiving the generated documentation or if some version
@@ -1287,7 +1287,7 @@ GENERATE_DOCSET        = NO
 # The default value is: Doxygen generated docs.
 # This tag requires that the tag GENERATE_DOCSET is set to YES.
 
-DOCSET_FEEDNAME        = "@ZEPHIR_DISPLAY_NAME@ Documentation"
+DOCSET_FEEDNAME        = "@PROJECT_DISPLAY_NAME@ Documentation"
 
 # This tag specifies a string that should uniquely identify the documentation
 # set bundle. This should be a reverse domain-name style string, e.g.
@@ -2181,7 +2181,7 @@ TAGFILES               =
 # tag file that is based on the input files it reads. See section "Linking to
 # external documentation" for more information about the usage of tag files.
 
-GENERATE_TAGFILE       = @DOXYGEN_OUTPUT_DIR@/@ZEPHIR_DISPLAY_NAME@.tag
+GENERATE_TAGFILE       = @DOXYGEN_OUTPUT_DIR@/@PROJECT_DISPLAY_NAME@.tag
 
 # If the ALLEXTERNALS tag is set to YES, all external class will be listed in
 # the class index. If set to NO, only the inherited external classes will be
