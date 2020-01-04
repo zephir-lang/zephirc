@@ -88,9 +88,19 @@ jobs:
       run: |
         sudo xcode-select -switch /Applications/Xcode.app
 
+        brew update --quiet >& /dev/null
+
+        packages=(cmake)
         if [ "${{ matrix.ccov }}" = "ON" ]; then
-          brew install lcov
+          packages+=(lcov)
         fi
+
+        for pkg in $packages; do
+          if brew list -1 | grep -q "^${pkg}\$"; then
+            brew outdated $pkg || brew upgrade $pkg
+          else
+            brew install $pkg
+        done
 
         echo "::set-env name=CC::$(xcrun -f clang)"
         echo "::set-env name=CXX::$(xcrun -f clang++)"

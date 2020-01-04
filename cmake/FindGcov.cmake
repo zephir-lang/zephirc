@@ -90,8 +90,8 @@ foreach(LANG ${ENABLED_LANGUAGES})
           CACHE STRING "${LANG} gcov binary.")
 
       if(NOT CMAKE_REQUIRED_QUIET)
-        message(STATUS "Found gcov evaluation for "
-                       "${CMAKE_${LANG}_COMPILER_ID}: ${GCOV_EXE}")
+        message(
+          STATUS "Found gcov for ${CMAKE_${LANG}_COMPILER_ID}: ${GCOV_EXE}")
       endif()
 
       unset(GCOV_EXE CACHE)

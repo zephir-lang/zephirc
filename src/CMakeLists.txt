@@ -29,6 +29,6 @@ set_target_properties(
              MACOSX_BUNDLE_INFO_STRING "${ZEPHIR_COPYRIGHT}"
              MACOSX_BUNDLE_GUI_IDENTIFIER com.zephir-lang.zephir)
 
-target_link_libraries(${ZEPHIR_APP_TARGET} PUBLIC console ccov)
+target_link_libraries(${ZEPHIR_APP_TARGET} PUBLIC console)
 
-add_gcov_target(${ZEPHIR_APP_TARGET})
+code_coverage(${ZEPHIR_APP_TARGET})
