@@ -10,11 +10,6 @@
 # Initially written by Alexander Haase <alexander.haase@rwth-aachen.de>
 # Adapted by Serghei Iakovlev <egrep@protonmail.ch>
 
-[[ "$(command -v llvm-cov 2>/dev/null || true)" = "" ]] && {
-  >&2 echo "The llvm-cov not found. Aborting."
-  exit 1
-}
-
 [ -z "${LLVM_COV_EXE:-}" ] && {
   >&2 echo "The LLVM_COV_EXE environment variable is not set. Aborting."
   exit 1
@@ -29,6 +24,10 @@ LLVM_VERSION=$($LLVM_COV_EXE -version | grep -i "LLVM version" \
 	exit 0
 }
 
+[ "$1" = "--help" ] && {
+  exec "$LLVM_COV_EXE" gcov --help
+  exit 0
+}
 
 if [ -n "$LLVM_VERSION" ]
 then
