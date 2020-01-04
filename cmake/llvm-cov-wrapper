@@ -34,6 +34,7 @@ then
 	MAJOR=$(echo "$LLVM_VERSION" | cut -d'.' -f1)
 	MINOR=$(echo "$LLVM_VERSION" | cut -d'.' -f2)
 
+  # llvm-cov >= 3.4
 	if [ "$MAJOR" -eq 3 ] && [ "$MINOR" -le 4 ]
 	then
 		if [ -f "$1" ]
@@ -48,6 +49,7 @@ then
 		fi
 	fi
 
+  # llvm-cov >= 3.5
 	if [ "$MAJOR" -eq 3 ] && [ "$MINOR" -le 5 ]
 	then
 		exec "$LLVM_COV_EXE" "$@"
