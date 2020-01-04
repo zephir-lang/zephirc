@@ -115,3 +115,6 @@ if(MASTER_PROJECT)
     add_subdirectory(tests)
   endif()
 endif()
+
+# Evaluate coverage
+coverage_evaluate()

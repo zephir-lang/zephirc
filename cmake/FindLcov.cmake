@@ -345,6 +345,14 @@ function(lcov_capture)
         ${LCOV_HTML_PATH}/all-targets --title "${CMAKE_PROJECT_NAME}" --prefix
         "${PROJECT_SOURCE_DIR}" ${GENHTML_CPPFILT_FLAG} ${OUTFILE}
       DEPENDS lcov-geninfo-init lcov-geninfo)
+
+    add_custom_command(
+      TARGET lcov
+      POST_BUILD
+      COMMAND ;
+      COMMENT
+        "Open file://${LCOV_HTML_PATH}/all-targets/index.html in your browser to view the coverage report."
+    )
   endif()
 endfunction()
 
