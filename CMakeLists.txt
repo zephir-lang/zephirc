@@ -7,23 +7,13 @@
 
 cmake_minimum_required(VERSION 3.11...3.16)
 
-# Prepare VERSION variable
-include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/Version.cmake)
-
-project(
-  zephir
-  LANGUAGES CXX
-  VERSION ${ZEPHIR_VERSION}
-  DESCRIPTION "Yet another implementation of the Zephir compiler")
+project(zephir LANGUAGES CXX)
 
 # See: https://github.com/conan-io/cmake-conan/issues/159
 cmake_policy(SET CMP0025 NEW)
 
 # Provide path for cmake scripts
 list(APPEND CMAKE_MODULE_PATH ${zephir_SOURCE_DIR}/cmake)
-
-# Options
-option(ZEPHIR_BUILD_TESTING "Build test project" OFF)
 
 # Determine if zephir is built as a subproject (using add_subdirectory) or if it
 # is the master project.
@@ -102,48 +92,20 @@ list(
          ${zephir_SOURCE_DIR}/external/CMakeLists.txt)
 cmake_format(cmake-format "${glob_files}")
 
-include(GNUInstallDirs)
-if(NOT CMAKE_RUNTIME_OUTPUT_DIRECTORY)
-  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY
-      "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}")
-endif()
-if(NOT CMAKE_ARCHIVE_OUTPUT_DIRECTORY)
-  set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY
-      "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}")
-endif()
-if(NOT CMAKE_LIBRARY_OUTPUT_DIRECTORY)
-  set(CMAKE_LIBRARY_OUTPUT_DIRECTORY
-      "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}")
-endif()
-
-set(ZEPHIR_DISPLAY_NAME Zephir)
-set(ZEPHIR_APP_ID zephir)
-
-if(APPLE)
-  set(ZEPHIR_APP_TARGET ${ZEPHIR_DISPLAY_NAME})
-  set(ZEPHIR_DATA_DIR "${ZEPHIR_APP_TARGET}.app/Contents/Resources")
-  set(ZEPHIR_OUTPUT_DIR "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${ZEPHIR_DATA_DIR}")
-  set(ZEPHIR_EXE_DIR
-      "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${ZEPHIR_APP_TARGET}.app/Contents/MacOS"
-  )
-else()
-  set(ZEPHIR_APP_TARGET ${ZEPHIR_APP_ID})
-  set(ZEPHIR_DATA_DIR "${CMAKE_INSTALL_DATAROOTDIR}/${ZEPHIR_APP_ID}")
-  set(ZEPHIR_OUTPUT_DIR "${zephir_BINARY_DIR}/${ZEPHIR_DATA_DIR}")
-  set(ZEPHIR_EXE_DIR "${zephir_BINARY_DIR}/bin")
-endif()
-
-string(TIMESTAMP CURRENT_YEAR %Y)
-set(ZEPHIR_TEAM "Phalcon Team")
-set(ZEPHIR_COPYRIGHT "© 2013-${CURRENT_YEAR} ${ZEPHIR_TEAM}")
-
-# Conan bootstrap
+# Conan helpers
 include(ConanHelper)
+
+# Project specific variables
+include(ProjectInfo)
+
+# Project specific directories
+include(ProjectDirs)
 
 add_subdirectory(external)
 add_subdirectory(src)
 add_subdirectory(share)
 
+option(ZEPHIR_BUILD_TESTING "Build test project" OFF)
 if(MASTER_PROJECT)
   add_subdirectory(docs)
   include(CTest)
