@@ -26,6 +26,8 @@ endif()
 # CMake Script Includes
 include(Bootstrap)
 include(Cppcheck)
+# Search for Gcov which is used by Lcov.
+find_package(Gcov)
 include(CodeCoverage)
 
 if(NOT EXISTS "${zephir_SOURCE_DIR}/external/cmake-scripts/c++-standards.cmake"
