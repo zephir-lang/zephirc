@@ -55,7 +55,7 @@ jobs:
         fetch-depth: 5
 
     - name: Setup Prerequisites (Linux)
-      if: runner.os == 'Linux'
+      if: startsWith(runner.os, 'Linux')
       run: |
         # E: Repository 'https://packages.microsoft.com/repos/microsoft-ubuntu-bionic-prod bionic InRelease'
         # changed its 'Origin' value from 'microsoft-ubuntu-bionic-prod bionic' to 'vscode stable'
@@ -84,24 +84,25 @@ jobs:
         fi
 
     - name: Setup Prerequisites (macOS)
-      if: runner.os == 'macOS'
+      if: startsWith(runner.os, 'macOS')
       run: |
         sudo xcode-select -switch /Applications/Xcode.app
 
-        brew update --quiet >& /dev/null
-
-        packages=(cmake)
-        if [ "${{ matrix.ccov }}" = "ON" ]; then
-          packages+=(lcov)
-        fi
-
-        for pkg in $packages; do
-          if brew list -1 | grep -q "^${pkg}\$"; then
-            brew outdated $pkg || brew upgrade $pkg;
-          else
-            brew install $pkg;
-          fi
-        done
+        brew install lcov
+        # brew update --quiet >& /dev/null
+        #
+        # packages=(cmake)
+        # if [ "${{ matrix.ccov }}" = "ON" ]; then
+        #   packages+=(lcov)
+        # fi
+        #
+        # for pkg in $packages; do
+        #   if brew list -1 | grep -q "^${pkg}\$"; then
+        #     brew outdated $pkg || brew upgrade $pkg;
+        #   else
+        #     brew install $pkg;
+        #   fi
+        # done
 
         echo "::set-env name=CC::$(xcrun -f clang)"
         echo "::set-env name=CXX::$(xcrun -f clang++)"
