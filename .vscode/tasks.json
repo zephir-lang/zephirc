@@ -2,7 +2,7 @@
     "version": "2.0.0",
     "inputs": [
         {
-            "id": "build_types",
+            "id": "build_type",
             "description": "Select build type (default: Debug)",
             "type": "pickString",
             "default": "Debug",
@@ -21,22 +21,36 @@
             "group": "build",
             "type": "shell",
             "command": "cmake",
+            "osx":{
+                "options": {
+                    "env": {
+                        "CCCOV": "OFF",
+                        "WEFFCPP": "OFF"
+                    }
+                }
+            },
+            "linux":{
+                "options": {
+                    "env": {
+                        "CCCOV": "ON",
+                        "WEFFCPP": "ON"
+                    }
+                }
+            },
             "options": {
                 "cwd": "${workspaceFolder}"
             },
             "args": [
-                "-H.",
-                "-Bbuild/${input:build_types}",
-                "-DCMAKE_BUILD_TYPE=${input:build_types}",
+                "-S",
+                "${workspaceFolder}",
+                "-Bbuild/${input:build_type}",
+                "-DCMAKE_BUILD_TYPE=${input:build_type}",
                 "-DZEPHIR_BUILD_TESTING=ON",
                 "-DENABLE_ALL_WARNINGS=ON",
-                "-DCODE_COVERAGE=ON",
+                "-DCODE_COVERAGE=$CCOV",
                 "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
                 "-DCPPCHECK=ON",
-                "-DENABLE_EFFECTIVE_CXX=ON",
-                "-G",
-                "CodeBlocks - Unix Makefiles",
-                "${workspaceFolder}"
+                "-DENABLE_EFFECTIVE_CXX=$WEFFCPP"
             ],
             "presentation": {
                 "reveal": "always",
@@ -68,10 +82,16 @@
                 "isDefault": true
             },
             "type": "shell",
-            "command": "make",
+            "command": "cmake",
             "options": {
-                "cwd": "${workspaceFolder}/build/${input:build_types}"
+                "cwd": "${workspaceFolder}"
             },
+            "args": [
+                "--build",
+                "build/${input:build_type}",
+                "-j",
+                "\"$(getconf _NPROCESSORS_ONLN)\""
+            ],
             "presentation": {
                 "reveal": "always",
                 "panel": "shared",
@@ -101,20 +121,15 @@
                 "isDefault": true
             },
             "type":"shell",
-            "linux": {
-                "command": "make"
-            },
-            "osx": {
-                "command": "make"
-            },
-            "windows": {
-                "command": "nmake"
-            },
+            "command": "cmake",
             "args": [
+                "--build",
+                "build/${input:build_type}",
+                "--target",
                 "check"
             ],
             "options": {
-                "cwd": "${workspaceFolder}/build/${input:build_types}"
+                "cwd": "${workspaceFolder}"
             },
             "dependsOn": [
                 "Coverage | Clean coverage data",
@@ -147,7 +162,7 @@
             "label": "Format | Format C++ code",
             "type": "shell",
             "options": {
-                "cwd": "${workspaceFolder}/build/${input:build_types}"
+                "cwd": "${workspaceFolder}/build/${input:build_type}"
             },
             "linux": {
                 "command": "make"
@@ -175,7 +190,7 @@
             "label": "Format | Format cmake lists",
             "type": "shell",
             "options": {
-                "cwd": "${workspaceFolder}/build/${input:build_types}"
+                "cwd": "${workspaceFolder}/build/${input:build_type}"
             },
             "linux": {
                 "command": "make"
@@ -203,7 +218,7 @@
             "label": "Coverage | Clean coverage data",
             "type": "shell",
             "options": {
-                "cwd": "${workspaceFolder}/build/${input:build_types}"
+                "cwd": "${workspaceFolder}/build/${input:build_type}"
             },
             "linux": {
                 "command": "rm",
@@ -238,23 +253,32 @@
         {
             "label": "Coverage | Generate HTML code coverage report",
             "type": "shell",
+            "command": "cmake",
             "options": {
-                "cwd": "${workspaceFolder}/build/${input:build_types}",
+                "cwd": "${workspaceFolder}",
                 "env": {
                     "ZEPHIR_TESTS_ROOT": "${workspaceFolder}/tests"
                 }
             },
             "linux": {
-                "command": "make"
+                "options":{
+                    "env": {
+                        "CCOV_TARGET": "ccov-all-capture"
+                    }
+                }
             },
             "osx": {
-                "command": "make"
-            },
-            "windows": {
-                "command": "nmake"
+                "options":{
+                    "env": {
+                        "CCOV_TARGET": "ccov-all"
+                    }
+                }
             },
             "args": [
-                "ccov-all"
+                "--build",
+                "build/${input:build_type}",
+                "--target",
+                "$CCOV_TARGET"
             ],
             "presentation": {
                 "reveal": "always",
@@ -269,7 +293,7 @@
             "label": "Coverage | Open HTML code coverage report",
             "type": "shell",
             "options": {
-                "cwd": "${workspaceFolder}/build/${input:build_types}",
+                "cwd": "${workspaceFolder}/build/${input:build_type}",
                 "env": {
                     "ZEPHIR_TESTS_ROOT": "${workspaceFolder}/tests"
                 }
@@ -299,7 +323,7 @@
             "label": "Coverage | Print coverage summary",
             "type": "shell",
             "options": {
-                "cwd": "${workspaceFolder}/build/${input:build_types}"
+                "cwd": "${workspaceFolder}/build/${input:build_type}"
             },
             "linux": {
                 "command": "make"
@@ -326,7 +350,7 @@
             "label": "Coverage | Export coverage information (JSON)",
             "type": "shell",
             "options": {
-                "cwd": "${workspaceFolder}/build/${input:build_types}"
+                "cwd": "${workspaceFolder}/build/${input:build_type}"
             },
             "linux": {
                 "command": "make"
@@ -347,6 +371,22 @@
                 "showReuseMessage": false
             },
             "problemMatcher": []
+        },
+
+        {
+            "label": "Install | Setup dependencies with Conan",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}",
+            },
+            "command": "conan",
+            "args": [
+                "install",
+                "${workspaceFolder}",
+                "-if=${workspaceFolder}/build/${input:build_type}",
+                "-pr=zephir",
+                "--build=missing"
+            ]
         }
     ]
 }
