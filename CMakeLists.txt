@@ -92,25 +92,14 @@ list(
          ${zephir_SOURCE_DIR}/external/CMakeLists.txt)
 cmake_format(cmake-format "${glob_files}")
 
-include(GNUInstallDirs)
-if(NOT CMAKE_RUNTIME_OUTPUT_DIRECTORY)
-  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY
-      "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}")
-endif()
-if(NOT CMAKE_ARCHIVE_OUTPUT_DIRECTORY)
-  set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY
-      "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}")
-endif()
-if(NOT CMAKE_LIBRARY_OUTPUT_DIRECTORY)
-  set(CMAKE_LIBRARY_OUTPUT_DIRECTORY
-      "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}")
-endif()
-
-# Conan bootstrap
+# Conan helpers
 include(ConanHelper)
 
 # Project specific variables
 include(ProjectInfo)
+
+# Project specific directories
+include(ProjectDirs)
 
 add_subdirectory(external)
 add_subdirectory(src)
