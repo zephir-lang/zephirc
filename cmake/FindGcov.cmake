@@ -100,7 +100,7 @@ foreach(LANG ${ENABLED_LANGUAGES})
 endforeach()
 
 # Add a new global target for all gcov targets. This target could be used to
-# generate the gcov files for the whole project instead of calling gcov-<TARGET>
+# generate the gcov files for the whole project instead of calling <TARGET>-gcov
 # for each target.
 if(NOT TARGET gcov)
   add_custom_target(gcov)
@@ -163,8 +163,8 @@ function(add_gcov_target TARGET_NAME)
   endforeach()
 
   # add target for gcov evaluation of <TARGET_NAME>
-  add_custom_target(gcov-${TARGET_NAME} DEPENDS ${BUFFER})
+  add_custom_target(${TARGET_NAME}-gcov DEPENDS ${BUFFER})
 
   # add evaluation target to the global gcov target.
-  add_dependencies(gcov gcov-${TARGET_NAME})
+  add_dependencies(gcov ${TARGET_NAME}-gcov)
 endfunction()
