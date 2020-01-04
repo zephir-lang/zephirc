@@ -13,7 +13,4 @@ target_include_directories(
   console PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
                  $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 
-# Instruments the library
-target_code_coverage(console AUTO ALL)
-
-target_link_libraries(console PUBLIC CONAN_PKG::CLI11 config)
+target_link_libraries(console PUBLIC CONAN_PKG::CLI11 config ccov)

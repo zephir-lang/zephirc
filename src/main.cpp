@@ -9,8 +9,6 @@
 #include <string>
 #include <vector>
 
-#include <zephir/main.hpp>
-
 #include "console/application.hpp"
 #include "console/commands/api.hpp"
 #include "console/commands/build.hpp"
@@ -54,9 +52,5 @@ int main(int argc, char** argv) {
   app->AddCommand(std::make_unique<StubsCommand>("stubs"));
 
   auto retval = app->Run();
-  if (retval == EXIT_HELP) {
-    retval = EXIT_SUCCESS;
-  }
-
   return retval;
 }

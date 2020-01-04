@@ -1,3 +1,7 @@
+/// \file filesystem.hpp
+/// \brief Represents filesystem helpers to use internally in the Zephir
+/// compiler.
+
 // This file is part of the Zephir.
 //
 // (c) Phalcon Team <team@zephir-lang.com>
@@ -11,19 +15,15 @@
 #include <string>
 
 namespace zephir::filesystem {
-/**
- * @brief Fastest way to check if a file exist.
- *
- * @param name The location of the file
- * @return true on success, false otherwise
- */
+/// \brief Fastest way to check if a file exist.
+///
+/// \param name The location of the file
+/// \return true on success, false otherwise
 bool exists(const std::string& name) noexcept;
 
-/**
- * @brief Gets current working compiler path.
- *
- * @return current working path
- */
+/// \brief Gets current working compiler path.
+///
+/// \return The current working path
 std::string cwd();
 }  // namespace zephir::filesystem
 

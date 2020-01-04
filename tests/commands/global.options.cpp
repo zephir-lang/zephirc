@@ -10,18 +10,16 @@
 #include <tuple>
 #include <utility>
 
-#include <zephir/main.hpp>
-
 #include "console/application.hpp"
 
-class NoneCmdTest
+class GlobalOptionsTest
     : public testing::TestWithParam<std::tuple<std::string, int>> {
  protected:
-  NoneCmdTest() : argv(){};
+  GlobalOptionsTest() : argv(){};
   std::vector<std::string> argv;
 };
 
-TEST_P(NoneCmdTest, RunUsingGlobalOptions) {
+TEST_P(GlobalOptionsTest, RunUsingGlobalOptions) {
   auto expected = std::get<1>(GetParam());
   const auto& option = std::get<0>(GetParam());
 
@@ -36,8 +34,8 @@ TEST_P(NoneCmdTest, RunUsingGlobalOptions) {
 }
 
 INSTANTIATE_TEST_SUITE_P(
-    BulkTest, NoneCmdTest,
-    testing::Values(std::make_tuple("--help", EXIT_HELP),
+    BulkTest, GlobalOptionsTest,
+    testing::Values(std::make_tuple("--help", EXIT_SUCCESS),
                     std::make_tuple("--version", EXIT_SUCCESS),
                     std::make_tuple("--vernum", EXIT_SUCCESS),
                     std::make_tuple("--dumpversion", EXIT_SUCCESS)));

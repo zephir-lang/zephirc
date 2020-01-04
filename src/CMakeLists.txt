@@ -22,15 +22,11 @@ target_include_directories(
 
 set_target_properties(
   ${ZEPHIR_APP_TARGET}
-  PROPERTIES MACOSX_BUNDLE_BUNDLE_NAME ${ZEPHIR_DISPLAY_NAME}
+  PROPERTIES MACOSX_BUNDLE_BUNDLE_NAME ${PROJECT_DISPLAY_NAME}
              MACOSX_BUNDLE_BUNDLE_VERSION "${PROJECT_VERSION}${BUILD_SUFFIX}"
              MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION}
              MACOSX_BUNDLE_COPYRIGHT "${ZEPHIR_COPYRIGHT}"
              MACOSX_BUNDLE_INFO_STRING "${ZEPHIR_COPYRIGHT}"
              MACOSX_BUNDLE_GUI_IDENTIFIER com.zephir-lang.zephir)
 
-target_link_libraries(${ZEPHIR_APP_TARGET} PUBLIC console)
-
-# Adds the executable to the 'ccov' and 'ccov-all' targets and excludes the file
-# itself via regex
-target_code_coverage(${ZEPHIR_APP_TARGET} AUTO ALL EXTERNAL)
+target_link_libraries(${ZEPHIR_APP_TARGET} PUBLIC console ccov)
