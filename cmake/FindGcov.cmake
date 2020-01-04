@@ -58,7 +58,6 @@ foreach(LANG ${ENABLED_LANGUAGES})
         mark_as_advanced(LLVM_COV_EXE)
 
         if(LLVM_COV_EXE)
-          # TODO(klay): Provide ability to pass wrapper path
           find_program(LLVM_COV_WRAPPER llvm-cov-wrapper
                        PATHS ${CMAKE_MODULE_PATH})
           mark_as_advanced(LLVM_COV_WRAPPER)

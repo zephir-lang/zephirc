@@ -4,6 +4,9 @@
 #
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
+#
+# Initially written by Alexander Haase <alexander.haase@rwth-aachen.de>
+# Adapted by Serghei Iakovlev <egrep@protonmail.ch>
 
 # Add an option to choose, if coverage should be enabled or not. If enabled
 # marked targets will be build with coverage support and appropriate targets
