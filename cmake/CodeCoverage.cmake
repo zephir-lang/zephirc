@@ -10,6 +10,10 @@ option(CODE_COVERAGE "Builds targets with code coverage instrumentation." OFF)
 # Code Coverage Configuration
 add_library(ccov INTERFACE)
 
+if(CODE_COVERAGE)
+  find_package(Lcov)
+endif()
+
 if(CODE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|[Cc]lang")
   # Add required flags (GCC & LLVM/Clang)
   target_compile_options(ccov INTERFACE -O0 -g --coverage)

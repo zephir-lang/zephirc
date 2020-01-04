@@ -4,12 +4,14 @@
 #
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
+#
+# Initially written by Alexander Haase <alexander.haase@rwth-aachen.de>
+# Adapted by Serghei Iakovlev <egrep@protonmail.ch>
 
 # Include required Modules
 include(FindPackageHandleStandardArgs)
 
 get_property(ENABLED_LANGUAGES GLOBAL PROPERTY ENABLED_LANGUAGES)
-
 foreach(LANG ${ENABLED_LANGUAGES})
   # Gcov evaluation is dependent on the used compiler. Check gcov support for
   # each compiler that is used. If gcov binary was already found for this
@@ -19,9 +21,6 @@ foreach(LANG ${ENABLED_LANGUAGES})
   message("   > CMAKE_${LANG}_COMPILER: ${CMAKE_${LANG}_COMPILER}")
   message(
     "   > CMAKE_${LANG}_COMPILER_VERSION: ${CMAKE_${LANG}_COMPILER_VERSION}")
-  message(
-    "   > GCOV_${CMAKE_${LANG}_COMPILER_ID}_EXE: ${GCOV_${CMAKE_${LANG}_COMPILER_ID}_EXE}"
-  )
 
   if(NOT GCOV_${CMAKE_${LANG}_COMPILER_ID}_EXE)
     get_filename_component(COMPILER_PATH "${CMAKE_${LANG}_COMPILER}" PATH)
@@ -41,8 +40,8 @@ foreach(LANG ${ENABLED_LANGUAGES})
       mark_as_advanced(GCOV_EXE)
       message("   > GCOV_EXE: ${GCOV_EXE}")
     elseif("${CMAKE_${LANG}_COMPILER_ID}" STREQUAL "AppleClang")
-      # There is nothing special for Apple Clang.
-      # Usually "gcov" is a symlink to llvm-cov
+      # There is nothing special for Apple Clang. Usually "gcov" is a symlink to
+      # llvm-cov
       find_program(
         GCOV_EXE
         NAMES gcov llvm-cov
@@ -114,3 +113,10 @@ foreach(LANG ${ENABLED_LANGUAGES})
     endif()
   endif()
 endforeach()
+
+# Add a new global target for all gcov targets. This target could be used to
+# generate the gcov files for the whole project instead of calling <TARGET>-gcov
+# for each target.
+if(NOT TARGET gcov)
+  add_custom_target(gcov)
+endif()
