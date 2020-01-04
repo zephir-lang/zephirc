@@ -33,11 +33,19 @@ foreach(LANG ${ENABLED_LANGUAGES})
       # suggested binary name with the compiler version.
       string(REGEX MATCH "^[0-9]+" GCC_VERSION
                    "${CMAKE_${LANG}_COMPILER_VERSION}")
-      message("   > GCC_VERSION: ${GCC_VERSION}")
 
       find_program(
         GCOV_EXE
         NAMES gcov-${GCC_VERSION} gcov
+        HINTS ${COMPILER_PATH})
+      mark_as_advanced(GCOV_EXE)
+      message("   > GCOV_EXE: ${GCOV_EXE}")
+    elseif("${CMAKE_${LANG}_COMPILER_ID}" STREQUAL "AppleClang")
+      # There is nothing special for Apple Clang.
+      # Usually "gcov" is a symlink to llvm-cov
+      find_program(
+        GCOV_EXE
+        NAMES gcov llvm-cov
         HINTS ${COMPILER_PATH})
       mark_as_advanced(GCOV_EXE)
       message("   > GCOV_EXE: ${GCOV_EXE}")
@@ -47,7 +55,6 @@ foreach(LANG ${ENABLED_LANGUAGES})
       # binary name with the compiler version.
       string(REGEX MATCH "^[0-9]+.[0-9]+" LLVM_VERSION
                    "${CMAKE_${LANG}_COMPILER_VERSION}")
-      message("   > LLVM_VERSION: ${LLVM_VERSION}")
 
       # llvm-cov prior version 3.5 seems to be not working with coverage
       # evaluation tools, but these versions are compatible with the gcc gcov
