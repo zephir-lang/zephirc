@@ -114,15 +114,10 @@ CMake flags are:
 
 Follow these steps:
 1. Configure with code coverage instrumentation enabled `-DCODE_COVERAGE=ON`
-2. Run `./ci/make-test-coverage.sh` from the project root
-3. Open `./build/ccov/html/index.html` in your browser to view the report
-
-Note: Most likely Clang users (_NOT Apple Clang, or Xcode_) will need a gcov
-wrapper as well as installed `llvm-cov`. If it is your case then call
-`make-test-coverage.sh` as follows:
-```shell script
-./ci/make-test-coverage.sh ./ci/llvm-gcov.sh
-```
+2. Execute the tests to generate the coverage data
+3. Run `cmake --build build --target gcov`
+4. Run `cmake --build build --target lcov`
+5. Open `build/ccov/html/all-targets/index.html` in your browser to view the coverage report
 
 ### Generate the API documentation
 
