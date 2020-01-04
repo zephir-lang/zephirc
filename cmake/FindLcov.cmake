@@ -94,6 +94,9 @@ file(MAKE_DIRECTORY ${LCOV_DATA_PATH_INIT})
 file(MAKE_DIRECTORY ${LCOV_DATA_PATH_CAPTURE})
 
 set(LCOV_REMOVE_PATTERNS "")
+if(DEFINED COVERAGE_EXCLUDES)
+  string(REPLACE ";" " " LCOV_REMOVE_PATTERNS "${COVERAGE_EXCLUDES}")
+endif()
 
 # Merge lcov files to a single target file. Additional lcov flags may be set
 # with setting LCOV_EXTRA_FLAGS before calling this function.
@@ -110,14 +113,24 @@ function(lcov_merge_files OUTFILE ...)
     COMMENT "Generating ${FILE_REL}")
 
   add_custom_command(
-    OUTPUT "${OUTFILE}"
+    OUTPUT ${OUTFILE}.base
     COMMAND
-      ${LCOV_EXE} -q -a ${OUTFILE}.raw -o ${OUTFILE} ${LCOV_EXTRA_FLAGS}
-    COMMAND
-      ${LCOV_EXE} -q -r ${OUTFILE} ${LCOV_REMOVE_PATTERNS} -o ${OUTFILE}
-      ${LCOV_EXTRA_FLAGS}
+      ${LCOV_EXE} -q -a ${OUTFILE}.raw -o ${OUTFILE}.base ${LCOV_EXTRA_FLAGS}
     DEPENDS ${OUTFILE}.raw
-    COMMENT "Post-processing ${FILE_REL}")
+    COMMENT "Add contents of tracefile...")
+
+  add_custom_command(
+    OUTPUT ${OUTFILE}
+    COMMAND
+      ${LCOV_EXE} -q -r ${OUTFILE}.base ${LCOV_REMOVE_PATTERNS} -o ${OUTFILE}
+    DEPENDS ${OUTFILE}.base
+    COMMENT "Remove ignored data from tracefile...")
+
+  # TODO(klay): remove me
+  # add_custom_command( OUTPUT "${OUTFILE}" COMMAND ${LCOV_EXE} -q -a
+  # ${OUTFILE}.raw -o ${OUTFILE} ${LCOV_EXTRA_FLAGS} COMMAND ${LCOV_EXE} -q -r
+  # ${OUTFILE} ${LCOV_REMOVE_PATTERNS} -o ${OUTFILE} ${LCOV_EXTRA_FLAGS} DEPENDS
+  # ${OUTFILE}.raw COMMENT "Post-processing ${FILE_REL}")
 endfunction()
 
 # Add a new global target to generate initial coverage reports for all targets.
@@ -275,15 +288,16 @@ function(lcov_capture_tgt TARGET_NAME)
     # Generate coverage files. If no .gcda file was generated during execution,
     # the empty coverage file will be used instead.
     set(OUTFILE "${TARGET_DIR}/${FILE}.info")
+    set(INFILE "${TARGET_DIR}/${FILE}.gcda")
+
     list(APPEND GENINFO_FILES ${OUTFILE})
 
     add_custom_command(
       OUTPUT ${OUTFILE}
       COMMAND
-        test -f "${TARGET_DIR}/${FILE}.gcda" && ${GCOV_ENV} ${GENINFO_EXE}
-        --quiet --base-directory ${PROJECT_SOURCE_DIR} --gcov-tool ${GCOV_EXE}
-        --output-filename ${OUTFILE} ${GENINFO_EXTERN_FLAG}
-        ${TARGET_DIR}/${FILE}.gcda || cp ${OUTFILE}.init ${OUTFILE}
+        test -f "${INFILE}" && ${GENINFO_EXE} -q -b ${PROJECT_SOURCE_DIR}
+        --gcov-tool ${GCOV_EXE} -o ${OUTFILE} ${GENINFO_EXTERN_FLAG} ${INFILE}
+        || cp ${OUTFILE}.init ${OUTFILE}
       DEPENDS ${TARGET_NAME} ${TARGET_NAME}-capture-init
       COMMENT "Capturing coverage data for ${FILE}")
   endforeach()
@@ -322,8 +336,6 @@ function(lcov_capture)
   # Skip this function (and do not create the following targets), if there are
   # no input files.
   if("${LCOV_CAPTURE_FILES}" STREQUAL "")
-    message(STATUS "There are no input files. "
-                   "Skip generate the global info file for all targets.")
     return()
   endif()
 
