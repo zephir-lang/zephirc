@@ -31,9 +31,11 @@ class AbstractCommand {
   /// \brief Configures the current command.
   ///
   /// \param app A `CLI::App` instance
+  /// \return void
   virtual void Setup(std::shared_ptr<CLI::App> app) = 0;
 
   /// \brief Executes the current command
+  /// \return void
   virtual void Execute() = 0;
 
  protected:

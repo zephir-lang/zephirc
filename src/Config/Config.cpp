@@ -10,7 +10,7 @@
 #include <fstream>
 #include <regex>
 
-#include "../FileSystem/FileSystem.hpp"
+#include "FileSystem/FileSystem.hpp"
 
 zephir::Config::Config(const std::string &path)
     : container_(YAML::Load(getInitData())) {

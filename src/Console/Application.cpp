@@ -11,7 +11,7 @@
 
 #include <zephir/Version.hpp>
 
-#include "../FileSystem/FileSystem.hpp"
+#include "FileSystem/FileSystem.hpp"
 
 zephir::console::Application::Application(zephir::ConfigPtr config,
                                           std::vector<std::string> args,

@@ -14,8 +14,8 @@
 #include <string>
 #include <vector>
 
-#include "../Config/Config.hpp"
 #include "Commands/AbstractCommand.hpp"
+#include "Config/Config.hpp"
 #include "Formatter.hpp"
 
 namespace zephir::console {

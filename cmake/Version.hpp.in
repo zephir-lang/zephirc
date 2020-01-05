@@ -11,7 +11,7 @@
 #ifndef ZEPHIR_VERSION_HPP_
 #define ZEPHIR_VERSION_HPP_
 
-/// \file version.hpp
+/// \file Version.hpp
 /// \brief Provides compiler version information.
 
 /// \brief Represents compiler major version.

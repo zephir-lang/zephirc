@@ -129,3 +129,4 @@ Follow these steps:
 1. Configure with API docs generations support `-DZEPHIR_BUILD_DOC=ON`
 2. Build project
 3. Call `cmake --build build --target doc` from the project root directory
+4. Open `build/docs/html/index.html` in your browser to view the API documentation

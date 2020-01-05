@@ -21,8 +21,9 @@ void zephir::console::commands::CompileCommand::Setup(CLI::App_p app) {
 
   // Add options to cmd, binding them to options.
   cmd->add_option(
-      "--backend", options_->backend,
-      "Used backend to generate extension [default: \"ZendEngine3\"]");
+         "--backend", options_->backend,
+         "Used backend to generate extension [default: \"ZendEngine3\"]")
+      ->type_name("BACKEND");
 
   auto dev = cmd->add_flag(
       "--dev", "Compile the extension in development mode [default]");
@@ -45,11 +46,6 @@ void zephir::console::commands::CompileCommand::Setup(CLI::App_p app) {
   In some cases, we would like to get production ready extension even if the PHP binary was
   compiled in a debug configuration. Use --no-dev option to achieve this behavior.)HELP";
 
-  // TODO(klay): These flags should be parsed before CLI11 initialization.
-  // Current plan is:
-  // 1. read these flags
-  // 2. set the appropriate configuration
-  // 3. remove these flags (if any) from argv
   cmd->footer(std::string(HELP) + "\n" + CommonCompilationFlagsHelp());
 
   // Set the run function as callback to be called when this subcommand is

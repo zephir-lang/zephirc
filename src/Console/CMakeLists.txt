@@ -10,8 +10,10 @@ file(GLOB CLI_FILES ${CMAKE_CURRENT_SOURCE_DIR}/Commands/*.cpp)
 add_library(console SHARED Formatter.cpp Application.cpp ${CLI_FILES})
 
 target_include_directories(
-  console PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
-                 $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
+  console
+  PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+  PRIVATE $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>)
 
 target_link_libraries(console PUBLIC CONAN_PKG::CLI11 config)
 
