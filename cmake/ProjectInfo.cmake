@@ -31,7 +31,7 @@ else()
 endif()
 
 set(ZEPHIR_PACKAGE_STRING "${ZEPHIR_VERSION}-${ZEPHIR_VERSION_SUFFIX}")
-set(ZEPHIR_PACKAGE_BUGREPORT "https://github.com/zephir-lang/zephirc")
+set(ZEPHIR_PACKAGE_URL "https://zephir-lang.com")
 
 math(
   EXPR
@@ -53,8 +53,8 @@ set(PROJECT_VERSION ${ZEPHIR_VERSION})
 set(PROJECT_DESCRIPTION "Yet another implementation of the Zephir compiler")
 
 get_filename_component(_MOD_DIR ${CMAKE_CURRENT_LIST_FILE} PATH)
-configure_file("${_MOD_DIR}/version.hpp.in"
-               "${zephir_SOURCE_DIR}/include/zephir/version.hpp")
+configure_file("${_MOD_DIR}/Version.hpp.in"
+               "${zephir_SOURCE_DIR}/include/zephir/Version.hpp")
 
 unset(CURRENT_YEAR)
 unset(CURRENT_DATE_TIME)

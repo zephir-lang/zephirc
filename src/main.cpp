@@ -9,17 +9,17 @@
 #include <string>
 #include <vector>
 
-#include "console/application.hpp"
-#include "console/commands/api.hpp"
-#include "console/commands/build.hpp"
-#include "console/commands/clean.hpp"
-#include "console/commands/compile.hpp"
-#include "console/commands/fullclean.hpp"
-#include "console/commands/generate.hpp"
-#include "console/commands/init.hpp"
-#include "console/commands/install.hpp"
-#include "console/commands/stubs.hpp"
-#include "filesystem/filesystem.hpp"
+#include "Console/Application.hpp"
+#include "Console/Commands/ApiCommand.hpp"
+#include "Console/Commands/BuildCommand.hpp"
+#include "Console/Commands/CleanCommand.hpp"
+#include "Console/Commands/CompileCommand.hpp"
+#include "Console/Commands/FullCleanCommand.hpp"
+#include "Console/Commands/GenerateCommand.hpp"
+#include "Console/Commands/InitCommand.hpp"
+#include "Console/Commands/InstallCommand.hpp"
+#include "Console/Commands/StubsCommand.hpp"
+#include "FileSystem/FileSystem.hpp"
 
 using namespace zephir::console::commands;
 
@@ -35,7 +35,7 @@ static inline std::vector<std::string> prepare_args(int argc, char** argv) {
 
 int main(int argc, char** argv) {
   auto args = prepare_args(argc, argv);
-  auto base_path = zephir::filesystem::cwd();
+  auto base_path = zephir::filesystem::current_path();
   auto config = zephir::Config::factory(args, base_path + "/.zephir");
 
   auto app =
