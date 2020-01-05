@@ -26,22 +26,27 @@ void zephir::console::commands::ApiCommand::Setup(CLI::App_p app) {
 
   // Add options to cmd, binding them to options.
   cmd->add_option(
-      "--backend", options_->backend,
-      "Used backend to generate extension [default: \"ZendEngine3\"]");
+         "--backend", options_->backend,
+         "Used backend to generate extension [default: \"ZendEngine3\"]")
+      ->type_name("BACKEND");
+
   cmd->add_option("-p,--path", options_->template_path,
-                  "The API theme to be used");
+                  "The API theme to be used")
+      ->type_name("PATH");
+
   cmd->add_option("-o,--output", options_->output,
-                  "Output directory to generate theme");
-  cmd->add_option("--options", options_->theme_options, "Theme options");
+                  "Output directory to generate theme")
+      ->type_name("OUTPUT");
+
+  cmd->add_option("--options", options_->theme_options, "Theme options")
+      ->type_name("OPTIONS");
+
   cmd->add_option("--url", options_->url,
-                  "The base URL to be used when generating links");
+                  "The base URL to be used when generating links")
+      ->type_name("URL");
+
   cmd->set_help_flag("-h, --help", "Print this help message and quit");
 
-  // TODO(klay): These flags should be parsed before CLI11 initialization.
-  // Current plan is:
-  // 1. read these flags
-  // 2. set the appropriate configuration
-  // 3. remove these flags (if any) from argv
   cmd->footer(CommonCompilationFlagsHelp());
 
   // Set the run function as callback to be called when this subcommand is

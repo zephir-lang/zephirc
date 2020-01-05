@@ -21,9 +21,13 @@ void zephir::console::commands::InitCommand::Setup(CLI::App_p app) {
 
   // Add options to cmd, binding them to options.
   cmd->add_option(
-      "--backend", options_->backend,
-      "Used backend to generate extension [default: \"ZendEngine3\"]");
-  cmd->add_option("namespace", options_->ns, "The extension namespace");
+         "--backend", options_->backend,
+         "Used backend to generate extension [default: \"ZendEngine3\"]")
+      ->type_name("BACKEND");
+
+  cmd->add_option("namespace", options_->ns, "The extension namespace")
+      ->type_name("NAME");
+
   cmd->set_help_flag("-h, --help", "Print this help message and quit");
 
   // TODO(klay): Make it better.
