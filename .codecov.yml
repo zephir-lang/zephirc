@@ -7,7 +7,8 @@
 
 codecov:
   notify:
-    require_ci_to_pass: yes
+    # will no delay sending notifications until all ci is finished
+    require_ci_to_pass: no
 
 coverage:
   precision: 2
@@ -17,7 +18,8 @@ coverage:
   status:
     project:
       default:
-        threshold: 0.5 # Allow the coverage to drop by threshold %, and posting a success status.
+        # the amount that coverage can drop while still posting a success
+        threshold: 1%
     patch:
       default:
         target: 0% # trial operation
