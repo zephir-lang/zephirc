@@ -11,7 +11,7 @@
 !.vscode/extensions.json
 
 /build/
-/build-*/
+/build-*
 
 *.profraw
 *.gcov

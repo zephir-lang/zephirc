@@ -58,7 +58,7 @@ endif()
 
 add_custom_target(
   check
-  COMMAND ctest -j ${BUILD_JOBS} --output-on-failure
+  COMMAND ctest --output-on-failure
   WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
   DEPENDS ${ZEPHIR_TESTS}
   COMMENT "Run all tests...")
