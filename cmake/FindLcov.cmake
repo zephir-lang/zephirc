@@ -170,7 +170,6 @@ function(lcov_capture_initial_tgt TARGET_NAME)
   endif()
 
   set(GCOV_EXE "${GCOV_${TARGET_COMPILER}_EXE}")
-  set(GCOV_ENV "${GCOV_${TARGET_COMPILER}_ENV}")
 
   get_target_property(TARGET_BIN_DIR ${TARGET_NAME} BINARY_DIR)
   set(TARGET_DIR ${TARGET_BIN_DIR}/CMakeFiles/${TARGET_NAME}.dir)
@@ -185,9 +184,8 @@ function(lcov_capture_initial_tgt TARGET_NAME)
     add_custom_command(
       OUTPUT ${OUTFILE}
       COMMAND
-        ${GCOV_ENV} ${GENINFO_EXE} -q -b ${PROJECT_SOURCE_DIR} -i --gcov-tool
-        ${GCOV_EXE} -o ${OUTFILE} ${GENINFO_EXTERN_FLAG}
-        ${TARGET_DIR}/${FILE}.gcno
+        ${GENINFO_EXE} -q -b ${PROJECT_SOURCE_DIR} -i --gcov-tool ${GCOV_EXE} -o
+        ${OUTFILE} ${GENINFO_EXTERN_FLAG} ${TARGET_DIR}/${FILE}.gcno
       DEPENDS ${TARGET_NAME}
       COMMENT "Capturing initial coverage data for file ${FILE}")
   endforeach()
@@ -276,7 +274,6 @@ function(lcov_capture_tgt TARGET_NAME)
   endif()
 
   set(GCOV_EXE "${GCOV_${TARGET_COMPILER}_EXE}")
-  set(GCOV_ENV "${GCOV_${TARGET_COMPILER}_ENV}")
 
   get_target_property(TARGET_BIN_DIR ${TARGET_NAME} BINARY_DIR)
   set(TARGET_DIR ${TARGET_BIN_DIR}/CMakeFiles/${TARGET_NAME}.dir)
@@ -294,9 +291,9 @@ function(lcov_capture_tgt TARGET_NAME)
     add_custom_command(
       OUTPUT ${OUTFILE}
       COMMAND
-        test -f "${INFILE}" && ${GCOV_ENV} ${GENINFO_EXE} -q -b
-        ${PROJECT_SOURCE_DIR} --gcov-tool ${GCOV_EXE} -o ${OUTFILE}
-        ${GENINFO_EXTERN_FLAG} ${INFILE} || cp ${OUTFILE}.init ${OUTFILE}
+        test -f "${INFILE}" && $${GENINFO_EXE} -q -b ${PROJECT_SOURCE_DIR}
+        --gcov-tool ${GCOV_EXE} -o ${OUTFILE} ${GENINFO_EXTERN_FLAG} ${INFILE}
+        || cp ${OUTFILE}.init ${OUTFILE}
       DEPENDS ${TARGET_NAME} ${TARGET_NAME}-capture-init
       COMMENT "Capturing coverage data for file ${FILE}")
   endforeach()

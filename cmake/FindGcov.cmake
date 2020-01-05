@@ -31,7 +31,6 @@ foreach(LANG ${ENABLED_LANGUAGES})
         GCOV_EXE
         NAMES gcov-${GCC_VERSION} gcov
         HINTS ${COMPILER_PATH})
-      mark_as_advanced(GCOV_EXE)
     elseif("${CMAKE_${LANG}_COMPILER_ID}" MATCHES "(Apple)?[Cc]lang")
       # Some distributions like Debian ship llvm-cov with the compiler version
       # appended as llvm-cov-x.y. To find this binary we'll build the suggested
@@ -39,32 +38,20 @@ foreach(LANG ${ENABLED_LANGUAGES})
       string(REGEX MATCH "^[0-9]+.[0-9]+" LLVM_VERSION
                    "${CMAKE_${LANG}_COMPILER_VERSION}")
 
-      # llvm-cov prior version 3.5 seems to be not working with coverage
-      # evaluation tools, but these versions are compatible with the gcc gcov
-      # tool.
-      if(LLVM_VERSION VERSION_GREATER 3.4)
-        find_program(
-          LLVM_COV_EXE
-          NAMES llvm-cov-${LLVM_VERSION} llvm-cov
-          HINTS ${COMPILER_PATH})
-        mark_as_advanced(LLVM_COV_EXE)
+      find_program(
+        LLVM_COV_EXE
+        NAMES llvm-cov-${LLVM_VERSION} llvm-cov
+        HINTS ${COMPILER_PATH})
+      mark_as_advanced(LLVM_COV_EXE)
 
-        if(LLVM_COV_EXE)
-          find_program(LLVM_COV_WRAPPER llvm-cov-wrapper
-                       PATHS ${CMAKE_MODULE_PATH})
-          mark_as_advanced(LLVM_COV_WRAPPER)
-          if(LLVM_COV_WRAPPER)
-            set(GCOV_EXE
-                "${LLVM_COV_WRAPPER}"
-                CACHE FILEPATH "")
+      if(LLVM_COV_EXE)
+        get_filename_component(_MOD_DIR ${CMAKE_CURRENT_LIST_FILE} PATH)
+        configure_file("${_MOD_DIR}/llvm-cov-wrapper.in"
+                       "${zephir_BINARY_DIR}/llvm-cov-wrapper")
 
-            # set additional parameters
-            set(GCOV_${CMAKE_${LANG}_COMPILER_ID}_ENV
-                "LLVM_COV_EXE=${LLVM_COV_EXE}"
-                CACHE STRING "Environment variables for llvm-cov-wrapper.")
-            mark_as_advanced(GCOV_${CMAKE_${LANG}_COMPILER_ID}_ENV)
-          endif()
-        endif()
+        execute_process(COMMAND chmod 755 ${zephir_BINARY_DIR}/llvm-cov-wrapper)
+
+        set(GCOV_EXE "${zephir_BINARY_DIR}/llvm-cov-wrapper")
       endif()
 
       if(NOT GCOV_EXE)
@@ -138,7 +125,6 @@ function(add_gcov_target TARGET_NAME)
   endif()
 
   set(GCOV_EXE "${GCOV_${TARGET_COMPILER}_EXE}")
-  set(GCOV_ENV "${GCOV_${TARGET_COMPILER}_ENV}")
   set(BUFFER "")
 
   foreach(FILE ${SOURCES})
@@ -147,7 +133,7 @@ function(add_gcov_target TARGET_NAME)
     # call gcov
     add_custom_command(
       OUTPUT ${TARGET_DIR}/${FILE}.gcov
-      COMMAND ${GCOV_ENV} ${GCOV_EXE} ${TARGET_DIR}/${FILE}.gcno > /dev/null
+      COMMAND ${GCOV_EXE} ${TARGET_DIR}/${FILE}.gcno > /dev/null
       DEPENDS ${TARGET_NAME} ${TARGET_DIR}/${FILE}.gcno
       WORKING_DIRECTORY ${FILE_PATH})
 

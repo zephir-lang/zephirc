@@ -62,22 +62,27 @@ function(coverage_collect)
   endif()
 endfunction()
 
+function(codecoverage_enable)
+  set(_build_type_warning
+      "Code coverage results with an optimized build may be misleading")
+
+  if(CMAKE_BUILD_TYPE)
+    string(TOUPPER ${CMAKE_BUILD_TYPE} upper_build_type)
+    if(NOT ${upper_build_type} STREQUAL "DEBUG")
+      message(WARNING ${_build_type_warning})
+    endif()
+  else()
+    message(WARNING ${_build_type_warning})
+  endif()
+endfunction()
+
 # Exit this module, if coverage is disabled. code_coverage is defined before
 # this return, so this module can be exited now safely without breaking any
 # build- scripts.
 if(NOT CODE_COVERAGE)
   return()
-endif()
-
-if(CMAKE_BUILD_TYPE)
-  string(TOUPPER ${CMAKE_BUILD_TYPE} upper_build_type)
-  if(NOT ${upper_build_type} STREQUAL "DEBUG")
-    message(
-      WARNING "Code coverage results with an optimized build may be misleading")
-  endif()
 else()
-  message(
-    WARNING "Code coverage results with an optimized build may be misleading")
+  codecoverage_enable()
 endif()
 
 get_property(ENABLED_LANGUAGES GLOBAL PROPERTY ENABLED_LANGUAGES)
