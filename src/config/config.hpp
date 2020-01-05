@@ -70,7 +70,9 @@ class Config {
   /// \return Requested configuration setting if any,
   /// fallback otherwise
   template <typename T>
-  inline T get(const std::string &key, const T &fallback) const;
+  inline T get(const std::string &key, const T &fallback) const {
+    return container_[key].as<T, T>(fallback);
+  }
 
   /// \brief Fetch a configuration value using a simple key.
   ///
@@ -84,7 +86,13 @@ class Config {
   /// fallback otherwise
   template <typename T>
   inline T get(const std::string &key, const std::string &ns,
-               const T &fallback) const;
+               const T &fallback) const {
+    if (container_[ns].IsDefined()) {
+      return container_[ns][key].as<T, T>(fallback);
+    }
+
+    return fallback;
+  }
 
   /// \brief Set a configuration value, using simple key.
   ///
@@ -93,7 +101,13 @@ class Config {
   /// \param rhs This value will be set for the given configuration key.
   /// \return Returns Config instance
   template <typename T>
-  inline Config &set(const std::string &key, const T &rhs);
+  inline Config &set(const std::string &key, const T &rhs) {
+    if (!key.empty()) {
+      container_[key] = rhs;
+    }
+
+    return *this;
+  }
 
   /// \brief Set a configuration value, using simple key and the given
   /// namespace.
@@ -105,7 +119,13 @@ class Config {
   /// \return Returns Config instance
   template <typename T>
   inline Config &set(const std::string &key, const std::string &ns,
-                     const T &rhs);
+                     const T &rhs) {
+    if (!ns.empty() && !key.empty()) {
+      container_[ns][key] = rhs;
+    }
+
+    return *this;
+  }
 
  private:
   /// \brief Gets the initial project configuration data
@@ -120,7 +140,5 @@ class Config {
   YAML::Node container_;
 };
 }  // namespace zephir
-
-#include "impl.hpp"
 
 #endif  // ZEPHIR_CONFIG_HPP_

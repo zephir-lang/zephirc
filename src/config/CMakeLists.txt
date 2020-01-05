@@ -6,7 +6,7 @@
 # the LICENSE file that was distributed with this source code.
 
 # Add definition for config library.
-add_library(config SHARED config.cpp impl.hpp)
+add_library(config SHARED config.cpp)
 
 target_include_directories(
   config PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
