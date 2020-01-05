@@ -6,9 +6,11 @@
 # the LICENSE file that was distributed with this source code.
 
 # Zephir libraries
-add_subdirectory(console)
-add_subdirectory(filesystem)
-add_subdirectory(config)
+add_subdirectory(Console)
+add_subdirectory(FileSystem)
+add_subdirectory(Config)
+
+# TODO(alexndr.mac): Rename directory and files to follow PascalCase style
 add_subdirectory(logger)
 
 # Main
@@ -25,6 +27,7 @@ set_target_properties(
   PROPERTIES MACOSX_BUNDLE_BUNDLE_NAME ${ZEPHIR_PACKAGE_NAME}
              MACOSX_BUNDLE_BUNDLE_VERSION "${ZEPHIR_PACKAGE_VERSION}"
              MACOSX_BUNDLE_SHORT_VERSION_STRING ${ZEPHIR_VERSION}
+             MACOSX_BUNDLE_LONG_VERSION_STRING ${ZEPHIR_VERSION_FULL}
              MACOSX_BUNDLE_COPYRIGHT "${ZEPHIR_COPYRIGHT}"
              MACOSX_BUNDLE_INFO_STRING "${ZEPHIR_COPYRIGHT}"
              MACOSX_BUNDLE_GUI_IDENTIFIER com.zephir-lang.zephir)

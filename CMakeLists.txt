@@ -92,15 +92,19 @@ file(
   ${zephir_SOURCE_DIR}/tests/*.[hc]pp)
 clang_format(cpp-format ${glob_files})
 
-file(GLOB_RECURSE glob_files "${zephir_SOURCE_DIR}/cmake/*.cmake"
-     "${zephir_SOURCE_DIR}/src/CMakeLists.txt")
+file(
+  GLOB_RECURSE
+  glob_files #
+  "${zephir_SOURCE_DIR}/cmake/*.cmake"
+  "${zephir_SOURCE_DIR}/src/CMakeLists.txt"
+  "${zephir_SOURCE_DIR}/tests/CMakeLists.txt")
+
 list(
   APPEND glob_files
          ${zephir_SOURCE_DIR}/CMakeLists.txt
          ${zephir_SOURCE_DIR}/docs/CMakeLists.txt
          ${zephir_SOURCE_DIR}/src/CMakeLists.txt
          ${zephir_SOURCE_DIR}/share/CMakeLists.txt
-         ${zephir_SOURCE_DIR}/tests/CMakeLists.txt
          ${zephir_SOURCE_DIR}/external/CMakeLists.txt)
 cmake_format(cmake-format "${glob_files}")
 
