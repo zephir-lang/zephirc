@@ -7,15 +7,13 @@
 
 #include "filesystem.hpp"
 
-#include <unistd.h>
-
-#include <climits>
+#include <unistd.h>  // access(), getcwd()
 
 bool zephir::filesystem::exists(const std::string &name) noexcept {
   return (access(name.c_str(), F_OK) != -1);
 }
 
 std::string zephir::filesystem::cwd() {
-  char temp[PATH_MAX];
-  return (getcwd(temp, sizeof(temp)) ? std::string(temp) : std::string(""));
+  auto cwd = getcwd(nullptr, 0);
+  return cwd ? std::string(cwd) : std::string();
 }

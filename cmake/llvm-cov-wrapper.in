@@ -1,0 +1,34 @@
+#!/usr/bin/env python
+
+# This file is part of the Zephir.
+#
+# (c) Phalcon Team <team@zephir-lang.com>
+#
+# For the full copyright and license information, please view
+# the LICENSE file that was distributed with this source code.
+
+import re
+import subprocess
+import sys
+
+llvm_cov = "@LLVM_COV_EXE@"
+
+# The wrapper must return the version for the "-v" and "--version" flags.
+# But llvm-cov only accepts "-version" and "--version"
+if any(h in sys.argv for h in ("-v", "-version", "--version")):
+    p = subprocess.Popen([llvm_cov, "--version"], stdout=subprocess.PIPE)
+    output = p.stdout.read().decode("utf8")
+    p.wait()
+    assert p.returncode == 0
+
+    versionmatch = re.search("[A-Za-z ]*([0-9]+\\.[0-9]+(?:\\.[0-9]+))", output)
+    if not versionmatch:
+        raise RuntimeError("Cannot detect version")
+
+    print(versionmatch)
+    print("{} version {}".format(sys.argv[0], versionmatch.group(1)))
+    sys.exit(0)
+
+p = subprocess.Popen([llvm_cov, "gcov"] + sys.argv[1:])
+p.wait()
+assert p.returncode == 0

@@ -25,7 +25,19 @@ endif()
 
 # CMake Script Includes
 include(Bootstrap)
+include(Helpers)
 include(Cppcheck)
+
+# Exclude the stuff that we aren't interested in from the tracefile:
+#
+# * system deps
+# * tests
+# * build
+# * thridparty-code
+set(COVERAGE_EXCLUDES "'/usr/*'" "'/Applications/*'" "'*/.conan/*'"
+                      "'*/build/*'" "'*/tests/*'" "'*/external/*'")
+
+# Enable code coverage support
 include(CodeCoverage)
 
 if(NOT EXISTS "${zephir_SOURCE_DIR}/external/cmake-scripts/c++-standards.cmake"
@@ -114,3 +126,6 @@ if(MASTER_PROJECT)
     add_subdirectory(tests)
   endif()
 endif()
+
+# Evaluate coverage
+coverage_collect()

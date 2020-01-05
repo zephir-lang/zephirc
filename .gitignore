@@ -10,8 +10,15 @@
 !.vscode/tasks.json
 !.vscode/extensions.json
 
+/venv/
+
 /build/
+/build-*
+
 *.profraw
+*.gcov
+*.gcno
+*.gcda
 
 # I use this as my wish list
 LATER

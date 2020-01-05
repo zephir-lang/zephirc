@@ -40,6 +40,17 @@ TEST_F(ConfigBaseTest, SetValue) {
 
   config->set("unused-variable", "warnings", false);
   EXPECT_FALSE(config->get("unused-variable", "warnings", false));
+
+  config->set("test", "", true);
+  EXPECT_FALSE(config->get("test", false));
+  EXPECT_FALSE(config->get("test", "", false));
+
+  config->set<int>("", "", 42);
+  EXPECT_FALSE(config->get("", false));
+  EXPECT_FALSE(config->get("", "", false));
+
+  config->set<std::string>("path", "subs", "/");
+  EXPECT_EQ("/", config->get<std::string>("path", "subs", ""));
 }
 
 TEST_F(ConfigBaseTest, FindValue) {
