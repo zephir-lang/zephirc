@@ -9,18 +9,18 @@
 
 #include <memory>
 
-#include "console/application.hpp"
-#include "console/commands/compile.hpp"
+#include "Console/Application.hpp"
+#include "Console/Commands/CompileCommand.hpp"
 
 using namespace zephir::console::commands;
 
-class CompileCmdTest : public ::testing::Test {
+class CompileCommandTest : public ::testing::Test {
  protected:
-  CompileCmdTest() : argv(){};
+  CompileCommandTest() : argv(){};
   std::vector<std::string> argv;
 };
 
-TEST_F(CompileCmdTest, RunWithoutOptions) {
+TEST_F(CompileCommandTest, RunWithoutOptions) {
   argv.assign({"compile"});
   auto config = std::make_shared<zephir::Config>("foo");
   auto app =

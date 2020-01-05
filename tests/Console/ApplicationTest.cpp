@@ -10,16 +10,16 @@
 #include <tuple>
 #include <utility>
 
-#include "console/application.hpp"
+#include "Console/Application.hpp"
 
-class GlobalOptionsTest
+class ApplicationTest
     : public testing::TestWithParam<std::tuple<std::string, int>> {
  protected:
-  GlobalOptionsTest() : argv(){};
+  ApplicationTest() : argv(){};
   std::vector<std::string> argv;
 };
 
-TEST_P(GlobalOptionsTest, RunUsingGlobalOptions) {
+TEST_P(ApplicationTest, RunUsingGlobalOptions) {
   auto expected = std::get<1>(GetParam());
   const auto& option = std::get<0>(GetParam());
 
@@ -34,7 +34,7 @@ TEST_P(GlobalOptionsTest, RunUsingGlobalOptions) {
 }
 
 INSTANTIATE_TEST_SUITE_P(
-    BulkTest, GlobalOptionsTest,
+    BulkTest, ApplicationTest,
     testing::Values(std::make_tuple("--help", EXIT_SUCCESS),
                     std::make_tuple("--version", EXIT_SUCCESS),
                     std::make_tuple("--vernum", EXIT_SUCCESS),

@@ -9,23 +9,23 @@
 
 #include <memory>
 
-#include "console/application.hpp"
-#include "console/commands/install.hpp"
+#include "Console/Application.hpp"
+#include "Console/Commands/InitCommand.hpp"
 
 using namespace zephir::console::commands;
 
-class InstallCmdTest : public ::testing::Test {
+class InitCommandTest : public ::testing::Test {
  protected:
-  InstallCmdTest() : argv(){};
+  InitCommandTest() : argv(){};
   std::vector<std::string> argv;
 };
 
-TEST_F(InstallCmdTest, RunWithoutOptions) {
-  argv.assign({"install"});
+TEST_F(InitCommandTest, RunWithoutOptions) {
+  argv.assign({"init"});
   auto config = std::make_shared<zephir::Config>("foo");
   auto app =
       std::make_unique<zephir::console::Application>(config, argv, "tests");
-  app->AddCommand(std::make_unique<InstallCommand>("install"));
+  app->AddCommand(std::make_unique<InitCommand>("init"));
 
   auto retval = app->Run();
   EXPECT_EQ(retval, 0);

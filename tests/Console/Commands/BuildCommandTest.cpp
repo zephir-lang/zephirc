@@ -9,23 +9,23 @@
 
 #include <memory>
 
-#include "console/application.hpp"
-#include "console/commands/generate.hpp"
+#include "Console/Application.hpp"
+#include "Console/Commands/BuildCommand.hpp"
 
 using namespace zephir::console::commands;
 
-class GenerateCmdTest : public ::testing::Test {
+class BuildCommandTest : public ::testing::Test {
  protected:
-  GenerateCmdTest() : argv(){};
+  BuildCommandTest() : argv(){};
   std::vector<std::string> argv;
 };
 
-TEST_F(GenerateCmdTest, RunWithoutOptions) {
-  argv.assign({"generate"});
+TEST_F(BuildCommandTest, RunWithoutOptions) {
+  argv.assign({"build"});
   auto config = std::make_shared<zephir::Config>("foo");
   auto app =
       std::make_unique<zephir::console::Application>(config, argv, "tests");
-  app->AddCommand(std::make_unique<GenerateCommand>("generate"));
+  app->AddCommand(std::make_unique<BuildCommand>("build"));
 
   auto retval = app->Run();
   EXPECT_EQ(retval, 0);

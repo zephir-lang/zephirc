@@ -9,23 +9,23 @@
 
 #include <memory>
 
-#include "console/application.hpp"
-#include "console/commands/init.hpp"
+#include "Console/Application.hpp"
+#include "Console/Commands/StubsCommand.hpp"
 
 using namespace zephir::console::commands;
 
-class InitCmdTest : public ::testing::Test {
+class StubsCommandTest : public ::testing::Test {
  protected:
-  InitCmdTest() : argv(){};
+  StubsCommandTest() : argv(){};
   std::vector<std::string> argv;
 };
 
-TEST_F(InitCmdTest, RunWithoutOptions) {
-  argv.assign({"init"});
+TEST_F(StubsCommandTest, RunWithoutOptions) {
+  argv.assign({"stubs"});
   auto config = std::make_shared<zephir::Config>("foo");
   auto app =
       std::make_unique<zephir::console::Application>(config, argv, "tests");
-  app->AddCommand(std::make_unique<InitCommand>("init"));
+  app->AddCommand(std::make_unique<StubsCommand>("stubs"));
 
   auto retval = app->Run();
   EXPECT_EQ(retval, 0);

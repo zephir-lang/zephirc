@@ -9,18 +9,18 @@
 
 #include <memory>
 
-#include "console/application.hpp"
-#include "console/commands/fullclean.hpp"
+#include "Console/Application.hpp"
+#include "Console/Commands/FullCleanCommand.hpp"
 
 using namespace zephir::console::commands;
 
-class FullcleanCmdTest : public ::testing::Test {
+class FullCleanCommandTest : public ::testing::Test {
  protected:
-  FullcleanCmdTest() : argv(){};
+  FullCleanCommandTest() : argv(){};
   std::vector<std::string> argv;
 };
 
-TEST_F(FullcleanCmdTest, RunWithoutOptions) {
+TEST_F(FullCleanCommandTest, RunWithoutOptions) {
   argv.assign({"fullclean"});
   auto config = std::make_shared<zephir::Config>("foo");
   auto app =

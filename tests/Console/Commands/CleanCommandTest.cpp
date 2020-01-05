@@ -9,23 +9,23 @@
 
 #include <memory>
 
-#include "console/application.hpp"
-#include "console/commands/stubs.hpp"
+#include "Console/Application.hpp"
+#include "Console/Commands/CleanCommand.hpp"
 
 using namespace zephir::console::commands;
 
-class StubsCmdTest : public ::testing::Test {
+class CleanCommandTest : public ::testing::Test {
  protected:
-  StubsCmdTest() : argv(){};
+  CleanCommandTest() : argv(){};
   std::vector<std::string> argv;
 };
 
-TEST_F(StubsCmdTest, RunWithoutOptions) {
-  argv.assign({"stubs"});
+TEST_F(CleanCommandTest, RunWithoutOptions) {
+  argv.assign({"clean"});
   auto config = std::make_shared<zephir::Config>("foo");
   auto app =
       std::make_unique<zephir::console::Application>(config, argv, "tests");
-  app->AddCommand(std::make_unique<StubsCommand>("stubs"));
+  app->AddCommand(std::make_unique<CleanCommand>("clean"));
 
   auto retval = app->Run();
   EXPECT_EQ(retval, 0);

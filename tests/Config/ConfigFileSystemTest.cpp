@@ -5,13 +5,11 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#include <gtest/gtest.h>
-
-#include "asserts.hpp"
-#include "config/config.hpp"
-#include "filesystem/filesystem.hpp"
-#include "properties.hpp"
-#include "tester.hpp"
+#include "Asserts.hpp"
+#include "Config/Config.hpp"
+#include "ConfigBaseTest.hpp"
+#include "FileSystem/FileSystem.hpp"
+#include "Properties.hpp"
 
 TEST_F(ConfigBaseTest, LoadConfigFile) {
   argv.assign({});

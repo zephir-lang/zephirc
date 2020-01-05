@@ -9,23 +9,23 @@
 
 #include <memory>
 
-#include "console/application.hpp"
-#include "console/commands/clean.hpp"
+#include "Console/Application.hpp"
+#include "Console/Commands/ApiCommand.hpp"
 
 using namespace zephir::console::commands;
 
-class CleanCmdTest : public ::testing::Test {
+class ApiCommandTest : public ::testing::Test {
  protected:
-  CleanCmdTest() : argv(){};
+  ApiCommandTest() : argv(){};
   std::vector<std::string> argv;
 };
 
-TEST_F(CleanCmdTest, RunWithoutOptions) {
-  argv.assign({"clean"});
+TEST_F(ApiCommandTest, RunWithoutOptions) {
+  argv.assign({"api"});
   auto config = std::make_shared<zephir::Config>("foo");
   auto app =
       std::make_unique<zephir::console::Application>(config, argv, "tests");
-  app->AddCommand(std::make_unique<CleanCommand>("clean"));
+  app->AddCommand(std::make_unique<ApiCommand>("api"));
 
   auto retval = app->Run();
   EXPECT_EQ(retval, 0);

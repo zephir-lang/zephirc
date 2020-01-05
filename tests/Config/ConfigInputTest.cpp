@@ -5,10 +5,8 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#include <gtest/gtest.h>
-
-#include "config/config.hpp"
-#include "tester.hpp"
+#include "Config/Config.hpp"
+#include "ConfigBaseTest.hpp"
 
 TEST_F(ConfigBaseTest, DisableOptimizationFromCli) {
   argv.assign({"-fno-constant-folding"});

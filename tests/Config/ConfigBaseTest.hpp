@@ -5,13 +5,15 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#ifndef ZEPHIR_TESTS_CONFIG_CONFIG_TESTER_HPP_
-#define ZEPHIR_TESTS_CONFIG_CONFIG_TESTER_HPP_
+#ifndef ZEPHIR_TESTS_CONFIG_CONFIG_BASE_TEST_HPP_
+#define ZEPHIR_TESTS_CONFIG_CONFIG_BASE_TEST_HPP_
+
+#include <gtest/gtest.h>
 
 #include <string>
 #include <vector>
 
-#include "filesystem/filesystem.hpp"
+#include "FileSystem/FileSystem.hpp"
 
 using input_t = std::vector<std::string>;
 
@@ -26,4 +28,4 @@ class ConfigBaseTest : public ::testing::Test {
   input_t argv;
 };
 
-#endif  // ZEPHIR_TESTS_CONFIG_CONFIG_TESTER_HPP_
+#endif  // ZEPHIR_TESTS_CONFIG_CONFIG_BASE_TEST_HPP_
