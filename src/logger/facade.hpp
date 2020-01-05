@@ -16,6 +16,7 @@
 namespace zephir {
 namespace logger {
 
+// TODO (alexndr.mac): change tuple to struct
 typedef std::vector<std::tuple<std::string, std::string>> Context;
 
 /**
