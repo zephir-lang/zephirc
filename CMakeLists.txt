@@ -128,4 +128,4 @@ if(MASTER_PROJECT)
 endif()
 
 # Evaluate coverage
-coverage_evaluate()
+coverage_collect()
