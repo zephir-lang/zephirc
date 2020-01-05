@@ -24,7 +24,7 @@ zephir::console::Application::Application(zephir::ConfigPtr config,
       help_(nullptr),
       commands_() {
   auto out =
-      std::string(ZEPHIR_NAME) + " " + std::string(ZEPHIR_VERSION_STRING);
+      std::string(ZEPHIR_PACKAGE_NAME) + " " + std::string(ZEPHIR_VERSION);
 
   app_->description(out);
   app_->name("zephir");
@@ -47,8 +47,7 @@ zephir::console::Application::Application(zephir::ConfigPtr config,
   app_->add_flag(
       "--dumpversion",
       [](std::size_t /* not used */) {
-        std::cout << ZEPHIR_VERSION_STRING << std::endl;
-        std::exit(EXIT_SUCCESS);
+        std::cout << ZEPHIR_VERSION << std::endl;
       },
       "Print the version of the compiler and don't do anything else "
       "(also works with a single hyphen)");
@@ -57,15 +56,23 @@ zephir::console::Application::Application(zephir::ConfigPtr config,
       "--vernum",
       [](std::size_t /* not used */) {
         std::cout << ZEPHIR_VERSION_ID << std::endl;
-        std::exit(EXIT_SUCCESS);
       },
       "Print the version of the compiler as integer and quit");
 
   app_->add_flag(
       "-V, --version",
       [&](std::size_t /* not used */) {
-        std::cout << app_->get_description() << std::endl;
-        std::exit(EXIT_SUCCESS);
+        std::cout << ZEPHIR_VERSION_FULL
+                  << " (built: " << ZEPHIR_PACKAGE_BUILD_DATE << ") "
+                  << std::endl;
+        std::cout << "Copyright " << ZEPHIR_COPYRIGHT << std::endl;
+        std::cout << "This is free software; see the source for copying "
+                     "conditions.  There is NO"
+                  << std::endl;
+        std::cout << "warranty; not even for MERCHANTABILITY or FITNESS FOR A "
+                     "PARTICULAR PURPOSE."
+                  << std::endl
+                  << std::endl;
       },
       "Print compiler version information and quit");
 
