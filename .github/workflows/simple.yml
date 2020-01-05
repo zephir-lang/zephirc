@@ -171,13 +171,13 @@ jobs:
       run: cmake --build build -j "$(getconf _NPROCESSORS_ONLN)"
 
     - name: Run tests
-      run: cmake --build build --target check
+      run: cmake --build build --target check -j "$(getconf _NPROCESSORS_ONLN)"
 
     - name: Capture coverage data
       if: matrix.ccov == 'ON'
       run: |
-        cmake --build build --target gcov
-        cmake --build build --target lcov
+        cmake --build build --target gcov -j "$(getconf _NPROCESSORS_ONLN)"
+        cmake --build build --target lcov -j 1
 
     - name: Upload code coverage report
       if: matrix.ccov == 'ON'
