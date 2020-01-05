@@ -115,9 +115,13 @@ CMake flags are:
 Follow these steps:
 1. Configure with code coverage instrumentation enabled `-DCODE_COVERAGE=ON`
 2. Execute the tests to generate the coverage data
-3. Run `cmake --build build --target gcov`
-4. Run `cmake --build build --target lcov`
+3. Run `cmake --build build --target gcov -j 1`
+4. Run `cmake --build build --target lcov -j 1`
 5. Open `build/ccov/html/all-targets/index.html` in your browser to view the coverage report
+
+**Note:** Most likely you'll need set jobs count to 1 (`-j 1`) when running
+`gcov` and `lcov` targets to avoid lcov race condition issue. For more see: 
+https://github.com/linux-test-project/lcov/issues/37
 
 ### Generate the API documentation
 
