@@ -20,9 +20,7 @@ coverage:
       default:
         # the amount that coverage can drop while still posting a success
         threshold: 1%
-    patch:
-      default:
-        target: 0% # trial operation
+    patch: no
     changes: no
 
 parsers:
