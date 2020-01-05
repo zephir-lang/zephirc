@@ -10,9 +10,15 @@
 
 # configuration
 set(LCOV_DATA_PATH "${CMAKE_BINARY_DIR}/ccov/data")
-set(LCOV_DATA_PATH_INIT "${LCOV_DATA_PATH}/init")
-set(LCOV_DATA_PATH_CAPTURE "${LCOV_DATA_PATH}/capture")
-set(LCOV_HTML_PATH "${CMAKE_BINARY_DIR}/ccov/html")
+set(LCOV_DATA_PATH_INIT
+    "${LCOV_DATA_PATH}/init"
+    CACHE PATH "Where to put initial coverage")
+set(LCOV_DATA_PATH_CAPTURE
+    "${LCOV_DATA_PATH}/capture"
+    CACHE PATH "Where to put final coverage")
+set(LCOV_HTML_PATH
+    "${CMAKE_BINARY_DIR}/ccov/html"
+    CACHE PATH "Where to put html coverage reports")
 
 # Search for Gcov which is used by Lcov.
 find_package(Gcov)
@@ -128,9 +134,11 @@ endfunction()
 # used to gather even empty report data.
 if(NOT TARGET lcov-capture-init)
   add_custom_target(lcov-capture-init)
-  set(LCOV_CAPTURE_INIT_FILES
-      ""
-      CACHE INTERNAL "")
+  define_property(
+    GLOBAL
+    PROPERTY LCOV_CAPTURE_INIT_FILES
+    BRIEF_DOCS "List of all init capture files"
+    FULL_DOCS "Empty capture files for the baseline coverage")
 endif()
 
 # Add initial capture of coverage data for target <TARGET_NAME>, which is needed
@@ -200,9 +208,7 @@ function(lcov_capture_initial_tgt TARGET_NAME)
 
   # add geninfo file generation to global lcov-geninfo target
   add_dependencies(lcov-capture-init ${TARGET_NAME}-capture-init)
-  set(LCOV_CAPTURE_INIT_FILES
-      "${LCOV_CAPTURE_INIT_FILES}" "${OUTFILE}"
-      CACHE INTERNAL "")
+  set_property(GLOBAL APPEND PROPERTY LCOV_CAPTURE_INIT_FILES "${OUTFILE}")
 endfunction()
 
 # Generate the global info file for all targets.
@@ -214,6 +220,7 @@ endfunction()
 function(lcov_capture_initial)
   # Skip this function (and do not create the following targets), if there are
   # no input files.
+  get_property(LCOV_CAPTURE_INIT_FILES GLOBAL PROPERTY LCOV_CAPTURE_INIT_FILES)
   if("${LCOV_CAPTURE_INIT_FILES}" STREQUAL "")
     return()
   endif()
@@ -232,9 +239,11 @@ endfunction()
 # target will be used to generate the global info file.
 if(NOT TARGET lcov-capture)
   add_custom_target(lcov-capture)
-  set(LCOV_CAPTURE_FILES
-      ""
-      CACHE INTERNAL "")
+  define_property(
+    GLOBAL
+    PROPERTY LCOV_CAPTURE_FILES
+    BRIEF_DOCS "List of all capture files"
+    FULL_DOCS "All capture files which have coverage data included")
 endif()
 
 # Add capture of coverage data for target <TARGET_NAME>, which is needed to get
@@ -291,7 +300,7 @@ function(lcov_capture_tgt TARGET_NAME)
     add_custom_command(
       OUTPUT ${OUTFILE}
       COMMAND
-        test -f "${INFILE}" && $${GENINFO_EXE} -q -b ${PROJECT_SOURCE_DIR}
+        test -f "${INFILE}" && ${GENINFO_EXE} -q -b ${PROJECT_SOURCE_DIR}
         --gcov-tool ${GCOV_EXE} -o ${OUTFILE} ${GENINFO_EXTERN_FLAG} ${INFILE}
         || cp ${OUTFILE}.init ${OUTFILE}
       DEPENDS ${TARGET_NAME} ${TARGET_NAME}-capture-init
@@ -305,9 +314,7 @@ function(lcov_capture_tgt TARGET_NAME)
 
   # add geninfo file generation to global lcov-capture target
   add_dependencies(lcov-capture ${TARGET_NAME}-geninfo)
-  set(LCOV_CAPTURE_FILES
-      "${LCOV_CAPTURE_FILES}" "${OUTFILE}"
-      CACHE INTERNAL "")
+  set_property(GLOBAL APPEND PROPERTY LCOV_CAPTURE_FILES "${OUTFILE}")
 
   # Add target for generating html output for this target only.
   file(MAKE_DIRECTORY ${LCOV_HTML_PATH}/${TARGET_NAME})
@@ -332,6 +339,7 @@ endfunction()
 function(lcov_capture)
   # Skip this function (and do not create the following targets), if there are
   # no input files.
+  get_property(LCOV_CAPTURE_FILES GLOBAL PROPERTY LCOV_CAPTURE_FILES)
   if("${LCOV_CAPTURE_FILES}" STREQUAL "")
     return()
   endif()
