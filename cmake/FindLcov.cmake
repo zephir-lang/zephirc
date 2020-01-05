@@ -388,13 +388,13 @@ function(lcov_capture)
       DEPENDS lcov-geninfo-init lcov-geninfo
       COMMENT "Generating global coverage report")
 
+    set(_path "file://${LCOV_HTML_PATH}/all-targets/index.html")
     add_custom_command(
       TARGET lcov
       POST_BUILD
       COMMAND ;
-      COMMENT
-        "Open file://${LCOV_HTML_PATH}/all-targets/index.html in your browser to view the coverage report."
-    )
+      COMMENT "Open ${_path} in your browser to view the coverage report.")
+    unset(_path)
   endif()
 endfunction()
 
