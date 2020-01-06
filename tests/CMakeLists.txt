@@ -6,7 +6,6 @@
 # the LICENSE file that was distributed with this source code.
 
 include(GoogleTest)
-find_package(Threads REQUIRED)
 
 set(ZEPHIR_TESTS console_test config_test logger_test)
 mark_as_advanced(ZEPHIR_TESTS)

@@ -28,6 +28,8 @@ include(Bootstrap)
 include(Cppcheck)
 include(CodeCoverage)
 
+FIND_PACKAGE(Threads REQUIRED)
+
 if(NOT EXISTS "${zephir_SOURCE_DIR}/external/cmake-scripts/c++-standards.cmake"
    OR NOT EXISTS "${zephir_SOURCE_DIR}/tests/sharness/sharness.sh")
   # Here, it provides the GIT_EXECUTABLE variable after searching for the git
