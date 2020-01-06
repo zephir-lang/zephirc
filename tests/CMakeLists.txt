@@ -59,6 +59,10 @@ target_include_directories(
   PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
           $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>)
 
+if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU")
+    link_libraries("-lpthread")
+endif()
+
 target_link_libraries(logger_test PRIVATE logger CONAN_PKG::spdlog
                                           CONAN_PKG::GTest)
 
