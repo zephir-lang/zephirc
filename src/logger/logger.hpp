@@ -18,26 +18,21 @@ namespace zephir {
 // TODO (alexndr.mac): change tuple to struct
 typedef std::vector<std::tuple<std::string, std::string>> Context;
 
-/**
- * @brief Wrap third party log library
- * and provide minimalistic interface for Zephir log writer
- */
+/// \brief A type definition for a unique pointer to a spdlog::logger instance.
+using LoggerPtr = std::unique_ptr<spdlog::logger>;
+
+/// \brief Wrap third party log library
+/// and provide minimalistic interface for Zephir log writer
 class Logger {
  private:
-  // spdlog's global registry name
-  const std::string _logger_name = "zephir_logger";
+  /// spdlog's global registry name
+  const std::string _logger_name = "console_logger";
 
-  std::shared_ptr<spdlog::logger> _logger;
+  LoggerPtr _logger;
 
  public:
+  /// \brief Construct a new logger
   Logger();
-
-  /**
-   * @brief Construct a new logger
-   *
-   * @param logger - shared pointer to logger instance
-   */
-  explicit Logger(std::shared_ptr<spdlog::logger> logger);
 
   ~Logger();
 

@@ -7,14 +7,7 @@
 
 #include "logger.hpp"
 
-zephir::Logger::Logger() {
-  _logger = spdlog::stdout_color_mt(this->_logger_name);
-}
-
-zephir::Logger::Logger(std::shared_ptr<spdlog::logger> logger) {
-  _logger =
-      logger == nullptr ? spdlog::stdout_color_mt(this->_logger_name) : logger;
-}
+zephir::Logger::Logger() : _logger(std::make_unique<spdlog::logger>(this->_logger_name)) {}
 
 zephir::Logger::~Logger() { spdlog::drop_all(); }
 
