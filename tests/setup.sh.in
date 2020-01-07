@@ -38,7 +38,7 @@ OUTPUTDIR="$TESTSDIR/output"
 export FIXTURESDIR OUTPUTDIR
 
 function zephirc() {
-  command="@ZEPHIR_EXE_DIR@/@ZEPHIR_APP_TARGET@ $*"
+  command="@ZEPHIR_EXE_DIR@/zephir $*"
 
   test "$TEST_VERBOSE" = 1 && (>&1 printf "# %s\\n" "$command")
   eval "$command"
