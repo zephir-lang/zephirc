@@ -7,14 +7,14 @@
 
 #include <gtest/gtest.h>
 
-#include "logger/facade.hpp"
+#include "logger/logger.hpp"
 class LoggerBaseTest : public ::testing::Test {
  protected:
   LoggerBaseTest() = default;
 };
 
 TEST_F(LoggerBaseTest, SimpleLogInfo) {
-  auto test_logger = new zephir::logger::Facade();
+  auto test_logger = new zephir::Logger();
 
   test_logger->info("zephir");
 }

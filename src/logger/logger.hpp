@@ -14,7 +14,6 @@
 #include <string>
 
 namespace zephir {
-namespace logger {
 
 // TODO (alexndr.mac): change tuple to struct
 typedef std::vector<std::tuple<std::string, std::string>> Context;
@@ -23,7 +22,7 @@ typedef std::vector<std::tuple<std::string, std::string>> Context;
  * @brief Wrap third party log library
  * and provide minimalistic interface for Zephir log writer
  */
-class Facade {
+class Logger {
  private:
   // spdlog's global registry name
   const std::string _logger_name = "zephir_logger";
@@ -31,16 +30,16 @@ class Facade {
   std::shared_ptr<spdlog::logger> _logger;
 
  public:
-  Facade();
+  Logger();
 
   /**
    * @brief Construct a new logger
    *
    * @param logger - shared pointer to logger instance
    */
-  explicit Facade(std::shared_ptr<spdlog::logger> logger);
+  explicit Logger(std::shared_ptr<spdlog::logger> logger);
 
-  ~Facade();
+  ~Logger();
 
   /**
    * @brief Add a log record with INFO level
@@ -90,7 +89,6 @@ class Facade {
            const Context& ctx);
 };
 
-}  // namespace logger
 }  // namespace zephir
 
 #endif  // ZEPHIR_LOGGER_FACADE_HPP_

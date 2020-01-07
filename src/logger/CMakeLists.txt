@@ -6,7 +6,7 @@
 # that was distributed with this source code.
 
 # Add definition for logger facade library.
-add_library(logger SHARED facade.cpp)
+add_library(logger SHARED logger.cpp)
 
 target_include_directories(
   logger PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
