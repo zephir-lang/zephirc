@@ -5,6 +5,9 @@
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
 
+# Adds support for multithreading with the pthreads library GNU gcc compiler
+find_package(Threads REQUIRED)
+
 include(GoogleTest)
 
 set(ZEPHIR_TESTS console_test config_test logger_test)
@@ -59,9 +62,13 @@ target_include_directories(
   PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
           $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>)
 
-target_link_libraries(
-  logger_test PRIVATE logger CONAN_PKG::spdlog CONAN_PKG::GTest
-                      ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(logger_test PRIVATE logger CONAN_PKG::spdlog
+                                          CONAN_PKG::GTest)
+
+# must use explicit CXX flag for proper linker process
+if(CMAKE_COMPILER_IS_GNUCXX)
+  target_link_libraries(logger_test PRIVATE -pthread)
+endif()
 
 gtest_discover_tests(
   logger_test
