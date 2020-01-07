@@ -28,7 +28,13 @@ include(Bootstrap)
 include(Cppcheck)
 include(CodeCoverage)
 
+# Adds support for multithreading with the pthreads library
+# GNU gcc compiler must use explicit CXX flag for proper linker process
 FIND_PACKAGE(Threads REQUIRED)
+
+if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU")
+  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
+ENDIF()
 
 if(NOT EXISTS "${zephir_SOURCE_DIR}/external/cmake-scripts/c++-standards.cmake"
    OR NOT EXISTS "${zephir_SOURCE_DIR}/tests/sharness/sharness.sh")
