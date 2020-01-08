@@ -13,8 +13,11 @@ class LoggerBaseTest : public ::testing::Test {
   LoggerBaseTest() = default;
 };
 
-TEST_F(LoggerBaseTest, SimpleLogInfo) {
+TEST_F(LoggerBaseTest, CreateSimlpeLogLevels) {
   auto test_logger = new zephir::Logger();
 
-  test_logger->info("zephir");
+  test_logger->info("Test message");
+  test_logger->warn("Test message");
+  test_logger->error("Test message");
+  test_logger->debug("Test message");
 }

@@ -51,7 +51,7 @@ class Logger {
   /// \brief Add a log record with WARNING level
   ///
   /// \param message - The log message
-  void warning(const std::string& message);
+  void warn(const std::string& message);
 
   /// \brief Add a log record with ERROR level
   ///

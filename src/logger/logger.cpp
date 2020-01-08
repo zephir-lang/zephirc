@@ -15,7 +15,7 @@ void zephir::Logger::info(const std::string& message) {
   _logger->info(message);
 }
 
-void zephir::Logger::warning(const std::string& message) {
+void zephir::Logger::warn(const std::string& message) {
   _logger->warn(message);
 }
 
