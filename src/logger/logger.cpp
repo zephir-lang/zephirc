@@ -7,7 +7,7 @@
 
 #include "logger.hpp"
 
-zephir::Logger::Logger() : _logger(std::make_unique<spdlog::logger>(this->_logger_name)) {}
+zephir::Logger::Logger() : _logger(std::make_unique<spdlog::logger>(_channel)) {}
 
 zephir::Logger::~Logger() { spdlog::drop_all(); }
 
