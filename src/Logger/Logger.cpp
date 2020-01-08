@@ -8,7 +8,8 @@
 #include "Logger.hpp"
 
 zephir::Logger::Logger()
-    : _logger(std::make_unique<spdlog::logger>(_channel)) {}
+    : _logger(std::make_unique<spdlog::logger>(
+          _channel, std::make_shared<spdlog::sinks::stdout_color_sink_mt>())) {}
 
 zephir::Logger::~Logger() { spdlog::drop_all(); }
 
