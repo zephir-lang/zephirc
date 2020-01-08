@@ -6,7 +6,7 @@ on:
       - 'wip-*'
   pull_request:
     branches:
-      - 'master'
+      - master
 
 jobs:
   simple_build:
@@ -55,7 +55,7 @@ jobs:
         fetch-depth: 5
 
     - name: Setup Prerequisites (Linux)
-      if: runner.os == 'Linux'
+      if: startsWith(runner.os, 'Linux')
       run: |
         # E: Repository 'https://packages.microsoft.com/repos/microsoft-ubuntu-bionic-prod bionic InRelease'
         # changed its 'Origin' value from 'microsoft-ubuntu-bionic-prod bionic' to 'vscode stable'
@@ -84,13 +84,25 @@ jobs:
         fi
 
     - name: Setup Prerequisites (macOS)
-      if: runner.os == 'macOS'
+      if: startsWith(runner.os, 'macOS')
       run: |
         sudo xcode-select -switch /Applications/Xcode.app
 
-        if [ "${{ matrix.ccov }}" = "ON" ]; then
-          brew install lcov
-        fi
+        brew install lcov
+        # brew update --quiet >& /dev/null
+        #
+        # packages=(cmake)
+        # if [ "${{ matrix.ccov }}" = "ON" ]; then
+        #   packages+=(lcov)
+        # fi
+        #
+        # for pkg in $packages; do
+        #   if brew list -1 | grep -q "^${pkg}\$"; then
+        #     brew outdated $pkg || brew upgrade $pkg;
+        #   else
+        #     brew install $pkg;
+        #   fi
+        # done
 
         echo "::set-env name=CC::$(xcrun -f clang)"
         echo "::set-env name=CXX::$(xcrun -f clang++)"
@@ -156,23 +168,23 @@ jobs:
           -DENABLE_EFFECTIVE_CXX=${{ matrix.weffcpp }}
 
     - name: Build with ${{ matrix.compiler }}
-      if: matrix.ccov == 'OFF'
       run: cmake --build build -j "$(getconf _NPROCESSORS_ONLN)"
 
-    - name: Run tests with ${{ matrix.compiler }}
-      if: matrix.ccov == 'OFF'
-      run: cmake --build build --target check
+    - name: Run tests
+      run: cmake --build build --target check -j "$(getconf _NPROCESSORS_ONLN)"
 
-    - name: Build and tests with ${{ matrix.compiler }}
+    - name: Capture coverage data
       if: matrix.ccov == 'ON'
-      run: .ci/make-test-coverage.sh "${{ matrix.gcov }}"
+      run: |
+        cmake --build build --target gcov -j "$(getconf _NPROCESSORS_ONLN)"
+        cmake --build build --target lcov -j 1
 
     - name: Upload code coverage report
       if: matrix.ccov == 'ON'
       uses: codecov/codecov-action@v1
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
-        file: ./build/ccov/coverage.cleaned
+        file: ./build/ccov/data/capture/all-targets.info
         yml: ./.codecov.yml
         name: codecov-umbrella
         flags: unittests

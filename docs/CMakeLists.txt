@@ -32,10 +32,17 @@ if(ZEPHIR_BUILD_DOC)
   # target setup
   add_custom_target(
     doc
-    COMMAND ${CMAKE_COMMAND} -E echo_append "Building API Documentation..."
     COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_CONFIGURED_INPUT}
-    COMMAND ${CMAKE_COMMAND} -E echo "Done."
-    WORKING_DIRECTORY ${DOXYGEN_INPUT_DIR})
+    WORKING_DIRECTORY ${DOXYGEN_INPUT_DIR}
+    COMMENT "Building API Documentation...")
+
+  set(_path "file://${DOXYGEN_OUTPUT_DIR}/html/index.html")
+  add_custom_command(
+    TARGET doc
+    POST_BUILD
+    COMMAND ;
+    COMMENT "Open ${_path} in your browser to view the API Documentation.")
+  unset(_path)
 
   # setup install rules
   install(

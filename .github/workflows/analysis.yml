@@ -3,7 +3,7 @@ name: analysis
 on:
   pull_request:
     branches:
-      - 'master'
+      - master
 
 jobs:
   code_style:
@@ -39,7 +39,7 @@ jobs:
         run: |
           cmake-format --version
           cmake-format -i $(find ./cmake -name '*.cmake')
-          cmake-format -i $(find . -name 'CMakeLists.txt')
+          cmake-format -i $(find . -name CMakeLists.txt)
           git diff --exit-code
 
       - name: Run C++ Coding Style Check
@@ -54,4 +54,4 @@ jobs:
 
       - name: Run Shell Check
         if: always()
-        run: shellcheck .ci/*.sh
+        run: shellcheck tests/*.sh

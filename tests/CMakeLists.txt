@@ -5,81 +5,34 @@
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
 
-# Adds support for multithreading with the pthreads library GNU gcc compiler
-find_package(Threads REQUIRED)
+define_property(
+  GLOBAL
+  PROPERTY ZEPHIR_TESTS
+  BRIEF_DOCS "All Zephir tests"
+  FULL_DOCS "The full list of all Zephir tests")
 
-include(GoogleTest)
-
-set(ZEPHIR_TESTS console_test config_test logger_test)
-mark_as_advanced(ZEPHIR_TESTS)
+set(ZEPHIR_TESTS_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 
 # Global tests properties
-configure_file(properties.hpp.in "${CMAKE_CURRENT_SOURCE_DIR}/properties.hpp")
+configure_file(Properties.hpp.in "${CMAKE_CURRENT_SOURCE_DIR}/Properties.hpp")
 
 # sharness setup script
 configure_file(setup.sh.in "${CMAKE_CURRENT_SOURCE_DIR}/setup.sh")
 
-file(GLOB_RECURSE CLI_TESTS ${CMAKE_CURRENT_SOURCE_DIR}/commands/*.options.cpp)
-add_executable(console_test main.cpp ${CLI_TESTS})
+add_subdirectory(Config)
+add_subdirectory(Console)
 
-target_include_directories(
-  console_test
-  PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
-  PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-          $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>)
-
-target_link_libraries(console_test PRIVATE console CONAN_PKG::GTest)
-
-gtest_discover_tests(
-  console_test
-  TEST_PREFIX zephir:
-  PROPERTIES LABELS OptionsTest)
-
-file(GLOB CONFIG_TESTS ${CMAKE_CURRENT_SOURCE_DIR}/config/*.cpp)
-add_executable(config_test main.cpp ${CONFIG_TESTS})
-
-target_include_directories(
-  config_test
-  PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
-  PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-          $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>
-          $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/config>)
-
-target_link_libraries(config_test PRIVATE config filesystem CONAN_PKG::GTest)
-
-gtest_discover_tests(
-  config_test
-  TEST_PREFIX zephir:
-  PROPERTIES LABELS ConfigTest)
-
-# LOGGER_TESTS
-file(GLOB LOGGER_TESTS ${CMAKE_CURRENT_SOURCE_DIR}/logger/*.cpp)
-add_executable(logger_test main.cpp ${LOGGER_TESTS})
-
-target_include_directories(
-  logger_test
-  PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
-  PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-          $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>)
-
-target_link_libraries(logger_test PRIVATE logger CONAN_PKG::spdlog
-                                          CONAN_PKG::GTest)
-
-# must use explicit CXX flag for proper linker process
-if(CMAKE_COMPILER_IS_GNUCXX)
-  target_link_libraries(logger_test PRIVATE -pthread)
+if(NOT WIN32)
+  add_test(
+    NAME BlackboxTest
+    COMMAND make
+    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
 endif()
 
-gtest_discover_tests(
-  logger_test
-  TEST_PREFIX zephir:
-  PROPERTIES LABELS LoggerTest)
-
-# End of LOGGER_TESTS
-
+get_property(ZEPHIR_TESTS GLOBAL PROPERTY ZEPHIR_TESTS)
 add_custom_target(
   check
-  COMMAND ctest -j ${BUILD_JOBS} --output-on-failure
+  COMMAND ctest --output-on-failure
   WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
   DEPENDS ${ZEPHIR_TESTS}
   COMMENT "Run all tests...")

@@ -8,6 +8,12 @@
 first_comment_is_literal: true
 
 additional_commands:
+  lcov_merge_files:
+    kwargs:
+      OUTFILE: 1
+      FILES: '*'
+      FLAGS: '*'
+      REMOVE_PATTERNS: '*'
   conan_cmake_run:
     kwargs:
       CONANFILE: 1

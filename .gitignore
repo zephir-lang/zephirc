@@ -10,8 +10,16 @@
 !.vscode/tasks.json
 !.vscode/extensions.json
 
-/build/
-*.profraw
+# Directories to ignore (do not add trailing '/'s, they skip symlinks).
+/venv
+/build
+/build-*
 
-# I use this as my wish list
+# Ignore codecoverage stuff
+*.profraw
+*.gcov
+*.gcno
+*.gcda
+
+# Use this as your own wish list or a temporary buffer
 LATER
