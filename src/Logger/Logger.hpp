@@ -5,8 +5,11 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#ifndef ZEPHIR_LOGGER_FACADE_HPP_
-#define ZEPHIR_LOGGER_FACADE_HPP_
+/// \file Logger.hpp
+/// \brief The main Logger class. Provides simple interface for log writer.
+
+#ifndef ZEPHIR_LOGGER_HPP_
+#define ZEPHIR_LOGGER_HPP_
 
 #include <spdlog/sinks/stdout_color_sinks.h>
 #include <spdlog/spdlog.h>
@@ -29,56 +32,56 @@ struct Context {
 using LoggerPtr = std::unique_ptr<spdlog::logger>;
 
 /// \brief Wrap third party log library
-/// and provide minimalistic interface for Zephir log writer
+/// and provide minimalistic interface for Zephir log writer.
 class Logger {
- private:
+  private:
   /// spdlog's global registry name
   const std::string _channel = "console";
 
   LoggerPtr _logger;
 
   public:
-  /// \brief Construct a new Logger
+  /// \brief Construct a new Logger.
   Logger();
 
   ~Logger();
 
-  /// \brief Add a log record with INFO level
+  /// \brief Add a log record with INFO level.
   ///
-  /// \param message - The log message
+  /// \param message - The log message.
   void info(const std::string& message);
 
-  /// \brief Add a log record with WARNING level
+  /// \brief Add a log record with WARNING level.
   ///
-  /// \param message - The log message
+  /// \param message - The log message.
   void warn(const std::string& message);
 
-  /// \brief Add a log record with ERROR level
+  /// \brief Add a log record with ERROR level.
   ///
-  /// \param message - The log message
+  /// \param message - The log message.
   void error(const std::string& message);
 
-  /// \brief Add a log record with DEBUG level
+  /// \brief Add a log record with DEBUG level.
   ///
-  /// \param message - The log message
+  /// \param message - The log message.
   void debug(const std::string& message);
 
-  /// \brief Add a log record from Exception
+  /// \brief Add a log record from Exception.
   ///
-  /// \param message - The log message
-  /// \param ctx - The process context detail
+  /// \param message - The log message.
+  /// \param ctx - The process context detail.
   void exception(const std::exception& error, const Context& ctx);
 
-  /// \brief Add a log record with specified level, category and context
+  /// \brief Add a log record with specified level, category and context.
   ///
-  /// \param message - The log message
-  /// \param level - The logging level
-  /// \param category - The log category
-  /// \param ctx - The log context
+  /// \param message - The log message.
+  /// \param level - The logging level.
+  /// \param category - The log category.
+  /// \param ctx - The log context.
   void log(const std::string& message, int level, const std::string& category,
            const Context& ctx);
 };
 
 }  // namespace zephir
 
-#endif  // ZEPHIR_LOGGER_FACADE_HPP_
+#endif  // ZEPHIR_LOGGER_HPP_
