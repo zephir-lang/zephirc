@@ -38,7 +38,7 @@ class Logger {
   LoggerPtr _logger;
 
   public:
-  /// \brief Construct a new logger
+  /// \brief Construct a new Logger
   Logger();
 
   ~Logger();

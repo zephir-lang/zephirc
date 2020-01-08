@@ -7,7 +7,7 @@
 
 #include <gtest/gtest.h>
 
-#include "logger/logger.hpp"
+#include "Logger/Logger.hpp"
 class LoggerBaseTest : public ::testing::Test {
  protected:
   LoggerBaseTest() = default;

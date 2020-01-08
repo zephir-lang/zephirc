@@ -5,7 +5,7 @@
 // For the full copyright and license information, please view
 // the LICENSE file that was distributed with this source code.
 
-#include "logger.hpp"
+#include "Logger.hpp"
 
 zephir::Logger::Logger() : _logger(std::make_unique<spdlog::logger>(_channel)) {}
 
