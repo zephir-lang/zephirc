@@ -34,13 +34,13 @@ using LoggerPtr = std::unique_ptr<spdlog::logger>;
 /// \brief Wrap third party log library
 /// and provide minimalistic interface for Zephir log writer.
 class Logger {
-  private:
+ private:
   /// spdlog's global registry name
   const std::string _channel = "console";
 
   LoggerPtr _logger;
 
-  public:
+ public:
   /// \brief Construct a new Logger.
   Logger();
 

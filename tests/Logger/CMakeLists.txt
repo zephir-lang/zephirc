@@ -14,22 +14,22 @@ file(GLOB LOGGER_TESTS ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 add_executable(LoggerTest ${ZEPHIR_TESTS_SOURCE_DIR}/main.cpp ${LOGGER_TESTS})
 
 target_include_directories(
-    LoggerTest
-    PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
-    PRIVATE $<BUILD_INTERFACE:${ZEPHIR_TESTS_SOURCE_DIR}>
-            $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>)
+  LoggerTest
+  PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+  PRIVATE $<BUILD_INTERFACE:${ZEPHIR_TESTS_SOURCE_DIR}>
+          $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>)
 
 target_link_libraries(LoggerTest PRIVATE logger CONAN_PKG::spdlog
-        CONAN_PKG::GTest)
+                                         CONAN_PKG::GTest)
 
 # must use explicit CXX flag for proper linker process
 if(CMAKE_COMPILER_IS_GNUCXX)
-    target_link_libraries(LoggerTest PRIVATE -pthread)
+  target_link_libraries(LoggerTest PRIVATE -pthread)
 endif()
 
 gtest_discover_tests(
-    LoggerTest
-    TEST_PREFIX zephir:
-    PROPERTIES LABELS LoggerTest)
+  LoggerTest
+  TEST_PREFIX zephir:
+  PROPERTIES LABELS LoggerTest)
 
 set_property(GLOBAL APPEND PROPERTY ZEPHIR_TESTS LoggerTest)
