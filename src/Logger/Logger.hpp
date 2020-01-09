@@ -28,6 +28,19 @@ struct Context {
   int cursor;
 };
 
+/// \brief Log levels enum.
+enum class LogLevel {
+  info = spdlog::level::info,
+  warn = spdlog::level::warn,
+  error = spdlog::level::debug,
+  debug = spdlog::level::debug,
+  trace = spdlog::level::trace,
+  off = spdlog::level::off,
+};
+
+/// \brief A type definition for SpdLog levels enum.
+using LogLevelEnum = spdlog::level::level_enum;
+
 /// \brief A type definition for a unique pointer to a spdlog::logger instance.
 using LoggerPtr = std::unique_ptr<spdlog::logger>;
 
@@ -83,8 +96,8 @@ class Logger {
   /// \param level - The logging level.
   /// \param category - The log category.
   /// \param ctx - The log context.
-  void log(const std::string& message, int level, const std::string& category,
-           const Context& ctx);
+  void log(const std::string& message, zephir::LogLevel level,
+           const std::string& category, const Context& ctx);
 };
 
 }  // namespace zephir
