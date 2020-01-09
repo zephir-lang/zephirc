@@ -46,6 +46,11 @@ class Logger {
 
   ~Logger();
 
+  /// \brief Disable copy and move ctor.
+  /// \note Deleted copy ctor inhibit the compiler from declaring move members.
+  Logger(const Logger& logger) = delete;
+  Logger& operator=(const Logger& logger) = delete;
+
   /// \brief Add a log record with INFO level.
   ///
   /// \param message - The log message.
