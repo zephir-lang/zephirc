@@ -6,42 +6,42 @@
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
 
-option(ENABLE_ALL_WARNINGS "Compile with all warnings for the major compilers"
-       OFF)
-option(ENABLE_EFFECTIVE_CXX "Enable Effective C++ warnings" OFF)
-option(GENERATE_DEPENDENCY_DATA "Generates .d files with header dependencies"
-       OFF)
+include(CMakeDependentOption)
 
-if(ENABLE_ALL_WARNINGS)
-  if(CMAKE_COMPILER_IS_GNUCC
-     OR CMAKE_COMPILER_IS_GNUCXX
-     OR CMAKE_C_COMPILER_ID MATCHES "(Apple)?[Cc]lang"
-     OR CMAKE_CXX_COMPILER_ID MATCHES "(Apple)?[Cc]lang")
-    # GCC/Clang
-    add_compile_options(-Wall -Wextra)
-  elseif(MSVC)
-    # MSVC
-    add_compile_options(/W4)
-  endif()
+option(WARNINGS_AS_ERRORS "Turn all build warnings into errors")
+
+list(APPEND force-libcxx "CMAKE_CXX_COMPILER_ID STREQUAL \"Clang\"")
+list(APPEND force-libcxx "CMAKE_SYSTEM_NAME STREQUAL \"Linux\"")
+list(APPEND force-libcxx "CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME")
+
+# This macro provides ZEPHIR_FORCE_LIBCXX option to the user only if a set of
+# `force-libcxx' conditions are true.
+cmake_dependent_option(
+  ZEPHIR_FORCE_LIBCXX
+  "Force clang to use libc++ instead of libstdc++ (Linux only)" OFF
+  "${force-libcxx}" OFF)
+
+# Special target that adds warnings. Is not exported.
+add_library(zephir_warnings INTERFACE)
+
+# Setup initial compiler flags to use on UNIX systems
+set(unix-warnings -Wall -Wextra -pedantic -Wshadow -Wsign-conversion
+                  -Wswitch-enum)
+
+# This is recognized as a valid compiler flag only by gcc
+if(CMAKE_COMPILER_IS_GNUCXX)
+  list(APPEND unix-warnings -Weffc++)
 endif()
 
-if(ENABLE_EFFECTIVE_CXX)
-  if(CMAKE_COMPILER_IS_GNUCC
-     OR CMAKE_COMPILER_IS_GNUCXX
-     OR CMAKE_C_COMPILER_ID MATCHES "(Apple)?[Cc]lang"
-     OR CMAKE_CXX_COMPILER_ID MATCHES "(Apple)?[Cc]lang")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Weffc++")
-  endif()
-endif()
+target_compile_options(
+  zephir_warnings
+  INTERFACE $<$<BOOL:${ZEPHIR_FORCE_LIBCXX}>:-stdlib=libc++>
+            $<$<CXX_COMPILER_ID:MSVC>:/W4
+            $<$<BOOL:${WARNINGS_AS_ERRORS}>:/WX>>
+            $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:${unix-warnings}
+            $<$<BOOL:${WARNINGS_AS_ERRORS}>:-Werror>>)
 
-if(GENERATE_DEPENDENCY_DATA)
-  if(CMAKE_COMPILER_IS_GNUCC
-     OR CMAKE_COMPILER_IS_GNUCXX
-     OR CMAKE_C_COMPILER_ID MATCHES "(Apple)?[Cc]lang"
-     OR CMAKE_CXX_COMPILER_ID MATCHES "(Apple)?[Cc]lang")
-    add_compile_options(-MD)
-  else()
-    message(
-      WARNING "Cannot generate header dependency on non GCC/Clang compilers.")
-  endif()
+if(NOT CMAKE_VERSION VERSION_LESS 3.13)
+  target_link_options(zephir_warnings INTERFACE
+                      $<$<BOOL:${ZEPHIR_FORCE_LIBCXX}>:-stdlib=libc++>)
 endif()

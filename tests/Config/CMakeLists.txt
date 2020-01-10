@@ -8,7 +8,9 @@
 include(GoogleTest)
 
 file(GLOB CONFIG_TESTS ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
+
 add_executable(ConfigTest ${ZEPHIR_TESTS_SOURCE_DIR}/main.cpp ${CONFIG_TESTS})
+target_link_libraries(ConfigTest PRIVATE zephir_warnings)
 
 target_include_directories(
   ConfigTest

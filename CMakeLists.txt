@@ -20,6 +20,7 @@ list(APPEND CMAKE_MODULE_PATH ${zephir_SOURCE_DIR}/cmake)
 set(MASTER_PROJECT OFF)
 if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
   set(MASTER_PROJECT ON)
+  # Print the version number of CMake if this is the main project
   message(STATUS "CMake version: ${CMAKE_VERSION}")
 endif()
 

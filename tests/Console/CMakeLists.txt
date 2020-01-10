@@ -10,7 +10,9 @@ include(GoogleTest)
 add_subdirectory(Commands)
 
 file(GLOB CONSOLE_TESTS ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
+
 add_executable(ConsoleTest ${ZEPHIR_TESTS_SOURCE_DIR}/main.cpp ${CONSOLE_TESTS})
+target_link_libraries(ConsoleTest PRIVATE zephir_warnings)
 
 target_include_directories(
   ConsoleTest

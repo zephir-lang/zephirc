@@ -8,8 +8,10 @@
 include(GoogleTest)
 
 file(GLOB COMMAND_TESTS ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
+
 add_executable(CommandsTest ${ZEPHIR_TESTS_SOURCE_DIR}/main.cpp
                             ${COMMAND_TESTS})
+target_link_libraries(CommandsTest PRIVATE zephir_warnings)
 
 target_include_directories(
   CommandsTest
