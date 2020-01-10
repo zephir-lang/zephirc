@@ -140,7 +140,7 @@ jobs:
       run: |
         profile=${{ matrix.compiler }}-${{ matrix.libcxx }}
 
-        if [ ! -f "$HOME/.conan/profiles/zephir" ]; then
+        if [ ! -f "$HOME/.conan/profiles/$profile" ]; then
           conan profile new $profile --detect
         fi
 
