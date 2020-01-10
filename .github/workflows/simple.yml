@@ -18,13 +18,13 @@ jobs:
       fail-fast: false
 
       matrix:
-        name:
-          - ubuntu-18.04-gcc-7
-          - ubuntu-18.04-clang-5.0
-          - macOS-latest
+        # name:
+        #   - ubuntu-18.04-gcc-7
+        #   - ubuntu-18.04-clang-5.0
+        #   - macOS-latest
 
         include:
-          - name: ubuntu-18.04-gcc-7
+          - name: linux-gcc-7
             os: ubuntu-18.04
             compiler: gcc
             libcxx: libstdc++11
@@ -32,7 +32,7 @@ jobs:
             ccov: ON
             gcov: gcov
 
-          - name: ubuntu-18.04-clang-5.0
+          - name: linux-clang-5.0-libstdc++
             os: ubuntu-18.04
             compiler: clang
             libcxx: libstdc++11
@@ -40,7 +40,7 @@ jobs:
             ccov: ON
             gcov: "$GITHUB_WORKSPACE/.ci/llvm-gcov.sh"
 
-          - name: ubuntu-18.04-clang-5.0
+          - name: linux-clang-5.0-libc++
             os: ubuntu-18.04
             compiler: clang
             libcxx: libc++
@@ -135,16 +135,20 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
+    - name: Setup conan
+      run: |
+        profile=${{ matrix.compiler }}-${{ matrix.libcxx }}
+
         if [ ! -f "$HOME/.conan/profiles/zephir" ]; then
-          conan profile new zephir --detect
+          conan profile new $profile --detect
         fi
 
-        conan profile update settings.build_type=Debug zephir
-        conan profile update settings.compiler=${{ matrix.compiler }} zephir
-        conan profile update settings.compiler.version=${{ matrix.version }} zephir
-        conan profile update settings.compiler.libcxx=${{ matrix.libcxx }} zephir
+        conan profile update settings.build_type=Debug $profile
+        conan profile update settings.compiler=${{ matrix.compiler }} $profile
+        conan profile update settings.compiler.version=${{ matrix.version }} $profile
+        conan profile update settings.compiler.libcxx=${{ matrix.libcxx }} $profile
 
-        conan install $(pwd) -if=$(pwd)/build -pr=zephir --build=missing
+        conan install $(pwd) -if=$(pwd)/build -pr=$profile --build=missing
 
     - name: Configure x64 Debug
       run: |
