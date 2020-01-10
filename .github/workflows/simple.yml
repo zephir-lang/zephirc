@@ -18,10 +18,11 @@ jobs:
       fail-fast: false
 
       matrix:
-        # name:
-        #   - ubuntu-18.04-gcc-7
-        #   - ubuntu-18.04-clang-5.0
-        #   - macOS-latest
+        name:
+          - linux-gcc-7
+          - linux-clang-5.0-libstdc++
+          - linux-clang-5.0-libc++
+          - macOS-latest
 
         include:
           - name: linux-gcc-7
