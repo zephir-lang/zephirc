@@ -2,8 +2,8 @@
 #
 # (c) Phalcon Team <team@zephir-lang.com>
 #
-# For the full copyright and license information, please view the LICENSE file
-# that was distributed with this source code.
+# For the full copyright and license information, please view
+# the LICENSE file that was distributed with this source code.
 
 cmake_minimum_required(VERSION 3.11...3.16)
 
@@ -27,6 +27,7 @@ endif()
 include(Bootstrap)
 include(Helpers)
 include(Cppcheck)
+include(CompilerOptions)
 
 # Exclude the stuff that we aren't interested in from the tracefile:
 #
@@ -68,8 +69,6 @@ endif()
 list(APPEND CMAKE_MODULE_PATH ${zephir_SOURCE_DIR}/external/cmake-scripts)
 
 include(formatting)
-include(c++-standards)
-include(compiler-options)
 include(dependency-graph)
 
 # Require C++17
