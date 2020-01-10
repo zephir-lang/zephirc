@@ -31,9 +31,7 @@ class Application {
   ///
   /// \param config The configuration of the current project
   /// \param args CLI args / options
-  /// \param base_path The base path of the current project
-  explicit Application(zephir::ConfigPtr config, std::vector<std::string> args,
-                       const std::string& base_path);
+  explicit Application(zephir::ConfigPtr config, std::vector<std::string> args);
 
   Application(const Application&) = delete;
 
@@ -58,9 +56,6 @@ class Application {
 
   /// A vector of CLI arguments
   std::vector<std::string> args_;
-
-  /// Current working path
-  const std::string& base_path_;
 
   /// An instance of the application Config
   zephir::ConfigPtr config_;

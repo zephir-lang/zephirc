@@ -23,8 +23,7 @@ class InstallCommandTest : public ::testing::Test {
 TEST_F(InstallCommandTest, RunWithoutOptions) {
   argv.assign({"install"});
   auto config = std::make_shared<zephir::Config>("foo");
-  auto app =
-      std::make_unique<zephir::console::Application>(config, argv, "tests");
+  auto app = std::make_unique<zephir::console::Application>(config, argv);
   app->AddCommand(std::make_unique<InstallCommand>("install"));
 
   auto retval = app->Run();

@@ -14,10 +14,8 @@
 #include "FileSystem/FileSystem.hpp"
 
 zephir::console::Application::Application(zephir::ConfigPtr config,
-                                          std::vector<std::string> args,
-                                          const std::string& base_path)
+                                          std::vector<std::string> args)
     : args_(std::move(args)),
-      base_path_(base_path),
       config_(std::move(config)),
       app_(std::make_shared<CLI::App>()),
       help_(nullptr),

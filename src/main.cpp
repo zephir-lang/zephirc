@@ -38,8 +38,7 @@ int main(int argc, char** argv) {
   auto base_path = zephir::filesystem::current_path();
   auto config = zephir::Config::factory(args, base_path + "/.zephir");
 
-  auto app =
-      std::make_unique<zephir::console::Application>(config, args, base_path);
+  auto app = std::make_unique<zephir::console::Application>(config, args);
 
   app->AddCommand(std::make_unique<ApiCommand>("api"));
   app->AddCommand(std::make_unique<BuildCommand>("build"));
