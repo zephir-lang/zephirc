@@ -60,6 +60,7 @@ jobs:
         # but our build often fails because
         # M$ servers are unstable or even offine
         sudo rm -f /etc/apt/sources.list.d/dotnetdev.list
+        grep "azure" /etc/apt/sources.list.d/*.list
         grep "azure" /etc/apt/sources.list.d/*.list | cut -d':' -f1 | sudo xargs rm
 
         echo 'debconf debconf/frontend select Noninteractive' | sudo debconf-set-selections
