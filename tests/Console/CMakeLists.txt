@@ -19,7 +19,7 @@ target_include_directories(
           $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>)
 
 target_link_libraries(ConsoleTest PRIVATE zephir_warnings console
-                                          CONAN_PKG::GTest)
+                                          CONAN_PKG::gtest)
 
 gtest_discover_tests(
   ConsoleTest
