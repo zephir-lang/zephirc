@@ -121,9 +121,9 @@ jobs:
       id: conan-cache
       with:
         path: ~/.conan
-        key: ${{ runner.os }}-conan-${{ matrix.compiler }}-${{ hashFiles('**/conanfile.txt') }}
+        key: ${{ runner.os }}-conan-${{ matrix.compiler }}-${{ matrix.libcxx }}-${{ hashFiles('**/conanfile.txt') }}
         restore-keys: |
-          ${{ runner.os }}-conan-${{ matrix.compiler }}-
+          ${{ runner.os }}-conan-${{ matrix.compiler }}-${{ matrix.libcxx }}-
 
     - name: Setup Python
       uses: actions/setup-python@v1
