@@ -17,7 +17,8 @@ target_include_directories(
           $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>
           $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>)
 
-target_link_libraries(ConfigTest PRIVATE config filesystem CONAN_PKG::GTest)
+target_link_libraries(ConfigTest PRIVATE zephir_warnings config filesystem
+                                         CONAN_PKG::gtest)
 
 gtest_discover_tests(
   ConfigTest

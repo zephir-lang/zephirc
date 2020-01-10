@@ -23,8 +23,7 @@ class StubsCommandTest : public ::testing::Test {
 TEST_F(StubsCommandTest, RunWithoutOptions) {
   argv.assign({"stubs"});
   auto config = std::make_shared<zephir::Config>("foo");
-  auto app =
-      std::make_unique<zephir::console::Application>(config, argv, "tests");
+  auto app = std::make_unique<zephir::console::Application>(config, argv);
   app->AddCommand(std::make_unique<StubsCommand>("stubs"));
 
   auto retval = app->Run();

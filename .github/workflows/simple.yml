@@ -19,27 +19,27 @@ jobs:
 
       matrix:
         name:
-          - ubuntu-18.04-gcc-7
-          - ubuntu-18.04-clang-5.0
+          - linux-gcc-7
+          - linux-clang-5.0
           - macOS-latest
 
         include:
-          - name: ubuntu-18.04-gcc-7
+          - name: linux-gcc-7
             os: ubuntu-18.04
             compiler: gcc
             libcxx: libstdc++11
             version: '7'
             ccov: ON
             gcov: gcov
-            weffcpp: ON
-          - name: ubuntu-18.04-clang-5.0
+
+          - name: linux-clang-5.0
             os: ubuntu-18.04
             compiler: clang
             libcxx: libstdc++11
             version: '5.0'
             ccov: ON
             gcov: "$GITHUB_WORKSPACE/.ci/llvm-gcov.sh"
-            weffcpp: OFF
+
           - name: macOS-latest
             os: macOS-latest
             compiler: apple-clang
@@ -47,7 +47,6 @@ jobs:
             version: '11.0'
             ccov: ON
             gcov: gcov
-            weffcpp: OFF
 
     steps:
     - uses: actions/checkout@v2-beta
@@ -57,9 +56,11 @@ jobs:
     - name: Setup Prerequisites (Linux)
       if: startsWith(runner.os, 'Linux')
       run: |
-        # E: Repository 'https://packages.microsoft.com/repos/microsoft-ubuntu-bionic-prod bionic InRelease'
-        # changed its 'Origin' value from 'microsoft-ubuntu-bionic-prod bionic' to 'vscode stable'
+        # We don't need this at all,
+        # but our build often fails because
+        # M$ servers are unstable or even offine
         sudo rm -f /etc/apt/sources.list.d/dotnetdev.list
+        sudo rm -f /etc/apt/sources.list.d/azure*.list
 
         echo 'debconf debconf/frontend select Noninteractive' | sudo debconf-set-selections
         sudo add-apt-repository ppa:ubuntu-toolchain-r/test --yes
@@ -109,15 +110,6 @@ jobs:
         echo "::set-env name=SDKROOT::$(xcodebuild -version -sdk macosx Path)"
         echo "::set-env name=PATH::$(dirname $(xcrun -f clang)):$PATH"
 
-    - uses: actions/cache@v1
-      name: Setup conan cache
-      id: conan-cache
-      with:
-        path: ~/.conan
-        key: ${{ runner.os }}-conan-${{ matrix.compiler }}-${{ hashFiles('**/conanfile.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-conan-${{ matrix.compiler }}-
-
     - name: Setup Python
       uses: actions/setup-python@v1
       with:
@@ -127,7 +119,8 @@ jobs:
     - name: Get pip cache
       id: pip-cache
       run: |
-        python -c "from pip._internal.locations import USER_CACHE_DIR; print('::set-output name=dir::' + USER_CACHE_DIR)"
+        python -c "from pip._internal.locations import USER_CACHE_DIR; \
+                   print('::set-output name=dir::' + USER_CACHE_DIR)"
 
     - uses: actions/cache@v1
       name: Setup pip cache
@@ -137,21 +130,33 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pip-
 
-    - name: Install dependencies
+    - name: Install Python dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-        if [ ! -f "$HOME/.conan/profiles/zephir" ]; then
-          conan profile new zephir --detect
-        fi
+    - uses: actions/cache@v1
+      name: Setup conan cache
+      id: conan-cache
+      with:
+        path: ~/.conan/data
+        key: ${{ runner.os }}-conan-${{ matrix.compiler }}-${{ hashFiles('**/conanfile.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-conan-${{ matrix.compiler }}-
 
-        conan profile update settings.build_type=Debug zephir
-        conan profile update settings.compiler=${{ matrix.compiler }} zephir
-        conan profile update settings.compiler.version=${{ matrix.version }} zephir
-        conan profile update settings.compiler.libcxx=${{ matrix.libcxx }} zephir
+    - name: Install Conan dependencies
+      run: |
+        # Remove default profile (if any)
+        conan profile remove default 2>/dev/null || true
+        conan profile new default --detect
 
-        conan install $(pwd) -if=$(pwd)/build -pr=zephir --build=missing
+        conan profile update settings.build_type=Debug default
+        conan profile update settings.compiler=${{ matrix.compiler }} default
+        conan profile update settings.compiler.version=${{ matrix.version }} default
+        conan profile update settings.compiler.libcxx=${{ matrix.libcxx }} default
+
+        conan install $(pwd) -if=$(pwd)/build -pr=default --build=missing
+
 
     - name: Configure x64 Debug
       run: |
@@ -163,9 +168,8 @@ jobs:
           -Bbuild \
           -DCMAKE_BUILD_TYPE=Debug \
           -DZEPHIR_BUILD_TESTING=ON \
-          -DENABLE_ALL_WARNINGS=ON \
-          -DCODE_COVERAGE=${{ matrix.ccov }} \
-          -DENABLE_EFFECTIVE_CXX=${{ matrix.weffcpp }}
+          -DWARNINGS_AS_ERRORS=ON \
+          -DCODE_COVERAGE=${{ matrix.ccov }}
 
     - name: Build with ${{ matrix.compiler }}
       run: cmake --build build -j "$(getconf _NPROCESSORS_ONLN)"
@@ -176,8 +180,8 @@ jobs:
     - name: Capture coverage data
       if: matrix.ccov == 'ON'
       run: |
-        cmake --build build --target gcov -j "$(getconf _NPROCESSORS_ONLN)"
-        cmake --build build --target lcov -j 1
+        cmake --build build --target gcov
+        cmake --build build --target lcov
 
     - name: Upload code coverage report
       if: matrix.ccov == 'ON'

@@ -105,9 +105,7 @@ CMake flags are:
 | ---------------------- |---------------------------------------------------|
 | `CPPCHECK`             | Add `cppcheck` step to the compilation            |
 | `CODE_COVERAGE`        | Generate code coverage report                     |
-| `ENABLE_ALL_WARNINGS`  | Compile with all warnings for the major compilers |
-| `ENABLE_EFFECTIVE_CXX` | Enable Effective C++ warnings                     |
-| `BUILD_DEP_GRAPH`      | Builds a visual representation of the project     |
+| `WARNINGS_AS_ERRORS`   | Turn all build warnings into errors               |
 | `ZEPHIR_BUILD_DOC`     | Generate the API documentation                    |
 
 ### Generate HTML code coverage report
@@ -120,7 +118,7 @@ Follow these steps:
 5. Open `build/ccov/html/all-targets/index.html` in your browser to view the coverage report
 
 **Note:** Most likely you'll need set jobs count to 1 (`-j 1`) when running
-`lcov` target to avoid lcov race condition issue. For more see: 
+`lcov` target to avoid lcov race condition issue. For more see:
 https://github.com/linux-test-project/lcov/issues/37
 
 ### Generate the API documentation

@@ -23,8 +23,7 @@ class CompileCommandTest : public ::testing::Test {
 TEST_F(CompileCommandTest, RunWithoutOptions) {
   argv.assign({"compile"});
   auto config = std::make_shared<zephir::Config>("foo");
-  auto app =
-      std::make_unique<zephir::console::Application>(config, argv, "tests");
+  auto app = std::make_unique<zephir::console::Application>(config, argv);
   app->AddCommand(std::make_unique<CompileCommand>("compile"));
 
   auto retval = app->Run();

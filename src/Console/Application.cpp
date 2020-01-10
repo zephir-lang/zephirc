@@ -14,10 +14,8 @@
 #include "FileSystem/FileSystem.hpp"
 
 zephir::console::Application::Application(zephir::ConfigPtr config,
-                                          std::vector<std::string> args,
-                                          const std::string& base_path)
+                                          std::vector<std::string> args)
     : args_(std::move(args)),
-      base_path_(base_path),
       config_(std::move(config)),
       app_(std::make_shared<CLI::App>()),
       help_(nullptr),
@@ -59,7 +57,7 @@ zephir::console::Application::Application(zephir::ConfigPtr config,
 
   // Add custom flag that activates help
   help_ = app_->add_flag("-h, --help", "Print this help message and quit");
-};
+}
 
 void zephir::console::Application::PrintVersion(std::size_t /* count */) {
   std::cout << ZEPHIR_VERSION << std::endl;

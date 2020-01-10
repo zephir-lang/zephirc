@@ -23,8 +23,7 @@ class InitCommandTest : public ::testing::Test {
 TEST_F(InitCommandTest, RunWithoutOptions) {
   argv.assign({"init"});
   auto config = std::make_shared<zephir::Config>("foo");
-  auto app =
-      std::make_unique<zephir::console::Application>(config, argv, "tests");
+  auto app = std::make_unique<zephir::console::Application>(config, argv);
   app->AddCommand(std::make_unique<InitCommand>("init"));
 
   auto retval = app->Run();

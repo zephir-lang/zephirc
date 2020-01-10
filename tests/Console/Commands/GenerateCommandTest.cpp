@@ -23,8 +23,7 @@ class GenerateCommandTest : public ::testing::Test {
 TEST_F(GenerateCommandTest, RunWithoutOptions) {
   argv.assign({"generate"});
   auto config = std::make_shared<zephir::Config>("foo");
-  auto app =
-      std::make_unique<zephir::console::Application>(config, argv, "tests");
+  auto app = std::make_unique<zephir::console::Application>(config, argv);
   app->AddCommand(std::make_unique<GenerateCommand>("generate"));
 
   auto retval = app->Run();
