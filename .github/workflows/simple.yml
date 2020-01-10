@@ -146,17 +146,18 @@ jobs:
 
     - name: Install Conan dependencies
       run: |
-        profile=${{ matrix.compiler }}-${{ matrix.libcxx }}
+        profile="${{ matrix.compiler }}-${{ matrix.libcxx }}"
 
         if [ ! -f "$HOME/.conan/profiles/$profile" ]; then
-          conan profile new $profile --detect
+          conan profile new "$profile" --detect
         fi
 
-        conan profile update settings.build_type=Debug $profile
-        conan profile update settings.compiler=${{ matrix.compiler }} $profile
-        conan profile update settings.compiler.version=${{ matrix.version }} $profile
-        conan profile update settings.compiler.libcxx=${{ matrix.libcxx }} $profile
+        conan profile update settings.build_type=Debug "$profile"
+        conan profile update settings.compiler=${{ matrix.compiler }} "$profile"
+        conan profile update settings.compiler.version=${{ matrix.version }} "$profile"
+        conan profile update settings.compiler.libcxx=${{ matrix.libcxx }} "$profile"
 
+        rm -f ~/.conan/profiles/default
         conan install $(pwd) -if=$(pwd)/build -pr=$profile --build=missing
 
     - name: Configure x64 Debug
