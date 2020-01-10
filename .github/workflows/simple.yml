@@ -56,8 +56,11 @@ jobs:
     - name: Setup Prerequisites (Linux)
       if: startsWith(runner.os, 'Linux')
       run: |
-        # We don't need this
+        # We don't need this at all,
+        # but our build often fails because
+        # M$ servers are unstable or even offine
         sudo rm -f /etc/apt/sources.list.d/dotnetdev.list
+        grep "azure" /etc/apt/sources.list.d/*.list | cut -d':' -f1 | sudo xargs rm
 
         echo 'debconf debconf/frontend select Noninteractive' | sudo debconf-set-selections
         sudo add-apt-repository ppa:ubuntu-toolchain-r/test --yes
