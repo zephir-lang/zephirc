@@ -14,7 +14,10 @@ target_include_directories(
          $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
   PRIVATE $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>)
 
-target_link_libraries(config PUBLIC CONAN_PKG::yaml-cpp filesystem)
+target_link_libraries(
+  config
+  PUBLIC CONAN_PKG::yaml-cpp filesystem
+  PRIVATE zephir_warnings)
 
 # Adds the library to the 'gcov' and 'lcov' targets
 code_coverage(config)

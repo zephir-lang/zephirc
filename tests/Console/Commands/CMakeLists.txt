@@ -17,7 +17,8 @@ target_include_directories(
   PRIVATE $<BUILD_INTERFACE:${ZEPHIR_TESTS_SOURCE_DIR}>
           $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>)
 
-target_link_libraries(CommandsTest PRIVATE console CONAN_PKG::GTest)
+target_link_libraries(CommandsTest PRIVATE zephir_warnings console
+                                           CONAN_PKG::gtest)
 
 gtest_discover_tests(
   CommandsTest

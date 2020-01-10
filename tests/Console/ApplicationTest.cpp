@@ -26,8 +26,7 @@ TEST_P(ApplicationTest, RunUsingGlobalOptions) {
   argv.assign({option});
 
   auto config = std::make_shared<zephir::Config>("foo");
-  auto app =
-      std::make_unique<zephir::console::Application>(config, argv, "tests");
+  auto app = std::make_unique<zephir::console::Application>(config, argv);
   auto actual = app->Run();
 
   EXPECT_EQ(expected, actual);

@@ -15,7 +15,10 @@ target_include_directories(
          $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
   PRIVATE $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>)
 
-target_link_libraries(console PUBLIC CONAN_PKG::CLI11 config)
+target_link_libraries(
+  console
+  PUBLIC CONAN_PKG::CLI11 config
+  PRIVATE zephir_warnings)
 
 # Adds the library to the 'gcov' and 'lcov' targets
 code_coverage(console)
