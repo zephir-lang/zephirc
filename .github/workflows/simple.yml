@@ -110,15 +110,6 @@ jobs:
         echo "::set-env name=SDKROOT::$(xcodebuild -version -sdk macosx Path)"
         echo "::set-env name=PATH::$(dirname $(xcrun -f clang)):$PATH"
 
-    - uses: actions/cache@v1
-      name: Setup conan cache
-      id: conan-cache
-      with:
-        path: ~/.conan
-        key: ${{ runner.os }}-conan-${{ matrix.compiler }}-${{ hashFiles('**/conanfile.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-conan-${{ matrix.compiler }}-
-
     - name: Setup Python
       uses: actions/setup-python@v1
       with:
@@ -144,22 +135,28 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
+    - uses: actions/cache@v1
+      name: Setup conan cache
+      id: conan-cache
+      with:
+        path: ~/.conan/data
+        key: ${{ runner.os }}-conan-${{ matrix.compiler }}-${{ hashFiles('**/conanfile.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-conan-${{ matrix.compiler }}-
+
     - name: Install Conan dependencies
       run: |
-        profile="zephirc-${{ matrix.compiler }}-${{ matrix.libcxx }}"
-        rm -f "$HOME/.conan/profiles/default"
+        # Remove default profile (if any)
+        conan profile remove default 2>/dev/null || true
+        conan profile new default --detect
 
-        if [ ! -f "$HOME/.conan/profiles/$profile" ]; then
-          conan profile new "$profile" --detect
+        conan profile update settings.build_type=Debug default
+        conan profile update settings.compiler=${{ matrix.compiler }} default
+        conan profile update settings.compiler.version=${{ matrix.version }} default
+        conan profile update settings.compiler.libcxx=${{ matrix.libcxx }} default
 
-          conan profile update settings.build_type=Debug "$profile"
-          conan profile update settings.compiler=${{ matrix.compiler }} "$profile"
-          conan profile update settings.compiler.version=${{ matrix.version }} "$profile"
-          conan profile update settings.compiler.libcxx=${{ matrix.libcxx }} "$profile"
-        fi
-
-        cat "$HOME/.conan/profiles/$profile"
-        conan install $(pwd) -if=$(pwd)/build -pr="$profile" --build=missing
+        conan profile show default
+        conan install $(pwd) -if=$(pwd)/build -pr=default --build=missing
 
 
     - name: Configure x64 Debug
