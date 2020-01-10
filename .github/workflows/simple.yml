@@ -139,12 +139,12 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pip-
 
-    - name: Install dependencies
+    - name: Install Python dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Setup conan
+    - name: Install Conan dependencies
       run: |
         profile=${{ matrix.compiler }}-${{ matrix.libcxx }}
 
@@ -158,8 +158,6 @@ jobs:
         conan profile update settings.compiler.libcxx=${{ matrix.libcxx }} $profile
 
         conan install $(pwd) -if=$(pwd)/build -pr=$profile --build=missing
-
-        [ -f build/conaninfo.txt ] && cat build/conaninfo.txt
 
     - name: Configure x64 Debug
       run: |
