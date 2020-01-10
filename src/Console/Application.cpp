@@ -59,7 +59,7 @@ zephir::console::Application::Application(zephir::ConfigPtr config,
 
   // Add custom flag that activates help
   help_ = app_->add_flag("-h, --help", "Print this help message and quit");
-};
+}
 
 void zephir::console::Application::PrintVersion(std::size_t /* count */) {
   std::cout << ZEPHIR_VERSION << std::endl;
