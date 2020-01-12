@@ -43,6 +43,7 @@ void zephir::Config::populate(const std::string &path) {
       }
     }
   } catch (YAML::ParserException &e) {
+    // TODO: Show a error log here
     throw std::runtime_error("Config file is broken");
   }
 }
