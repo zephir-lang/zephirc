@@ -32,9 +32,7 @@ struct Context {
 enum class LogLevel {
   info = spdlog::level::info,
   warn = spdlog::level::warn,
-  error = spdlog::level::debug,
-  debug = spdlog::level::debug,
-  trace = spdlog::level::trace,
+  error = spdlog::level::err,
   off = spdlog::level::off,
 };
 
@@ -78,17 +76,6 @@ class Logger {
   ///
   /// \param message - The log message.
   void error(const std::string& message);
-
-  /// \brief Add a log record with DEBUG level.
-  ///
-  /// \param message - The log message.
-  void debug(const std::string& message);
-
-  /// \brief Add a log record from Exception.
-  ///
-  /// \param message - The log message.
-  /// \param ctx - The process context detail.
-  void exception(const std::exception& error, const Context& ctx);
 
   /// \brief Add a log record with specified level, category and context.
   ///
