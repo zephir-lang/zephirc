@@ -19,8 +19,8 @@ target_include_directories(
   PRIVATE $<BUILD_INTERFACE:${ZEPHIR_TESTS_SOURCE_DIR}>
           $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>)
 
-target_link_libraries(LoggerTest PRIVATE logger CONAN_PKG::spdlog
-                                         CONAN_PKG::GTest)
+target_link_libraries(LoggerTest PRIVATE zephir_warnings logger
+                                         CONAN_PKG::spdlog CONAN_PKG::gtest)
 
 # must use explicit CXX flag for proper linker process
 if(CMAKE_COMPILER_IS_GNUCXX)
