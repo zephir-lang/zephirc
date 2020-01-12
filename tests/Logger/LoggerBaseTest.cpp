@@ -19,5 +19,14 @@ TEST_F(LoggerBaseTest, CreateSimpleLogLevels) {
   test_logger->info("Test message");
   test_logger->warn("Test message");
   test_logger->error("Test message");
-  test_logger->debug("Test message");
+}
+
+TEST_F(LoggerBaseTest, LogFormatter) {
+  auto test_logger = new zephir::Logger();
+
+  testing::internal::CaptureStdout();
+  test_logger->info("Test message");
+  std::string output = testing::internal::GetCapturedStdout();
+
+  EXPECT_EQ("info: Test message\n", output);
 }

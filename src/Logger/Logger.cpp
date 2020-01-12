@@ -9,7 +9,9 @@
 
 zephir::Logger::Logger()
     : _logger(std::make_unique<spdlog::logger>(
-          _channel, std::make_shared<spdlog::sinks::stdout_color_sink_mt>())) {}
+          _channel, std::make_shared<spdlog::sinks::stdout_color_sink_mt>())) {
+  _logger->set_pattern(_format);
+}
 
 zephir::Logger::~Logger() { spdlog::drop_all(); }
 

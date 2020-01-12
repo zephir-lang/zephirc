@@ -49,6 +49,9 @@ class Logger {
   /// spdlog's global registry name
   const std::string _channel = "console";
 
+  /// default message format
+  const std::string _format = "%l: %v";
+
   LoggerPtr _logger;
 
  public:
