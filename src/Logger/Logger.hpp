@@ -21,12 +21,14 @@ namespace zephir {
 
 /// \brief Collection of all context details.
 struct Context {
+  Context(const std::string& file, int line, int cur)
+      : file(file), line(line), cursor(cur) {}
   /// Absolute file path to zephir file.
   std::string file{""};
   /// Line number in zephir source file.
-  int line{0};
+  int line;
   /// Context character position in zephir source file.
-  int cursor{0};
+  int cursor;
 };
 
 /// \brief Log levels enum.
