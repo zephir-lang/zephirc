@@ -11,6 +11,9 @@
 #ifndef ZEPHIR_CLI_COMMANDS_CLEAN_HPP_
 #define ZEPHIR_CLI_COMMANDS_CLEAN_HPP_
 
+#include <memory>
+#include <string>
+
 #include "AbstractCommand.hpp"
 
 namespace zephir::console::commands {

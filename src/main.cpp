@@ -21,8 +21,6 @@
 #include "Console/Commands/StubsCommand.hpp"
 #include "FileSystem/FileSystem.hpp"
 
-using namespace zephir::console::commands;
-
 static inline std::vector<std::string> prepare_args(int argc, char** argv) {
   std::vector<std::string> args;
   args.reserve(static_cast<size_t>(argc - 1));
@@ -40,15 +38,24 @@ int main(int argc, char** argv) {
 
   auto app = std::make_unique<zephir::console::Application>(config, args);
 
-  app->AddCommand(std::make_unique<ApiCommand>("api"));
-  app->AddCommand(std::make_unique<BuildCommand>("build"));
-  app->AddCommand(std::make_unique<CleanCommand>("clean"));
-  app->AddCommand(std::make_unique<CompileCommand>("compile"));
-  app->AddCommand(std::make_unique<FullCleanCommand>("fullclean"));
-  app->AddCommand(std::make_unique<GenerateCommand>("generate"));
-  app->AddCommand(std::make_unique<InitCommand>("init"));
-  app->AddCommand(std::make_unique<InstallCommand>("install"));
-  app->AddCommand(std::make_unique<StubsCommand>("stubs"));
+  app->AddCommand(
+      std::make_unique<zephir::console::commands::ApiCommand>("api"));
+  app->AddCommand(
+      std::make_unique<zephir::console::commands::BuildCommand>("build"));
+  app->AddCommand(
+      std::make_unique<zephir::console::commands::CleanCommand>("clean"));
+  app->AddCommand(
+      std::make_unique<zephir::console::commands::CompileCommand>("compile"));
+  app->AddCommand(std::make_unique<zephir::console::commands::FullCleanCommand>(
+      "fullclean"));
+  app->AddCommand(
+      std::make_unique<zephir::console::commands::GenerateCommand>("generate"));
+  app->AddCommand(
+      std::make_unique<zephir::console::commands::InitCommand>("init"));
+  app->AddCommand(
+      std::make_unique<zephir::console::commands::InstallCommand>("install"));
+  app->AddCommand(
+      std::make_unique<zephir::console::commands::StubsCommand>("stubs"));
 
   auto retval = app->Run();
   return retval;

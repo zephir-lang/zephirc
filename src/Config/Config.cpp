@@ -8,7 +8,9 @@
 #include "Config.hpp"
 
 #include <fstream>
+#include <memory>
 #include <regex>
+#include <string>
 
 #include "FileSystem/FileSystem.hpp"
 
@@ -43,7 +45,7 @@ void zephir::Config::populate(const std::string &path) {
       }
     }
   } catch (YAML::ParserException &e) {
-    // TODO: Show a error log here
+    // TODO(alexndr.mac): Show a error log here and do not throw exception
     throw std::runtime_error("Config file is broken");
   }
 }

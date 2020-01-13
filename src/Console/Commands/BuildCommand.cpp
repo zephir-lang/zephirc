@@ -7,6 +7,8 @@
 
 #include "BuildCommand.hpp"
 
+#include <memory>
+#include <string>
 #include <utility>
 
 zephir::console::commands::BuildCommand::BuildCommand(std::string name)

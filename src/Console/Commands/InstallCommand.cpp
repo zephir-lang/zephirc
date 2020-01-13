@@ -53,5 +53,4 @@ void zephir::console::commands::InstallCommand::Execute() {
   std::cout << "Install command" << std::endl;
   std::cout << "NOT IMPLEMENTED" << std::endl;
   std::cout << "    options.dev = " << options_->dev << std::endl;
-  ;
 }
