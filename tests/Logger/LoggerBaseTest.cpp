@@ -30,3 +30,22 @@ TEST_F(LoggerBaseTest, LogFormatter) {
 
   EXPECT_EQ("info: Test message\n", output);
 }
+
+TEST_F(LoggerBaseTest, LogContext) {
+  auto test_logger = new zephir::Logger();
+  auto ctx = zephir::Context{"./testfile.zep", 10, 42};
+
+  std::string errorMsg =
+      "incompatible pointer to integer conversion assigning to 'char' from "
+      "'void *'";
+  std::string category = "-Wint-conversion";
+
+  testing::internal::CaptureStdout();
+  test_logger->log(errorMsg, zephir::LogLevel::warn, category, ctx);
+  std::string output = testing::internal::GetCapturedStdout();
+
+  EXPECT_EQ(
+      "warning: incompatible pointer to integer conversion assigning to 'char' "
+      "from 'void *' in file ./testfile.zep on line 10:42 [-Wint-conversion]\n",
+      output);
+}
