@@ -8,7 +8,6 @@ gtest/1.10.0
 cmake
 
 [options]
-spdlog:shared=True
 yaml-cpp:shared=False
 gtest:shared=False
 gtest:no_main=True

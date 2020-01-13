@@ -9,9 +9,7 @@
 add_subdirectory(Console)
 add_subdirectory(FileSystem)
 add_subdirectory(Config)
-
-# TODO(alexndr.mac): Rename directory and files to follow PascalCase style
-add_subdirectory(logger)
+add_subdirectory(Logger)
 
 # Main
 add_executable(zephir main.cpp)

@@ -21,6 +21,7 @@ configure_file(setup.sh.in "${CMAKE_CURRENT_SOURCE_DIR}/setup.sh")
 
 add_subdirectory(Config)
 add_subdirectory(Console)
+add_subdirectory(Logger)
 
 if(NOT WIN32)
   add_test(
