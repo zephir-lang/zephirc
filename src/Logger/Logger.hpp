@@ -21,8 +21,8 @@ namespace zephir {
 
 /// \brief Collection of all context details.
 struct Context {
-  Context(const std::string& file, int line, int cur)
-      : file(file), line(line), cursor(cur) {}
+  Context(const std::string& fl, int ln, int cur)
+      : file(fl), line(ln), cursor(cur) {}
   /// Absolute file path to zephir file.
   std::string file{""};
   /// Line number in zephir source file.
