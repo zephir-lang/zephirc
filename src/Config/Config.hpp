@@ -44,7 +44,7 @@ class Config {
   /// \param options Provided command line arguments
   /// \param path The path to the project configuration file
   /// \return A fresh Config instance with loaded configurations
-  static ConfigPtr factory(std::vector<std::string> &options,
+  static ConfigPtr factory(std::vector<std::string> *options,
                            const std::string &path);
 
   /// \brief Allows to check whether a \a key is defined.

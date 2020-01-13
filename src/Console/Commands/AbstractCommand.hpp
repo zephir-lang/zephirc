@@ -12,6 +12,7 @@
 #ifndef ZEPHIR_CLI_COMMANDS_ABSTRACT_COMMAND_HPP_
 #define ZEPHIR_CLI_COMMANDS_ABSTRACT_COMMAND_HPP_
 
+#include <memory>
 #include <string>
 
 #include <CLI/CLI.hpp>

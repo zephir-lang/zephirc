@@ -131,3 +131,9 @@ BraceWrapping:
   SplitEmptyRecord:      true
   SplitEmptyNamespace:   true
 ...
+
+# Local Variables:
+# mode: yaml
+# tab-width: 2
+# indent-tabs-mode: nil
+# End:

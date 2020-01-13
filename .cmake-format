@@ -67,3 +67,9 @@ additional_commands:
       INTERFACE: '*'
       PUBLIC: '*'
       PRIVATE: '*'
+
+# Local Variables:
+# mode: yaml
+# tab-width: 2
+# indent-tabs-mode: nil
+# End:

@@ -7,6 +7,7 @@
 
 #include "Application.hpp"
 
+#include <memory>
 #include <utility>
 
 #include <zephir/Version.hpp>

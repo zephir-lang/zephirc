@@ -14,6 +14,7 @@ For project dependencies list see `conanfile.txt` bundled with this project.
 
 Optional prerequisites are:
 * Static analysis tool for C/C++ code: [Cppcheck](https://github.com/danmar/cppcheck) >= 1.89
+* Static analysis tool for C/C++ code: [Cpplint](https://github.com/cpplint/cpplint)
 * CMake formatting tool: [cmake-format](https://github.com/cheshirekow/cmake_format)
 * C, C++ formatting tool: [clang-format](https://clang.llvm.org/docs/ClangFormat.html)
 * Documentation generation tool: [Doxygen](http://www.doxygen.org)
