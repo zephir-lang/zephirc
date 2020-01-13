@@ -14,7 +14,7 @@
 TEST_F(ConfigBaseTest, LoadConfigFile) {
   argv.assign({});
   auto file = std::string(TESTS_ROOT) + "/fixtures/config/phalcon-4x.yml";
-  auto config = zephir::Config::factory(argv, file);
+  auto config = zephir::Config::factory(&argv, file);
 
   auto actual = config->get<std::string>("namespace", "undefined");
   EXPECT_EQ("phalcon", actual);
@@ -24,7 +24,7 @@ TEST_F(ConfigBaseTest, BrokenConfigFile) {
   argv.assign({});
   auto file = std::string(TESTS_ROOT) + "/fixtures/config/bad-config.yml";
   EXPECT_THROW_EXCEPTION(std::runtime_error,
-                         zephir::Config::factory(argv, file),
+                         zephir::Config::factory(&argv, file),
                          "Config file is broken");
 }
 
@@ -35,13 +35,13 @@ TEST_F(ConfigBaseTest, DumpConfigFile) {
 
   argv.assign({});
 
-  auto config = zephir::Config::factory(argv, "awesome.yml");
+  auto config = zephir::Config::factory(&argv, "awesome.yml");
   config->set("name", "awesome");
 
   config->dump("awesome.yml");
   EXPECT_TRUE(zephir::filesystem::exists("awesome.yml"));
 
-  config = zephir::Config::factory(argv, "awesome.yml");
+  config = zephir::Config::factory(&argv, "awesome.yml");
   auto name = config->get<std::string>("name", "");
   EXPECT_EQ("awesome", name);
 }

@@ -13,7 +13,7 @@
 TEST_F(ConfigBaseTest, GetValue) {
   argv.assign({});
   auto file = std::string(TESTS_ROOT) + "/fixtures/legacy.yml";
-  auto config = zephir::Config::factory(argv, file);
+  auto config = zephir::Config::factory(&argv, file);
 
   auto actual = config->get<std::string>("author", "undefined");
   EXPECT_EQ("Phalcon Team", actual);

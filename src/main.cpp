@@ -34,7 +34,7 @@ static inline std::vector<std::string> prepare_args(int argc, char** argv) {
 int main(int argc, char** argv) {
   auto args = prepare_args(argc, argv);
   auto base_path = zephir::filesystem::current_path();
-  auto config = zephir::Config::factory(args, base_path + "/.zephir");
+  auto config = zephir::Config::factory(&args, base_path + "/.zephir");
 
   auto app = std::make_unique<zephir::console::Application>(config, args);
 

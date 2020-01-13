@@ -58,7 +58,7 @@ bool zephir::Config::has(const std::string &key, const std::string &ns) const {
   return container_[ns].IsDefined() && container_[ns][key].IsDefined();
 }
 
-zephir::ConfigPtr zephir::Config::factory(std::vector<std::string> &options,
+zephir::ConfigPtr zephir::Config::factory(std::vector<std::string> *options,
                                           const std::string &path) {
   auto config = std::make_shared<zephir::Config>(path);
 
@@ -101,8 +101,9 @@ zephir::ConfigPtr zephir::Config::factory(std::vector<std::string> &options,
     return false;
   };
 
-  options.erase(std::remove_if(std::begin(options), std::end(options), check),
-                std::end(options));
+  options->erase(
+      std::remove_if(std::begin(*options), std::end(*options), check),
+      std::end(*options));
 
   return config;
 }
