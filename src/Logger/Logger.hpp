@@ -17,19 +17,9 @@
 #include <memory>
 #include <string>
 
-namespace zephir {
+#include "../Config/Context.hpp"
 
-/// \brief Collection of all context details.
-struct Context {
-  Context(const std::string& fl, int ln, int cur)
-      : file(fl), line(ln), cursor(cur) {}
-  /// Absolute file path to zephir file.
-  std::string file{""};
-  /// Line number in zephir source file.
-  int line;
-  /// Context character position in zephir source file.
-  int cursor;
-};
+namespace zephir {
 
 /// \brief Log levels enum.
 enum class LogLevel {
@@ -90,7 +80,7 @@ class Logger {
   /// \param category - The log category.
   /// \param ctx - The log context.
   void log(const std::string& message, zephir::LogLevel level,
-           const std::string& category, const Context& ctx);
+           const std::string& category, const Context *ctx);
 };
 
 }  // namespace zephir

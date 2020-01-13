@@ -7,7 +7,9 @@
 
 #include <gtest/gtest.h>
 
+#include "Config/Context.hpp"
 #include "Logger/Logger.hpp"
+
 class LoggerBaseTest : public ::testing::Test {
  protected:
   LoggerBaseTest() = default;
@@ -33,7 +35,7 @@ TEST_F(LoggerBaseTest, LogFormatter) {
 
 TEST_F(LoggerBaseTest, LogContext) {
   auto test_logger = new zephir::Logger();
-  auto ctx = zephir::Context{"./testfile.zep", 10, 42};
+  auto ctx = new zephir::Context("./testfile.zep", 10, 42);
 
   std::string errorMsg =
       "incompatible pointer to integer conversion assigning to 'char' from "

@@ -21,3 +21,18 @@ target_link_libraries(
 
 # Adds the library to the 'gcov' and 'lcov' targets
 code_coverage(config)
+
+# ##############################################################################
+# Add definition for Context library
+add_library(context SHARED Context.cpp)
+
+target_include_directories(
+  context
+  PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+  PRIVATE $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>)
+
+target_link_libraries(context PRIVATE zephir_warnings)
+
+# Adds the library to the 'gcov' and 'lcov' targets
+code_coverage(context)

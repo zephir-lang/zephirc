@@ -28,11 +28,11 @@ void zephir::Logger::error(const std::string& message) {
 }
 
 void zephir::Logger::log(const std::string& message, zephir::LogLevel level,
-                         const std::string& category, const Context& ctx) {
+                         const std::string& category, const Context *ctx) {
   // %level_name%: %message% in %file% on line %line% %type%\n
-  std::string msg = message + " in file " + ctx.file + " on line " +
-                    std::to_string(ctx.line) + ":" +
-                    std::to_string(ctx.cursor) + " [" + category + "]";
+  std::string msg = message + " in file " + ctx->_file + " on line " +
+                    std::to_string(ctx->_line) + ":" +
+                    std::to_string(ctx->_cursor) + " [" + category + "]";
 
   _logger->log(LogLevelEnum(level), msg);
 }
