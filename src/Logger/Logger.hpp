@@ -24,9 +24,9 @@ struct Context {
   /// Absolute file path to zephir file.
   std::string file{""};
   /// Line number in zephir source file.
-  int line;
+  int line{0};
   /// Context character position in zephir source file.
-  int cursor;
+  int cursor{0};
 };
 
 /// \brief Log levels enum.
