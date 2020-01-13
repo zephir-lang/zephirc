@@ -42,6 +42,11 @@ jobs:
           cmake-format -i $(find . -name CMakeLists.txt)
           git diff --exit-code
 
+      - name: Run Cpplint Check
+        if: always()
+        # TODO(alexndr.mac): Remove exclude
+        run: cpplint --counting=detailed --exclude=src/logger/facade.hpp --recursive src include
+
       - name: Run C++ Coding Style Check
         if: always()
         run: |

@@ -8,7 +8,9 @@
 #include "Config.hpp"
 
 #include <fstream>
+#include <memory>
 #include <regex>
+#include <string>
 
 #include "FileSystem/FileSystem.hpp"
 
@@ -43,7 +45,7 @@ void zephir::Config::populate(const std::string &path) {
       }
     }
   } catch (YAML::ParserException &e) {
-    // TODO: Show a error log here
+    // TODO(alexndr.mac): Show a error log here and do not throw exception
     throw std::runtime_error("Config file is broken");
   }
 }
@@ -56,7 +58,7 @@ bool zephir::Config::has(const std::string &key, const std::string &ns) const {
   return container_[ns].IsDefined() && container_[ns][key].IsDefined();
 }
 
-zephir::ConfigPtr zephir::Config::factory(std::vector<std::string> &options,
+zephir::ConfigPtr zephir::Config::factory(std::vector<std::string> *options,
                                           const std::string &path) {
   auto config = std::make_shared<zephir::Config>(path);
 
@@ -99,8 +101,9 @@ zephir::ConfigPtr zephir::Config::factory(std::vector<std::string> &options,
     return false;
   };
 
-  options.erase(std::remove_if(std::begin(options), std::end(options), check),
-                std::end(options));
+  options->erase(
+      std::remove_if(std::begin(*options), std::end(*options), check),
+      std::end(*options));
 
   return config;
 }
