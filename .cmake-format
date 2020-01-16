@@ -5,9 +5,6 @@
 # For the full copyright and license information, please view
 # the LICENSE file that was distributed with this source code.
 
-markup:
-  first_comment_is_literal: true
-
 parse:
   additional_commands:
     lcov_merge_files:
@@ -36,18 +33,18 @@ parse:
         PROFILE_AUTO: '*'
         INSTALL_ARGS: '*'
       flags:
-        - BASIC_SETUP
-        - CMAKE_TARGETS
-        - UPDATE
-        - KEEP_RPATHS
-        - NO_LOAD
-        - NO_OUTPUT_DIRS
-        - OUTPUT_QUIET
-        - NO_IMPORTS
+      - BASIC_SETUP
+      - CMAKE_TARGETS
+      - UPDATE
+      - KEEP_RPATHS
+      - NO_LOAD
+      - NO_OUTPUT_DIRS
+      - OUTPUT_QUIET
+      - NO_IMPORTS
     gtest_discover_tests:
       flags:
-        - NO_PRETTY_TYPES
-        - NO_PRETTY_TYPES
+      - NO_PRETTY_TYPES
+      - NO_PRETTY_TYPES
       kwargs:
         EXTRA_ARGS: '*'
         TEST_PREFIX: '*'
@@ -63,12 +60,18 @@ parse:
     target_include_directories:
       pargs: 1
       flags:
-        - SYSTEM
-        - BEFORE
+      - SYSTEM
+      - BEFORE
       kwargs:
         INTERFACE: '*'
         PUBLIC: '*'
         PRIVATE: '*'
+markup:
+  bullet_char: '*'
+  enum_char: .
+  first_comment_is_literal: true
+misc:
+  per_command: {}
 
 # Local Variables:
 # mode: yaml
