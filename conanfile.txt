@@ -15,3 +15,9 @@ gtest:no_main=True
 [imports]
 bin, *.dll -> ./bin
 lib, *.dylib* -> ./bin
+
+# Local Variables:
+# mode: conf
+# tab-width: 2
+# indent-tabs-mode: nil
+# End:
