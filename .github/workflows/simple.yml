@@ -137,6 +137,10 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
+        if [ "${{ matrix.ccov }}" = "ON" ]; then
+            pip install gcovr
+        fi
+
     - name: Setup Conan Cache
       uses: actions/cache@v1
       id: conan-cache
@@ -184,6 +188,7 @@ jobs:
       run: |
         cmake --build build --target gcov
         cmake --build build --target lcov
+        gcovr -r .  --branches --exclude-unreachable-branches --filter src/ --xml-pretty --xml ./build/ccov/data/capture/cobertura.xml
 
     - name: Upload Code Coverage Report
       if: matrix.ccov == 'ON'
