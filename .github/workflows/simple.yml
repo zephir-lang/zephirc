@@ -206,4 +206,4 @@ jobs:
       env:
         CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
       run: |
-        bash <(curl -Ls https://coverage.codacy.com/get.sh) report --force-language CPP -r ./build/ccov/data/capture/cobertura.xml
+        bash <(curl -Ls https://coverage.codacy.com/get.sh) report --commit-uuid ${{ github.sha }} --force-language CPP -r ./build/ccov/data/capture/cobertura.xml
