@@ -188,7 +188,7 @@ jobs:
       run: |
         cmake --build build --target gcov
         cmake --build build --target lcov
-        gcovr -r .  --branches --exclude-unreachable-branches --filter src/ --xml-pretty --xml ./build/ccov/data/capture/cobertura.xml
+        gcovr -r . --branches --exclude-unreachable-branches --filter src/ --xml-pretty --xml ./build/ccov/data/capture/cobertura.xml
 
     - name: Upload Code Coverage Report
       if: matrix.ccov == 'ON'
@@ -200,3 +200,10 @@ jobs:
         name: codecov-umbrella
         flags: unittests
         fail_ci_if_error: false
+
+    - name: Upload Codacy Coverage Report
+      if: matrix.ccov == 'ON'
+      env:
+        CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
+      run: |
+        bash <(curl -Ls https://coverage.codacy.com/get.sh) report --force-language CPP -r ./build/ccov/data/capture/cobertura.xml
