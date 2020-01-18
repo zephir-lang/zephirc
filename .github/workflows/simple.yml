@@ -137,7 +137,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-        if [ "${{ matrix.ccov }}" = "ON" ]; then
+        if [ "${{ matrix.compiler }}" = "gcc" ]; then
             pip install gcovr
         fi
 
@@ -188,7 +188,10 @@ jobs:
       run: |
         cmake --build build --target gcov
         cmake --build build --target lcov
-        gcovr -r . --branches --exclude-unreachable-branches --filter src/ --xml-pretty --xml ./build/ccov/data/capture/cobertura.xml
+
+        if [ "${{ matrix.compiler }}" = "gcc" ]; then
+          gcovr -r . --branches --exclude-unreachable-branches --filter src/ --xml-pretty --xml ./build/ccov/data/capture/cobertura.xml
+        fi
 
     - name: Upload Code Coverage Report
       if: matrix.ccov == 'ON'
@@ -202,7 +205,7 @@ jobs:
         fail_ci_if_error: false
 
     - name: Upload Codacy Coverage Report
-      if: matrix.ccov == 'ON'
+      if: matrix.compiler == 'gcc'
       env:
         CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_TOKEN }}
       run: |
