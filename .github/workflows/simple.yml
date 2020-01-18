@@ -137,6 +137,10 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
+        if [ "${{ matrix.compiler }}" = "gcc" ]; then
+            pip install gcovr
+        fi
+
     - name: Setup Conan Cache
       uses: actions/cache@v1
       id: conan-cache
@@ -185,6 +189,16 @@ jobs:
         cmake --build build --target gcov
         cmake --build build --target lcov
 
+        if [ "${{ matrix.compiler }}" = "gcc" ]; then
+          gcovr \
+            -r . \
+            --branches \
+            --exclude-unreachable-branches \
+            --filter src/ \
+            --xml-pretty \
+            --xml ./build/ccov/data/capture/cobertura.xml
+        fi
+
     - name: Upload Code Coverage Report
       if: matrix.ccov == 'ON'
       uses: codecov/codecov-action@v1
@@ -195,3 +209,13 @@ jobs:
         name: codecov-umbrella
         flags: unittests
         fail_ci_if_error: false
+
+    - name: Upload Codacy Coverage Report
+      if: matrix.compiler == 'gcc'
+      env:
+        CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_TOKEN }}
+      run: |
+        bash <(curl -Ls https://coverage.codacy.com/get.sh) report \
+          --commit-uuid ${{ github.sha }} \
+          --force-language CPP \
+          -r ./build/ccov/data/capture/cobertura.xml
