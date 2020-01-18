@@ -204,6 +204,6 @@ jobs:
     - name: Upload Codacy Coverage Report
       if: matrix.ccov == 'ON'
       env:
-        CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
+        CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_TOKEN }}
       run: |
         bash <(curl -Ls https://coverage.codacy.com/get.sh) report --commit-uuid ${{ github.sha }} --force-language CPP -r ./build/ccov/data/capture/cobertura.xml
