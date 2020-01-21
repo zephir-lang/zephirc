@@ -1,7 +1,7 @@
 [requires]
 spdlog/1.4.2
 yaml-cpp/0.6.3
-CLI11/1.8.0@cliutils/stable
+CLI11/1.9.0@cliutils/stable
 gtest/1.10.0
 
 [generators]
