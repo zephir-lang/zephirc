@@ -51,3 +51,12 @@ TEST_F(LoggerBaseTest, LogContext) {
       "from 'void *' in file ./testfile.zep on line 10:42 [-Wint-conversion]\n",
       output);
 }
+
+TEST_F(LoggerBaseTest, LoggerLifeCycle) {
+  auto test_logger = new zephir::Logger();
+
+  EXPECT_TRUE(nullptr != test_logger)
+      << "Logger instance should not be nullptr";
+
+  delete test_logger;
+}
