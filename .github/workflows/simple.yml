@@ -4,7 +4,6 @@ on:
   push:
     paths-ignore:
       - '**.md'
-      - '**.txt'
   pull_request:
     branches:
       - master
@@ -32,6 +31,7 @@ jobs:
             version: '7'
             ccov: ON
             gcov: gcov
+            build_type: Debug
 
           - name: linux-clang-5.0
             os: ubuntu-18.04
@@ -40,14 +40,16 @@ jobs:
             version: '5.0'
             ccov: ON
             gcov: "$GITHUB_WORKSPACE/.ci/llvm-gcov.sh"
+            build_type: Debug
 
           - name: macOS-latest
-            os: macOS-latest
+            os: macos-latest
             compiler: apple-clang
             libcxx: libc++
             version: '11.0'
             ccov: ON
             gcov: gcov
+            build_type: Debug
 
     steps:
     - name: Checkout Code
@@ -92,20 +94,6 @@ jobs:
         sudo xcode-select -switch /Applications/Xcode.app
 
         brew install lcov
-        # brew update --quiet >& /dev/null
-        #
-        # packages=(cmake)
-        # if [ "${{ matrix.ccov }}" = "ON" ]; then
-        #   packages+=(lcov)
-        # fi
-        #
-        # for pkg in $packages; do
-        #   if brew list -1 | grep -q "^${pkg}\$"; then
-        #     brew outdated $pkg || brew upgrade $pkg;
-        #   else
-        #     brew install $pkg;
-        #   fi
-        # done
 
         echo "::set-env name=CC::$(xcrun -f clang)"
         echo "::set-env name=CXX::$(xcrun -f clang++)"
@@ -124,7 +112,7 @@ jobs:
         python -c "from pip._internal.locations import USER_CACHE_DIR; \
                    print('::set-output name=dir::' + USER_CACHE_DIR)"
 
-    - name: Setup PIP Cache
+    - name: Setup Pip Cache
       uses: actions/cache@v1
       with:
         path: ${{ steps.pip-cache.outputs.dir }}
@@ -141,6 +129,15 @@ jobs:
             pip install gcovr
         fi
 
+    - name: Get Environment Information
+      shell: bash
+      run: |
+        $CC --version
+        cmake --version
+        python --version
+        pip --version
+        conan --version
+
     - name: Setup Conan Cache
       uses: actions/cache@v1
       id: conan-cache
@@ -156,29 +153,25 @@ jobs:
         conan profile remove default 2>/dev/null || true
         conan profile new default --detect
 
-        conan profile update settings.build_type=Debug default
+        conan profile update settings.build_type=${{ matrix.build_type }} default
         conan profile update settings.compiler=${{ matrix.compiler }} default
         conan profile update settings.compiler.version=${{ matrix.version }} default
         conan profile update settings.compiler.libcxx=${{ matrix.libcxx }} default
 
         conan install $(pwd) -if=$(pwd)/build -pr=default --build=missing
 
-
-    - name: Configure x64 Debug
+    - name: Configure Project
       run: |
-        $CC --version
-        cmake --version
-
         cmake \
           -S . \
           -Bbuild \
-          -DCMAKE_BUILD_TYPE=Debug \
+          -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
           -DZEPHIR_BUILD_TESTING=ON \
           -DWARNINGS_AS_ERRORS=ON \
           -DCODE_COVERAGE=${{ matrix.ccov }}
 
     - name: Build with ${{ matrix.compiler }}
-      run: cmake --build build -j "$(getconf _NPROCESSORS_ONLN)"
+      run: cmake --build build -j "$(getconf _NPROCESSORS_ONLN)" --config ${{ matrix.build_type }}
 
     - name: Run Tests
       run: cmake --build build --target check -j "$(getconf _NPROCESSORS_ONLN)"
@@ -189,17 +182,20 @@ jobs:
         cmake --build build --target gcov
         cmake --build build --target lcov
 
-        if [ "${{ matrix.compiler }}" = "gcc" ]; then
-          gcovr \
-            -r . \
-            --branches \
-            --exclude-unreachable-branches \
-            --filter src/ \
-            --xml-pretty \
-            --xml ./build/ccov/data/capture/cobertura.xml
-        fi
+    - name: Summarize the Coverage Data
+      if: matrix.ccov == 'ON' && matrix.compiler == 'gcc'
+      run: |
+        gcovr \
+          --root . \
+          --branches \
+          --exclude-unreachable-branches \
+          --filter src/ \
+          --xml-pretty \
+          --xml ./build/ccov/data/capture/cobertura.xml
 
-    - name: Upload Code Coverage Report
+        cat ./build/ccov/data/capture/cobertura.xml
+
+    - name: Upload Code Coverage Report (codecov.io)
       if: matrix.ccov == 'ON'
       uses: codecov/codecov-action@v1
       with:
@@ -210,12 +206,12 @@ jobs:
         flags: unittests
         fail_ci_if_error: false
 
-    - name: Upload Codacy Coverage Report
-      if: matrix.compiler == 'gcc'
+    - name: Upload Code Coverage Report (Codacy)
+      if: matrix.ccov == 'ON' && matrix.compiler == 'gcc'
       env:
         CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_TOKEN }}
       run: |
-        bash <(curl -Ls https://coverage.codacy.com/get.sh) report \
+        bash <(curl -sSL https://coverage.codacy.com/get.sh) report \
           --commit-uuid ${{ github.sha }} \
           --force-language CPP \
           -r ./build/ccov/data/capture/cobertura.xml
