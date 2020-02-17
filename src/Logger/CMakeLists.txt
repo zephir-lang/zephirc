@@ -12,6 +12,7 @@ target_include_directories(
   logger PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
                 $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 
-target_link_libraries(logger PRIVATE zephir_warnings CONAN_PKG::spdlog)
+target_link_libraries(logger PRIVATE zephir_warnings CONAN_PKG::yaml-cpp
+                                     CONAN_PKG::spdlog)
 
 code_coverage(logger)

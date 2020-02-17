@@ -7,16 +7,22 @@
 
 #include <gtest/gtest.h>
 
+#include <memory>
+
 #include "Config/Context.hpp"
 #include "Logger/Logger.hpp"
+#include "Logger/Ptr.hpp"
 
 class LoggerBaseTest : public ::testing::Test {
  protected:
+  zephir::ConfigPtr config;
+
   LoggerBaseTest() = default;
+  void SetUp() override { config = std::make_shared<zephir::Config>("fake"); }
 };
 
 TEST_F(LoggerBaseTest, CreateSimpleLogLevels) {
-  auto test_logger = new zephir::Logger();
+  auto test_logger = new zephir::Logger(config);
 
   test_logger->info("Test message");
   test_logger->warn("Test message");
@@ -24,7 +30,7 @@ TEST_F(LoggerBaseTest, CreateSimpleLogLevels) {
 }
 
 TEST_F(LoggerBaseTest, LogFormatter) {
-  auto test_logger = new zephir::Logger();
+  auto test_logger = new zephir::Logger(config);
 
   testing::internal::CaptureStdout();
   test_logger->info("Test message");
@@ -34,7 +40,7 @@ TEST_F(LoggerBaseTest, LogFormatter) {
 }
 
 TEST_F(LoggerBaseTest, LogContext) {
-  auto test_logger = new zephir::Logger();
+  auto test_logger = new zephir::Logger(config);
   auto ctx = new zephir::Context("./testfile.zep", 10, 42);
 
   std::string errorMsg =
@@ -53,7 +59,7 @@ TEST_F(LoggerBaseTest, LogContext) {
 }
 
 TEST_F(LoggerBaseTest, LoggerLifeCycle) {
-  auto test_logger = new zephir::Logger();
+  auto test_logger = new zephir::Logger(config);
 
   EXPECT_TRUE(nullptr != test_logger)
       << "Logger instance should not be nullptr";

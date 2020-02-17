@@ -17,23 +17,19 @@
 #include <memory>
 #include <string>
 
+#include "../Config/Config.hpp"
 #include "../Config/Context.hpp"
+#include "Ptr.hpp"
 
 namespace zephir {
 
-/// \brief Log levels enum.
+/// \brief Log levels enumeration.
 enum class LogLevel {
   info = spdlog::level::info,
   warn = spdlog::level::warn,
   error = spdlog::level::err,
   off = spdlog::level::off,
 };
-
-/// \brief A type definition for SpdLog levels enum.
-using LogLevelEnum = spdlog::level::level_enum;
-
-/// \brief A type definition for a unique pointer to a spdlog::logger instance.
-using LoggerPtr = std::unique_ptr<spdlog::logger>;
 
 /// \brief Wrap third party log library
 /// and provide minimalistic interface for Zephir log writer.
@@ -46,10 +42,13 @@ class Logger {
   const std::string _format = "%l: %v";
 
   LoggerPtr _logger;
+  ConfigPtr _config;
 
  public:
-  /// \brief Construct a new Logger.
-  Logger();
+  /// \brief Construct Logger object.
+  ///
+  /// \param config - Zephir global configuration.
+  explicit Logger(ConfigPtr& config);
 
   ~Logger();
 
@@ -80,7 +79,7 @@ class Logger {
   /// \param category - The log category.
   /// \param ctx - The log context.
   void log(const std::string& message, zephir::LogLevel level,
-           const std::string& category, const Context *ctx);
+           const std::string& category, const Context* ctx);
 };
 
 }  // namespace zephir

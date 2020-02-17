@@ -7,10 +7,11 @@
 
 #include "Logger.hpp"
 
-zephir::Logger::Logger()
+zephir::Logger::Logger(ConfigPtr& config)
     : _logger(std::make_unique<spdlog::logger>(
           _channel, std::make_shared<spdlog::sinks::stdout_color_sink_mt>())) {
   _logger->set_pattern(_format);
+  _config = config;
 }
 
 zephir::Logger::~Logger() { spdlog::drop_all(); }
@@ -28,7 +29,7 @@ void zephir::Logger::error(const std::string& message) {
 }
 
 void zephir::Logger::log(const std::string& message, zephir::LogLevel level,
-                         const std::string& category, const Context *ctx) {
+                         const std::string& category, const Context* ctx) {
   // %level_name%: %message% in %file% on line %line% %type%\n
   std::string msg = message + " in file " + ctx->_file + " on line " +
                     std::to_string(ctx->_line) + ":" +
