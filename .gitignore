@@ -15,6 +15,10 @@
 /build
 /build-*
 
+# Compilation logs
+compile.log
+compile-errors.log
+
 # Ignore codecoverage stuff
 *.profraw
 *.gcov
