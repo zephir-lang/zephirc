@@ -17,7 +17,8 @@ class LoggerBaseTest : public ::testing::Test {
  protected:
   zephir::ConfigPtr config;
 
-  LoggerBaseTest() = default;
+  LoggerBaseTest() : config(){};
+
   void SetUp() override { config = std::make_shared<zephir::Config>("fake"); }
 };
 
