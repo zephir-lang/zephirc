@@ -10,7 +10,7 @@
 zephir::Logger::Logger(ConfigPtr& config)
     : _logger(std::make_unique<spdlog::logger>(
           _channel, std::make_shared<spdlog::sinks::stdout_color_sink_mt>())),
-      _config(config) {
+      _config(std::move(config)) {
   _logger->set_pattern(_format);
 }
 
