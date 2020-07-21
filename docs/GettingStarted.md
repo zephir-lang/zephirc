@@ -53,6 +53,8 @@ And then install project dependencies using `conan` as follows:
 conan install . -if=$(pwd)/build --build=missing
 ```
 
+Replace `$(pwd)/build` if you have another Cmake generation path.
+
 For a detailed instruction on how to use and customize `conan` please refer
 [here](https://docs.conan.io/en/latest/getting_started.html).
 
